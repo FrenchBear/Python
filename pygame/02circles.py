@@ -1,6 +1,7 @@
 # 02circles.py
 # First drawing exercises in pygame
 # 2014-04-30	PV
+# 2018-03-29	PV		Fixed int center using //2
 
 import pygame
 import random
@@ -17,7 +18,7 @@ def display():
 	global window, res, width, height
 	radius = 10
 	while radius<0.5*height:
-		pygame.draw.circle(window, pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), (width/2, height/2), radius, 1)
+		pygame.draw.circle(window, pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), (width//2, height//2), radius, 1)
 		radius += 10
 	pygame.display.update()
 

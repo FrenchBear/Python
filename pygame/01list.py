@@ -10,6 +10,7 @@ lr = pygame.display.list_modes()
 lf = pygame.font.get_fonts()
 vi = pygame.display.Info()
 pygame.display.quit()
+
 print("pygame.display.list_modes():")
 print(lr)
 print()
