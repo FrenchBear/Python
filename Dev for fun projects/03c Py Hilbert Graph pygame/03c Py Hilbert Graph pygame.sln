@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "03b Py Hilbert Graphique", "03b Py Hilbert Graphique.pyproj", "{A589E683-A0D2-4290-9545-69417301477A}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "03c Py Hilbert Graph pygame", "03c Py Hilbert Graph pygame.pyproj", "{A589E683-A0D2-4290-9545-69417301477A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +16,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BAEB51B-E8DD-4156-9CE2-C81A2DDDEF1C}
 	EndGlobalSection
 EndGlobal
