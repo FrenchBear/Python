@@ -1,11 +1,13 @@
-﻿# hilg.py - Hilbert curve in graphics mode in Python
+﻿# hil_tk.py - Hilbert curve in graphics mode in Python using tk
 # Use a L-system for simple generation
 #
 # 2015-05-09    PV      Text version
 # 2015-05-18    PV      Graphical version with tk
+# 2018-03-29    PV      Use tk alias
+
 
 import math
-from tkinter import *
+import tkinter as tk
 
 
 # Simple recursive L-System generator for a Hilbert curve
@@ -50,10 +52,10 @@ mod = 5                             # size in pixels of one cell
 a = 0
 side = int(math.pow(2, level))      # side of output square grid
 
-root = Tk()
-canvas = Canvas(root, width=mod*side, height=mod*side)
+root = tk.Tk()
+canvas = tk.Canvas(root, width=mod*side, height=mod*side)
 canvas.pack()
-root.wm_title('03b Hilbert Curve')
+root.wm_title('03b Hilbert Curve using tk')
 
 cx = mod/2                          # initial coordinates
 cy = mod*(side-1/2)
