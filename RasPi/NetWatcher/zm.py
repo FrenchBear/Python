@@ -30,7 +30,7 @@ lastr = -1
 diffCount = 0
 downCount = 0
 user = "spy18"
-#user = "bear 4 spit"
+os.system("clear;setfont Uni3-Terminus28x14")
 
 try:
 	trace("Start watching")  # "+user+" on ZM")
@@ -45,4 +45,5 @@ try:
 		time.sleep(random.randint(13,26))
 
 except KeyboardInterrupt:
+	os.system("setfont Uni3-Fixed16")
 	print("Terminated.")
