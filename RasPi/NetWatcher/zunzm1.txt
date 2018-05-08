@@ -1,0 +1,4 @@
+#!/bin/sh
+setfont Uni3-TerminusBold28x14
+clear
+python3 zm.py
