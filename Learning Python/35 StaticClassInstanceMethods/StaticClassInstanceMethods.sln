@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "StaticClassInstanceMethods", "StaticClassInstanceMethods.pyproj", "{00FEE0FB-6196-4B3D-A2B3-BB6CAD78E8D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00FEE0FB-6196-4B3D-A2B3-BB6CAD78E8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FEE0FB-6196-4B3D-A2B3-BB6CAD78E8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4197204F-22D9-4C9C-BA33-7358CC290089}
+	EndGlobalSection
+EndGlobal
