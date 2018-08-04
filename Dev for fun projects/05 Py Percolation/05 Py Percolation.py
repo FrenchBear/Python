@@ -53,8 +53,8 @@ def percolate(g):
 
 def test_proba(p,s,n):
     tr = []
-    for i in range(n):
-        g,pr = create_grid(s,s,p)
+    for _ in range(n):
+        g,_ = create_grid(s,s,p)
         f = percolate(g)
         tr.append(f)
     return tr.count(True) / len(tr)
@@ -64,14 +64,15 @@ def my_range(start, end, step):
         yield start
         start += step
 
+"""
 n = 100
 s = 50
 print('Proba percolation grille en fonction de la densité size=',s,'x',s,', ',n,' tests par densité')
 for p in my_range(0.30,0.5005,0.01):
     r = test_proba(p,s,n)
     print(p, r)
-
 """
+
 s = 45
 p = 0.5
 g,pr = create_grid(s,s,p)
@@ -81,4 +82,3 @@ print()
 print('Target probability: ', p)
 print('Real probability: ', pr)
 print('Percolation success: ', f)
-"""
