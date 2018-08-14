@@ -28,20 +28,14 @@ def polytonum(p):
     return int(n)
 
 # Helper number -> polynomial
-
-
 def numtopoly(n):
     return np.poly1d([int(c) for c in str(n)])
 
 # Compute roots of unity.  Returns 1 as the last root.
-
-
 def nthRootsOfUnity1(n):  # linear space, parallelizable
     return np.exp(2j * np.pi / n * np.arange(1, n+1))
 
 # Helper, compare lists of complexes, sometimes difficult to read and compare on screen
-
-
 def cmplc(l1, l2):
     if len(l1) != len(l2):
         return False, "Different length"
@@ -55,8 +49,6 @@ def cmplc(l1, l2):
 # Use vandermonde matrix to interpolate, we have Y = M x P where M is vandermonde(X) and P a vector form of the polynomial
 # so P = inv(M) x Y, returned as a poly1d
 # Implemented this way it has a high cost of inverting a matrix
-
-
 def lagrangeVDM(x, y):
     mint = inv(np.vander(x))
     return np.poly1d(mint.dot(y))
@@ -64,13 +56,10 @@ def lagrangeVDM(x, y):
 # Efficient polynomial evaluation at the nth values of (n+1) roots of the unit using FFT type recursion, when (n+1) is a power of 2
 # In actual fast multiplication, a recurse algorithm should probably not be used
 # x1 contains all the roots ending by 1 to simplify code, but polynomial is not evaluated for this value
-
-
-def epex(p, x1):
+def epex(p, x, mult=1):
     # If polynomial is small, direct evaluation
     if len(p.c) <= 3:
-        #print("$1: ", p.c)
-        return p(x1[:-1])
+        return np.tile(p(x), mult)[:-1]
 
     # Recursive evaluation, posing p(x) = x*r(x²)+q(x²)
     # q = polynomial(coefficients of even powers of p), contains constant coefficient (power 0)
@@ -82,12 +71,10 @@ def epex(p, x1):
     else:
         q = np.poly1d(p.c[1::2])
         r = np.poly1d(p.c[::2])
-    x2 = np.append(x1[1::2], x1[1::2])
-    return x1[:-1]*epex(r, x2) + epex(q, x2)
+    x2 = x[1::2]
+    return np.tile(x, mult)[:-1]*epex(r, x2, 2*mult) + epex(q, x2, 2*mult)
 
 # Final application, multiply two large numbers
-
-
 def multPolynomial(a, b):
     pa = numtopoly(a)
     pb = numtopoly(b)
@@ -102,9 +89,7 @@ def multPolynomial(a, b):
     m = polytonum(pm)
     return m
 
-
 """
-# This test fails with scipy.interpolate.lgrange
 a = 12345678901234567
 b = 98765432109876543
 m1 = multPolynomial(a,b)
@@ -125,4 +110,4 @@ def testMultPolynomial():
         m = multPolynomial(a, b)
         print(i+1, a, b, a*b == m)
 
-testMultPolynomial()
+#testMultPolynomial()
