@@ -19,6 +19,8 @@ def polytonum(p):
     n = ""
     r = 0
     for i in reversed(p.c):
+        assert abs(i.imag)<1e-6                     # Safeguard, in this code, complex part of p coefficients must be almost nul
+        assert abs(i.real - int(i.real+1e-6))<1e-6  # and real part must be integers
         r, d = divmod(int(i.real+1e-6)+r, 10)
         n = str(d) + n
     if r > 0:
@@ -35,8 +37,7 @@ def numtopoly(n):
 
 
 def nthRootsOfUnity1(n):  # linear space, parallelizable
-    from numpy import arange, pi, exp
-    return exp(2j * pi / n * arange(1, n+1))
+    return np.exp(2j * np.pi / n * np.arange(1, n+1))
 
 # Helper, compare lists of complexes, sometimes difficult to read and compare on screen
 
@@ -123,3 +124,5 @@ def testMultPolynomial():
         b = int(sb[:i+1])
         m = multPolynomial(a, b)
         print(i+1, a, b, a*b == m)
+
+testMultPolynomial()

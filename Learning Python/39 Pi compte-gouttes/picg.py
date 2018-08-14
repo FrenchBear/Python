@@ -1,6 +1,6 @@
 # picg.py Pi compte-gouttes
 # D'après Le fascinant nombre π, JP Delahaye, 2è ed, p144
-# Traduction simple en Python du compte-gouttes classique en C
+# Adaptation simple en Python du compte-gouttes classique en C
 #
 # 2018-08-14 PV
 
@@ -27,3 +27,4 @@ while c > 0:
     c -= 14
     print("%.4d" % (e + d // a), end='')
     e = d % a
+print()

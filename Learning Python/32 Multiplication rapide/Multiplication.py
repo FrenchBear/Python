@@ -58,7 +58,7 @@ print('Karatsuba: ', c3)
 
 c4 = multPolynomial(a, b)
 print('Polynomial:', c4)
-
+print()
 
 def testMult(n):
     a = getRandomLongNum(n)
