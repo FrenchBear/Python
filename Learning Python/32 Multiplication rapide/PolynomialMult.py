@@ -8,6 +8,7 @@
 # - evaluation of a polynomial on (n+1) roots of unity can be done in n.ln(n) (Horner method is in n, and doing it on 2n values has a complexity of n²)
 #
 # 2018-08-13    PV
+# 2018-08-18    PV      Reduced the final case of epex to constant polynom so there is no polynom evaluation or multiplication here
 
 import numpy as np
 from numpy.linalg import inv
@@ -48,7 +49,8 @@ def cmplc(l1, l2):
 # and can't be user on more than 20 values. Indeed doesn't give correct results when mult result is over 32th root of unit.
 # Use vandermonde matrix to interpolate, we have Y = M x P where M is vandermonde(X) and P a vector form of the polynomial
 # so P = inv(M) x Y, returned as a poly1d
-# Implemented this way it has a high cost of inverting a matrix
+# Implemented this way it has a high cost of inverting a matrix, and does power calculations for the generation of vandermonde matrix
+# while it's trivial with no calculations since values are roots of unity
 def lagrangeVDM(x, y):
     mint = inv(np.vander(x))
     return np.poly1d(mint.dot(y))
@@ -57,9 +59,11 @@ def lagrangeVDM(x, y):
 # In actual fast multiplication, a recurse algorithm should probably not be used
 # x1 contains all the roots ending by 1 to simplify code, but polynomial is not evaluated for this value
 def epex(p, x, mult=1):
-    # If polynomial is small, direct evaluation
-    if len(p.c) <= 3:
-        return np.tile(p(x), mult)[:-1]
+    # If polynomial is reduced to a constant, we return a constant value without any operation
+    if len(p.c) <= 1:
+        #print("$1: ", p, " -> ", p(x))
+        #return np.tile(p(x), mult)[:-1]
+        return [p[0]] * (len(x)*mult-1)
 
     # Recursive evaluation, posing p(x) = x*r(x²)+q(x²)
     # q = polynomial(coefficients of even powers of p), contains constant coefficient (power 0)
@@ -89,7 +93,6 @@ def multPolynomial(a, b):
     m = polytonum(pm)
     return m
 
-"""
 a = 12345678901234567
 b = 98765432109876543
 m1 = multPolynomial(a,b)
@@ -97,7 +100,6 @@ m2 = a*b
 print(m1)
 print(m2)
 print(m1==m2)
-"""
 
 # Many tests, up to 50x50 digits
 def testMultPolynomial():

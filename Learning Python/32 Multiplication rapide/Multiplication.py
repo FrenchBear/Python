@@ -8,6 +8,7 @@
 # 2018-02-12    PV  my own implementation
 # 2018-07-30    PV  Optimize multKaratsuba when a part is 0 because of filling
 # 2018-08-14    PV  Added Polynomial multiplication algorithm and split source code
+# 2018-08-18    PV  Used chained comparison operators in print("ok" if m1 == m2 == m3 == m4 else "Problem")
 
 import random
 import string
@@ -74,8 +75,7 @@ def testMult(n):
     d4, m4 = chronoMult(multPolynomial, a, b)
     print('Polynomial: %8f' % d4)
 
-    print("ok" if m1 == m2 and m1 == m3 and m1 == m4 else "Problem")
+    print("ok" if m1 == m2 == m3 == m4 else "Problem")
     print()
-
 
 testMult(1000)
