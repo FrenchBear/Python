@@ -1,5 +1,10 @@
 # Static vs Class vs Instance Methods in Python
+# With classmethods, the class of the object instance is implicitly passed as the first argument instead of self.
+# With staticmethods, neither self (the object instance) nor cls (the class) is implicitly passed as the first argument.
+# They behave like plain functions except that you can call them from an instance or the class.
 # 2018-06-20 PV
+
+
 class Sprocket:
     # Instance method (constructor)
     def __init__(self, name):
@@ -15,7 +20,7 @@ class Sprocket:
 
     @classmethod
     def Increment(cls):
-        cls.count+=1
+        cls.count += 1
 
     @classmethod
     def GetCount(cls):
@@ -26,16 +31,19 @@ class Sprocket:
         print("Hello from StaticMethod: ", Sprocket.count)
 
 
-
 s1 = Sprocket("one")
 s2 = Sprocket("two")
 
-print(s1.GetName())
-print(s2.GetName())
+# Call instance method from object
+print(s1.GetName())             # Usual dotted syntax
+print(Sprocket.GetName(s2))     # Function-style call from class, passing object as 1st parameter
 
 Sprocket.Increment()
 Sprocket.Increment()
-print(Sprocket.GetCount())
+print("Call class method from class: ", Sprocket.GetCount())
+print("Call class method from instance: ", s1.GetCount())
 
-s1.StaticMethod()
+# Call static method from class
 Sprocket.StaticMethod()
+# Call static method from instance
+s1.StaticMethod()

@@ -1,12 +1,11 @@
-
-# Compte le nomber de chansons par chanteur dans un dossier
+# Compte le nombre de chansons par chanteur dans un dossier
 # 2017-08-17    PV
 
 import os, re
 
-source = r"C:\Temp\Work\Chansons Intl\_Divers"
+#source = r"C:\Users\Pierr\GoogleDrive\MusicGD\MP3P\Chansons Intl\_Divers"
+source = r"C:\Users\Pierr\GoogleDrive\MusicGD\MP3P\Chansons France\_Divers"
 list = [f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))]
-
 
 accent_tabin =  u'àâäéèêëîïôöûüùÿç'
 accent_tabout = u'aaaeeeeiioouuuyc'
@@ -28,11 +27,5 @@ for f in list:
     else:
         print("No match: "+f)
 
-lkn = []
-for k in dicChanteurs.keys():
-    lkn.append((k, len(dicChanteurs[k])))
-    if len(dicChanteurs[k])>=4:
-        print(k)
-#lkn.sort(key=lambda kn: kn[1])
-#print(lkn)
-
+# Chanteurs avec au moins 3 chansons
+print([k for k in dicChanteurs.keys() if len(dicChanteurs[k])>=4])

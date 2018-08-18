@@ -24,7 +24,7 @@ list1 = ["Notations", "En partie double", "Litotes", "Métaphoriquement", "Rétr
 "Probabiliste", "Portrait", "Géométrique", "Paysan", "Interjections", "Précieux", "Inattendu"]
 
 # Dans les mp3
-path = "C:\Music2GD\A_Trier\Exercices de style de Raymond Queneau"
+path = r"C:\Music2GD\A_Trier\Exercices de style de Raymond Queneau"
 # s.split(" - ")[2] transforms "Exercices de style - 61 - Permutations de lettres" into "Permutations de lettres"
 list2 = [os.path.splitext(f)[0].split(" - ")[2] for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
 

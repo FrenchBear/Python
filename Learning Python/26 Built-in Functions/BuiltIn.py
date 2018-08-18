@@ -9,6 +9,7 @@ from os import system
 system('chcp 65001 >nul')
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
+
 def test_abs():
     print('\ntest_abs()')
     i = -2
@@ -33,6 +34,7 @@ def test_all():
     print('\tall({0}) = {1}'.format(l1, all(l1)))
     print('\tall({0}) = {1}'.format(l2, all(l2)))
     print('\tall({0}) = {1}'.format(l3, all(l3)))
+    print('\tall({0}) = {1}'.format(l3, allEquiv(l3)))
 
 
 def test_any():
@@ -49,6 +51,7 @@ def test_any():
     print('\tall({0}) = {1}'.format(l1, any(l1)))
     print('\tall({0}) = {1}'.format(l2, any(l2)))
     print('\tall({0}) = {1}'.format(l3, any(l3)))
+    print('\tall({0}) = {1}'.format(l3, anyEquiv(l3)))
 
 
 def test_ascii():
@@ -61,22 +64,60 @@ def test_ascii():
     j = complex(3, 4)
     print('\tascii({0}) = {1}'.format(j, ascii(j)))
 
+
 def test_bin():
+    """
+    bin(x)
+    Convert an integer number to a binary string. The result is a valid Python expression. If x is not a Python int object, it has to define an __index__() method that returns an integer.
+    """
     print('\ntest_bin()')
     print('\tbin({0:x}) = {1}'.format(0xCAFE, bin(0xCAFE)))
     print('\tbin({0:x}) = {1}'.format(0xDEADBEEF, bin(0xDEADBEEF)))
 
 
 def test_bool():
+    """
+    bool([x])
+    Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True. bool is also a class, which is a subclass of int. Class bool cannot be subclassed further. Its only instances are False and True.
+    """
     print('\ntest_bool()')
     print('\tbool({0}) = {1}'.format(0, bool(0)))
     print('\tbool({0}) = {1}'.format(23, bool(23)))
 
 
 def test_bytearray():
+    """
+    bytearray([source[, encoding[, errors]]])
+
+    Return a new array of bytes. The bytearray type is a mutable sequence of integers in the range 0 <= x < 256. It has most of the usual methods of mutable sequences, described in Mutable Sequence Types, as well as most methods that the bytes type has, see Bytes and Byte Array Methods.
+
+    The optional source parameter can be used to initialize the array in a few different ways:
+        If it is a string, you must also give the encoding (and optionally, errors) parameters; bytearray() then converts the string to bytes using str.encode().
+        If it is an integer, the array will have that size and will be initialized with null bytes.
+        If it is an object conforming to the buffer interface, a read-only buffer of the object will be used to initialize the bytes array.
+        If it is an iterable, it must be an iterable of integers in the range 0 <= x < 256, which are used as the initial contents of the array.
+    Without an argument, an array of size 0 is created.
+    """
     print('\ntest_bytearray()')
+    print('\tascii  -> ', list(bytearray("CAFE", "ascii")))
+    print('\tcp850  -> ', list(bytearray("Café", "cp850")))
+    print('\tcp1252 -> ', list(bytearray("Café", "cp1252")))
+    print('\tutf-8  -> ', list(bytearray("Café♫🐗", "utf-8")))
 
+    # Unicode beamed eighth notes ♫ U+266B, UTF-8: 0xE2 0x99 0xAB, UTF-16: 0x266B, UTF-32: 0x0000266B
+    # Unicode boar 🐗 U+1F417, UTF-8: 0xF0 0x9F 0x90 0x97, UTF-16: 0xD83D 0xDC17, UTF-32: 0x0001F417
+    
+    ba16 = bytearray("Café♫🐗", "utf-16")
+    print('\tutf-16 -> ', list(ba16))
+    m16 = memoryview(ba16).cast('H')
+    print('\tm16 ->    ', [hex(c) for c in m16.tolist()])
 
+    ba32 = bytearray("Café♫🐗", "utf-32")
+    print('\tutf-32 -> ', list(ba32))
+    m32 = memoryview(ba32).cast('L')
+    print('\tm32 ->    ', [hex(c) for c in m32.tolist()])
+
+ 
 def test_bytes():
     print('\ntest_bytes()')
 
@@ -323,8 +364,8 @@ test_any()
 test_ascii()
 test_bin()
 test_bool()
-"""
 test_bytearray()
+"""
 test_bytes()
 test_callable()
 test_chr()

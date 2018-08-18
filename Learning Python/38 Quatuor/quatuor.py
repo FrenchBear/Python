@@ -2,7 +2,7 @@
 # Programme Python trouvant les solutions du problème du quatuor
 #
 # On peut accélérer le programme en construisant l'historique des états par lesquels on est déjà passé
-# de façon à éviter les séquences "stupides" contenant des boucles comme A G->D->G->D.  Comme on arrête l'analyse 
+# de façon à éviter les séquences "stupides" contenant des boucles comme A G->D->G->D.  Comme on arrête l'analyse
 # au-delà de 20 min, cette optimisation est optionnelle.  Elle rend le programme quasi instantané, même s'il est
 # un peu moins élégant.
 #
@@ -35,12 +35,11 @@ def move2(newLeft, newRight, s, leftToRight, totalTime, seq):
             solutions.append((newTotalTime, seq2))
         move(newLeft, newRight, not leftToRight, newTotalTime, seq2)
 
+
 # 1ère partie de move, en partant de l'état left et right, explore tous les déplacements possibles.
 # Si leftToRight est vrai, analyse les déplacements G->D, sinon D->G.
 # totalTime est le temps total du parcours à ce stade.
 # seq est la séquence des opérations ayant conduit à l'état de départ
-
-
 def move(left, right, leftToRight, totalTime, seq):
     if leftToRight:
         for s in itertools.chain(itertools.combinations(left, 2), itertools.combinations(left, 1)):

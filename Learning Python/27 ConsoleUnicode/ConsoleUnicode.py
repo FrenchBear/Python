@@ -8,7 +8,7 @@ system('chcp 65001 >nul')
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 print('\ntest_ascii()')
-sys.stdout.write("Ûnicöde")
+sys.stdout.write("Ûnicöde\n")
 print(sys.stdout.encoding)
 sys.stdout.encoding
 print('\u2500\u2500')
