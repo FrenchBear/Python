@@ -1,23 +1,63 @@
-# ParitÈ Multiplication
-# Cacule la proportion de multiplications paires et impaires
-# RÈsultat, sur 100 multiplications de [0..9]x[0..9], 75 se terminent par uun chffre pair, 25 par un chiffre impair
-# 2015-09-26   PV
+# Parit√© Multiplication
+# Calcule la proportion de multiplications paires et impaires
+# R√©sultat, sur 100 multiplications de [0..9]x[0..9], 75 se terminent par un chiffre pair, 25 par un chiffre impair
+#
+# 2015-09-26    PV
+# 2018-08-18    PV      Extension du nombre de m√©thodes au-del√† des deux premi√®res!
 
 # Avec listcomp
-m = [str(x*y)[-1] for x in range(10) for y in range(10)]    # Liste des derniers chiffres des multiplcations [0..9]x[0..9]
-f=[0]*10            # Initialise la table des frÈquences des derniers chiffres ‡ 0
+# Liste des derniers chiffres des multiplications [0..9]x[0..9]
+m = [str(x*y)[-1] for x in range(10) for y in range(10)]
+f = [0]*10            # Initialise la table des fr√©quences des derniers chiffres √† 0
 for d in m:
-    f[int(d)]+=1    # Replissage de la table des frÈquences
-se=sum(f[0::2])     # Nombre de multiplications se finissant par un chiffre pair
-so=sum(f[1::2])     # Nombre de multiplications se finissant par un chiffre impair
+    f[int(d)] += 1    # Remplissage de la table des fr√©quences
+# Nombre de multiplications se finissant par un chiffre pair
+se = sum(f[0::2])
+# Nombre de multiplications se finissant par un chiffre impair
+so = sum(f[1::2])
 print(f)
 print('Pair', se, '   Impair', so)
-
 
 # Avec genexp
-f=[0]*10
-for d in (str(x*y)[-1] for x in range(10) for y in range(10)):
-    f[int(d)]+=1
-se,so=sum(f[0::2]),sum(f[1::2])
+f = [0]*10
+for d in ((x*y) % 10 for x in range(10) for y in range(10)):
+    f[d] += 1
+se, so = sum(f[0::2]), sum(f[1::2])
 print(f)
 print('Pair', se, '   Impair', so)
+
+# Avec dictionnaire et set
+ld = [(x*y) % 10 for x in range(10) for y in range(10)]
+d = {x: ld.count(x) for x in set(ld)}
+print(d)
+
+# Avec collections.Counter
+import collections
+co = collections.Counter([(x*y) % 10 for x in range(10) for y in range(10)])
+kp = sum(co[x] for x in range(0, 10, 2))
+ki = sum(co[x] for x in range(1, 10, 2))
+print(co)
+print('Pair', kp, '   Impair', ki)
+
+# Avec SciPy
+from scipy.stats import itemfreq
+freq = itemfreq(ld)
+print(freq)
+print(freq[:, 1])    # Table des fr√©quences
+
+# Avec numpy
+import numpy as np
+print(np.bincount(ld))
+# print(np.unique(ld, return_counts=True))      # np.unique is deprecated, use np.lib.arraysetops.unique instead
+print(np.lib.arraysetops.unique(ld, return_counts=True))
+
+# numpy at reduction: at(a, indices, b=None)
+# Performs unbuffered in place operation on operand 'a' for elements specified by 'indices'.
+# For addition ufunc, this method is equivalent to a[indices] += b, except that results are accumulated
+# for elements that are indexed more than once. For example, a[[0,0]] += 1 will only increment the first element
+# once because of buffering, whereas add.at(a, [0,0], 1) will increment the first element twice.
+#
+# This works whereas tf[ld] += 1 doesn't count multiple items
+tf = np.zeros(10, dtype='int16')
+np.add.at(tf, ld, 1)
+print(tf)
