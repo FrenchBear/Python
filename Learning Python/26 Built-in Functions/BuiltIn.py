@@ -111,7 +111,8 @@ def test_bytearray():
     # 🧔 Bearded Person, U+1F9D4
     # 🧔🏻 Bearded Person+Light Skin Tone, U+1F9D4 U+1F3FB
     # 🧞 Genie, U+1F9DE
-    # 🧞‍♀️ Genie Female, U+1F9DE(🧞) U+200D(ZWJ) U+2640(♀) U+FE0F(VS-16) 
+    # 🧞‍♀️ Genie Female, U+1F9DE(🧞) U+200D(ZWJ) U+2640(♀) U+FE0F(VS-16)
+    # A é ♫ 𝄞 🐗 🧔 🧔🏻 🧞 🧞‍♀️
 
 
 
