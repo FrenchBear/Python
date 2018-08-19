@@ -1,0 +1,249 @@
+Emoji Version 5.0
+https://emojipedia.org/emoji-5.0/
+
+Emoji 5.0 is the list of emojis finalized in March 2017 and released on May 18, 2017. This update included 56 new emojis from Unicode 10.0, as well as 183 emoji sequences used for gender and skin-tone variants and subdivision flags.
+
+Emoji 5.0 added support for subdivision flags and listed England, Scotland and Wales as Recommended for General Interchange (RGI).
+
+Learn more about this update.
+
+New Emojis in Version 5.0
+🤩 Star-Struck
+🤨 Face With Raised Eyebrow
+🤯 Exploding Head
+🤪 Zany Face
+🤬 Face With Symbols on Mouth
+🤮 Face Vomiting
+🤫 Shushing Face
+🤭 Face With Hand Over Mouth
+🧐 Face With Monocle
+🧒 Child
+🧒🏻 Child: Light Skin Tone
+🧒🏼 Child: Medium-Light Skin Tone
+🧒🏽 Child: Medium Skin Tone
+🧒🏾 Child: Medium-Dark Skin Tone
+🧒🏿 Child: Dark Skin Tone
+🧑 Adult
+🧑🏻 Adult: Light Skin Tone
+🧑🏼 Adult: Medium-Light Skin Tone
+🧑🏽 Adult: Medium Skin Tone
+🧑🏾 Adult: Medium-Dark Skin Tone
+🧑🏿 Adult: Dark Skin Tone
+🧓 Older Adult
+🧓🏻 Older Adult: Light Skin Tone
+🧓🏼 Older Adult: Medium-Light Skin Tone
+🧓🏽 Older Adult: Medium Skin Tone
+🧓🏾 Older Adult: Medium-Dark Skin Tone
+🧓🏿 Older Adult: Dark Skin Tone
+🧕 Woman With Headscarf
+🧕🏻 Person With Headscarf: Light Skin Tone
+🧕🏼 Person With Headscarf: Medium-Light Skin Tone
+🧕🏽 Person With Headscarf: Medium Skin Tone
+🧕🏾 Person With Headscarf: Medium-Dark Skin Tone
+🧕🏿 Person With Headscarf: Dark Skin Tone
+🧔 Bearded Person
+🧔🏻 Bearded Person: Light Skin Tone
+🧔🏼 Bearded Person: Medium-Light Skin Tone
+🧔🏽 Bearded Person: Medium Skin Tone
+🧔🏾 Bearded Person: Medium-Dark Skin Tone
+🧔🏿 Bearded Person: Dark Skin Tone
+🤱 Breast-Feeding
+🤱🏻 Breast-Feeding: Light Skin Tone
+🤱🏼 Breast-Feeding: Medium-Light Skin Tone
+🤱🏽 Breast-Feeding: Medium Skin Tone
+🤱🏾 Breast-Feeding: Medium-Dark Skin Tone
+🤱🏿 Breast-Feeding: Dark Skin Tone
+🧙 Mage
+🧙🏻 Mage: Light Skin Tone
+🧙🏼 Mage: Medium-Light Skin Tone
+🧙🏽 Mage: Medium Skin Tone
+🧙🏾 Mage: Medium-Dark Skin Tone
+🧙🏿 Mage: Dark Skin Tone
+🧙‍♀️ Woman Mage
+🧙🏻‍♀️ Woman Mage: Light Skin Tone
+🧙🏼‍♀️ Woman Mage: Medium-Light Skin Tone
+🧙🏽‍♀️ Woman Mage: Medium Skin Tone
+🧙🏾‍♀️ Woman Mage: Medium-Dark Skin Tone
+🧙🏿‍♀️ Woman Mage: Dark Skin Tone
+🧙‍♂️ Man Mage
+🧙🏻‍♂️ Man Mage: Light Skin Tone
+🧙🏼‍♂️ Man Mage: Medium-Light Skin Tone
+🧙🏽‍♂️ Man Mage: Medium Skin Tone
+🧙🏾‍♂️ Man Mage: Medium-Dark Skin Tone
+🧙🏿‍♂️ Man Mage: Dark Skin Tone
+🧚 Fairy
+🧚🏻 Fairy: Light Skin Tone
+🧚🏼 Fairy: Medium-Light Skin Tone
+🧚🏽 Fairy: Medium Skin Tone
+🧚🏾 Fairy: Medium-Dark Skin Tone
+🧚🏿 Fairy: Dark Skin Tone
+🧚‍♀️ Woman Fairy
+🧚🏻‍♀️ Woman Fairy: Light Skin Tone
+🧚🏼‍♀️ Woman Fairy: Medium-Light Skin Tone
+🧚🏽‍♀️ Woman Fairy: Medium Skin Tone
+🧚🏾‍♀️ Woman Fairy: Medium-Dark Skin Tone
+🧚🏿‍♀️ Woman Fairy: Dark Skin Tone
+🧚‍♂️ Man Fairy
+🧚🏻‍♂️ Man Fairy: Light Skin Tone
+🧚🏼‍♂️ Man Fairy: Medium-Light Skin Tone
+🧚🏽‍♂️ Man Fairy: Medium Skin Tone
+🧚🏾‍♂️ Man Fairy: Medium-Dark Skin Tone
+🧚🏿‍♂️ Man Fairy: Dark Skin Tone
+🧛 Vampire
+🧛🏻 Vampire: Light Skin Tone
+🧛🏼 Vampire: Medium-Light Skin Tone
+🧛🏽 Vampire: Medium Skin Tone
+🧛🏾 Vampire: Medium-Dark Skin Tone
+🧛🏿 Vampire: Dark Skin Tone
+🧛‍♀️ Woman Vampire
+🧛🏻‍♀️ Woman Vampire: Light Skin Tone
+🧛🏼‍♀️ Woman Vampire: Medium-Light Skin Tone
+🧛🏽‍♀️ Woman Vampire: Medium Skin Tone
+🧛🏾‍♀️ Woman Vampire: Medium-Dark Skin Tone
+🧛🏿‍♀️ Woman Vampire: Dark Skin Tone
+🧛‍♂️ Man Vampire
+🧛🏻‍♂️ Man Vampire: Light Skin Tone
+🧛🏼‍♂️ Man Vampire: Medium-Light Skin Tone
+🧛🏽‍♂️ Man Vampire: Medium Skin Tone
+🧛🏾‍♂️ Man Vampire: Medium-Dark Skin Tone
+🧛🏿‍♂️ Man Vampire: Dark Skin Tone
+🧜 Merperson
+🧜🏻 Merperson: Light Skin Tone
+🧜🏼 Merperson: Medium-Light Skin Tone
+🧜🏽 Merperson: Medium Skin Tone
+🧜🏾 Merperson: Medium-Dark Skin Tone
+🧜🏿 Merperson: Dark Skin Tone
+🧜‍♀️ Mermaid
+🧜🏻‍♀️ Mermaid: Light Skin Tone
+🧜🏼‍♀️ Mermaid: Medium-Light Skin Tone
+🧜🏽‍♀️ Mermaid: Medium Skin Tone
+🧜🏾‍♀️ Mermaid: Medium-Dark Skin Tone
+🧜🏿‍♀️ Mermaid: Dark Skin Tone
+🧜‍♂️ Merman
+🧜🏻‍♂️ Merman: Light Skin Tone
+🧜🏼‍♂️ Merman: Medium-Light Skin Tone
+🧜🏽‍♂️ Merman: Medium Skin Tone
+🧜🏾‍♂️ Merman: Medium-Dark Skin Tone
+🧜🏿‍♂️ Merman: Dark Skin Tone
+🧝 Elf
+🧝🏻 Elf: Light Skin Tone
+🧝🏼 Elf: Medium-Light Skin Tone
+🧝🏽 Elf: Medium Skin Tone
+🧝🏾 Elf: Medium-Dark Skin Tone
+🧝🏿 Elf: Dark Skin Tone
+🧝‍♀️ Woman Elf
+🧝🏻‍♀️ Woman Elf: Light Skin Tone
+🧝🏼‍♀️ Woman Elf: Medium-Light Skin Tone
+🧝🏽‍♀️ Woman Elf: Medium Skin Tone
+🧝🏾‍♀️ Woman Elf: Medium-Dark Skin Tone
+🧝🏿‍♀️ Woman Elf: Dark Skin Tone
+🧝‍♂️ Man Elf
+🧝🏻‍♂️ Man Elf: Light Skin Tone
+🧝🏼‍♂️ Man Elf: Medium-Light Skin Tone
+🧝🏽‍♂️ Man Elf: Medium Skin Tone
+🧝🏾‍♂️ Man Elf: Medium-Dark Skin Tone
+🧝🏿‍♂️ Man Elf: Dark Skin Tone
+🧞 Genie
+🧞‍♀️ Woman Genie
+🧞‍♂️ Man Genie
+🧟 Zombie
+🧟‍♀️ Woman Zombie
+🧟‍♂️ Man Zombie
+🧖 Person in Steamy Room
+🧖🏻 Person in Steamy Room: Light Skin Tone
+🧖🏼 Person in Steamy Room: Medium-Light Skin Tone
+🧖🏽 Person in Steamy Room: Medium Skin Tone
+🧖🏾 Person in Steamy Room: Medium-Dark Skin Tone
+🧖🏿 Person in Steamy Room: Dark Skin Tone
+🧖‍♀️ Woman in Steamy Room
+🧖🏻‍♀️ Woman in Steamy Room: Light Skin Tone
+🧖🏼‍♀️ Woman in Steamy Room: Medium-Light Skin Tone
+🧖🏽‍♀️ Woman in Steamy Room: Medium Skin Tone
+🧖🏾‍♀️ Woman in Steamy Room: Medium-Dark Skin Tone
+🧖🏿‍♀️ Woman in Steamy Room: Dark Skin Tone
+🧖‍♂️ Man in Steamy Room
+🧖🏻‍♂️ Man in Steamy Room: Light Skin Tone
+🧖🏼‍♂️ Man in Steamy Room: Medium-Light Skin Tone
+🧖🏽‍♂️ Man in Steamy Room: Medium Skin Tone
+🧖🏾‍♂️ Man in Steamy Room: Medium-Dark Skin Tone
+🧖🏿‍♂️ Man in Steamy Room: Dark Skin Tone
+🧗 Person Climbing
+🧗🏻 Person Climbing: Light Skin Tone
+🧗🏼 Person Climbing: Medium-Light Skin Tone
+🧗🏽 Person Climbing: Medium Skin Tone
+🧗🏾 Person Climbing: Medium-Dark Skin Tone
+🧗🏿 Person Climbing: Dark Skin Tone
+🧗‍♀️ Woman Climbing
+🧗🏻‍♀️ Woman Climbing: Light Skin Tone
+🧗🏼‍♀️ Woman Climbing: Medium-Light Skin Tone
+🧗🏽‍♀️ Woman Climbing: Medium Skin Tone
+🧗🏾‍♀️ Woman Climbing: Medium-Dark Skin Tone
+🧗🏿‍♀️ Woman Climbing: Dark Skin Tone
+🧗‍♂️ Man Climbing
+🧗🏻‍♂️ Man Climbing: Light Skin Tone
+🧗🏼‍♂️ Man Climbing: Medium-Light Skin Tone
+🧗🏽‍♂️ Man Climbing: Medium Skin Tone
+🧗🏾‍♂️ Man Climbing: Medium-Dark Skin Tone
+🧗🏿‍♂️ Man Climbing: Dark Skin Tone
+🧘 Person in Lotus Position
+🧘🏻 Person in Lotus Position: Light Skin Tone
+🧘🏼 Person in Lotus Position: Medium-Light Skin Tone
+🧘🏽 Person in Lotus Position: Medium Skin Tone
+🧘🏾 Person in Lotus Position: Medium-Dark Skin Tone
+🧘🏿 Person in Lotus Position: Dark Skin Tone
+🧘‍♀️ Woman in Lotus Position
+🧘🏻‍♀️ Woman in Lotus Position: Light Skin Tone
+🧘🏼‍♀️ Woman in Lotus Position: Medium-Light Skin Tone
+🧘🏽‍♀️ Woman in Lotus Position: Medium Skin Tone
+🧘🏾‍♀️ Woman in Lotus Position: Medium-Dark Skin Tone
+🧘🏿‍♀️ Woman in Lotus Position: Dark Skin Tone
+🧘‍♂️ Man in Lotus Position
+🧘🏻‍♂️ Man in Lotus Position: Light Skin Tone
+🧘🏼‍♂️ Man in Lotus Position: Medium-Light Skin Tone
+🧘🏽‍♂️ Man in Lotus Position: Medium Skin Tone
+🧘🏾‍♂️ Man in Lotus Position: Medium-Dark Skin Tone
+🧘🏿‍♂️ Man in Lotus Position: Dark Skin Tone
+🤟 Love-You Gesture
+🤟🏻 Love-You Gesture: Light Skin Tone
+🤟🏼 Love-You Gesture: Medium-Light Skin Tone
+🤟🏽 Love-You Gesture: Medium Skin Tone
+🤟🏾 Love-You Gesture: Medium-Dark Skin Tone
+🤟🏿 Love-You Gesture: Dark Skin Tone
+🤲 Palms Up Together
+🤲🏻 Palms Up Together: Light Skin Tone
+🤲🏼 Palms Up Together: Medium-Light Skin Tone
+🤲🏽 Palms Up Together: Medium Skin Tone
+🤲🏾 Palms Up Together: Medium-Dark Skin Tone
+🤲🏿 Palms Up Together: Dark Skin Tone
+🧠 Brain
+🧡 Orange Heart
+🧣 Scarf
+🧤 Gloves
+🧥 Coat
+🧦 Socks
+🧢 Billed Cap
+🦓 Zebra
+🦒 Giraffe
+🦔 Hedgehog
+🦕 Sauropod
+🦖 T-Rex
+🦗 Cricket
+🥥 Coconut
+🥦 Broccoli
+🥨 Pretzel
+🥩 Cut of Meat
+🥪 Sandwich
+🥣 Bowl With Spoon
+🥫 Canned Food
+🥟 Dumpling
+🥠 Fortune Cookie
+🥡 Takeout Box
+🥧 Pie
+🥤 Cup With Straw
+🥢 Chopsticks
+🛸 Flying Saucer
+🛷 Sled
+🥌 Curling Stone
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England
+🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+🏴󠁧󠁢󠁷󠁬󠁳󠁿 Wales

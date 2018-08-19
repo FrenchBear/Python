@@ -104,18 +104,23 @@ def test_bytearray():
     print('\tcp1252 -> ', list(bytearray("Café", "cp1252")))
     print('\tutf-8  -> ', list(bytearray("Café♫🐗", "utf-8")))
 
-    # Unicode é U+00E9, UTF-8: 0xC3 0xA9, UTF-16: 0x00E9, UTF-32: 0x000000E9.  Decomposition: U+0301-U+0065.  Uppercase: É U+00C9
-    # Unicode Beamed eighth notes ♫ U+266B, UTF-8: 0xE2 0x99 0xAB, UTF-16: 0x266B, UTF-32: 0x0000266B
-    # Unicode Musical symbol G clef 𝄞 U+1D11E, UTF-8: 0xF0 0x9D 0x84 0x9E, UTF-16: 0xD834 0xDD1E, UTF-32: 0x0001D11E
-    # Copyleft 🄯
-    # Unicode Boar 🐗 U+1F417, UTF-8: 0xF0 0x9F 0x90 0x97, UTF-16: 0xD83D 0xDC17, UTF-32: 0x0001F417
-    
-    ba16 = bytearray("Café♫🐗", "utf-16")
+    # é Latin Small Letter E with Acute, U+00E9, UTF-8: 0xC3 0xA9, UTF-16: 0x00E9, UTF-32: 0x000000E9.  Decomposition: U+0301-U+0065.  Uppercase: É U+00C9
+    # ♫ Beamed eighth notes, U+266B, UTF-8: 0xE2 0x99 0xAB, UTF-16: 0x266B, UTF-32: 0x0000266B
+    # 𝄞 Musical symbol G clef, U+1D11E, UTF-8: 0xF0 0x9D 0x84 0x9E, UTF-16: 0xD834 0xDD1E, UTF-32: 0x0001D11E
+    # 🐗 Boar, U+1F417, UTF-8: 0xF0 0x9F 0x90 0x97, UTF-16: 0xD83D 0xDC17, UTF-32: 0x0001F417
+    # 🧔 Bearded Person, U+1F9D4
+    # 🧔🏻 Bearded Person+Light Skin Tone, U+1F9D4 U+1F3FB
+    # 🧞 Genie, U+1F9DE
+    # 🧞‍♀️ Genie Female, U+1F9DE(🧞) U+200D(ZWJ) U+2640(♀) U+FE0F(VS-16) 
+
+
+
+    ba16 = bytearray("Café♫🐗🧔🧔🏻", "utf-16")
     print('\tutf-16 -> ', list(ba16))
     m16 = memoryview(ba16).cast('H')
     print('\tm16 ->    ', [hex(c) for c in m16.tolist()])
 
-    ba32 = bytearray("Café♫🐗", "utf-32")
+    ba32 = bytearray("Café♫🐗🧔🧔🏻", "utf-32")
     print('\tutf-32 -> ', list(ba32))
     m32 = memoryview(ba32).cast('L')
     print('\tm32 ->    ', [hex(c) for c in m32.tolist()])

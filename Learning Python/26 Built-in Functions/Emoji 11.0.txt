@@ -1,0 +1,241 @@
+Emoji Version 11.0
+https://emojipedia.org/emoji-11.0/
+Emoji 11.0 is the emoji release that follows Emoji 5.0. This new emoji list was confirmed on 2018-02-07 and the specification was released on 2018-06-05.
+
+Note: There are no Emoji versions 6.0-10.0 as a decision was made in 2017 to align emoji version numbers with their respective Unicode versions starting with version 11.0.
+
+🖼 Emojipedia Sample Images for Emoji 11.0
+📋 Unicode Emoji 11.0 Data Files
+Vendor support for Emoji 11.0 is as follows (last updated August 2018):
+
+✅ Twemoji: June 2018 (released)
+✅ Google: August 2018 (released)
+🔜 EmojiOne: August 2018 (confirmed)
+🔜 Samsung: August 2018 (confirmed)
+🔜 Windows 10: September-December 2018 (confirmed, currently in beta)
+🔜 iOS: September-December 2018 (confirmed, previewed but not yet in beta)
+New Emojis in Version 11.0
+🥰 Smiling Face With 3 Hearts
+🥵 Hot Face
+🥶 Cold Face
+🥳 Partying Face
+🥴 Woozy Face
+🥺 Pleading Face
+👨‍🦰 Man, Red Haired
+👨🏻‍🦰 Man, Red Haired: Light Skin Tone
+👨🏼‍🦰 Man, Red Haired: Medium-Light Skin Tone
+👨🏽‍🦰 Man, Red Haired: Medium Skin Tone
+👨🏾‍🦰 Man, Red Haired: Medium-Dark Skin Tone
+👨🏿‍🦰 Man, Red Haired: Dark Skin Tone
+👩‍🦰 Woman, Red Haired
+👩🏻‍🦰 Woman, Red Haired: Light Skin Tone
+👩🏼‍🦰 Woman, Red Haired: Medium-Light Skin Tone
+👩🏽‍🦰 Woman, Red Haired: Medium Skin Tone
+👩🏾‍🦰 Woman, Red Haired: Medium-Dark Skin Tone
+👩🏿‍🦰 Woman, Red Haired: Dark Skin Tone
+👨‍🦱 Man, Curly Haired
+👨🏻‍🦱 Man, Curly Haired: Light Skin Tone
+👨🏼‍🦱 Man, Curly Haired: Medium-Light Skin Tone
+👨🏽‍🦱 Man, Curly Haired: Medium Skin Tone
+👨🏾‍🦱 Man, Curly Haired: Medium-Dark Skin Tone
+👨🏿‍🦱 Man, Curly Haired: Dark Skin Tone
+👩‍🦱 Woman, Curly Haired
+👩🏻‍🦱 Woman, Curly Haired: Light Skin Tone
+👩🏼‍🦱 Woman, Curly Haired: Medium-Light Skin Tone
+👩🏽‍🦱 Woman, Curly Haired: Medium Skin Tone
+👩🏾‍🦱 Woman, Curly Haired: Medium-Dark Skin Tone
+👩🏿‍🦱 Woman, Curly Haired: Dark Skin Tone
+👨‍🦲 Man, Bald
+👨🏻‍🦲 Man, Bald: Light Skin Tone
+👨🏼‍🦲 Man, Bald: Medium-Light Skin Tone
+👨🏽‍🦲 Man, Bald: Medium Skin Tone
+👨🏾‍🦲 Man, Bald: Medium-Dark Skin Tone
+👨🏿‍🦲 Man, Bald: Dark Skin Tone
+👩‍🦲 Woman, Bald
+👩🏻‍🦲 Woman, Bald: Light Skin Tone
+👩🏼‍🦲 Woman, Bald: Medium-Light Skin Tone
+👩🏽‍🦲 Woman, Bald: Medium Skin Tone
+👩🏾‍🦲 Woman, Bald: Medium-Dark Skin Tone
+👩🏿‍🦲 Woman, Bald: Dark Skin Tone
+👨‍🦳 Man, White Haired
+👨🏻‍🦳 Man, White Haired: Light Skin Tone
+👨🏼‍🦳 Man, White Haired: Medium-Light Skin Tone
+👨🏽‍🦳 Man, White Haired: Medium Skin Tone
+👨🏾‍🦳 Man, White Haired: Medium-Dark Skin Tone
+👨🏿‍🦳 Man, White Haired: Dark Skin Tone
+👩‍🦳 Woman, White Haired
+👩🏻‍🦳 Woman, White Haired: Light Skin Tone
+👩🏼‍🦳 Woman, White Haired: Medium-Light Skin Tone
+👩🏽‍🦳 Woman, White Haired: Medium Skin Tone
+👩🏾‍🦳 Woman, White Haired: Medium-Dark Skin Tone
+👩🏿‍🦳 Woman, White Haired: Dark Skin Tone
+🦸 Superhero
+🦸🏻 Superhero: Light Skin Tone
+🦸🏼 Superhero: Medium-Light Skin Tone
+🦸🏽 Superhero: Medium Skin Tone
+🦸🏾 Superhero: Medium-Dark Skin Tone
+🦸🏿 Superhero: Dark Skin Tone
+🦸‍♀️ Woman Superhero
+🦸🏻‍♀️ Woman Superhero: Light Skin Tone
+🦸🏼‍♀️ Woman Superhero: Medium-Light Skin Tone
+🦸🏽‍♀️ Woman Superhero: Medium Skin Tone
+🦸🏾‍♀️ Woman Superhero: Medium-Dark Skin Tone
+🦸🏿‍♀️ Woman Superhero: Dark Skin Tone
+🦸‍♂️ Man Superhero
+🦸🏻‍♂️ Man Superhero: Light Skin Tone
+🦸🏼‍♂️ Man Superhero: Medium-Light Skin Tone
+🦸🏽‍♂️ Man Superhero: Medium Skin Tone
+🦸🏾‍♂️ Man Superhero: Medium-Dark Skin Tone
+🦸🏿‍♂️ Man Superhero: Dark Skin Tone
+🦹 Supervillain
+🦹🏻 Supervillain: Light Skin Tone
+🦹🏼 Supervillain: Medium-Light Skin Tone
+🦹🏽 Supervillain: Medium Skin Tone
+🦹🏾 Supervillain: Medium-Dark Skin Tone
+🦹🏿 Supervillain: Dark Skin Tone
+🦹‍♀️ Woman Supervillain
+🦹🏻‍♀️ Woman Supervillain: Light Skin Tone
+🦹🏼‍♀️ Woman Supervillain: Medium-Light Skin Tone
+🦹🏽‍♀️ Woman Supervillain: Medium Skin Tone
+🦹🏾‍♀️ Woman Supervillain: Medium-Dark Skin Tone
+🦹🏿‍♀️ Woman Supervillain: Dark Skin Tone
+🦹‍♂️ Man Supervillain
+🦹🏻‍♂️ Man Supervillain: Light Skin Tone
+🦹🏼‍♂️ Man Supervillain: Medium-Light Skin Tone
+🦹🏽‍♂️ Man Supervillain: Medium Skin Tone
+🦹🏾‍♂️ Man Supervillain: Medium-Dark Skin Tone
+🦹🏿‍♂️ Man Supervillain: Dark Skin Tone
+🦵 Leg
+🦵🏻 Leg: Light Skin Tone
+🦵🏼 Leg: Medium-Light Skin Tone
+🦵🏽 Leg: Medium Skin Tone
+🦵🏾 Leg: Medium-Dark Skin Tone
+🦵🏿 Leg: Dark Skin Tone
+🦶 Foot
+🦶🏻 Foot: Light Skin Tone
+🦶🏼 Foot: Medium-Light Skin Tone
+🦶🏽 Foot: Medium Skin Tone
+🦶🏾 Foot: Medium-Dark Skin Tone
+🦶🏿 Foot: Dark Skin Tone
+🦴 Bone
+🦷 Tooth
+🥽 Goggles
+🥼 Lab Coat
+🥾 Hiking Boot
+🥿 Flat Shoe
+🦝 Raccoon
+🦙 Llama
+🦛 Hippopotamus
+🦘 Kangaroo
+🦡 Badger
+🦢 Swan
+🦚 Peacock
+🦜 Parrot
+🦞 Lobster
+🦟 Mosquito
+🦠 Microbe
+🥭 Mango
+🥬 Leafy Green
+🥯 Bagel
+🧂 Salt
+🥮 Moon Cake
+🧁 Cupcake
+🧭 Compass
+🧱 Brick
+🛹 Skateboard
+🧳 Luggage
+🧨 Firecracker
+🧧 Red Gift Envelope
+🥎 Softball
+🥏 Flying Disc
+🥍 Lacrosse
+🧿 Nazar Amulet
+🧩 Jigsaw
+🧸 Teddy Bear
+♟ Chess Pawn
+🧮 Abacus
+🧾 Receipt
+🧰 Toolbox
+🧲 Magnet
+🧪 Test Tube
+🧫 Petri Dish
+🧬 DNA
+🧯 Fire Extinguisher
+🧴 Lotion Bottle
+🧵 Thread
+🧶 Yarn
+🧷 Safety Pin
+🧹 Broom
+🧺 Basket
+🧻 Roll of Toilet Paper
+🧼 Soap
+🧽 Sponge
+♾ Infinity
+🏴‍☠️ Pirate Flag
+New Emoji Components in Version 11.0
+🦰 Emoji Component Red Hair
+🦱 Emoji Component Curly Hair
+🦲 Emoji Component Bald
+🦳 Emoji Component White Hair
+󠀽 Tag Equals Sign
+󠁟 Tag Low Line
+󠁖 Tag Latin Capital Letter V
+󠀢 Tag Quotation Mark
+󠁁 Tag Latin Capital Letter a
+󠁛 Tag Left Square Bracket
+󠁘 Tag Latin Capital Letter X
+󠁅 Tag Latin Capital Letter E
+󠁉 Tag Latin Capital Letter I
+󠀥 Tag Percent Sign
+󠀫 Tag Plus Sign
+󠁗 Tag Latin Capital Letter W
+󠁑 Tag Latin Capital Letter Q
+󠁼 Tag Vertical Line
+󠀼 Tag Less-Than Sign
+󠁓 Tag Latin Capital Letter S
+️ Variation Selector-16
+󠀦 Tag Ampersand
+󠁜 Tag Reverse Solidus
+󠁎 Tag Latin Capital Letter N
+‍ Zero Width Joiner
+󠁕 Tag Latin Capital Letter U
+󠀻 Tag Semicolon
+󠁂 Tag Latin Capital Letter B
+󠀪 Tag Asterisk
+󠀯 Tag Solidus
+󠁞 Tag Circumflex Accent
+󠁽 Tag Right Curly Bracket
+󠀠 Tag Space
+󠁆 Tag Latin Capital Letter F
+󠀧 Tag Apostrophe
+󠀤 Tag Dollar Sign
+󠁾 Tag Tilde
+󠁠 Tag Grave Accent
+󠀭 Tag Hyphen-Minus
+󠁋 Tag Latin Capital Letter K
+󠁝 Tag Right Square Bracket
+󠀿 Tag Question Mark
+󠀬 Tag Comma
+󠁄 Tag Latin Capital Letter D
+󠁌 Tag Latin Capital Letter L
+󠁇 Tag Latin Capital Letter G
+󠀺 Tag Colon
+󠀮 Tag Full Stop
+󠁐 Tag Latin Capital Letter P
+󠁏 Tag Latin Capital Letter O
+󠀣 Tag Number Sign
+󠁙 Tag Latin Capital Letter Y
+󠁍 Tag Latin Capital Letter M
+󠁃 Tag Latin Capital Letter C
+󠁻 Tag Left Curly Bracket
+󠁊 Tag Latin Capital Letter J
+󠁚 Tag Latin Capital Letter Z
+󠁔 Tag Latin Capital Letter T
+⃣ Combining Enclosing Keycap
+󠁀 Tag Commercial at
+󠀨 Tag Left Parenthesis
+󠁒 Tag Latin Capital Letter R
+󠀩 Tag Right Parenthesis
+󠁈 Tag Latin Capital Letter H
+󠀾 Tag Greater-Than Sign
+󠀡 Tag Exclamation Mark
