@@ -11,6 +11,10 @@ sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 
 
 def test_abs():
+    """
+    abs(x)
+    Return the absolute value of a number. The argument may be an integer or a floating point number. If the argument is a complex number, its magnitude is returned.
+    """
     print('\ntest_abs()')
     i = -2
     f = -3.25
@@ -21,6 +25,10 @@ def test_abs():
 
 
 def test_all():
+    """
+    all(iterable)
+    Return True if all elements of the iterable are true (or if the iterable is empty).
+    """
     def allEquiv(iterable):
         for element in iterable:
             if not element:
@@ -38,6 +46,10 @@ def test_all():
 
 
 def test_any():
+    """
+    any(iterable)
+    Return True if any element of the iterable is true. If the iterable is empty, return False.
+    """
     def anyEquiv(iterable):
         for element in iterable:
             if element:
@@ -55,6 +67,11 @@ def test_any():
 
 
 def test_ascii():
+    """
+    ascii(object)
+    As repr(), return a string containing a printable representation of an object, but escape the non-ASCII characters in the string returned by repr()
+    using ∖x, ∖u or ∖U escapes. This generates a string similar to that returned by repr() in Python 2.
+    """
     print('\ntest_ascii()')
     print('\tascii({0}) = {1}'.format(48, ascii(48)))
     c = chr(7)
@@ -68,7 +85,8 @@ def test_ascii():
 def test_bin():
     """
     bin(x)
-    Convert an integer number to a binary string. The result is a valid Python expression. If x is not a Python int object, it has to define an __index__() method that returns an integer.
+    Convert an integer number to a binary string. The result is a valid Python expression. If x is not a Python int object, it has to define
+    an __index__() method that returns an integer.
     """
     print('\ntest_bin()')
     print('\tbin({0:x}) = {1}'.format(0xCAFE, bin(0xCAFE)))
@@ -78,18 +96,33 @@ def test_bin():
 def test_bool():
     """
     bool([x])
-    Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True. bool is also a class, which is a subclass of int. Class bool cannot be subclassed further. Its only instances are False and True.
+    Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True.
+    bool is also a class, which is a subclass of int. Class bool cannot be subclassed further. Its only instances are False and True.
     """
     print('\ntest_bool()')
     print('\tbool({0}) = {1}'.format(0, bool(0)))
     print('\tbool({0}) = {1}'.format(23, bool(23)))
 
 
+def test_breakpoint():
+    """
+    breakpoint(*args, **kws)
+    This function drops you into the debugger at the call site. Specifically, it calls sys.breakpointhook(), passing args and kws straight through.
+    By default, sys.breakpointhook() calls pdb.set_trace() expecting no arguments. In this case, it is purely a convenience function 
+    so you don’t have to explicitly import pdb or type as much code to enter the debugger. However, sys.breakpointhook() can be set
+    to some other function and breakpoint() will automatically call that, allowing you to drop into the debugger of choice.
+    New in version 3.7.
+    """
+    print('\ntest_breakpoint()')
+    #breakpoint()
+
+
 def test_bytearray():
     """
     bytearray([source[, encoding[, errors]]])
 
-    Return a new array of bytes. The bytearray type is a mutable sequence of integers in the range 0 <= x < 256. It has most of the usual methods of mutable sequences, described in Mutable Sequence Types, as well as most methods that the bytes type has, see Bytes and Byte Array Methods.
+    Return a new array of bytes. The bytearray type is a mutable sequence of integers in the range 0 <= x < 256. It has most of the usual methods
+    of mutable sequences, described in Mutable Sequence Types, as well as most methods that the bytes type has, see Bytes and Byte Array Methods.
 
     The optional source parameter can be used to initialize the array in a few different ways:
         If it is a string, you must also give the encoding (and optionally, errors) parameters; bytearray() then converts the string to bytes using str.encode().
@@ -104,25 +137,6 @@ def test_bytearray():
     print('\tcp1252 -> ', list(bytearray("Café", "cp1252")))
     print('\tutf-8  -> ', list(bytearray("Café♫🐗", "utf-8")))
 
-    # é Latin Small Letter E with Acute, U+00E9, UTF-8: 0xC3 0xA9, UTF-16: 0x00E9, UTF-32: 0x000000E9.  Decomposition: U+0301-U+0065.  Uppercase: É U+00C9
-    # ♫ Beamed eighth notes, U+266B, UTF-8: 0xE2 0x99 0xAB, UTF-16: 0x266B, UTF-32: 0x0000266B
-    # 𝄞 Musical symbol G clef, U+1D11E, UTF-8: 0xF0 0x9D 0x84 0x9E, UTF-16: 0xD834 0xDD1E, UTF-32: 0x0001D11E
-    # 🐗  Boar, U+1F417, UTF-8: 0xF0 0x9F 0x90 0x97, UTF-16: 0xD83D 0xDC17, UTF-32: 0x0001F417
-    # 🧔  Bearded Person, U+1F9D4
-    # 🧔🏻  Bearded Person+Light Skin Tone, U+1F9D4 U+1F3FB
-    # 🧞  Genie, U+1F9DE
-    # 🧞‍♀️ Genie Female, U+1F9DE(🧞) U+200D(ZWJ) U+2640(♀) U+FE0F(VS-16)
-    # 🧝  Elf
-    # 🧝‍♂️ Man Elf
-    # 🧝‍♀️	Woman Elf
-    # 🧝🏽	Elf: Medium Skin Tone
-    # 🧝🏽‍♂️ Man Elf: Medium Skin Tone
-    # 🧝🏽‍♀️ Woman Elf: Medium Skin Tone
-
-    # A é ♫ 𝄞 🐗 🧔 🧔🏻 🧞 🧞‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧝🏽 🧝🏽‍♂️ 🧝🏽‍♀️
-
-
-
     ba16 = bytearray("Café♫🐗🧔🧔🏻", "utf-16")
     print('\tutf-16 -> ', list(ba16))
     m16 = memoryview(ba16).cast('H')
@@ -135,7 +149,20 @@ def test_bytearray():
 
  
 def test_bytes():
+    """
+    class bytes([source[, encoding[, errors]]])
+
+    Return a new “bytes” object, which is an immutable sequence of integers in the range 0 <= x < 256. bytes is an immutable version of bytearray,
+    it has the same non-mutating methods and the same indexing and slicing behavior.
+    Accordingly, constructor arguments are interpreted as for bytearray().
+    Bytes objects can also be created with literals, see String and Bytes literals.
+    See also Binary Sequence Types — bytes, bytearray, memoryview, Bytes Objects, and Bytes and Bytearray Operations.
+    """
     print('\ntest_bytes()')
+    tb1 = bytes([0xCA, 0xFE])
+    print(type(tb1), tb1)
+    tb2 = b'Hello'
+    print(type(tb2), tb2)
 
 
 def test_callable():
@@ -380,9 +407,10 @@ test_any()
 test_ascii()
 test_bin()
 test_bool()
+test_breakpoint()
 test_bytearray()
-"""
 test_bytes()
+"""
 test_callable()
 test_chr()
 test_classmethod()
