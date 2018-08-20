@@ -4,6 +4,7 @@
 # 2016-08-10    PV
 
 import sys
+import math, cmath
 from os import system
 
 system('chcp 65001 >nul')
@@ -13,6 +14,7 @@ sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 def test_abs():
     """
     abs(x)
+
     Return the absolute value of a number. The argument may be an integer or a floating point number. If the argument is a complex number, its magnitude is returned.
     """
     print('\ntest_abs()')
@@ -27,6 +29,7 @@ def test_abs():
 def test_all():
     """
     all(iterable)
+
     Return True if all elements of the iterable are true (or if the iterable is empty).
     """
     def allEquiv(iterable):
@@ -48,6 +51,7 @@ def test_all():
 def test_any():
     """
     any(iterable)
+
     Return True if any element of the iterable is true. If the iterable is empty, return False.
     """
     def anyEquiv(iterable):
@@ -69,6 +73,7 @@ def test_any():
 def test_ascii():
     """
     ascii(object)
+
     As repr(), return a string containing a printable representation of an object, but escape the non-ASCII characters in the string returned by repr()
     using ∖x, ∖u or ∖U escapes. This generates a string similar to that returned by repr() in Python 2.
     """
@@ -85,6 +90,7 @@ def test_ascii():
 def test_bin():
     """
     bin(x)
+
     Convert an integer number to a binary string. The result is a valid Python expression. If x is not a Python int object, it has to define
     an __index__() method that returns an integer.
     """
@@ -96,6 +102,7 @@ def test_bin():
 def test_bool():
     """
     bool([x])
+
     Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True.
     bool is also a class, which is a subclass of int. Class bool cannot be subclassed further. Its only instances are False and True.
     """
@@ -107,14 +114,15 @@ def test_bool():
 def test_breakpoint():
     """
     breakpoint(*args, **kws)
+
     This function drops you into the debugger at the call site. Specifically, it calls sys.breakpointhook(), passing args and kws straight through.
-    By default, sys.breakpointhook() calls pdb.set_trace() expecting no arguments. In this case, it is purely a convenience function 
+    By default, sys.breakpointhook() calls pdb.set_trace() expecting no arguments. In this case, it is purely a convenience function
     so you don’t have to explicitly import pdb or type as much code to enter the debugger. However, sys.breakpointhook() can be set
     to some other function and breakpoint() will automatically call that, allowing you to drop into the debugger of choice.
     New in version 3.7.
     """
     print('\ntest_breakpoint()')
-    #breakpoint()
+    # breakpoint()
 
 
 def test_bytearray():
@@ -147,7 +155,7 @@ def test_bytearray():
     m32 = memoryview(ba32).cast('L')
     print('\tm32 ->    ', [hex(c) for c in m32.tolist()])
 
- 
+
 def test_bytes():
     """
     class bytes([source[, encoding[, errors]]])
@@ -166,24 +174,103 @@ def test_bytes():
 
 
 def test_callable():
+    """
+    callable(object)
+
+    Return True if the object argument appears callable, False if not. If this returns true, it is still possible that a call fails,
+    but if it is false, calling object will never succeed. Note that classes are callable (calling a class returns a new instance);
+    instances are callable if their class has a __call__() method.
+    """
     print('\ntest_callable()')
+    print('callable(print): ', callable(print))
+    print('callable(3.14): ', callable(3.14))
 
 
 def test_chr():
+    """
+    chr(i)
+
+    Return the string representing a character whose Unicode code point is the integer i. For example, chr(97) returns the string 'a',
+    while chr(8364) returns the string '€'. This is the inverse of ord().
+    The valid range for the argument is from 0 through 1,114,111 (0x10FFFF in base 16). ValueError will be raised if i is outside that range.
+    """
     print('\ntest_chr()')
-
-
-def test_classmethod():
-    print('\ntest_classmethod()')
+    for i in [0x41, 0xE9, 0x266B, 0x1D11E, 0x1F43B]:
+        print("%5x" % i, "->", chr(i))
 
 
 def test_compile():
+    """
+    compile(source, filename, mode, flags=0, dont_inherit=False, optimize=-1)
+
+    Compile the source into a code or AST object. Code objects can be executed by exec() or eval(). source can either be a normal string,
+    a byte string, or an AST object. Refer to the ast module documentation for information on how to work with AST objects.
+
+    The filename argument should give the file from which the code was read; pass some recognizable value if it wasn’t read 
+    from a file ('<string>' is commonly used).
+
+    The mode argument specifies what kind of code must be compiled; it can be 'exec' if source consists of a sequence of statements,
+    'eval' if it consists of a single expression, or 'single' if it consists of a single interactive statement (in the latter case, 
+    expression statements that evaluate to something other than None will be printed).
+
+    The optional arguments flags and dont_inherit control which future statements affect the compilation of source. If neither is present 
+    (or both are zero) the code is compiled with those future statements that are in effect in the code that is calling compile(). 
+    If the flags argument is given and dont_inherit is not (or is zero) then the future statements specified by the flags argument 
+    are used in addition to those that would be used anyway. If dont_inherit is a non-zero integer then the flags argument is it – 
+    the future statements in effect around the call to compile are ignored.
+
+    Future statements are specified by bits which can be bitwise ORed together to specify multiple statements. The bitfield 
+    required to specify a given feature can be found as the compiler_flag attribute on the _Feature instance in the __future__ module.
+
+    The argument optimize specifies the optimization level of the compiler; the default value of -1 selects the optimization level
+    of the interpreter as given by -O options. Explicit levels are 0 (no optimization; __debug__ is true), 1 (asserts are removed, 
+    __debug__ is false) or 2 (docstrings are removed too).
+
+    This function raises SyntaxError if the compiled source is invalid, and ValueError if the source contains null bytes.
+
+    If you want to parse Python code into its AST representation, see ast.parse().
+
+    Note
+    When compiling a string with multi-line code in 'single' or 'eval' mode, input must be terminated by at least one newline character. 
+    This is to facilitate detection of incomplete and complete statements in the code module.
+
+    Warning
+    It is possible to crash the Python interpreter with a sufficiently large/complex string when compiling to an AST object 
+    due to stack depth limitations in Python’s AST compiler.
+
+    Changed in version 3.2: Allowed use of Windows and Mac newlines. Also input in 'exec' mode does not have to end in a newline 
+    anymore. Added the optimize parameter.
+    Changed in version 3.5: Previously, TypeError was raised when null bytes were encountered in source.
+    """
     print('\ntest_compile()')
+    codeobj = compile('x = 2\nprint("X is", x)', '', 'exec')
+    exec(codeobj)
+    codeobj2 = compile('1+2*3**4', '', 'eval')
+    print("n=", eval(codeobj2))
 
 
 def test_complex():
-    print('\ntest_complex()')
+    """
+    class complex([real[, imag]])
 
+    Return a complex number with the value real + imag*1j or convert a string or number to a complex number. If the first parameter is a string, 
+    it will be interpreted as a complex number and the function must be called without a second parameter. The second parameter can never be a string. 
+    Each argument may be any numeric type (including complex). If imag is omitted, it defaults to zero and the constructor serves as a numeric conversion 
+    like int and float. If both arguments are omitted, returns 0j.
+
+    Note
+    When converting from a string, the string must not contain whitespace around the central + or - operator. 
+    For example, complex('1+2j') is fine, but complex('1 + 2j') raises ValueError.
+
+    The complex type is described in Numeric Types — int, float, complex.
+
+    Changed in version 3.6: Grouping digits with underscores as in code literals is allowed.
+    """
+    print('\ntest_complex()')
+    c1 = cmath.acos(2.0)
+    c2 = complex(0, math.log(2+math.sqrt(3)))
+    print("c1 = {:.6f}".format(c1), "  cos -> ", cmath.cos(c1))
+    print("c2 = {:.6f}".format(c2), "  cos -> ", cmath.cos(c2))
 
 def test_delattr():
     print('\ntest_delattr()')
@@ -369,10 +456,6 @@ def test_sorted():
     print('\ntest_sorted()')
 
 
-def test_staticmethod():
-    print('\ntest_staticmethod()')
-
-
 def test_str():
     print('\ntest_str()')
 
@@ -410,12 +493,11 @@ test_bool()
 test_breakpoint()
 test_bytearray()
 test_bytes()
-"""
 test_callable()
 test_chr()
-test_classmethod()
 test_compile()
 test_complex()
+"""
 test_delattr()
 test_dict()
 test_dir()
@@ -462,7 +544,6 @@ test_set()
 test_setattr()
 test_slice()
 test_sorted()
-test_staticmethod()
 test_str()
 test_sum()
 test_super()
