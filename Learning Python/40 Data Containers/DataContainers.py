@@ -76,4 +76,10 @@ d = {"un": 1, "deux": 2, "π": 3.1416, "vrai": True, "oui": "Yes"}
 print(type(d), d)
 d["e"] = 2.71828
 d.update({"r2": 1.414, "r3": 1.732})
+#x = d.get("trois", 3)       # Get value or default
+try:
+    x = d[3]
+except KeyError:
+    x = 3
+print(x)
 

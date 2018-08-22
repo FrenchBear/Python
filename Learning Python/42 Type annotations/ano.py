@@ -1,0 +1,68 @@
+
+class Chien:
+    def __init__(self, name):
+            self.nom = name
+
+    def aboie(self):
+        print(self.nom + ": Ouah!")
+
+
+class Chat:
+    def __init__(self, name):
+            self.nom = name
+
+    def miaule(self):
+        print(self.nom + ": Miaou!")
+
+import datetime
+
+class Album:
+    def __init__(self, title, artist, release_year, tracks):
+        self.title = title
+        self.artist = artist
+        self.release_year = release_year
+        self.tracks = tracks
+
+    def all_tracks_shorter_than(self, minutes=0, seconds=0):
+        duration = datetime.timedelta(minutes=minutes, seconds=seconds)
+        return [t for t in self.tracks if t.duration < duration]
+
+class Track:
+    def __init__(self, title, duration):
+        self.title = title
+        self.duration = duration
+
+
+
+def excite(a: Chien):
+    a.aboie()
+    print(a.nom)
+    a.aboie()
+
+medor = Chien("Medor")
+excite(medor)
+
+felix = Chat("Félix")
+excite(felix)
+
+
+
+from typing import Dict
+
+def get_first_name(full_name: str) -> str:
+    return full_name.split(" ")[0]
+
+fallback_name: Dict[str, str] = {
+    "first_name": "UserFirstName",
+    "last_name": "UserLastName"
+}
+
+raw_name: str = input("Please enter your name: ")
+first_name: str = get_first_name(raw_name)
+
+# If the user didn't type anything in, use the fallback name
+if not first_name:
+    first_name = get_first_name(fallback_name)
+
+print(f"Hi, {first_name}!")
+
