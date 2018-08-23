@@ -4,7 +4,8 @@
 # 2016-08-10    PV
 
 import sys
-import math, cmath
+import math
+import cmath
 from os import system
 
 system('chcp 65001 >nul')
@@ -15,7 +16,8 @@ def test_abs():
     """
     abs(x)
 
-    Return the absolute value of a number. The argument may be an integer or a floating point number. If the argument is a complex number, its magnitude is returned.
+    Return the absolute value of a number. The argument may be an integer or a floating point number. If the argument is a complex number, 
+    its magnitude is returned.
     """
     print('\ntest_abs()')
     i = -2
@@ -272,12 +274,46 @@ def test_complex():
     print("c1 = {:.6f}".format(c1), "  cos -> ", cmath.cos(c1))
     print("c2 = {:.6f}".format(c2), "  cos -> ", cmath.cos(c2))
 
+
 def test_delattr():
+    """
+    delattr(object, name)
+
+    This is a relative of setattr(). The arguments are an object and a string. The string must be the name of one of the object’s attributes.
+    The function deletes the named attribute, provided the object allows it. For example, delattr(x, 'foobar') is equivalent to del x.foobar.
+    """
     print('\ntest_delattr()')
+
+    class MyComplex:
+        real = 3.1416
+        imag = 1.7321
+
+        def __str__(self):
+            return "".join(f"{k}={getattr(self, k)} " for k in dir(self) if not k.startswith("__"))
+
+    tda = MyComplex()
+    print(tda)
+    delattr(MyComplex, "imag")
+    print(tda)
 
 
 def test_dict():
+    """
+    class dict(**kwarg)
+    class dict(mapping, **kwarg)
+    class dict(iterable, **kwarg)
+
+    Create a new dictionary. The dict object is the dictionary class. See dict and Mapping Types — dict for documentation about this class.
+    For other containers see the built-in list, set, and tuple classes, as well as the collections module.
+    """
     print('\ntest_dict()')
+    a = dict(one=1, two=2, three=3)
+    b = {'one': 1, 'two': 2, 'three': 3}
+    c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+    d = dict([('two', 2), ('one', 1), ('three', 3)])
+    e = dict({'three': 3, 'one': 1, 'two': 2})
+    # Note that comparison is on properties/values, not on object id
+    print(a == b == c == d == e)
 
 
 def test_dir():
@@ -497,9 +533,9 @@ test_callable()
 test_chr()
 test_compile()
 test_complex()
-"""
 test_delattr()
 test_dict()
+"""
 test_dir()
 test_divmod()
 test_enumerate()
