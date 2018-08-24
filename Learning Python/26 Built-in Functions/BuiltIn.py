@@ -288,12 +288,17 @@ def test_delattr():
         real = 3.1416
         imag = 1.7321
 
+        def __init__(self):
+            self.x = 4
+            self.y = 2
+
         def __str__(self):
             return "".join(f"{k}={getattr(self, k)} " for k in dir(self) if not k.startswith("__"))
 
     tda = MyComplex()
     print(tda)
-    delattr(MyComplex, "imag")
+    delattr(MyComplex, "imag")      # Class attribute
+    delattr(tda, "x")               # Instance attribute
     print(tda)
 
 
