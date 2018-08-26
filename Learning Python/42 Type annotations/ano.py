@@ -1,7 +1,7 @@
 
 class Chien:
     def __init__(self, name):
-            self.nom = name
+        self.nom = name
 
     def aboie(self):
         print(self.nom + ": Ouah!")
@@ -9,12 +9,14 @@ class Chien:
 
 class Chat:
     def __init__(self, name):
-            self.nom = name
+        self.nom = name
 
     def miaule(self):
         print(self.nom + ": Miaou!")
 
+
 import datetime
+
 
 class Album:
     def __init__(self, title, artist, release_year, tracks):
@@ -27,11 +29,11 @@ class Album:
         duration = datetime.timedelta(minutes=minutes, seconds=seconds)
         return [t for t in self.tracks if t.duration < duration]
 
+
 class Track:
     def __init__(self, title, duration):
         self.title = title
         self.duration = duration
-
 
 
 def excite(a: Chien):
@@ -39,18 +41,20 @@ def excite(a: Chien):
     print(a.nom)
     a.aboie()
 
+
 medor = Chien("Medor")
 excite(medor)
 
 felix = Chat("Félix")
-excite(felix)
+# excite(felix)
 
 
+from typing import Dict, List
 
-from typing import Dict
 
 def get_first_name(full_name: str) -> str:
     return full_name.split(" ")[0]
+
 
 fallback_name: Dict[str, str] = {
     "first_name": "UserFirstName",
@@ -65,4 +69,22 @@ if not first_name:
     first_name = get_first_name(fallback_name)
 
 print(f"Hi, {first_name}!")
+
+i: int = 0
+l: List[int] = [1, 2, 3]
+
+
+def myfunc() -> List[int]:
+    return [1, 2, 3]
+
+
+class myclass:
+    def myfunc(self, s: str) -> List[int]:
+        return [1, 2, 3]
+
+
+l = myfunc()
+
+cc = myclass()
+l = cc.myfunc("zap")
 
