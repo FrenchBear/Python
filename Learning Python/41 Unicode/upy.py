@@ -57,14 +57,14 @@ g2 = "Α"    # Uppercase greek α = U+0391
 print("g1==g2: ", g1==g2)
 print("comparizon g1==g2 after NFC normalization: ", unicodedata.normalize("NFC", g1)==unicodedata.normalize("NFC", g2) )
 print("comparizon g1==g2 after NFKC normalization: ", unicodedata.normalize("NFKC", g1)==unicodedata.normalize("NFKC", g2) )
+"""
 
 print("\tNFC\tNFKC\tNFD\tNFKD")
-for s in ["Ⅷ", "œ", "Œ", "æ", "Æ", "ĳ", "Ĳ", "ﬀ", "ﬁ", "ﬂ", "ﬃ", "ﬄ", 'ß', 'é', 'ø']:
+for s in ["Ⅷ", "œ", "Œ", "æ", "Æ", "ĳ", "Ĳ", "ﬀ", "ﬁ", "ﬂ", "ﬃ", "ﬄ", 'ß', 'é', 'ø', '‼', '‽']:
     print(s, end='\t')
     for form in ["NFC", "NFKC", "NFD", "NFKD"]:
         print(unicodedata.normalize(form, s), end='\t')
     print()
-"""
 
 # All 5 followinf forms are canonical equivalences
 cc1 = "\N{LATIN SMALL LETTER U WITH HORN AND DOT BELOW}"

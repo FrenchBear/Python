@@ -4,11 +4,11 @@
 # 2018-08-14    PV
 
 
-import re
 import collections
-
-import locale
 import functools
+import locale
+import re
+import unicodedata
 
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
@@ -27,6 +27,48 @@ print(e)
 """
 
 
+class french_text_canonizer():
+    # This list can be customized to fit specific needs
+    expansion_list = [('œ', 'oe'), ('Œ', 'OE'), ('æ', 'ae'), ('Æ', 'AE'), 
+                      ("‘", "'"), ("’", "'"), ("‚", "'"), ("‛", "'"), ('‹', "'"), ('›', "'"),
+                      ('“', '"'), ('”', '"'), ('„', '"'), ('‟', '"'), ('«', '"'), ('»', '"'),
+                      ('ø', 'o\N{COMBINING SHORT SOLIDUS OVERLAY}'), ('Ø', 'O\N{COMBINING LONG SOLIDUS OVERLAY}'),
+                      ('‽', '?!'), # ('¿', '?'), ('¡', '!'),
+                      ("\N{NO-BREAK SPACE}", ' ')
+                      ]
+
+    def __init__(self, case_significant: bool, accent_significant: bool):
+        self.case_significant = case_significant
+        self.accent_significant = accent_significant
+
+    def canonize(self, s: str) -> str:
+        # First some expansions not managed by normalization
+        for (s1, s2) in french_text_canonizer.expansion_list:
+            if s1 in s:
+                s = s.replace(s1, s2)
+        # Enable expansion of ĳ Ĳ ﬀ ﬁ ﬂ ﬃ ﬄ ‼
+        s = unicodedata.normalize("NFKD", s)
+        
+        if not self.case_significant:
+            s = s.upper()
+        if not self.accent_significant:
+            s = ''.join(c for c in list(s) if unicodedata.category(c) != 'Mn')
+        return s
+
+c1 = french_text_canonizer(False, False)
+c2 = french_text_canonizer(False, True)
+c3 = french_text_canonizer(True, False)
+c4 = french_text_canonizer(True, True)
+
+s = "Où ça? Écoute ‘ton’ cœur‼ «Dĳsktra» Søråñ “ÆØRÅÑ”"
+print(s)
+print(c1.canonize(s))
+print(c2.canonize(s))
+print(c3.canonize(s))
+print(c4.canonize(s))
+
+
+"""
 WORD_RE = re.compile(r"[\w’]+")
 DIGITSONLY_RE = re.compile(r'\d+')
 
@@ -42,17 +84,24 @@ with open("t2.txt", "r", encoding="utf-8-sig") as fp:
 
 print("Index size:", len(index))
 
+
 def top(seq, n):
     for item in seq:
-        if n<=0: return
-        n-=1
+        if n <= 0:
+            return
+        n -= 1
         yield item
+
 
 # print in alphabetical order
 # Reduce index to entries seen at least 10 times
-ir = {key:value for (key, value) in index.items() if len(value)>=10}
-for word in  top(sorted(ir, key=str.upper), 100):
+ir = {key: value for (key, value) in index.items() if len(value) >= 10}
+for word in top(sorted(ir, key=str.upper), 100):
     print(word, len(ir[word]))
+"""
+
+
+
 
 
 
