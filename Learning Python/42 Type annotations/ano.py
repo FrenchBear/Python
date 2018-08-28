@@ -1,5 +1,11 @@
+# Type annotations
+# Exercices on Pyhton 3.7 and mypy
+# 2008-08-24    PV
 
-class Chien:
+from typing import Dict, List
+
+
+class Dog:
     def __init__(self, name):
         self.nom = name
 
@@ -7,7 +13,7 @@ class Chien:
         print(self.nom + ": Ouah!")
 
 
-class Chat:
+class Cat:
     def __init__(self, name):
         self.nom = name
 
@@ -36,20 +42,19 @@ class Track:
         self.duration = duration
 
 
-def excite(a: Chien):
+def excite(a: Dog):
     a.aboie()
     print(a.nom)
     a.aboie()
 
 
-medor = Chien("Medor")
+medor = Dog("Medor")
 excite(medor)
 
-felix = Chat("Félix")
+# mypy will detect the problem calling excite with a Dog
+felix = Cat("Félix")
 # excite(felix)
 
-
-from typing import Dict, List
 
 
 def get_first_name(full_name: str) -> str:
@@ -82,9 +87,7 @@ class myclass:
     def myfunc(self, s: str) -> List[int]:
         return [1, 2, 3]
 
-
 l = myfunc()
 
 cc = myclass()
 l = cc.myfunc("zap")
-
