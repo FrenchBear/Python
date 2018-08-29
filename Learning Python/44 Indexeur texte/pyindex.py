@@ -71,7 +71,7 @@ class french_text_canonizer():
             s = s.upper()
         if not self.accent_significant:
             s = ''.join(c for c in list(s) if unicodedata.category(c) != 'Mn')
-        return unicodedata.normalize("NFC", s)
+        return s    # unicodedata.normalize("NFC", s)
 
     # Default method for objets of the class
     __call__ = canonize
@@ -97,10 +97,28 @@ WORD_QUOTE_RE = re.compile(r"[\w’]+")
 DIGITS_ONLY_RE = re.compile(r'\d+')
 
 
+# Helper to limit the size of an interable to the first n elements
+def top(seq: Iterable, n: int):
+    for item in seq:
+        if n <= 0:
+            return
+        n -= 1
+        yield item
+
+
 class forms_locations():
     def __init__(self):
         self.forms: DefaultDict[str, int] = collections.defaultdict(int)
         self.locations: List[Tuple[int, int]] = []
+
+    def __str__(self):
+        m = -1
+        s = ""
+        for form,count in self.forms.items():
+            if count>m:
+                m=count
+                s=form
+        return s
 
 
 def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]:
@@ -120,68 +138,83 @@ def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]
     return index, words_count
 
 
-#file = "hp5.txt"
-file = "sda.txt"
 
-start = time.time()
-index, words_count  = index_file(file, WORD_RE, fr_ci_as)
-print("Duration: %.3f" % (time.time()-start))
-print(f"Words: {words_count}, Index size: {len(index)}")
+def test_indexer():
+    #file = "hp5.txt"
+    file = "sda2.txt"
+
+    ix1 = fr_ci_as      # Duration: 1.165
+    ix2 = lambda s: locale.strxfrm(unicodedata.normalize("NFKD", s).upper())    # Duration: 1.106
+
+    """
+    locale sort keys a à âge agit...
+    fr_ci_as sorts keys a agit... à âge 
+    """
+
+    start = time.time()
+    index, words_count  = index_file(file, WORD_RE, ix2)
+    print("Duration: %.3f" % (time.time()-start))
+    print(f"Words: {words_count}, Index size: {len(index)}")
 
 
-# Recherche les formes avec apostrophes identiques à un mot sans apostrophe
-# comme d'écrire/décrire, l'éviter/léviter, l'aide/laide, d'avantage/davantage, l'imiter/limiter...
+    # Reduce index to entries seen at least 10 times
+    ir = {key: value for (key, value) in index.items() if len(value.locations) >= 10}
+    print(f"Index réduit: {len(ir)}")
 
-index_quote, words_count_quote  = index_file(file, WORD_QUOTE_RE, fr_ci_as)
+    # Print reduced index in alphabetical order
+    nl = 0
+    print("Sorted by alphabetical order (word, frequencey) reduced index (frequency≥10)")
+    with open("analysis.txt", "w", encoding="utf-8") as fo:
+        #for word in sorted(ir, key=functools.cmp_to_key(locale.strcoll)):
+        for key in sorted(ir):
+            l = f"{ir[key]}\t{len(ir[key].locations)}\t{dict(ir[key].forms)}\n"
+            nl += 1
+            if nl<150:
+                print(l, end='')
+            fo.write(l)
 
-for word in [w for w in index_quote.keys() if '’' in w]:
-    if word.replace('’', '') in index.keys():
-        print(word)
+    """
+    # Print top 20 by frequency descending
+    print("\nSorted by decreasing frequency (word, frequency) full index")
+    nw = 0
+    for word, count in sorted([(word, len(fl.locations)) for word, fl in index.items()], key=lambda tup: tup[1], reverse=True):
+        print(f"{word}\t{count}")
+        nw += 1
+        if nw > 20:
+            break
+
+    print("\nSorted be decreasing length (word, length) full index")
+    nw = 0
+    for word, l in sorted([(word, len(word)) for word in index.keys()], key=lambda tup: len(tup[0]), reverse=True):
+        print(f"{word}\t{l}")
+        nw += 1
+        if nw > 20:
+            break
+    """
+
+
+def search_quote(file:str):
+    # Recherche les formes avec apostrophes identiques à un mot sans apostrophe
+    # comme d'écrire/décrire, l'éviter/léviter, l'aide/laide, d'avantage/davantage, l'imiter/limiter...
+
+    index, _  = index_file(file, WORD_RE, fr_ci_as)
+    index_quote, _  = index_file(file, WORD_QUOTE_RE, fr_ci_as)
+
+    for word in [w for w in index_quote.keys() if '’' in w]:
+        if word.replace('’', '') in index.keys():
+            print(word)
 
 
 
-"""
-# Helper to limit the size of an interable to the first n elements
-def top(seq: Iterable, n: int):
-    for item in seq:
-        if n <= 0:
-            return
-        n -= 1
-        yield item
-"""
+def count_letters(file:str):
+    dic = collections.defaultdict(int)
+    with open(file, "r", encoding="utf-8-sig") as fp:
+        for line in fp:
+            for char in line:
+                dic[char] += 1
+    for letter,count in sorted(dic.items(), key=lambda tup: tup[1], reverse=True):
+        print(f"{letter}\t{count}")
 
-"""
-# Reduce index to entries seen at least 10 times
-ir = {key: value for (key, value) in index.items() if len(value.locations) >= 10}
-print(f"Index réduit: {len(ir)}")
 
-# Print reduced index in alphabetical order
-nl = 0
-print("Sorted by alphabetical order (word, frequencey) reduced index (frequency≥10)")
-with open("analysis.txt", "w", encoding="utf-8") as fo:
-    for word in sorted(ir, key=functools.cmp_to_key(locale.strcoll)):
-        l = f"{word}\t{len(ir[word].locations)}\t{dict(ir[word].forms)}\n"
-        nl += 1
-        if nl<100:
-            print(l, end='')
-        fo.write(l)
-"""
-
-"""
-# Print top 20 by frequency descending
-print("\nSorted by decreasing frequency (word, frequency) full index")
-nw = 0
-for word, count in sorted([(word, len(fl.locations)) for word, fl in index.items()], key=lambda tup: tup[1], reverse=True):
-    print(f"{word}\t{count}")
-    nw += 1
-    if nw > 20:
-        break
-
-print("\nSorted be decreasing length (word, length) full index")
-nw = 0
-for word, l in sorted([(word, len(word)) for word in index.keys()], key=lambda tup: len(tup[0]), reverse=True):
-    print(f"{word}\t{l}")
-    nw += 1
-    if nw > 20:
-        break
-"""
+#count_letters("sda.txt")
+test_indexer()
