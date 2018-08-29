@@ -93,7 +93,8 @@ fr_cs_as = french_text_canonizer(True, True)
 
 
 WORD_RE = re.compile(r"[\w]+")
-DIGITSONLY_RE = re.compile(r'\d+')
+WORD_QUOTE_RE = re.compile(r"[\w’]+")
+DIGITS_ONLY_RE = re.compile(r'\d+')
 
 
 class forms_locations():
@@ -101,32 +102,45 @@ class forms_locations():
         self.forms: DefaultDict[str, int] = collections.defaultdict(int)
         self.locations: List[Tuple[int, int]] = []
 
-# forms_locations = collections.namedtuple("forms_locations", "forms locations")
+
+def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]:
+    index: DefaultDict[str, forms_locations] = collections.defaultdict(forms_locations)
+    words_count = 0
+    with open(file, "r", encoding="utf-8-sig") as fp:
+        for line_no, line in enumerate(fp, 1):
+            for match in wordre.finditer(line):
+                if not DIGITS_ONLY_RE.fullmatch(match.group()):
+                    words_count += 1
+                    #word = match.group().lower()
+                    word = canonize(match.group())
+                    column_no = match.start()+1
+                    location = (line_no, column_no)
+                    index[word].forms[match.group()] += 1
+                    index[word].locations.append(location)
+    return index, words_count
+
+
+#file = "hp5.txt"
+file = "sda.txt"
 
 start = time.time()
-index: DefaultDict[str, forms_locations] = collections.defaultdict(forms_locations)
-words_count = 0
-with open("hp5.txt", "r", encoding="utf-8-sig") as fp:
-    for line_no, line in enumerate(fp, 1):
-        for match in WORD_RE.finditer(line):
-            if not DIGITSONLY_RE.fullmatch(match.group()):
-                words_count += 1
-                #word = match.group().lower()
-                word = fr_ci_as(match.group())
-
-                column_no = match.start()+1
-                location = (line_no, column_no)
-
-                # if not word in index:
-                #     index[word] = forms_locations(collections.defaultdict(int), [])
-
-                index[word].forms[match.group()] += 1
-                index[word].locations.append(location)
-
+index, words_count  = index_file(file, WORD_RE, fr_ci_as)
 print("Duration: %.3f" % (time.time()-start))
 print(f"Words: {words_count}, Index size: {len(index)}")
 
 
+# Recherche les formes avec apostrophes identiques à un mot sans apostrophe
+# comme d'écrire/décrire, l'éviter/léviter, l'aide/laide, d'avantage/davantage, l'imiter/limiter...
+
+index_quote, words_count_quote  = index_file(file, WORD_QUOTE_RE, fr_ci_as)
+
+for word in [w for w in index_quote.keys() if '’' in w]:
+    if word.replace('’', '') in index.keys():
+        print(word)
+
+
+
+"""
 # Helper to limit the size of an interable to the first n elements
 def top(seq: Iterable, n: int):
     for item in seq:
@@ -134,8 +148,9 @@ def top(seq: Iterable, n: int):
             return
         n -= 1
         yield item
+"""
 
-
+"""
 # Reduce index to entries seen at least 10 times
 ir = {key: value for (key, value) in index.items() if len(value.locations) >= 10}
 print(f"Index réduit: {len(ir)}")
@@ -150,19 +165,16 @@ with open("analysis.txt", "w", encoding="utf-8") as fo:
         if nl<100:
             print(l, end='')
         fo.write(l)
+"""
 
-# import json
-# with open("index.txt", "w", encoding="utf-8") as fi:
-#     json.dump(index, fi)
-
-
+"""
 # Print top 20 by frequency descending
 print("\nSorted by decreasing frequency (word, frequency) full index")
 nw = 0
 for word, count in sorted([(word, len(fl.locations)) for word, fl in index.items()], key=lambda tup: tup[1], reverse=True):
     print(f"{word}\t{count}")
     nw += 1
-    if nw > 30:
+    if nw > 20:
         break
 
 print("\nSorted be decreasing length (word, length) full index")
@@ -170,5 +182,6 @@ nw = 0
 for word, l in sorted([(word, len(word)) for word in index.keys()], key=lambda tup: len(tup[0]), reverse=True):
     print(f"{word}\t{l}")
     nw += 1
-    if nw > 30:
+    if nw > 20:
         break
+"""
