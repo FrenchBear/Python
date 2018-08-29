@@ -4,9 +4,11 @@
 
 from typing import Dict, List
 import unicodedata
+import locale
 
-lf = ['déjà', 'Deja', 'Meme', 'deja', 'même', 'dejà', 'bpef', 'bœg', 'Boef', 'Mémé',
-       'bœf', 'boef', 'bnef', 'pêche', 'pèché', 'pêché', 'pêche', 'pêché', 'boeh']
+
+# lf = ['déjà', 'Deja', 'Meme', 'deja', 'même', 'dejà', 'bpef', 'bœg', 'Boef', 'Mémé',
+#        'bœf', 'boef', 'bnef', 'pêche', 'pèché', 'pêché', 'pêche', 'pêché', 'boeh']
 
 
 def pregenerate_dic():
@@ -29,6 +31,8 @@ def pregenerate_dic():
 
 # [letter, accent, case]
 dic: Dict[str, List[int]] = {
+    'A': [0x0061, 0x0000, 0x0001],
+    'Â': [0x0061, 0x0302, 0x0001],
     'B': [0x0062, 0x0000, 0x0001],
     'D': [0x0064, 0x0000, 0x0001],
     'E': [0x0065, 0x0000, 0x0001],
@@ -41,11 +45,17 @@ dic: Dict[str, List[int]] = {
     'f': [0x0066, 0x0000, 0x0000],
     'g': [0x0067, 0x0000, 0x0000],
     'h': [0x0068, 0x0000, 0x0000],
+    'i': [0x0069, 0x0000, 0x0000],
     'j': [0x006a, 0x0000, 0x0000],
     'm': [0x006d, 0x0000, 0x0000],
     'n': [0x006e, 0x0000, 0x0000],
     'o': [0x006f, 0x0000, 0x0000],
     'p': [0x0070, 0x0000, 0x0000],
+    'q': [0x0071, 0x0000, 0x0000],
+    'r': [0x0072, 0x0000, 0x0000],
+    's': [0x0073, 0x0000, 0x0000],
+    't': [0x0074, 0x0000, 0x0000],
+    'â': [0x0061, 0x0302, 0x0000],
     'à': [0x0061, 0x0300, 0x0000],
     'è': [0x0065, 0x0300, 0x0000],
     'é': [0x0065, 0x0301, 0x0000],
@@ -70,6 +80,9 @@ class sorter:
     def greeting(self, name: str) -> str:
         return 'Hello ' + name
 
+    # Wrong: sorting words in a, all words starting with a accent such as âge will be at the end of a
+    # instead of being between agent and agir
+    # -> Need to sort on all L1 keys first, then on all L2, then on all L3, done in weights2
     def weigths(self, s: str) -> str:
         w = ""
         for c in s:
@@ -79,6 +92,25 @@ class sorter:
                 w += f"{ws[i+self.L2]:04x}"
                 w += f"{ws[i+self.L3]:04x}"
         #print(f"weights${self.L1}{self.L2}{self.L3}('{s}') -> '{w}'")
+        return w
+
+    def weigths2(self, s: str) -> str:
+        w = ""
+        for c in s:
+            ws = dic[c]
+            for i in range(0, len(ws), 3):
+                w += f"{ws[i+self.L1]:04x}"
+        w += " "
+        for c in s:
+            ws = dic[c]
+            for i in range(0, len(ws), 3):
+                w += f"{ws[i+self.L2]:04x}"
+        w += " "
+        for c in s:
+            ws = dic[c]
+            for i in range(0, len(ws), 3):
+                w += f"{ws[i+self.L3]:04x}"
+        #print(f"weights2_${self.L1}{self.L2}{self.L3}('{s}') -> '{w}'")
         return w
 
 
@@ -91,9 +123,23 @@ s021 = sorter(0, 2, 1)
 
 lf = ["e", "é", "E", "É"]
 lf = ['déjà', 'Deja', 'deja', 'dejà']
+lf = ['âge', 'Âge', 'age', 'agé', 'Age', 'âgé', 'âger', 'agent', 'agir']
 
-print("Lettre, accent, case")
+print("Lettre, accent, case (weights)")
 print(sorted(lf, key=s012.weigths))
 print()
-print("Lettre, case, accent")
+print("Lettre, case, accent (weights)")
 print(sorted(lf, key=s021.weigths))
+print()
+print("Lettre, accent, case (weights2)")
+print(sorted(lf, key=s012.weigths2))
+print()
+print("Lettre, case, accent (weights2)")
+print(sorted(lf, key=s021.weigths2))
+print()
+print("Locale défaut")
+print(sorted(lf, key=locale.strxfrm))
+locale.setlocale(locale.LC_ALL, "en-US")
+print()
+print("Locale en-US")
+print(sorted(lf, key=locale.strxfrm))
