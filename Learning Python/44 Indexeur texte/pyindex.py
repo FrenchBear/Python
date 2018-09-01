@@ -2,10 +2,12 @@
 # Variations sur le thème  du ti et de l'indexation de texte
 #
 # 2018-08-14    PV
+# 2018-09-01    PV      Tried collections.Counter, replaced my own top function by itertools.islice
 
 
 import collections
 import functools
+import itertools
 import locale
 import re
 import unicodedata
@@ -97,21 +99,20 @@ WORD_QUOTE_RE = re.compile(r"[\w’]+")
 DIGITS_ONLY_RE = re.compile(r'\d+')
 
 
-# Helper to limit the size of an interable to the first n elements
-def top(seq: Iterable, n: int):
-    for item in seq:
-        if n <= 0:
-            return
-        n -= 1
-        yield item
-
+# Tried to use a collections.Counter() instead of a collections.defaultdict(int)
+# but performance is very bas (3.4s execution instead of 1.8s)
+# Probable cause: collections.Counter() only support update(iterable) updte
+# and has no single Add(item) method, so there is too much overhead building an
+# iterable from a single element just to add one item to a counter.
 
 class forms_locations():
     def __init__(self):
         self.forms: DefaultDict[str, int] = collections.defaultdict(int)
+        #self.forms: collections.Counter() = collections.Counter()
         self.locations: List[Tuple[int, int]] = []
 
     def __str__(self):
+        #return self.forms.most_common(1)[0][0]
         m = -1
         s = ""
         for form,count in self.forms.items():
@@ -134,9 +135,9 @@ def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]
                     column_no = match.start()+1
                     location = (line_no, column_no)
                     index[word].forms[match.group()] += 1
+                    # index[word].forms.update([match.group()])
                     index[word].locations.append(location)
     return index, words_count
-
 
 
 def test_indexer():
@@ -165,7 +166,6 @@ def test_indexer():
     nl = 0
     print("Sorted by alphabetical order (word, frequencey) reduced index (frequency≥10)")
     with open("analysis.txt", "w", encoding="utf-8") as fo:
-        #for word in sorted(ir, key=functools.cmp_to_key(locale.strcoll)):
         for key in sorted(ir):
             l = f"{ir[key]}\t{len(ir[key].locations)}\t{dict(ir[key].forms)}\n"
             nl += 1

@@ -1,9 +1,10 @@
-# tk2.py
-# Conversion in->cm in tk
+# tk2 - Learning Tk #2
+# Conversion in->cm in tk, my first app
+# Tests various elements of Tk
 #
 # 2018-08-31    PV
 
-from tkinter import Frame, Label, Entry, StringVar, Button, messagebox, Menu
+from tkinter import Frame, Label, Entry, StringVar, Button, messagebox, Menu, SOLID
 import re
 
 NUMBER_RE = re.compile(r"(\+|-)?((\d+)|(\d+\.\d*)|(\d*\.\d+))")
@@ -13,9 +14,7 @@ NUMBER_RE = re.compile(r"(\+|-)?((\d+)|(\d+\.\d*)|(\d*\.\d+))")
 class MyQuitter(Frame):
     def __init__ (self, master = None):
         Frame.__init__(self, master)
-        #self.pack()
-        Button(self, text = "Quit",  command = self.myquit).grid()
-        #b.pack(side = LEFT, expand = YES, fill = BOTH)
+        Button(self, text = "Quit",  command = self.myquit, borderwidth=1, relief=SOLID).grid()
 
     def myquit(self):
         if messagebox.askokcancel("Quit", "Do you really wish to quit?"):
@@ -31,13 +30,11 @@ class MyApp(Frame):
         self.master.title("Convert in -> cm")
 
 
-        # Create a menu instance,
+        # Create a menu instance and attach it to root window
         self.mbar = Menu(self)
-        # Attach to the root window.
         self.master.config(menu = self.mbar)
-        # Create a new menu instance...
+        # Create a new menu instance and stick into the menu bar.
         self.filemenu = Menu(self.mbar, tearoff = 0)
-        # ...and stick into the menu bar.
         self.mbar.add_cascade(label = "File", menu = self.filemenu)
         # Add entries to file menu.
         self.filemenu.add_command(label = "Clear", command = self.clear)
@@ -56,7 +53,7 @@ class MyApp(Frame):
         self.ent.grid(row=0, column=1, padx=6, pady=6)
         self.ent.focus()
 
-        Button(self, text="Convert", command=self.btnCalc_click).grid(row=0, column=2, padx=6, pady=6)
+        Button(self, text="Convert", command=self.btnCalc_click, borderwidth=3, relief=SOLID).grid(row=0, column=2, padx=6, pady=6)
 
         self.lblRes = Label(self, text='No value', fg="Blue")
         self.lblRes.grid(columnspan=3, padx=6, pady=6)

@@ -1,4 +1,5 @@
-# MyImage.py
+# tk3 - Learning Tk #3
+# Use an image in a button and update it
 # Use pillow (Python Imaging Library) to show images (pip install pillow)
 #
 # 2018-08-31    PV

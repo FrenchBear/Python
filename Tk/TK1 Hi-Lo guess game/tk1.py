@@ -1,3 +1,9 @@
+# tk1 - Learning Tk #1
+# Very first example of Tk to get an idea how it works
+# Copied straight from tutorial
+#
+# 2018-08-31    PV
+
 import random
 from tkinter import Tk, Label, Button, Entry, StringVar, DISABLED, NORMAL, END, W, E
 

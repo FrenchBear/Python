@@ -2,6 +2,7 @@
 # Essais sur les itertools
 #
 # 2018-08-30    PV
+# 2018-09-01    PV      Use itertools.islice instead of top
 
 from itertools import *
 from typing import Iterable
@@ -14,17 +15,18 @@ import random
 # Helper to limit the size of an interable to the first n elements
 
 
-def top(seq: Iterable, n: int):
-    for item in seq:
-        if n <= 0:
-            return
-        n -= 1
-        yield item
+# use islice instead
+# def top(seq: Iterable, n: int):
+#     for item in seq:
+#         if n <= 0:
+#             return
+#         n -= 1
+#         yield item
 
 
 # Infinite iterators
-print(list(top(count(10, 3), 20)))
-print(list(top(cycle("ABCD"), 20)))
+print(list(islice(count(10, 3), 20)))
+print(list(islice(cycle("ABCD"), 20)))
 print(list(repeat(3.14, 20)))
 
 # Iterators terminating on the shortest input sequence:
