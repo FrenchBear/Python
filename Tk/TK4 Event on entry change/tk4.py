@@ -5,7 +5,7 @@
 # 2018-09-01    PV
 
 
-from tkinter import Tk, Frame, Label, Entry, StringVar
+import tkinter as tk
 
 class fruitlist:
     def entryupdate(self, sv, i):
@@ -14,19 +14,19 @@ class fruitlist:
             self.sva[1].set(sv.get().upper())
 
     def __init__(self, root):
-        cf = Frame(root)
+        cf = tk.Frame(root)
         cf.pack()
         self.sva = []
         self.fruit = ("Apple", "Banana", "Cherry", "Date")
         for f in self.fruit:
             i = len(self.sva)
-            self.sva.append(StringVar())
+            self.sva.append(tk.StringVar())
             self.sva[i].trace("w", lambda name, index, mode, var=self.sva[i], i=i:
                               self.entryupdate(var, i))
-            Label(cf, text=f).grid(column=2, row=i, sticky="w")
-            Entry(cf, width=6, textvariable=self.sva[i]).grid(column=4, row=i)
+            tk.Label(cf, text=f).grid(column=2, row=i, sticky="w")
+            tk.Entry(cf, width=6, textvariable=self.sva[i]).grid(column=4, row=i)
 
-root = Tk()
+root = tk.Tk()
 root.title("EntryUpdate")
 app = fruitlist(root)
 root.mainloop()

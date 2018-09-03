@@ -5,13 +5,13 @@
 # 2018-08-31    PV
 
 
-from tkinter import Label, Frame, Button
+import tkinter as tk
 from PIL import Image, ImageTk
 
 
-class MyImage(Frame):
+class MyImage(tk.Frame):
     def __init__(self, master=None):
-        Frame.__init__(self, master)
+        tk.Frame.__init__(self, master)
         self.pack()
 
         img1 = Image.open("FrenchBear38.jpg")
@@ -22,7 +22,7 @@ class MyImage(Frame):
         self.pic2 = ImageTk.PhotoImage(img2)
         self.pic = self.pic1
 
-        self.btn = Button(self, image=self.pic, command=self.btn_click)
+        self.btn = tk.Button(self, image=self.pic, command=self.btn_click)
         self.btn.pack()
 
     def btn_click(self):
