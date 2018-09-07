@@ -14,7 +14,7 @@ class GUI:
         for bdw in range(5):
             setattr(self, 'of%d' % bdw, tk.Frame(self.root, borderwidth=0))
             tk.Label(getattr(self, 'of%d' % bdw),
-                    text='borderwidth = %d  ' % bdw).pack(side=tk.LEFT)
+                    text='border width = %d  ' % bdw).pack(side=tk.LEFT)
             for relief in [tk.RAISED, tk.SUNKEN, tk.FLAT, tk.RIDGE, tk.GROOVE, tk.SOLID]:
                 tk.Button(getattr(self, 'of%d' % bdw), text=relief, borderwidth=bdw,
                         relief=relief, width=10,

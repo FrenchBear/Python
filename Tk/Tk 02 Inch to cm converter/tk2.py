@@ -1,5 +1,5 @@
 # tk2 - Learning Tk #2
-# Conversion in->cm in tk, my first app
+# Conversion in->cm in Tk, my first app
 # Tests various elements of Tk
 #
 # 2018-08-31    PV
@@ -46,9 +46,9 @@ class MyApp(tk.Frame):
 
         # Keys bindings
         self.master.bind("<Return>", self.key_return_event)         # Default action on Enter key
-        self.master.bind('<Control-q>', self.main_quit_event)       # Sedicated 2-arg event function
+        self.master.bind('<Control-q>', self.main_quit_event)       # Dedicated 2-arg event function
         self.master.bind('<Control-l>', self.clear)                 # Shared event function with default value for event
-        self.master.bind('<Control-a>', lambda e: self.about())     # Relay-lambda to cann single arg event function
+        self.master.bind('<Control-a>', lambda e: self.about())     # Relay-lambda to call single arg event function
 
 
         tk.Label(self, text="Length in inches:").grid(padx=6, pady=6)
@@ -75,7 +75,7 @@ class MyApp(tk.Frame):
     def main_quit(self):
         self.btnQuit.myquit()
 
-    # Version with event arg for shortcus binding
+    # Version with event arg for shortcuts binding
     def main_quit_event(self, event):
         self.main_quit()
 

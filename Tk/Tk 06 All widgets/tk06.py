@@ -55,7 +55,7 @@ tv.set('I am an entry widget')
 tk.Button(my_frame_1, text='tk.Button widget').pack()
 
 # add check button widget to my_frame_1
-tk.Checkbutton(my_frame_1, text='Checktk.Button Widget').pack()
+tk.Checkbutton(my_frame_1, text='Check tk.Button Widget').pack()
 
 # add radio buttons to my_frame_1
 tk.Radiobutton(my_frame_1, text='Radio tk.Button  Un', value=1).pack()
@@ -82,7 +82,7 @@ my_label.pack()
 my_frame_2 = tk.Frame(root, bd=2, relief=tk.GROOVE)
 my_frame_2.pack(side=tk.RIGHT)
 
-# add Photimage Class Widget to my_frame_2
+# add PhotoImage Class Widget to my_frame_2
 tk.Label(
     my_frame_2, text='Image displayed with \nPhotoImage class widget:').pack()
 dance_photo = tk.PhotoImage(file='dance.gif')
@@ -151,7 +151,7 @@ my_canvas.pack()
 my_canvas.create_oval(20, 15, 60, 60, fill='red')
 my_canvas.create_oval(40, 15, 60, 60, fill='grey')
 my_canvas.create_text(
-    130, 38, text='I am a tk.Canvas Widget', font=('arial', 8, 'bold'))
+    130, 38, text='I am a tk.Canvas Widget', font=('Times New Roman', 12, 'bold'))
 
 
 #
