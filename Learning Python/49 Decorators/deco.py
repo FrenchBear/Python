@@ -2,6 +2,8 @@
 # Exercices on decorators
 #
 # 2018-09-03    PV
+# 2018-09-07    PV      Variant with a class
+
 
 import functools
 
@@ -54,3 +56,35 @@ def say(name, line):
     return f'{name}: {line}'
 
 print(say('Jane', 'Hello, World'))
+
+
+
+# Variant, with a class
+# While a function embedded in a function gets a closer with outer function parameters, there is
+# no such thing here, and self.original is a "manual closure"
+
+class SkipLines():
+    def __init__(self, n):
+        self.n = n
+        self.original = None
+
+    def register(self, f):
+        self.original = f
+        return self.relay;
+    
+    def relay(self, *args, **kwargs):
+        for i in range(self.n):
+            print('-'*20)
+        self.original(*args, **kwargs)
+        for i in range(self.n):
+            print('-'*20)
+
+    __call__ = register
+
+
+@SkipLines(2)
+def PrintHello(n):
+    print("Hello,", n)
+
+PrintHello("Pierre")
+
