@@ -70,13 +70,13 @@ class SkipLines():
 
     def register(self, f):
         self.original = f
-        return self.relay;
+        return self.relay
     
     def relay(self, *args, **kwargs):
-        for i in range(self.n):
+        for _ in range(self.n):
             print('-'*20)
         self.original(*args, **kwargs)
-        for i in range(self.n):
+        for _ in range(self.n):
             print('-'*20)
 
     __call__ = register
