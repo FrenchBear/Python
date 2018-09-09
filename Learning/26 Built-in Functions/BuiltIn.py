@@ -406,20 +406,102 @@ def test_dir():
 
 
 def test_divmod():
+    """
+    divmod(a, b)
+
+    Take two (non complex) numbers as arguments and return a pair of numbers consisting of their quotient and remainder
+    when using integer division. With mixed operand types, the rules for binary arithmetic operators apply. For
+    integers, the result is the same as (a // b, a % b). For floating point numbers the result is (q, a % b), where q is
+    usually math.floor(a / b) but may be 1 less than that. In any case q * b + a % b is very close to a, if a % b is
+    non-zero it has the same sign as b, and 0 <= abs(a % b) < abs(b).
+    """
     print('\ntest_divmod()')
+    n = 157819
+    while n > 0:
+        n, d = divmod(n, 10)
+        print(d, end=' ')
+    print()
 
 
 def test_enumerate():
+    """
+    enumerate(iterable, start=0)
+
+    Return an enumerate object. iterable must be a sequence, an iterator, or some other object which supports iteration.
+    The __next__() method of the iterator returned by enumerate() returns a tuple containing a count (from start which
+    defaults to 0) and the values obtained from iterating over iterable.
+    """
     print('\ntest_enumerate()')
+    for i,c in enumerate('Hello'):
+        print(i,c)
 
 
 def test_eval():
-    print('\ntest_eval()')
+    """
+    eval(expression, globals=None, locals=None)
 
+    The arguments are a string and optional globals and locals. If provided, globals must be a dictionary. If provided,
+    locals can be any mapping object.
+
+    The expression argument is parsed and evaluated as a Python expression (technically speaking, a condition list)
+    using the globals and locals dictionaries as global and local namespace. If the globals dictionary is present and
+    does not contain a value for the key __builtins__, a reference to the dictionary of the built-in module builtins is
+    inserted under that key before expression is parsed. This means that expression normally has full access to the
+    standard builtins module and restricted environments are propagated. If the locals dictionary is omitted it defaults
+    to the globals dictionary. If both dictionaries are omitted, the expression is executed in the environment where
+    eval() is called. The return value is the result of the evaluated expression. Syntax errors are reported as
+    exceptions. 
+    Example: x = 1 eval('x+1') 2
+
+    This function can also be used to execute arbitrary code objects (such as those created by compile()). In this case
+    pass a code object instead of a string. If the code object has been compiled with 'exec' as the mode argument,
+    eval()’s return value will be None.
+
+    Hints: dynamic execution of statements is supported by the exec() function. The globals() and locals() functions
+    returns the current global and local dictionary, respectively, which may be useful to pass around for use by eval()
+    or exec().
+
+    See ast.literal_eval() for a function that can safely evaluate strings with expressions containing only literals.
+    """
+    print('\ntest_eval()')
+    print(eval('1+2*3**4'))
 
 def test_exec():
-    print('\ntest_exec()')
+    """
+    exec(object[, globals[, locals]])
 
+    This function supports dynamic execution of Python code. object must be either a string or a code object. If it is a
+    string, the string is parsed as a suite of Python statements which is then executed (unless a syntax error occurs).
+    [1] If it is a code object, it is simply executed. In all cases, the code that’s executed is expected to be valid as
+    file input (see the section “File input” in the Reference Manual). Be aware that the return and yield statements may
+    not be used outside of function definitions even within the context of code passed to the exec() function. The
+    return value is None.
+
+    In all cases, if the optional parts are omitted, the code is executed in the current scope. If only globals is
+    provided, it must be a dictionary, which will be used for both the global and the local variables. If globals and
+    locals are given, they are used for the global and local variables, respectively. If provided, locals can be any
+    mapping object. Remember that at module level, globals and locals are the same dictionary. If exec gets two separate
+    objects as globals and locals, the code will be executed as if it were embedded in a class definition.
+
+    If the globals dictionary does not contain a value for the key __builtins__, a reference to the dictionary of the
+    built-in module builtins is inserted under that key. That way you can control what builtins are available to the
+    executed code by inserting your own __builtins__ dictionary into globals before passing it to exec().
+
+    Note
+    The built-in functions globals() and locals() return the current global and local dictionary, respectively, which
+    may be useful to pass around for use as the second and third argument to exec().
+
+    Note
+    The default locals act as described for function locals() below: modifications to the default locals dictionary
+    should not be attempted. Pass an explicit locals dictionary if you need to see effects of the code on locals after
+    function exec() returns.
+    """
+    print('\ntest_exec()')
+    exec('for i in range(5):\n    print(i, i*i)\n')
+    """ Following 2 lines work fine when executed directly by python interpreter, but break VSCode debugging...
+    obj = compile('def fact(n):\n    return 1 if n<=1 else n*fact(n-1)\n\nprint("10!=", fact(10))\n', '', 'exec')
+    exec(obj)
+    """
 
 def test_filter():
     print('\ntest_filter()')
@@ -621,11 +703,11 @@ test_complex()
 test_delattr()
 test_dict()
 test_dir()
-"""
 test_divmod()
 test_enumerate()
 test_eval()
 test_exec()
+"""
 test_filter()
 test_float()
 test_format()
