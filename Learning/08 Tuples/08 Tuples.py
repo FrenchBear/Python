@@ -1,6 +1,9 @@
 # Tuples
 # Learning Python
+#
 # 2015-05-02    PV
+# 2018-09-09    PV      Added namedtuple, NamedTuple, @dataclass
+
 
 t=1,2,3
 u=(4,5,6)
@@ -32,3 +35,30 @@ min,max=min_max(l)
 print(min,max)
 print(l)                # l has been globally sorted
 
+
+# Python 3.6
+from collections import namedtuple
+Car=namedtuple('Car','Brand Color Year')
+c1 = Car(Brand='Renault', Color='White', Year=2016)
+print(c1, c1.Brand)
+
+# Python 3.6
+from typing import NamedTuple
+class Voiture(NamedTuple):
+    Brand: str
+    Color:str
+    Year:int
+
+v1 = Voiture(Brand='Peugeot', Color='Gris', Year=2013)
+print(v1, v1.Brand)
+
+# Python 3.7
+from dataclasses import dataclass
+@dataclass
+class Bagnole:
+    Brand: str
+    Color:str
+    Year:int
+
+b1 = Bagnole(Brand='Mercedes', Color='Noir', Year=2017)
+print(b1, b1.Brand)
