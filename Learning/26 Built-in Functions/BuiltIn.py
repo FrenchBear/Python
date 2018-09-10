@@ -496,12 +496,12 @@ def test_exec():
     should not be attempted. Pass an explicit locals dictionary if you need to see effects of the code on locals after
     function exec() returns.
     """
+
     print('\ntest_exec()')
     exec('for i in range(5):\n    print(i, i*i)\n')
-    """ Following 2 lines work fine when executed directly by python interpreter, but break VSCode debugging...
-    obj = compile('def fact(n):\n    return 1 if n<=1 else n*fact(n-1)\n\nprint("10!=", fact(10))\n', '', 'exec')
-    exec(obj)
-    """
+    # Following 2 lines work fine when executed directly by python interpreter, but stop VSCode debugger...
+    # obj = compile('def fact(n):\n    return 1 if n<=1 else n*fact(n-1)\n\nprint("10!=", fact(10))\n', '', 'exec')
+    # exec(obj)
 
 def test_filter():
     print('\ntest_filter()')
