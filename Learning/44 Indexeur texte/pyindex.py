@@ -121,6 +121,9 @@ class forms_locations():
                 s=form
         return s
 
+    def count(self):
+        return sum(c for c in self.forms.values())
+
 
 def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]:
     index: DefaultDict[str, forms_locations] = collections.defaultdict(forms_locations)
@@ -173,11 +176,10 @@ def test_indexer():
                 print(l, end='')
             fo.write(l)
 
-    """
     # Print top 20 by frequency descending
     print("\nSorted by decreasing frequency (word, frequency) full index")
     nw = 0
-    for word, count in sorted([(word, len(fl.locations)) for word, fl in index.items()], key=lambda tup: tup[1], reverse=True):
+    for word, count in sorted([(str(fl), fl.count()) for fl in index.values()], key=lambda tup: tup[1], reverse=True):
         print(f"{word}\t{count}")
         nw += 1
         if nw > 20:
@@ -185,12 +187,11 @@ def test_indexer():
 
     print("\nSorted be decreasing length (word, length) full index")
     nw = 0
-    for word, l in sorted([(word, len(word)) for word in index.keys()], key=lambda tup: len(tup[0]), reverse=True):
-        print(f"{word}\t{l}")
+    for word, count in sorted([(str(fl), len(str(fl))) for fl in index.values()], key=lambda tup: tup[1], reverse=True):
+        print(f"{word}\t{count}")
         nw += 1
         if nw > 20:
             break
-    """
 
 
 def search_quote(file:str):
