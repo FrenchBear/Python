@@ -1,6 +1,9 @@
 # ducet-stype sorting
 # Proof of concept
+#
 # 2018-08-25    PV
+# 2018-09-22    PV      pyuca module (pip install pyuca)
+
 
 from typing import Dict, List
 import unicodedata
@@ -143,3 +146,14 @@ locale.setlocale(locale.LC_ALL, "en-US")
 print()
 print("Locale en-US")
 print(sorted(lf, key=locale.strxfrm))
+
+
+
+# Finally discovered pyuca module
+# pip install pyuca
+# https://github.com/jtauber/pyuca
+
+import pyuca
+coll = pyuca.Collator()
+print("\npyuca:")
+print(sorted(lf, key=coll.sort_key))
