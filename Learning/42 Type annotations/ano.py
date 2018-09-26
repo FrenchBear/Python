@@ -2,7 +2,7 @@
 # Exercices on Pyhton 3.7 and mypy
 # 2008-08-24    PV
 
-from typing import Dict, List
+from typing import Dict, List, Union
 
 
 class Dog:
@@ -56,7 +56,6 @@ felix = Cat("Félix")
 # excite(felix)
 
 
-
 def get_first_name(full_name: str) -> str:
     return full_name.split(" ")[0]
 
@@ -71,7 +70,7 @@ first_name: str = get_first_name(raw_name)
 
 # If the user didn't type anything in, use the fallback name
 if not first_name:
-    first_name = get_first_name(fallback_name)
+    first_name = get_first_name(fallback_name)      # Error since fallbackname is a dictionary!
 
 print(f"Hi, {first_name}!")
 
@@ -87,7 +86,24 @@ class myclass:
     def myfunc(self, s: str) -> List[int]:
         return [1, 2, 3]
 
+
 l = myfunc()
 
 cc = myclass()
 l = cc.myfunc("zap")
+
+
+zs: Union[str, int] 
+zs = 3
+zs = 'top'
+# zs=3.13        # Error float type
+
+
+# def triple(x:Union[str,int]) -> Union[str,int]:
+def triple(x:Union[str, int]):
+    return x+x+x
+
+
+print(triple(2))
+print(triple('ga'))
+print(triple(3.13))     # Not good
