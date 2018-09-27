@@ -41,13 +41,13 @@ print('__qualname__:', factorial.__qualname__)
 
 print('\n\n')
 
-def myfunc(a, b, c='hello', d=true, *args, z=None, **kwargs):
-    l =len(args)+len(kwargs)
+def myfunc(a:int, b, c:str='hello', d:bool=true, *args, z=None, **kwargs):
+    # l =len(args)+len(kwargs)
     print('a:', a, ' b:', b, ' c:', c, ' d:', d, ' z:', z, ' args:', args, ' kwarks:', kwargs, sep='')
 
-myfunc(3.14, [1, 2])
+myfunc(3, [1, 2])
 myfunc(0, 1, 'world', False, z=12, myckey='mouse')
-myfunc(0, 1, 2, 3, 4, 5, six=6, sept=7, z='zero')
+myfunc(0, 1, '2', True, 4, 5, six=6, sept=7, z='zero')
 
 # named parameters defined after *args arguments can only be given as keyword argument, it will never
 # capture an unnamed positional argument.
@@ -71,7 +71,38 @@ print('myfunc argcount:', myfunc.__code__.co_argcount)
 
 from inspect import signature
 sig = signature(myfunc)
-print(str(sig))
+print()
+print(str(sig))     # (a, b, c='hello', d=True, *args, z=None, **kwargs)
 for name, param in sig.parameters.items():
     print(param.kind, ':', name, '=', param.default)
-    
+# POSITIONAL_OR_KEYWORD : a = <class 'inspect._empty'>
+# POSITIONAL_OR_KEYWORD : b = <class 'inspect._empty'>
+# POSITIONAL_OR_KEYWORD : c = hello
+# POSITIONAL_OR_KEYWORD : d = True
+# VAR_POSITIONAL : args = <class 'inspect._empty'>
+# KEYWORD_ONLY : z = None
+# VAR_KEYWORD : kwargs = <class 'inspect._empty'>
+
+# divmod has positional parameters only (can't use names), only accessible to functions implemented in C
+print()
+sigdm = signature(divmod)
+print(str(sigdm))     # (x, y, /)
+for name, param in sigdm.parameters.items():
+    print(param.kind, ':', name, '=', param.default)
+# POSITIONAL_ONLY : x = <class 'inspect._empty'>
+# POSITIONAL_ONLY : y = <class 'inspect._empty'>
+
+
+# bind applies standard python matching rules
+print()
+bound_args = sig.bind(0, 1, '2', True, 4, 5, six=6, sept=7, z='zero')
+for name, value in bound_args.arguments.items():    # bound_args.arguments is an OrderedDict
+    print(name, '=', value)
+# a = 0
+# b = 1
+# c = 2
+# d = 3
+# args = (4, 5)
+# z = zero
+# kwargs = {'six': 6, 'sept': 7}    
+

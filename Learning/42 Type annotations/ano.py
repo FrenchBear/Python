@@ -71,6 +71,7 @@ first_name: str = get_first_name(raw_name)
 # If the user didn't type anything in, use the fallback name
 if not first_name:
     first_name = get_first_name(fallback_name)      # Error since fallbackname is a dictionary!
+# mypy: ano.py:73: error: Argument 1 to "get_first_name" has incompatible type "Dict[str, str]"; expected "str"
 
 print(f"Hi, {first_name}!")
 
@@ -102,8 +103,11 @@ zs = 'top'
 # def triple(x:Union[str,int]) -> Union[str,int]:
 def triple(x:Union[str, int]):
     return x+x+x
-
+# mypy: ano.py:104: error: Unsupported operand types for + ("str" and "int")
+# mypy: ano.py:104: error: Unsupported operand types for + ("int" and "str")
+# mypy: ano.py:104: note: Both left and right operands are unions
 
 print(triple(2))
 print(triple('ga'))
 print(triple(3.13))     # Not good
+# mypy: ano.py:109: error: Argument 1 to "triple" has incompatible type "float"; expected "Union[str, int]"
