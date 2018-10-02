@@ -78,7 +78,8 @@ class SkipLines():
         self.n = n
         self.original = None
 
-    def register(self, f):
+    # Callable that handles registration
+    def __call__(self, f):
         self.original = f
         return self.relay
 
@@ -89,13 +90,9 @@ class SkipLines():
         for _ in range(self.n):
             print('-'*20)
 
-    __call__ = register
-
-
 @SkipLines(2)
 def PrintHello(n):
     print("Hello,", n)
-
 
 PrintHello("Pierre")
 

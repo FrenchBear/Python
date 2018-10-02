@@ -60,7 +60,12 @@ class french_text_canonizer():
     # def canonize_ci_as(self, s: str) -> str:
     #     return unicodedata.normalize("NFKD", s.replace('œ', 'oe').replace("’", "'").upper())
 
-    def canonize(self, s: str) -> str:
+    # Previously:
+    # def canonize(self, s: str) -> str:
+    # __call__=canonize
+
+    # Default method for objets of the class
+    def __call__(self, s: str) -> str:
         # First some expansions not managed by normalization
         for (s1, s2) in french_text_canonizer.expansion_list:
             if s1 in s:
@@ -74,9 +79,6 @@ class french_text_canonizer():
         if not self.accent_significant:
             s = ''.join(c for c in list(s) if unicodedata.category(c) != 'Mn')
         return s    # unicodedata.normalize("NFC", s)
-
-    # Default method for objets of the class
-    __call__ = canonize
 
 
 # Create all combinations for tests
@@ -112,13 +114,13 @@ class forms_locations():
         self.locations: List[Tuple[int, int]] = []
 
     def __str__(self):
-        #return self.forms.most_common(1)[0][0]
+        # return self.forms.most_common(1)[0][0]
         m = -1
         s = ""
-        for form,count in self.forms.items():
-            if count>m:
-                m=count
-                s=form
+        for form, count in self.forms.items():
+            if count > m:
+                m = count
+                s = form
         return s
 
     def count(self):
@@ -148,18 +150,17 @@ def test_indexer():
     file = "sda2.txt"
 
     ix1 = fr_ci_as      # Duration: 1.165
-    ix2 = lambda s: locale.strxfrm(unicodedata.normalize("NFKD", s).upper())    # Duration: 1.106
 
+    def ix2(s): return locale.strxfrm(unicodedata.normalize("NFKD", s).upper())    # Duration: 1.106
     """
     locale sort keys a à âge agit...
     fr_ci_as sorts keys a agit... à âge 
     """
 
     start = time.time()
-    index, words_count  = index_file(file, WORD_RE, ix2)
+    index, words_count = index_file(file, WORD_RE, ix2)
     print("Duration: %.3f" % (time.time()-start))
     print(f"Words: {words_count}, Index size: {len(index)}")
-
 
     # Reduce index to entries seen at least 10 times
     ir = {key: value for (key, value) in index.items() if len(value.locations) >= 10}
@@ -172,7 +173,7 @@ def test_indexer():
         for key in sorted(ir):
             l = f"{ir[key]}\t{len(ir[key].locations)}\t{dict(ir[key].forms)}\n"
             nl += 1
-            if nl<150:
+            if nl < 150:
                 print(l, end='')
             fo.write(l)
 
@@ -194,28 +195,27 @@ def test_indexer():
             break
 
 
-def search_quote(file:str):
+def search_quote(file: str):
     # Recherche les formes avec apostrophes identiques à un mot sans apostrophe
     # comme d'écrire/décrire, l'éviter/léviter, l'aide/laide, d'avantage/davantage, l'imiter/limiter...
 
-    index, _  = index_file(file, WORD_RE, fr_ci_as)
-    index_quote, _  = index_file(file, WORD_QUOTE_RE, fr_ci_as)
+    index, _ = index_file(file, WORD_RE, fr_ci_as)
+    index_quote, _ = index_file(file, WORD_QUOTE_RE, fr_ci_as)
 
     for word in [w for w in index_quote.keys() if '’' in w]:
         if word.replace('’', '') in index.keys():
             print(word)
 
 
-
-def count_letters(file:str):
+def count_letters(file: str):
     dic = collections.defaultdict(int)
     with open(file, "r", encoding="utf-8-sig") as fp:
         for line in fp:
             for char in line:
                 dic[char] += 1
-    for letter,count in sorted(dic.items(), key=lambda tup: tup[1], reverse=True):
+    for letter, count in sorted(dic.items(), key=lambda tup: tup[1], reverse=True):
         print(f"{letter}\t{count}")
 
 
-#count_letters("sda.txt")
+# count_letters("sda.txt")
 test_indexer()
