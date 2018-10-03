@@ -40,6 +40,8 @@ print()
 
 class TreeNode:
     def __init__(self, name, parent=None):
+        if parent and not isinstance(parent, TreeNode):
+            raise TypeError("parent must be a TreeNode or None")
         self.name = name
         self.parent = parent
         self.children = []
@@ -48,11 +50,11 @@ class TreeNode:
 
     def print(self, m1='', m2=''):
         print(m1 + self.name)
-        nm1 = m2 + '┣━ '
-        nm2 = m2 + '┃  '
+        nm1 = m2 + '├─ '
+        nm2 = m2 + '│  '
         for ix, child in enumerate(self.children):
             if ix == len(self.children)-1:
-                nm1 = m2 + '┗━ '
+                nm1 = m2 + '╰─ '
                 nm2 = m2 + '   '
             child.print(nm1, nm2)
 

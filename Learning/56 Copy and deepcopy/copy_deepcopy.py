@@ -1,31 +1,33 @@
 # copy_deepcopy.py
 # Learning python
-# Exercise on copy and deepcopy
-# 2×3  « dup 1 + lastx 2 * * swap drop »
+# Exercise on copy and deepcopy, and on tree structure
+# 
 # 2018-10-02    PV
 
 
 class TreeNode:
-    def __init__(self, name, parent=None):
-        self.name = name
+    def __init__(self, value, parent=None):
+        if parent and not isinstance(parent, TreeNode):
+            raise TypeError("parent must be a TreeNode or None")
+        self.value = value
         self.parent = parent
         self.children = []
         if parent:
             parent.children.append(self)
 
     def print(self, m1='', m2=''):
-        print(m1 + self.name)
-        nm1 = m2 + '┣━ '
-        nm2 = m2 + '┃  '
+        print(m1 + self.value)
+        nm1 = m2 + '├─ '
+        nm2 = m2 + '│  '
         for ix, child in enumerate(self.children):
             if ix == len(self.children)-1:
-                nm1 = m2 + '┗━ '
+                nm1 = m2 + '╰─ '
                 nm2 = m2 + '   '
             child.print(nm1, nm2)
 
     def flatprint(self):
         if len(self.children)==0:
-            print(f"Block('{self.name}', '{self.parent.name}', '{self.parent.parent.name}')")
+            print(f"Block('{self.value}', '{self.parent.value}', '{self.parent.parent.value}')")
         else:
             for child in self.children:
                 child.flatprint()
@@ -60,8 +62,8 @@ from copy import copy, deepcopy
 rsc = copy(root)
 rdc = deepcopy(root)
 
-european.name='LATIN'
-numbers.name='NUMBERS'
+european.value='LATIN'
+numbers.value='NUMBERS'
 
 # rsc.print()
 # rdc.print()
