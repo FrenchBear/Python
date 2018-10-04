@@ -5,10 +5,13 @@
 # simple_coro: after reading pylint comments on error E1111
 #
 # But pylint (at least version 2.1.1) doesn't like to call a function that does not contain a return statement...
+# pylint: disable=assignment-from-no-return
+#
+# Note that at the end, main program is stopped by a StopIteration exception and I don't really know how to avoid it
+# besites a "try catch" around call to test_writer()
 #
 # 2018-09-28    PV
 
-# pylint: disable=assignment-from-no-return
 
 
 def writer():
@@ -23,23 +26,27 @@ def writer():
     print("writer ends")
 
 
-#def test_writer():
-print("$1")
-w = writer()
-print("$2")
-w.send(None)  # start the generator
-print("$3")
-for i in range(4):
-    w.send(i)
-print("$4")
-w.throw(StopIteration)
-print("$4")
+def test_writer():
+    print("$1")
+    w = writer()
+    print("$2")
+    w.send(None)  # start the generator
+    print("$3")
+    for i in range(4):
+        w.send(i)
+    print("$4")
+    w.throw(StopIteration)
+    print("$4")
+    w = None
+
+try:
+    test_writer()
+except StopIteration:
+    pass
 
 
-#test_writer()
 
 # import asyncio
-
 
 # async def simple_coro():
 #     await asyncio.sleep(0.1)
