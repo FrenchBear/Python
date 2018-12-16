@@ -5,6 +5,7 @@
 #
 # 2018-06-20    PV
 # 2018-08-20    PV      Added python documentation text
+# 2018-12-16	PV	    Example of instance method using this instead of self
 
 """
 Built-in @classmethod
@@ -64,6 +65,10 @@ class Sprocket:
     def GetName(self):
         return self.Name
 
+    # Variant of class method using this.  Pylint complains about it, but python interpreter is Ok.
+    def GetName2(this):
+        return this.Name
+
     # Class variable
     count = 0
 
@@ -86,6 +91,7 @@ s2 = Sprocket("two")
 # Call instance method from object
 print(s1.GetName())             # Usual dotted syntax
 print(Sprocket.GetName(s2))     # Function-style call from class, passing object as 1st parameter
+print(s1.GetName2())            # Instance method with this instead of self
 
 Sprocket.Increment()
 Sprocket.Increment()
