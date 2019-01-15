@@ -140,7 +140,9 @@ def test_multiprocessing():
 # -------------------------------------------------
 # Main
 
-#test_synchronous()
-#test_threading()
-#test_asyncio()
-test_multiprocessing()
+if __name__ == '__main__':
+    #multiprocessing.freeze_support()
+    #test_synchronous()
+    #test_threading()
+    #test_asyncio()
+    test_multiprocessing()
