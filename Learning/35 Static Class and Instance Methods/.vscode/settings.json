@@ -1,0 +1,11 @@
+{
+    "python.linting.pylintEnabled": true,
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ]
+}

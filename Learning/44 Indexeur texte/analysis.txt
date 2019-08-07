@@ -1,0 +1,1648 @@
+a	762	{'a': 750, 'A': 12}
+à	3350	{'à': 3200, 'À': 150}
+abord	44	{'abord': 44}
+abrupte	11	{'abrupte': 11}
+accompagner	11	{'accompagner': 11}
+acier	12	{'acier': 12}
+Adieu	13	{'Adieu': 9, 'adieu': 4}
+affaire	28	{'affaire': 28}
+affaires	16	{'affaires': 16}
+afin	22	{'afin': 19, 'Afin': 3}
+âge	13	{'âge': 13}
+agit	19	{'agit': 19}
+Ah	25	{'Ah': 21, 'ah': 4}
+ai	367	{'ai': 366, 'Ai': 1}
+aide	33	{'aide': 33}
+aider	34	{'aider': 34}
+aient	18	{'aient': 18}
+ailes	13	{'ailes': 12, 'Ailes': 1}
+ailleurs	23	{'ailleurs': 23}
+aime	24	{'aime': 24}
+aimerais	21	{'aimerais': 20, 'Aimerais': 1}
+ainsi	133	{'Ainsi': 35, 'ainsi': 98}
+air	137	{'air': 137}
+aise	11	{'aise': 11}
+ait	61	{'ait': 61}
+alentour	19	{'alentour': 19}
+alla	11	{'alla': 11}
+allaient	19	{'allaient': 19}
+allait	17	{'allait': 17}
+allé	11	{'allé': 11}
+aller	108	{'aller': 107, 'Aller': 1}
+allez	43	{'Allez': 19, 'allez': 24}
+Allons	98	{'Allons': 55, 'allons': 43}
+allure	11	{'allure': 11}
+alors	329	{'alors': 240, 'Alors': 89}
+ami	30	{'ami': 29, 'Ami': 1}
+amis	56	{'amis': 56}
+amitié	13	{'amitié': 13}
+Anborn	14	{'Anborn': 14}
+ancien	17	{'ancien': 17}
+ancienne	11	{'ancienne': 11}
+anciennes	12	{'anciennes': 11, 'Anciennes': 1}
+anciens	14	{'anciens': 11, 'Anciens': 3}
+Anduin	22	{'Anduin': 22}
+Andúril	12	{'Andúril': 12}
+Anneau	101	{'Anneau': 75, 'anneau': 26}
+Anneaux	13	{'ANNEAUX': 2, 'Anneaux': 7, 'anneaux': 4}
+années	45	{'Années': 2, 'années': 43}
+antre	13	{'antre': 12, 'Antre': 1}
+apercevoir	13	{'apercevoir': 13}
+aperçut	10	{'aperçut': 10}
+appela	11	{'appela': 11}
+appelé	10	{'appelé': 10}
+appeler	12	{'appeler': 12}
+appelle	18	{'appelle': 18}
+apprendre	13	{'apprendre': 13}
+approche	20	{'approche': 20}
+approcher	18	{'approcher': 18}
+appuyé	10	{'appuyé': 10}
+après	139	{'après': 124, 'Après': 15}
+Aragorn	295	{'Aragorn': 295}
+Araigne	33	{'Araigne': 33}
+araignée	11	{'araignée': 11}
+Arathorn	10	{'Arathorn': 10}
+arbre	48	{'arbre': 43, 'Arbre': 5}
+arbres	159	{'arbres': 157, 'Arbres': 2}
+arc	25	{'arc': 25}
+arche	21	{'arche': 21}
+argent	29	{'argent': 26, 'Argent': 3}
+arme	14	{'arme': 14}
+armée	20	{'armée': 20}
+armées	16	{'armées': 16}
+armes	29	{'armes': 29}
+Arpenteur	13	{'Arpenteur': 13}
+arrêta	26	{'arrêta': 26}
+arrêter	18	{'arrêter': 18}
+arrêtèrent	23	{'arrêtèrent': 23}
+arrière	45	{'arrière': 45}
+arriva	11	{'arriva': 11}
+arrive	29	{'arrive': 29}
+arrivé	19	{'arrivé': 19}
+arrivée	16	{'arrivée': 16}
+arriver	30	{'arriver': 30}
+arrivèrent	11	{'arrivèrent': 11}
+arrivés	12	{'arrivés': 12}
+as	65	{'As': 5, 'as': 60}
+assaut	18	{'assaut': 18}
+asseoir	12	{'asseoir': 12}
+assez	71	{'assez': 68, 'Assez': 3}
+assirent	13	{'assirent': 13}
+assis	48	{'assis': 48}
+Assurément	14	{'assurément': 6, 'Assurément': 8}
+atteindre	13	{'atteindre': 13}
+atteint	12	{'atteint': 12}
+attend	12	{'attend': 12}
+attendre	44	{'attendre': 44}
+attention	39	{'attention': 34, 'Attention': 5}
+au	1165	{'au': 1082, 'Au': 83}
+aube	29	{'aube': 29}
+aucun	141	{'Aucun': 25, 'aucun': 116}
+aucune	88	{'aucune': 82, 'Aucune': 6}
+aujourd	28	{'aujourd': 26, 'Aujourd': 2}
+auparavant	12	{'auparavant': 12}
+auprès	30	{'auprès': 30}
+aura	36	{'aura': 36}
+auraient	23	{'auraient': 23}
+aurais	25	{'aurais': 25}
+aurait	96	{'aurait': 96}
+aurez	11	{'aurez': 11}
+aurore	11	{'aurore': 8, 'Aurore': 3}
+aussi	269	{'aussi': 264, 'Aussi': 5}
+aussitôt	45	{'aussitôt': 41, 'Aussitôt': 4}
+autant	51	{'autant': 47, 'Autant': 4}
+autour	67	{'autour': 65, 'Autour': 2}
+autre	311	{'autre': 311}
+autrefois	34	{'autrefois': 32, 'Autrefois': 2}
+autrement	12	{'autrement': 11, 'Autrement': 1}
+autres	225	{'autres': 225}
+aux	293	{'aux': 288, 'Aux': 5}
+avaient	184	{'avaient': 184}
+avais	52	{'avais': 52}
+avait	481	{'avait': 479, 'Avait': 2}
+avança	18	{'avança': 18}
+avançaient	13	{'avançaient': 13}
+avançait	15	{'avançait': 15}
+avancer	12	{'avancer': 12}
+avant	270	{'avant': 255, 'Avant': 15}
+avec	517	{'avec': 503, 'Avec': 14}
+avez	125	{'avez': 121, 'Avez': 4}
+aviez	10	{'aviez': 10}
+avions	14	{'avions': 14}
+avis	10	{'avis': 10}
+avoir	119	{'avoir': 119}
+avons	151	{'avons': 150, 'Avons': 1}
+ayant	17	{'ayant': 12, 'Ayant': 5}
+ayez	12	{'ayez': 11, 'Ayez': 1}
+baissa	10	{'baissa': 10}
+Barad	12	{'Barad': 12}
+Barbebois	137	{'Barbebois': 137}
+barque	11	{'barque': 11}
+bas	131	{'bas': 131}
+basse	13	{'basse': 13}
+bassin	10	{'bassin': 10}
+bataille	51	{'bataille': 47, 'Bataille': 4}
+bâton	29	{'bâton': 29}
+battre	14	{'battre': 14}
+beau	27	{'Beau': 2, 'beau': 25}
+beaucoup	84	{'beaucoup': 77, 'Beaucoup': 7}
+beaux	12	{'beaux': 12}
+belle	39	{'belle': 38, 'Belle': 1}
+belles	15	{'belles': 15}
+besoin	48	{'besoin': 48}
+bête	11	{'bête': 11}
+bêtes	14	{'bêtes': 14}
+bien	551	{'bien': 523, 'Bien': 28}
+bientôt	95	{'bientôt': 70, 'Bientôt': 25}
+blanc	53	{'Blanc': 20, 'blanc': 33}
+blanche	42	{'blanche': 25, 'Blanche': 17}
+blanches	29	{'blanches': 15, 'Blanches': 14}
+blancs	13	{'blancs': 13}
+blessure	10	{'blessure': 10}
+boire	14	{'boire': 14}
+bois	115	{'bois': 99, 'Bois': 16}
+boisson	10	{'boisson': 10}
+bon	120	{'Bon': 27, 'bon': 93}
+bond	17	{'bond': 17}
+bonne	61	{'bonne': 54, 'Bonne': 7}
+bonnes	13	{'Bonnes': 1, 'bonnes': 12}
+bons	13	{'bons': 13}
+bord	53	{'bord': 53}
+bords	13	{'bords': 13}
+Boromir	99	{'Boromir': 99}
+bosquets	10	{'bosquets': 10}
+bouche	31	{'bouche': 31}
+boucliers	12	{'boucliers': 12}
+bouger	13	{'bouger': 13}
+boum	13	{'boum': 11, 'Boum': 2}
+bout	71	{'bout': 71}
+branches	29	{'branches': 28, 'Branches': 1}
+bras	84	{'bras': 84}
+brèche	18	{'Brèche': 5, 'brèche': 13}
+Bregalad	11	{'Bregalad': 11}
+brillait	10	{'brillait': 10}
+brillante	10	{'brillante': 10}
+brisée	14	{'brisée': 7, 'Brisée': 7}
+brouillard	12	{'brouillard': 12}
+bruit	29	{'bruit': 29}
+brume	31	{'Brume': 8, 'brume': 23}
+brumes	23	{'brumes': 23}
+brusquement	18	{'brusquement': 16, 'Brusquement': 2}
+buissons	16	{'buissons': 16}
+c	553	{'C': 261, 'c': 292}
+ça	190	{'ça': 147, 'Ça': 43}
+çà	14	{'çà': 14}
+cacher	17	{'cacher': 17}
+campement	12	{'campement': 12}
+capable	13	{'capable': 13}
+capables	11	{'capables': 11}
+cape	36	{'cape': 36}
+capes	11	{'capes': 11}
+Capitaine	23	{'capitaine': 8, 'Capitaine': 15}
+capuchon	12	{'capuchon': 12}
+car	239	{'car': 160, 'Car': 79}
+cas	59	{'cas': 59}
+casque	10	{'casque': 10}
+Cavalier	38	{'Cavalier': 20, 'cavalier': 18}
+Cavaliers	94	{'Cavaliers': 58, 'cavaliers': 36}
+caverne	15	{'caverne': 15}
+ce	1027	{'ce': 921, 'Ce': 106}
+ceci	18	{'Ceci': 4, 'ceci': 14}
+ceinture	15	{'ceinture': 15}
+cela	148	{'Cela': 36, 'cela': 112}
+celle	42	{'celle': 36, 'Celle': 6}
+celles	15	{'celles': 15}
+celui	44	{'celui': 35, 'Celui': 9}
+centaine	10	{'centaine': 10}
+centaines	15	{'centaines': 15}
+centre	12	{'centre': 12}
+cercle	28	{'cercle': 15, 'Cercle': 13}
+certain	17	{'certain': 17}
+certainement	13	{'certainement': 11, 'Certainement': 2}
+certains	53	{'Certains': 22, 'certains': 31}
+certes	16	{'certes': 10, 'Certes': 6}
+ces	196	{'ces': 168, 'Ces': 28}
+cessait	14	{'cessait': 14}
+cet	64	{'cet': 59, 'Cet': 5}
+cette	293	{'cette': 264, 'Cette': 29}
+ceux	114	{'ceux': 104, 'Ceux': 10}
+chacun	32	{'chacun': 32}
+champ	28	{'champ': 26, 'Champ': 2}
+champs	17	{'champs': 16, 'Champs': 1}
+chance	23	{'chance': 23}
+changé	15	{'changé': 15}
+changement	13	{'changement': 13}
+chanson	11	{'chanson': 11}
+chansons	10	{'chansons': 10}
+chant	19	{'chant': 19}
+chanter	11	{'chanter': 11}
+chants	12	{'chants': 12}
+chaque	54	{'chaque': 44, 'Chaque': 10}
+charge	11	{'charge': 11}
+charme	10	{'charme': 10}
+chasse	17	{'chasse': 17}
+chaud	10	{'chaud': 10}
+chef	14	{'chef': 13, 'Chef': 1}
+chemin	132	{'chemin': 132}
+chemins	23	{'chemins': 23}
+cher	14	{'cher': 14}
+cherchant	11	{'cherchant': 10, 'Cherchant': 1}
+chercher	27	{'chercher': 27}
+cheval	55	{'cheval': 55}
+chevaucher	10	{'chevaucher': 10}
+chevaux	49	{'chevaux': 45, 'Chevaux': 4}
+cheveux	26	{'cheveux': 24, 'Cheveux': 2}
+chez	55	{'chez': 51, 'Chez': 4}
+choisi	13	{'choisi': 13}
+choix	33	{'choix': 33}
+chose	199	{'chose': 198, 'Chose': 1}
+choses	111	{'choses': 111}
+chute	24	{'chute': 24}
+chutes	15	{'chutes': 14, 'Chutes': 1}
+ci	62	{'ci': 62}
+ciel	89	{'ciel': 89}
+cime	11	{'cime': 10, 'Cime': 1}
+cimes	13	{'cimes': 13}
+cinq	20	{'Cinq': 5, 'cinq': 15}
+Cirith	11	{'Cirith': 11}
+cité	32	{'cité': 29, 'Cité': 3}
+clair	36	{'clair': 36}
+claire	25	{'claire': 25}
+clairement	11	{'clairement': 11}
+clairs	12	{'clairs': 12}
+clameur	11	{'clameur': 11}
+cœur	93	{'cœur': 92, 'Cœur': 1}
+coin	22	{'coin': 22}
+col	20	{'col': 17, 'Col': 3}
+colère	28	{'colère': 28}
+colline	39	{'colline': 36, 'Colline': 3}
+collines	87	{'collines': 86, 'Collines': 1}
+colonnes	10	{'colonnes': 10}
+combat	16	{'combat': 16}
+combe	26	{'combe': 14, 'Combe': 12}
+combien	26	{'combien': 18, 'Combien': 8}
+comme	660	{'comme': 631, 'Comme': 29}
+commençait	11	{'commençait': 11}
+commencé	11	{'commencé': 11}
+commencer	11	{'commencer': 11}
+comment	85	{'comment': 57, 'Comment': 28}
+compagnie	60	{'Compagnie': 27, 'compagnie': 33}
+compagnon	12	{'compagnon': 12}
+compagnons	51	{'compagnons': 49, 'Compagnons': 2}
+complètement	16	{'complètement': 16}
+comprendre	23	{'comprendre': 23}
+compris	14	{'compris': 10, 'Compris': 4}
+compte	37	{'compte': 36, 'Compte': 1}
+Comté	21	{'Comté': 21}
+conduit	11	{'conduit': 11}
+confiance	26	{'confiance': 26}
+connais	17	{'connais': 16, 'Connais': 1}
+connaissait	10	{'connaissait': 10}
+connaît	10	{'connaît': 9, 'Connaît': 1}
+connaître	13	{'connaître': 13}
+connu	17	{'connu': 17}
+conseil	29	{'Conseil': 13, 'conseil': 16}
+conseils	12	{'conseils': 12}
+constater	10	{'constater': 10}
+content	22	{'content': 22}
+contes	20	{'contes': 20}
+continuaient	11	{'continuaient': 11}
+continuait	10	{'continuait': 10}
+continuer	26	{'continuer': 23, 'Continuer': 3}
+contre	107	{'contre': 107}
+cor	58	{'cor': 32, 'Cor': 26}
+corde	37	{'corde': 37}
+corniche	20	{'corniche': 19, 'Corniche': 1}
+corps	34	{'corps': 34}
+cors	14	{'cors': 14}
+côte	13	{'côte': 13}
+côté	152	{'côté': 152}
+coteaux	12	{'coteaux': 11, 'Coteaux': 1}
+côtés	40	{'côtés': 40}
+cou	36	{'cou': 35, 'Cou': 1}
+couchant	10	{'couchant': 9, 'Couchant': 1}
+couche	11	{'couche': 11}
+couché	10	{'couché': 8, 'Couché': 2}
+coulait	13	{'coulait': 13}
+coup	88	{'coup': 86, 'Coup': 2}
+coups	11	{'coups': 11}
+courage	15	{'courage': 15}
+courant	38	{'courant': 37, 'Courant': 1}
+courir	18	{'courir': 18}
+cours	40	{'cours': 37, 'Cours': 3}
+course	18	{'course': 18}
+court	19	{'court': 19}
+couteau	14	{'couteau': 14}
+coutume	14	{'coutume': 14}
+couvert	10	{'couvert': 10}
+crains	21	{'crains': 21}
+crainte	24	{'crainte': 23, 'Crainte': 1}
+créature	26	{'créature': 26}
+créatures	10	{'créatures': 8, 'Créatures': 2}
+crépuscule	15	{'crépuscule': 13, 'Crépuscule': 2}
+crête	16	{'crête': 16}
+creux	32	{'creux': 32}
+cri	60	{'cri': 60}
+cria	38	{'cria': 38}
+crier	11	{'crier': 11}
+cris	33	{'cris': 33}
+croire	16	{'croire': 16}
+crois	63	{'crois': 63}
+croyais	10	{'croyais': 10}
+croyait	11	{'croyait': 11}
+cru	30	{'cru': 30}
+crut	14	{'crut': 14}
+cuir	10	{'cuir': 10}
+d	2289	{'d': 2248, 'D': 41}
+Dame	27	{'Dame': 19, 'dame': 8}
+danger	41	{'danger': 41}
+dangereux	27	{'dangereux': 24, 'Dangereux': 3}
+dans	1293	{'dans': 1253, 'Dans': 40}
+davantage	21	{'davantage': 21}
+de	6120	{'de': 6023, 'De': 97}
+débat	10	{'débat': 10}
+debout	47	{'debout': 34, 'Debout': 13}
+début	30	{'début': 30}
+décider	10	{'décider': 10}
+découvert	17	{'découvert': 17}
+dedans	22	{'dedans': 22}
+défense	12	{'Défense': 1, 'défense': 11}
+dehors	30	{'dehors': 30}
+déjà	114	{'Déjà': 12, 'déjà': 102}
+déjeuner	11	{'déjeuner': 11}
+delà	65	{'delà': 65}
+demain	17	{'Demain': 3, 'demain': 14}
+demanda	78	{'demanda': 78}
+demandant	10	{'demandant': 10}
+demande	58	{'demande': 57, 'Demande': 1}
+demandé	14	{'demandé': 14}
+demander	20	{'demander': 20}
+demeurait	10	{'demeurait': 10}
+demeure	11	{'demeure': 11}
+demi	47	{'Demi': 15, 'demi': 32}
+Denethor	14	{'Denethor': 14}
+dents	34	{'dents': 31, 'Dents': 3}
+départ	12	{'départ': 12}
+depuis	133	{'Depuis': 6, 'depuis': 127}
+dernier	46	{'dernier': 46}
+dernière	46	{'dernière': 45, 'Dernière': 1}
+derniers	21	{'derniers': 21}
+derrière	150	{'derrière': 139, 'Derrière': 11}
+des	1983	{'DES': 3, 'des': 1859, 'Des': 121}
+dès	17	{'dès': 10, 'Dès': 7}
+descendaient	13	{'descendaient': 13}
+descendait	17	{'descendait': 17}
+descendit	15	{'descendit': 15}
+descendre	46	{'descendre': 46}
+désert	14	{'désert': 14}
+désespoir	13	{'désespoir': 13}
+désir	17	{'désir': 17}
+désire	13	{'désire': 13}
+désormais	36	{'désormais': 36}
+dessous	18	{'dessous': 18}
+dessus	164	{'dessus': 164}
+destin	14	{'destin': 10, 'Destin': 4}
+détourna	10	{'détourna': 10}
+deux	245	{'Deux': 14, 'DEUX': 2, 'deux': 229}
+deuxième	19	{'DEUXIÈME': 1, 'Deuxième': 2, 'deuxième': 16}
+devaient	10	{'devaient': 10}
+devait	40	{'devait': 40}
+devant	184	{'devant': 172, 'Devant': 12}
+devenu	14	{'devenu': 13, 'Devenu': 1}
+devenus	11	{'devenus': 11}
+deviné	10	{'deviné': 10}
+deviner	13	{'deviner': 13}
+devint	17	{'devint': 17}
+différents	10	{'différents': 10}
+difficile	21	{'difficile': 21}
+dirait	22	{'dirait': 22}
+dire	181	{'dire': 181}
+direction	26	{'direction': 26}
+dis	46	{'Dis': 7, 'dis': 39}
+disait	26	{'disait': 26}
+disent	18	{'disent': 18}
+disparaître	11	{'disparaître': 11}
+disparu	17	{'disparu': 17}
+disparut	14	{'disparut': 14}
+distance	28	{'distance': 28}
+dit	1452	{'dit': 1452}
+dites	39	{'dites': 29, 'Dites': 10}
+dix	12	{'dix': 12}
+doigts	46	{'doigts': 46}
+dois	48	{'dois': 48}
+doit	68	{'doit': 64, 'Doit': 4}
+doivent	18	{'doivent': 18}
+donc	99	{'donc': 97, 'Donc': 2}
+donne	18	{'donne': 15, 'Donne': 3}
+donné	21	{'donné': 21}
+donner	27	{'donner': 27}
+dont	58	{'dont': 58}
+Doré	14	{'doré': 6, 'Doré': 8}
+dorée	15	{'Dorée': 5, 'dorée': 10}
+dormir	32	{'dormir': 29, 'Dormir': 3}
+dos	47	{'dos': 47}
+douce	24	{'douce': 24}
+doucement	41	{'doucement': 39, 'Doucement': 2}
+douleur	10	{'douleur': 10}
+doute	81	{'doute': 81}
+doux	19	{'doux': 19}
+dressa	11	{'dressa': 11}
+dressaient	20	{'dressaient': 20}
+dressait	16	{'dressait': 16}
+droit	38	{'droit': 37, 'Droit': 1}
+droite	52	{'droite': 52}
+du	1148	{'DU': 2, 'du': 1127, 'Du': 19}
+dû	26	{'dû': 26}
+Dúath	12	{'Dúath': 12}
+dur	22	{'dur': 22}
+dûr	12	{'dûr': 12}
+durant	16	{'Durant': 4, 'durant': 12}
+dure	19	{'dure': 18, 'Dure': 1}
+eau	148	{'eau': 147, 'Eau': 1}
+eaux	24	{'eaux': 24}
+échappé	15	{'échappé': 15}
+échapper	21	{'échapper': 21}
+éclair	18	{'éclair': 18}
+éclat	16	{'éclat': 16}
+écouter	17	{'écouter': 17}
+écria	54	{'écria': 54}
+Edoras	21	{'Edoras': 21}
+effet	15	{'effet': 15}
+effort	16	{'effort': 15, 'Effort': 1}
+également	20	{'également': 20}
+Eh	69	{'Eh': 57, 'eh': 12}
+élança	14	{'élança': 14}
+Elendil	24	{'Elendil': 24}
+éleva	18	{'éleva': 18}
+élevaient	20	{'élevaient': 20}
+élevait	16	{'élevait': 16}
+Elfe	36	{'elfe': 8, 'Elfe': 28}
+Elfes	77	{'Elfes': 76, 'elfes': 1}
+elfique	29	{'elfique': 29}
+elfiques	11	{'elfiques': 11}
+elle	439	{'elle': 344, 'Elle': 95}
+elles	106	{'elles': 85, 'Elles': 21}
+éloigna	12	{'éloigna': 12}
+Elrond	15	{'Elrond': 15}
+empreintes	13	{'empreintes': 13}
+Emyn	21	{'Emyn': 21}
+en	1828	{'en': 1749, 'En': 79}
+encore	366	{'encore': 351, 'Encore': 15}
+endormi	13	{'endormi': 12, 'Endormi': 1}
+endroit	71	{'endroit': 71}
+endroits	19	{'endroits': 18, 'Endroits': 1}
+enfants	20	{'enfants': 19, 'Enfants': 1}
+enfin	140	{'enfin': 87, 'Enfin': 53}
+Ennemi	72	{'Ennemi': 44, 'ennemi': 28}
+ennemis	36	{'ennemis': 36}
+énorme	10	{'énorme': 10}
+ensemble	42	{'ensemble': 38, 'Ensemble': 3, 'ENSEMBLE': 1}
+ensuite	21	{'ensuite': 20, 'Ensuite': 1}
+Ent	43	{'Ent': 37, 'ENT': 6}
+entendaient	10	{'entendaient': 10}
+entendait	19	{'entendait': 19}
+entendirent	12	{'entendirent': 12}
+entendit	16	{'entendit': 16}
+entendre	59	{'entendre': 59}
+entends	17	{'entends': 17}
+entendu	42	{'entendu': 42}
+Entévière	21	{'Entévière': 21}
+entièrement	14	{'entièrement': 14}
+entre	176	{'entre': 166, 'Entre': 10}
+entrée	34	{'entrée': 34}
+entrer	23	{'entrer': 23}
+Ents	156	{'Ents': 156}
+envie	15	{'envie': 15}
+environ	18	{'environ': 14, 'Environ': 4}
+envoyé	15	{'envoyé': 15}
+Éomer	117	{'Éomer': 117}
+Eorl	18	{'Eorl': 18}
+Éowyn	11	{'Éowyn': 11}
+épais	10	{'épais': 10}
+épaule	10	{'épaule': 10}
+épaules	26	{'épaules': 26}
+épée	92	{'épée': 86, 'Épée': 6}
+épées	20	{'épées': 20}
+Ephel	12	{'Ephel': 12}
+époque	14	{'époque': 14}
+Erkenbrand	13	{'Erkenbrand': 13}
+es	38	{'es': 36, 'Es': 2}
+escalier	54	{'escalier': 50, 'Escalier': 4}
+escaliers	13	{'escaliers': 8, 'Escaliers': 5}
+escarpement	14	{'escarpement': 14}
+espace	20	{'espace': 20}
+espèce	20	{'espèce': 15, 'Espèce': 5}
+espère	25	{'espère': 25}
+espoir	59	{'espoir': 58, 'Espoir': 1}
+esprit	58	{'esprit': 57, 'Esprit': 1}
+essayer	27	{'essayer': 27}
+est	1521	{'est': 1458, 'Est': 63}
+et	5160	{'et': 4739, 'Et': 421}
+étaient	388	{'étaient': 387, 'Étaient': 1}
+étais	38	{'étais': 38}
+était	857	{'était': 852, 'Était': 5}
+étang	11	{'étang': 11}
+étant	16	{'étant': 16}
+été	205	{'été': 201, 'Été': 4}
+étendaient	16	{'étendaient': 16}
+étendait	23	{'étendait': 23}
+étendu	22	{'étendu': 22}
+êtes	90	{'êtes': 82, 'Êtes': 8}
+étions	13	{'étions': 13}
+étoile	17	{'étoile': 17}
+étoiles	41	{'étoiles': 39, 'Étoiles': 2}
+étonnement	14	{'étonnement': 14}
+étrange	62	{'étrange': 62}
+étrangers	20	{'étrangers': 20}
+étranges	37	{'étranges': 37}
+être	440	{'être': 440}
+êtres	11	{'êtres': 11}
+étroit	18	{'étroit': 18}
+étroite	12	{'étroite': 12}
+eu	49	{'eu': 49}
+eurent	15	{'eurent': 15}
+eut	92	{'eut': 92}
+eût	56	{'eût': 56}
+eux	269	{'eux': 268, 'Eux': 1}
+examina	10	{'examina': 10}
+exclama	11	{'exclama': 11}
+extrémité	11	{'extrémité': 11}
+face	44	{'face': 33, 'Face': 11}
+facile	20	{'facile': 18, 'Facile': 2}
+façon	35	{'façon': 35}
+faible	30	{'faible': 30}
+faim	24	{'faim': 24}
+faire	265	{'faire': 261, 'Faire': 4}
+fais	25	{'fais': 23, 'Fais': 2}
+faisaient	17	{'faisaient': 17}
+faisait	48	{'faisait': 48}
+faisant	22	{'faisant': 22}
+fait	217	{'fait': 217}
+faite	12	{'faite': 11, 'Faite': 1}
+faites	29	{'faites': 22, 'Faites': 7}
+faits	10	{'faits': 10}
+falaise	35	{'falaise': 35}
+fallait	13	{'fallait': 13}
+Fangorn	54	{'Fangorn': 54}
+Faramir	133	{'Faramir': 133}
+fardeau	15	{'fardeau': 15}
+fasse	10	{'fasse': 10}
+fatigue	19	{'fatigue': 19}
+fatigué	25	{'fatigué': 23, 'Fatigué': 2}
+fatigués	11	{'fatigués': 11}
+faudra	17	{'faudra': 17}
+faudrait	11	{'faudrait': 11}
+faut	127	{'faut': 118, 'Faut': 9}
+Femmes	28	{'Femmes': 24, 'femmes': 4}
+Fendeval	18	{'Fendeval': 18}
+fendu	11	{'fendu': 11}
+fenêtre	19	{'Fenêtre': 4, 'fenêtre': 15}
+fenêtres	18	{'fenêtres': 18}
+Fente	11	{'fente': 5, 'Fente': 6}
+fer	27	{'fer': 26, 'Fer': 1}
+fera	13	{'fera': 13}
+ferait	19	{'ferait': 19}
+Ferté	24	{'Ferté': 24}
+feu	72	{'Feu': 8, 'feu': 64}
+feuille	21	{'feuille': 20, 'Feuille': 1}
+feuilles	35	{'feuilles': 35}
+feux	12	{'feux': 12}
+fidèle	10	{'fidèle': 10}
+fier	11	{'fier': 11}
+figure	13	{'figure': 13}
+fil	14	{'fil': 14}
+fils	80	{'fils': 79, 'Fils': 1}
+fin	71	{'fin': 70, 'Fin': 1}
+fini	16	{'fini': 15, 'Fini': 1}
+finir	12	{'finir': 12}
+finirent	10	{'finirent': 10}
+finit	22	{'finit': 22}
+Fiole	12	{'fiole': 2, 'Fiole': 10}
+firent	29	{'firent': 29}
+fit	88	{'fit': 88}
+flamme	25	{'flamme': 25}
+flammes	15	{'flammes': 15}
+flanc	12	{'flanc': 12}
+flèche	18	{'flèche': 18}
+flèches	31	{'flèches': 31}
+Fleuve	36	{'Fleuve': 36}
+flots	12	{'flots': 12}
+fois	162	{'fois': 162}
+fond	47	{'fond': 47}
+font	23	{'font': 23}
+force	39	{'force': 39}
+forces	17	{'forces': 17}
+forêt	85	{'forêt': 71, 'Forêt': 14}
+forme	45	{'forme': 45}
+formes	26	{'formes': 26}
+fort	55	{'fort': 52, 'Fort': 3}
+forte	32	{'forte': 32}
+fortes	10	{'fortes': 10}
+forts	12	{'forts': 12}
+fortune	11	{'fortune': 11}
+Fossé	19	{'fossé': 2, 'Fossé': 17}
+fougères	22	{'fougères': 22}
+fouine	10	{'fouine': 7, 'Fouine': 3}
+frais	14	{'frais': 14}
+frère	10	{'frère': 10}
+frissonna	10	{'frissonna': 10}
+Frodo	501	{'Frodo': 501}
+froid	53	{'froid': 53}
+froide	28	{'froide': 26, 'Froide': 2}
+front	31	{'front': 31}
+frontières	14	{'frontières': 14}
+fuir	15	{'fuir': 15}
+fuite	10	{'fuite': 10}
+fumée	37	{'fumée': 37}
+furent	54	{'Furent': 1, 'furent': 53}
+fut	125	{'fut': 125}
+fût	33	{'fût': 33}
+gage	13	{'gage': 13}
+Galadriel	23	{'Galadriel': 23}
+Gamgie	10	{'Gamgie': 10}
+Gamling	11	{'Gamling': 11}
+Gandalf	354	{'Gandalf': 354}
+garde	64	{'Garde': 3, 'garde': 61}
+garder	18	{'garder': 17, 'Garder': 1}
+gardes	30	{'gardes': 30}
+gardiens	11	{'gardiens': 11}
+gars	15	{'gars': 15}
+gauche	45	{'gauche': 45}
+gémit	14	{'gémit': 14}
+genoux	31	{'genoux': 31}
+genre	12	{'genre': 12}
+gens	74	{'gens': 73, 'Gens': 1}
+gentil	36	{'gentil': 28, 'Gentil': 8}
+gentils	23	{'gentils': 17, 'Gentils': 6}
+Gimli	195	{'Gimli': 195}
+gisait	12	{'gisait': 12}
+glissa	15	{'glissa': 15}
+globe	19	{'globe': 19}
+Glóin	10	{'Glóin': 10}
+Gollum	334	{'Gollum': 310, 'gollum': 24}
+Gondor	81	{'Gondor': 81}
+Gorbag	19	{'Gorbag': 19}
+Gorge	72	{'Gorge': 55, 'gorge': 17}
+grand	252	{'grand': 207, 'Grand': 45}
+grande	139	{'grande': 126, 'Grande': 13}
+grandes	66	{'grandes': 62, 'Grandes': 4}
+grands	77	{'grands': 75, 'Grands': 2}
+grave	15	{'grave': 15}
+graves	10	{'graves': 10}
+Gríma	12	{'Gríma': 12}
+grimper	15	{'grimper': 15}
+gris	67	{'Gris': 10, 'gris': 57}
+grise	32	{'grise': 31, 'Grise': 1}
+grises	21	{'grises': 21}
+Grishnákh	33	{'Grishnákh': 33}
+grogna	18	{'grogna': 18}
+grondement	13	{'grondement': 13}
+gros	24	{'gros': 24}
+grosse	10	{'grosse': 10}
+grottes	18	{'grottes': 18}
+guère	17	{'guère': 17}
+guerre	70	{'guerre': 66, 'Guerre': 4}
+guerrier	11	{'guerrier': 11}
+Gués	22	{'gués': 6, 'Gués': 16}
+guide	13	{'guide': 13}
+hache	36	{'hache': 36}
+halte	14	{'Halte': 4, 'halte': 10}
+Háma	22	{'Háma': 22}
+hâte	30	{'hâte': 30}
+hâter	10	{'hâter': 10}
+haut	145	{'haut': 139, 'Haut': 6}
+haute	61	{'haute': 61}
+hautes	33	{'hautes': 32, 'Hautes': 1}
+hauteur	20	{'hauteur': 20}
+hauteurs	11	{'hauteurs': 11}
+hauts	31	{'hauts': 28, 'Hauts': 3}
+hein	36	{'hein': 35, 'Hein': 1}
+Hélas	27	{'Hélas': 16, 'hélas': 11}
+Helm	42	{'Helm': 42}
+herbe	65	{'herbe': 65}
+herbes	27	{'herbes': 27}
+héritier	13	{'héritier': 12, 'Héritier': 1}
+heure	66	{'heure': 66}
+heures	41	{'heures': 41}
+heureux	16	{'heureux': 15, 'Heureux': 1}
+hier	15	{'hier': 13, 'Hier': 2}
+histoire	34	{'histoire': 34}
+histoires	13	{'histoires': 13}
+hiver	10	{'hiver': 6, 'Hiver': 4}
+Hm	30	{'Hm': 16, 'hm': 14}
+hobbit	71	{'Hobbit': 2, 'hobbit': 69}
+hobbits	208	{'Hobbits': 12, 'hobbits': 196}
+homme	89	{'homme': 76, 'Homme': 13}
+hommes	300	{'Hommes': 130, 'hommes': 170}
+horizon	15	{'horizon': 15}
+hormis	12	{'hormis': 12}
+horreur	16	{'horreur': 16}
+horrible	23	{'horrible': 23}
+hors	27	{'hors': 27}
+houm	25	{'Houm': 11, 'houm': 14}
+hui	28	{'hui': 28}
+Huorns	12	{'Huorns': 12}
+ici	266	{'ici': 247, 'Ici': 19}
+idée	27	{'idée': 27}
+ignore	14	{'ignore': 14}
+il	3759	{'il': 2690, 'Il': 1069}
+ils	1421	{'ils': 1046, 'Ils': 375}
+immense	12	{'immense': 12}
+immobile	14	{'immobile': 14}
+importe	21	{'importe': 21}
+impossible	15	{'impossible': 15}
+impression	38	{'impression': 36, 'Impression': 2}
+instant	51	{'instant': 51}
+intention	17	{'intention': 17}
+intérieur	44	{'intérieur': 44}
+inutile	15	{'inutile': 11, 'Inutile': 4}
+ira	13	{'ira': 13}
+irai	13	{'irai': 13}
+Isen	20	{'Isen': 20}
+Isengard	120	{'Isengard': 120}
+Isengardiens	13	{'Isengardiens': 13}
+Isildur	18	{'Isildur': 18}
+issue	11	{'issue': 11}
+Ithil	10	{'Ithil': 10}
+Ithilien	14	{'Ithilien': 14}
+j	515	{'J': 186, 'j': 329}
+jadis	13	{'jadis': 13}
+jamais	242	{'jamais': 221, 'Jamais': 21}
+jambes	65	{'jambes': 65}
+jaune	13	{'jaune': 7, 'Jaune': 6}
+je	1452	{'Je': 578, 'je': 874}
+jetant	10	{'jetant': 10}
+jeter	14	{'jeter': 14}
+jeune	34	{'jeune': 28, 'Jeune': 6}
+jeunes	21	{'jeunes': 21}
+joie	22	{'joie': 22}
+jour	134	{'jour': 133, 'Jour': 1}
+journée	25	{'journée': 25}
+jours	92	{'jours': 89, 'Jours': 3}
+jusqu	214	{'jusqu': 211, 'Jusqu': 3}
+jusque	23	{'jusque': 19, 'Jusque': 4}
+juste	53	{'juste': 52, 'Juste': 1}
+l	2577	{'L': 135, 'l': 2442}
+la	3486	{'la': 3232, 'La': 254}
+là	384	{'là': 334, 'Là': 50}
+lac	13	{'lac': 12, 'Lac': 1}
+laissa	23	{'laissa': 23}
+laissant	19	{'laissant': 17, 'Laissant': 2}
+laisse	15	{'Laisse': 3, 'laisse': 12}
+laissé	25	{'laissé': 25}
+laisser	40	{'laisser': 39, 'Laisser': 1}
+Laissez	24	{'Laissez': 14, 'laissez': 10}
+lame	26	{'lame': 24, 'Lame': 2}
+lança	10	{'lança': 10}
+lances	28	{'lances': 28}
+langue	97	{'langue': 52, 'Langue': 45}
+langues	11	{'langues': 10, 'Langues': 1}
+laquelle	28	{'laquelle': 28}
+large	38	{'large': 38}
+larges	15	{'larges': 15}
+las	21	{'las': 20, 'Las': 1}
+lassitude	12	{'lassitude': 12}
+le	3293	{'LE': 2, 'le': 2950, 'Le': 341}
+Legolas	179	{'Legolas': 179}
+lembas	14	{'lembas': 14}
+lente	16	{'lente': 16}
+lentement	94	{'lentement': 86, 'Lentement': 8}
+lequel	15	{'lequel': 14, 'Lequel': 1}
+les	3178	{'Les': 418, 'les': 2758, 'LES': 2}
+leur	476	{'leur': 465, 'Leur': 11}
+leurs	311	{'leurs': 293, 'Leurs': 18}
+leva	61	{'leva': 61}
+levant	18	{'levant': 16, 'Levant': 2}
+levèrent	13	{'levèrent': 13}
+lèvres	15	{'lèvres': 15}
+libre	21	{'libre': 21}
+liens	10	{'liens': 10}
+lieu	23	{'lieu': 23}
+lieues	31	{'lieues': 31}
+lieux	10	{'lieux': 10}
+ligne	14	{'ligne': 14}
+lisière	15	{'lisière': 15}
+lisse	10	{'lisse': 10}
+lit	32	{'lit': 32}
+loin	263	{'loin': 248, 'Loin': 15}
+lointain	20	{'lointain': 20}
+lointaine	16	{'lointaine': 16}
+lointaines	13	{'lointaines': 13}
+lointains	13	{'lointains': 13}
+long	134	{'long': 134}
+longs	35	{'longs': 35}
+longtemps	131	{'longtemps': 127, 'Longtemps': 4}
+longue	72	{'longue': 70, 'Longue': 2}
+longuement	19	{'longuement': 18, 'Longuement': 1}
+longues	42	{'longues': 42}
+Lórien	24	{'Lórien': 24}
+lors	20	{'lors': 20}
+lorsqu	20	{'Lorsqu': 3, 'lorsqu': 17}
+loups	15	{'Loups': 1, 'loups': 14}
+lourd	19	{'lourd': 19}
+lueur	52	{'lueur': 52}
+Lugbúrz	21	{'Lugbúrz': 21}
+lui	671	{'lui': 646, 'Lui': 25}
+luisait	13	{'luisait': 13}
+lumière	132	{'lumière': 132}
+lumières	15	{'lumières': 15}
+lune	82	{'lune': 71, 'Lune': 11}
+m	262	{'m': 246, 'M': 16}
+ma	109	{'ma': 93, 'Ma': 16}
+Mablung	11	{'Mablung': 11}
+magicien	35	{'magicien': 27, 'Magicien': 8}
+Magiciens	10	{'Magiciens': 9, 'magiciens': 1}
+mailles	14	{'mailles': 14}
+main	158	{'main': 147, 'Main': 11}
+mains	110	{'mains': 110}
+maintenant	197	{'maintenant': 152, 'Maintenant': 45}
+maintes	22	{'maintes': 22}
+maints	13	{'Maints': 3, 'maints': 10}
+Mais	1577	{'Mais': 798, 'mais': 779}
+maison	57	{'maison': 47, 'Maison': 10}
+maisons	11	{'Maisons': 2, 'maisons': 9}
+maître	215	{'maître': 181, 'Maître': 34}
+mal	92	{'mal': 92}
+malgré	21	{'malgré': 16, 'Malgré': 5}
+malheur	13	{'malheur': 13}
+malheureux	10	{'malheureux': 9, 'Malheureux': 1}
+manche	10	{'manche': 10}
+manger	33	{'manger': 33}
+manière	69	{'manière': 69}
+marais	29	{'marais': 18, 'Marais': 11}
+marchaient	11	{'marchaient': 11}
+marchait	12	{'marchait': 12}
+marchant	18	{'marchant': 17, 'Marchant': 1}
+marche	104	{'marche': 55, 'Marche': 49}
+marché	12	{'marché': 12}
+marcher	23	{'marcher': 22, 'Marcher': 1}
+marches	36	{'marches': 35, 'Marches': 1}
+mares	11	{'mares': 11}
+marmonna	11	{'marmonna': 11}
+matin	39	{'matin': 39}
+mauvais	48	{'mauvais': 48}
+mauvaises	11	{'mauvaises': 10, 'Mauvaises': 1}
+me	347	{'me': 342, 'Me': 5}
+meilleur	14	{'meilleur': 13, 'Meilleur': 1}
+meilleure	16	{'meilleure': 16}
+membres	17	{'membres': 17}
+même	420	{'même': 401, 'Même': 19}
+mêmes	36	{'mêmes': 36}
+menace	18	{'menace': 18}
+menant	11	{'menant': 11}
+Mer	29	{'Mer': 16, 'mer': 13}
+Merry	130	{'Merry': 130}
+mes	116	{'mes': 107, 'Mes': 9}
+mesure	49	{'mesure': 49}
+mettre	42	{'mettre': 42}
+midi	30	{'midi': 27, 'Midi': 3}
+mieux	93	{'mieux': 90, 'Mieux': 3}
+milieu	70	{'milieu': 54, 'Milieu': 16}
+mille	24	{'mille': 24}
+milles	34	{'milles': 34}
+Minas	52	{'Minas': 52}
+mince	16	{'mince': 16}
+minutes	13	{'minutes': 13}
+mirent	25	{'mirent': 25}
+mis	32	{'mis': 32}
+misérable	10	{'misérable': 10}
+mission	27	{'mission': 27}
+mit	53	{'mit': 53}
+Mithrandir	16	{'Mithrandir': 16}
+moi	261	{'moi': 250, 'Moi': 11}
+moindre	46	{'moindre': 46}
+moins	187	{'moins': 184, 'Moins': 3}
+moment	192	{'moment': 192}
+mon	212	{'mon': 194, 'Mon': 18}
+monde	66	{'monde': 65, 'Monde': 1}
+monseigneur	10	{'Monseigneur': 3, 'monseigneur': 7}
+monsieur	36	{'monsieur': 36}
+monta	12	{'monta': 12}
+montagne	29	{'Montagne': 6, 'montagne': 23}
+montagnes	104	{'montagnes': 80, 'Montagnes': 24}
+montaient	13	{'montaient': 13}
+montait	18	{'montait': 18}
+montant	10	{'montant': 10}
+monter	32	{'monter': 32}
+montrer	13	{'montrer': 13}
+Mordor	76	{'Mordor': 76}
+Morgul	23	{'Morgul': 23}
+Moria	16	{'Moria': 16}
+mort	83	{'mort': 77, 'Mort': 6}
+mortel	16	{'mortel': 16}
+mortes	10	{'mortes': 10}
+morts	31	{'morts': 19, 'Morts': 12}
+mot	25	{'mot': 25}
+mots	47	{'mots': 47}
+mouvement	17	{'mouvement': 17}
+Muil	21	{'Muil': 21}
+mur	47	{'Mur': 3, 'mur': 44}
+muraille	29	{'muraille': 22, 'Muraille': 7}
+murmura	17	{'murmura': 17}
+murmurant	10	{'murmurant': 10}
+murmure	22	{'murmure': 22}
+murs	42	{'murs': 42}
+n	958	{'n': 916, 'N': 42}
+Nain	37	{'Nain': 24, 'nain': 13}
+Nains	19	{'Nains': 15, 'nains': 4}
+Nazgûl	16	{'Nazgûl': 16}
+ne	1405	{'ne': 1337, 'Ne': 68}
+néanmoins	17	{'Néanmoins': 5, 'néanmoins': 12}
+nécessité	12	{'nécessité': 12}
+Neuf	17	{'Neuf': 10, 'neuf': 7}
+nez	24	{'nez': 23, 'Nez': 1}
+ni	153	{'ni': 142, 'Ni': 11}
+noir	86	{'noir': 79, 'Noir': 7}
+noire	59	{'Noire': 10, 'noire': 49}
+noires	34	{'noires': 32, 'Noires': 2}
+noirs	30	{'Noirs': 5, 'noirs': 25}
+nom	75	{'nom': 69, 'Nom': 6}
+nombre	33	{'nombre': 30, 'Nombre': 3}
+nombreuses	24	{'nombreuses': 24}
+nombreux	53	{'nombreux': 52, 'Nombreux': 1}
+noms	21	{'noms': 21}
+non	297	{'non': 178, 'Non': 119}
+nord	130	{'Nord': 49, 'nord': 81}
+nos	143	{'nos': 133, 'Nos': 10}
+notre	145	{'notre': 136, 'Notre': 9}
+nôtres	15	{'nôtres': 15}
+nourriture	35	{'nourriture': 35}
+nous	1306	{'Nous': 235, 'nous': 1071}
+nouveau	119	{'nouveau': 119}
+nouveaux	10	{'nouveaux': 10}
+nouvelle	33	{'nouvelle': 33}
+nouvelles	52	{'nouvelles': 51, 'Nouvelles': 1}
+nuage	16	{'nuage': 16}
+nuages	47	{'nuages': 47}
+nuit	175	{'nuit': 175}
+nuits	12	{'nuits': 12}
+nul	24	{'nul': 17, 'Nul': 7}
+nulle	11	{'nulle': 11}
+Ô	23	{'ô': 10, 'Ô': 13}
+objet	23	{'objet': 18, 'Objet': 5}
+obscurité	46	{'Obscurité': 10, 'obscurité': 36}
+occasion	13	{'occasion': 13}
+occuper	13	{'occuper': 13}
+odeur	15	{'odeur': 15}
+œil	75	{'Œil': 17, 'œil': 58}
+œuvre	13	{'œuvre': 13}
+Oh	55	{'oh': 20, 'Oh': 35}
+oiseau	15	{'oiseau': 15}
+oiseaux	20	{'oiseaux': 20}
+oliphants	10	{'oliphants': 10}
+ombre	126	{'ombre': 114, 'Ombre': 12}
+ombres	55	{'Ombres': 2, 'ombres': 53}
+on	602	{'on': 440, 'On': 162}
+ont	243	{'ont': 243}
+or	47	{'or': 33, 'Or': 14}
+orage	12	{'orage': 12}
+ordre	18	{'ordre': 18}
+ordres	23	{'ordres': 21, 'Ordres': 2}
+orée	16	{'orée': 16}
+oreille	38	{'oreille': 38}
+oreilles	32	{'oreilles': 32}
+Orque	48	{'orque': 22, 'Orque': 26}
+Orques	269	{'orques': 19, 'Orques': 250}
+orteils	10	{'orteils': 10}
+Orthanc	55	{'Orthanc': 54, 'orthanc': 1}
+os	14	{'os': 14}
+Osgiliath	11	{'Osgiliath': 11}
+ou	527	{'ou': 497, 'Ou': 30}
+où	357	{'où': 306, 'Où': 51}
+oublié	13	{'oublié': 13}
+oublier	10	{'oublier': 10}
+oubliés	10	{'oubliés': 10}
+ouest	124	{'Ouest': 37, 'ouest': 87}
+Ouestfolde	19	{'Ouestfolde': 19}
+oui	254	{'Oui': 115, 'oui': 139}
+ouverture	24	{'ouverture': 24}
+ouvrait	14	{'ouvrait': 14}
+ouvrit	10	{'ouvrit': 10}
+pain	20	{'pain': 20}
+paix	31	{'paix': 29, 'Paix': 2}
+pâle	46	{'pâle': 46}
+pâles	17	{'pâles': 17}
+paquet	16	{'paquet': 16}
+par	580	{'par': 569, 'Par': 11}
+paraissait	21	{'paraissait': 21}
+paraît	11	{'paraît': 11}
+parce	22	{'Parce': 5, 'parce': 17}
+parcouru	10	{'parcouru': 10}
+pareille	18	{'pareille': 15, 'Pareille': 3}
+parfois	25	{'Parfois': 7, 'parfois': 18}
+parla	22	{'parla': 22}
+parlaient	10	{'parlaient': 10}
+parlait	20	{'parlait': 20}
+parle	16	{'parle': 13, 'Parle': 3}
+parlé	14	{'parlé': 14}
+parler	69	{'parler': 69}
+parlez	19	{'parlez': 14, 'Parlez': 5}
+parmi	82	{'parmi': 77, 'Parmi': 5}
+paroi	16	{'paroi': 16}
+parole	26	{'parole': 26}
+paroles	36	{'paroles': 36}
+part	84	{'part': 84}
+parti	31	{'parti': 30, 'Parti': 1}
+partie	51	{'PARTIE': 1, 'partie': 50}
+partir	54	{'partir': 54}
+partis	25	{'partis': 25}
+partons	15	{'partons': 14, 'Partons': 1}
+partout	18	{'partout': 17, 'Partout': 1}
+parut	35	{'parut': 35}
+parvenus	10	{'parvenus': 8, 'Parvenus': 2}
+parvinrent	17	{'parvinrent': 17}
+parvint	11	{'parvint': 11}
+pas	1783	{'pas': 1667, 'Pas': 115, 'PAS': 1}
+passa	42	{'passa': 42}
+passage	21	{'passage': 21}
+passait	24	{'passait': 24}
+passant	12	{'passant': 12}
+passe	29	{'passe': 29}
+passé	58	{'passé': 58}
+passée	13	{'passée': 13}
+passer	53	{'passer': 53}
+passèrent	21	{'passèrent': 21}
+passés	10	{'passés': 10}
+pattes	31	{'pattes': 31}
+paupières	14	{'paupières': 14}
+pauvre	30	{'pauvre': 23, 'Pauvre': 7}
+pays	158	{'pays': 142, 'Pays': 16}
+peau	11	{'peau': 11}
+peine	52	{'peine': 52}
+pencha	17	{'pencha': 17}
+pendant	106	{'pendant': 84, 'Pendant': 22}
+pénombre	16	{'pénombre': 16}
+pensa	12	{'pensa': 12}
+pensait	10	{'pensait': 10}
+pense	58	{'pense': 58}
+pensée	37	{'pensée': 37}
+penser	17	{'penser': 17}
+pente	38	{'pente': 38}
+pentes	29	{'pentes': 29}
+perdre	20	{'perdre': 20}
+perdu	33	{'perdu': 33}
+père	11	{'père': 11}
+pères	11	{'pères': 10, 'Pères': 1}
+péril	18	{'péril': 18}
+périlleux	11	{'périlleux': 11}
+permission	15	{'permission': 15}
+personne	64	{'personne': 52, 'Personne': 12}
+perte	10	{'perte': 10}
+petit	71	{'petit': 70, 'Petit': 1}
+petite	46	{'petite': 45, 'Petite': 1}
+petites	27	{'petites': 27}
+petits	34	{'petits': 34}
+peu	267	{'peu': 258, 'Peu': 9}
+peuple	15	{'peuple': 14, 'Peuple': 1}
+peur	75	{'Peur': 14, 'peur': 61}
+peut	321	{'peut': 273, 'Peut': 48}
+peuvent	40	{'peuvent': 40}
+peux	35	{'peux': 34, 'Peux': 1}
+pied	88	{'pied': 86, 'Pied': 2}
+pieds	113	{'pieds': 113}
+piège	11	{'piège': 11}
+pierre	140	{'pierre': 123, 'Pierre': 17}
+pierres	57	{'pierres': 54, 'Pierres': 3}
+pipe	14	{'pipe': 14}
+Pippin	191	{'Pippin': 191}
+pire	20	{'pire': 19, 'Pire': 1}
+piste	38	{'piste': 38}
+pitié	19	{'pitié': 15, 'Pitié': 4}
+place	43	{'place': 43}
+plaine	45	{'plaine': 44, 'Plaine': 1}
+plaines	16	{'plaines': 16}
+plat	13	{'plat': 13}
+plein	29	{'plein': 29}
+pleine	15	{'pleine': 15}
+plongea	10	{'plongea': 10}
+pluie	12	{'pluie': 12}
+plupart	30	{'plupart': 30}
+plus	952	{'plus': 928, 'Plus': 24}
+plusieurs	37	{'plusieurs': 32, 'Plusieurs': 5}
+plutôt	37	{'plutôt': 37}
+poids	15	{'poids': 15}
+poignée	18	{'poignée': 18}
+point	56	{'point': 56}
+pointe	10	{'pointe': 9, 'Pointe': 1}
+poisson	22	{'poisson': 22}
+poitrine	13	{'poitrine': 13}
+pont	14	{'pont': 13, 'Pont': 1}
+porta	16	{'porta': 16}
+portaient	12	{'portaient': 12}
+portait	12	{'portait': 12}
+portant	11	{'portant': 11}
+porte	100	{'Porte': 36, 'porte': 64}
+porté	10	{'porté': 10}
+portée	20	{'portée': 20}
+porter	16	{'porter': 16}
+portes	80	{'portes': 79, 'Portes': 1}
+Porteur	18	{'Porteur': 14, 'porteur': 4}
+posa	17	{'posa': 17}
+possible	39	{'possible': 38, 'Possible': 1}
+pour	792	{'pour': 756, 'Pour': 36}
+pourquoi	69	{'pourquoi': 35, 'Pourquoi': 34}
+pourra	14	{'pourra': 14}
+pourraient	11	{'pourraient': 11}
+pourrais	16	{'pourrais': 16}
+pourrait	68	{'pourrait': 68}
+pourrez	11	{'pourrez': 11}
+pourriez	15	{'pourriez': 15}
+pourrions	17	{'pourrions': 17}
+poursuite	12	{'poursuite': 12}
+poursuivait	11	{'poursuivait': 11}
+poursuivit	19	{'poursuivit': 19}
+pourtant	36	{'pourtant': 23, 'Pourtant': 13}
+poussa	14	{'poussa': 14}
+pouvaient	33	{'pouvaient': 33}
+pouvait	76	{'pouvait': 75, 'Pouvait': 1}
+pouvez	27	{'Pouvez': 4, 'pouvez': 23}
+pouvoir	60	{'Pouvoir': 1, 'pouvoir': 59}
+pouvons	20	{'pouvons': 19, 'Pouvons': 1}
+précieux	13	{'précieux': 12, 'Précieux': 1}
+précipice	16	{'précipice': 16}
+premier	30	{'premier': 29, 'Premier': 1}
+première	34	{'première': 34}
+premiers	10	{'premiers': 9, 'Premiers': 1}
+prenant	18	{'prenant': 17, 'Prenant': 1}
+prendre	81	{'prendre': 81}
+prends	10	{'prends': 7, 'Prends': 3}
+prés	11	{'prés': 11}
+près	83	{'près': 82, 'Près': 1}
+présence	13	{'présence': 13}
+présent	156	{'présent': 156}
+presque	97	{'Presque': 8, 'presque': 89}
+prêt	18	{'prêt': 18}
+printemps	19	{'printemps': 12, 'Printemps': 7}
+prirent	13	{'prirent': 13}
+pris	67	{'pris': 63, 'Pris': 4}
+prise	17	{'prise': 17}
+prisonnier	14	{'prisonnier': 14}
+prisonniers	16	{'prisonniers': 16}
+prit	37	{'prit': 37}
+probablement	12	{'probablement': 11, 'Probablement': 1}
+proche	17	{'proche': 17}
+proches	12	{'proches': 12}
+profond	24	{'profond': 24}
+profonde	34	{'profonde': 34}
+profondément	21	{'profondément': 21}
+profondes	17	{'profondes': 17}
+proie	10	{'proie': 10}
+promesse	12	{'promesse': 12}
+promis	17	{'promis': 17}
+propre	55	{'propre': 55}
+propres	11	{'propres': 11}
+prudence	11	{'prudence': 10, 'Prudence': 1}
+pu	97	{'pu': 97}
+puanteur	10	{'puanteur': 10}
+puis	339	{'Puis': 143, 'puis': 196}
+puissance	17	{'puissance': 16, 'Puissance': 1}
+puissant	12	{'puissant': 12}
+puisse	27	{'puisse': 22, 'Puisse': 5}
+purent	13	{'purent': 13}
+put	11	{'put': 11}
+qu	1391	{'qu': 1312, 'Qu': 79}
+quand	241	{'quand': 177, 'Quand': 64}
+Quant	22	{'Quant': 11, 'quant': 11}
+quatre	43	{'quatre': 38, 'Quatre': 5}
+que	1861	{'que': 1801, 'Que': 60}
+quel	53	{'quel': 36, 'Quel': 17}
+quelle	55	{'Quelle': 19, 'quelle': 36}
+quelqu	24	{'quelqu': 23, 'Quelqu': 1}
+quelque	196	{'quelque': 185, 'Quelque': 11}
+quelques	134	{'quelques': 123, 'Quelques': 11}
+question	16	{'question': 16}
+questions	12	{'questions': 12}
+quête	20	{'quête': 14, 'Quête': 6}
+qui	906	{'qui': 877, 'Qui': 29}
+quiconque	14	{'Quiconque': 2, 'quiconque': 12}
+quitté	18	{'quitté': 18}
+quitter	14	{'quitter': 14}
+quoi	90	{'quoi': 80, 'Quoi': 10}
+quoique	22	{'quoique': 20, 'Quoique': 2}
+racines	18	{'racines': 18}
+raconter	10	{'raconter': 10}
+rage	10	{'rage': 10}
+raide	15	{'raide': 15}
+raison	31	{'raison': 30, 'Raison': 1}
+ramper	11	{'ramper': 11}
+rangs	10	{'rangs': 10}
+rapide	22	{'rapide': 22}
+rapidement	51	{'rapidement': 50, 'Rapidement': 1}
+rapides	14	{'rapides': 14}
+rapidité	10	{'rapidité': 10}
+rarement	18	{'rarement': 18}
+rattraper	10	{'rattraper': 10}
+Rauros	12	{'Rauros': 12}
+ravin	22	{'ravin': 22}
+rayons	18	{'rayons': 18}
+recherche	11	{'recherche': 11}
+récit	18	{'récit': 18}
+recula	10	{'recula': 10}
+redoutable	10	{'redoutable': 10}
+redressa	18	{'redressa': 18}
+réfléchir	17	{'réfléchir': 17}
+reflet	10	{'reflet': 10}
+regard	77	{'regard': 77}
+regarda	35	{'regarda': 35}
+regardait	14	{'regardait': 14}
+Regarde	18	{'Regarde': 10, 'regarde': 8}
+regarder	30	{'regarder': 30}
+regardèrent	12	{'regardèrent': 12}
+Regardez	18	{'Regardez': 13, 'regardez': 5}
+regards	22	{'regards': 22}
+rejoindre	15	{'rejoindre': 15}
+releva	18	{'releva': 18}
+remettre	16	{'remettre': 16}
+remit	16	{'remit': 16}
+rempli	13	{'rempli': 13}
+rencontre	26	{'rencontre': 26}
+rendre	32	{'rendre': 32}
+rentrer	10	{'rentrer': 10}
+repas	10	{'repas': 10}
+répéta	10	{'répéta': 10}
+répondit	102	{'répondit': 102}
+réponse	41	{'réponse': 41}
+repos	15	{'repos': 15}
+reposer	28	{'reposer': 28}
+reprit	18	{'reprit': 18}
+respiration	12	{'respiration': 12}
+resta	25	{'resta': 25}
+restait	21	{'restait': 21}
+reste	64	{'reste': 56, 'Reste': 8}
+resté	12	{'resté': 12}
+rester	35	{'rester': 35}
+restèrent	16	{'restèrent': 16}
+retomba	11	{'retomba': 11}
+retour	28	{'retour': 27, 'RETOUR': 1}
+retourna	21	{'retourna': 21}
+retourner	19	{'retourner': 18, 'Retourner': 1}
+retournèrent	12	{'retournèrent': 12}
+retrouver	29	{'retrouver': 28, 'Retrouver': 1}
+rêve	21	{'rêve': 20, 'Rêve': 1}
+réveilla	11	{'réveilla': 11}
+réveiller	13	{'réveiller': 13}
+Revenez	10	{'revenez': 4, 'Revenez': 6}
+revenir	33	{'revenir': 33}
+revenu	28	{'revenu': 28}
+rêves	12	{'rêves': 12}
+Reviens	11	{'Reviens': 8, 'reviens': 3}
+revint	24	{'revint': 24}
+revoir	16	{'revoir': 16}
+rideau	10	{'rideau': 8, 'Rideau': 2}
+rien	226	{'rien': 196, 'Rien': 30}
+rire	25	{'rire': 25}
+rit	18	{'rit': 18}
+rive	16	{'rive': 16}
+rivière	60	{'rivière': 55, 'Rivière': 5}
+roc	15	{'roc': 15}
+roche	11	{'roche': 11}
+rocher	38	{'rocher': 26, 'Rocher': 12}
+rochers	21	{'rochers': 21}
+rocheuse	15	{'rocheuse': 15}
+Rohan	86	{'Rohan': 86}
+Rohirrim	16	{'Rohirrim': 16}
+roi	124	{'roi': 95, 'Roi': 28, 'ROI': 1}
+rois	21	{'rois': 15, 'Rois': 6}
+rôle	11	{'rôle': 11}
+rouge	41	{'rouge': 39, 'Rouge': 2}
+rouges	14	{'rouges': 14}
+route	138	{'route': 136, 'Route': 2}
+routes	15	{'Routes': 7, 'routes': 8}
+royaume	11	{'royaume': 10, 'Royaume': 1}
+ruine	17	{'ruine': 17}
+ruines	10	{'ruines': 10}
+ruisseau	14	{'ruisseau': 14}
+rumeur	17	{'rumeur': 17}
+s	1424	{'s': 1382, 'S': 42}
+sa	584	{'sa': 550, 'Sa': 34}
+sac	12	{'sac': 9, 'Sac': 3}
+sage	24	{'Sage': 1, 'sage': 23}
+sages	13	{'sages': 13}
+sagesse	17	{'sagesse': 17}
+sais	68	{'sais': 66, 'Sais': 2}
+saisir	13	{'saisir': 12, 'Saisir': 1}
+saisit	18	{'saisit': 18}
+sait	40	{'sait': 39, 'Sait': 1}
+sale	14	{'sale': 12, 'Sale': 2}
+sales	12	{'sales': 10, 'Sales': 2}
+salle	29	{'Salle': 5, 'salle': 24}
+Sam	425	{'Sam': 425}
+Samsaget	22	{'Samsaget': 22}
+sang	18	{'sang': 18}
+sans	322	{'sans': 297, 'Sans': 25}
+Saruman	189	{'Saruman': 189}
+sauf	31	{'sauf': 27, 'SAUF': 1, 'Sauf': 3}
+Sauron	35	{'Sauron': 35}
+sauvage	14	{'sauvage': 11, 'Sauvage': 3}
+sauvages	22	{'sauvages': 21, 'Sauvages': 1}
+sauvé	10	{'sauvé': 10}
+sauver	18	{'sauver': 18}
+savais	10	{'savais': 10}
+savait	17	{'savait': 17}
+savent	10	{'savent': 10}
+savez	29	{'savez': 27, 'Savez': 2}
+savoir	72	{'savoir': 71, 'Savoir': 1}
+Scadufax	38	{'Scadufax': 38}
+se	1665	{'se': 1649, 'Se': 16}
+secret	22	{'secret': 22}
+sécurité	17	{'sécurité': 17}
+Seigneur	82	{'SEIGNEUR': 2, 'Seigneur': 53, 'seigneur': 27}
+seigneurs	17	{'seigneurs': 12, 'Seigneurs': 5}
+sein	19	{'sein': 19}
+selle	14	{'selle': 14}
+selon	16	{'selon': 15, 'Selon': 1}
+sembla	12	{'sembla': 12}
+semblable	22	{'semblable': 20, 'Semblable': 2}
+semblables	17	{'semblables': 17}
+semblaient	24	{'semblaient': 24}
+semblait	104	{'semblait': 104}
+semble	42	{'semble': 42}
+sens	27	{'sens': 27}
+sentait	19	{'sentait': 19}
+sentier	26	{'sentier': 26}
+sentir	17	{'sentir': 17}
+sentit	16	{'sentit': 16}
+sept	16	{'Sept': 3, 'sept': 13}
+sera	80	{'sera': 80}
+seraient	11	{'seraient': 11}
+serais	11	{'serais': 11}
+serait	54	{'serait': 54}
+serons	13	{'serons': 13}
+seront	12	{'seront': 12}
+Serpent	56	{'Serpent': 47, 'serpent': 9}
+servi	10	{'servi': 10}
+service	11	{'service': 11}
+servir	29	{'servir': 29}
+serviteur	13	{'serviteur': 13}
+serviteurs	19	{'serviteurs': 19}
+ses	530	{'ses': 490, 'Ses': 40}
+seul	95	{'seul': 91, 'Seul': 4}
+seule	37	{'seule': 36, 'Seule': 1}
+seulement	75	{'seulement': 68, 'Seulement': 7}
+seuls	13	{'seuls': 12, 'Seuls': 1}
+sévère	16	{'sévère': 16}
+Shagrat	23	{'Shagrat': 23}
+si	641	{'si': 529, 'Si': 112}
+siège	18	{'siège': 17, 'Siège': 1}
+sieur	15	{'sieur': 15}
+siffla	21	{'siffla': 21}
+sifflement	20	{'sifflement': 20}
+signe	27	{'signe': 27}
+signes	15	{'signes': 15}
+silence	73	{'silence': 73}
+silencieux	36	{'silencieux': 33, 'Silencieux': 3}
+simple	16	{'simple': 16}
+simplement	19	{'simplement': 19}
+sinon	25	{'sinon': 24, 'Sinon': 1}
+sire	16	{'sire': 15, 'Sire': 1}
+Sméagol	147	{'Sméagol': 147}
+soient	25	{'soient': 25}
+soif	11	{'soif': 11}
+soin	14	{'soin': 14}
+soir	39	{'soir': 39}
+soit	114	{'soit': 111, 'Soit': 3}
+sol	113	{'sol': 113}
+soleil	120	{'soleil': 99, 'Soleil': 21}
+sombre	140	{'Sombre': 31, 'sombre': 109}
+sombres	68	{'sombres': 65, 'Sombres': 3}
+sommeil	33	{'sommeil': 33}
+sommes	107	{'sommes': 104, 'Sommes': 3}
+sommet	26	{'sommet': 26}
+son	682	{'son': 640, 'Son': 42}
+sonnerie	10	{'sonnerie': 10}
+sont	318	{'sont': 317, 'Sont': 1}
+sort	24	{'sort': 24}
+sortant	14	{'sortant': 12, 'Sortant': 2}
+sorte	36	{'sorte': 36}
+sorti	10	{'sorti': 10}
+sortie	10	{'sortie': 10}
+sortir	14	{'sortir': 14}
+soudain	109	{'Soudain': 29, 'soudain': 80}
+soudaine	12	{'soudaine': 12}
+souffla	15	{'souffla': 15}
+souffle	28	{'souffle': 28}
+souleva	11	{'souleva': 11}
+soupira	15	{'soupira': 15}
+sourire	10	{'sourire': 10}
+sous	247	{'sous': 239, 'Sous': 8}
+souvenir	19	{'souvenir': 19}
+souvent	45	{'souvent': 41, 'Souvent': 4}
+soyez	17	{'Soyez': 5, 'soyez': 12}
+stature	11	{'stature': 11}
+su	20	{'su': 20}
+sud	88	{'sud': 60, 'Sud': 28}
+suis	161	{'suis': 160, 'Suis': 1}
+suite	49	{'suite': 49}
+suivant	10	{'suivant': 8, 'Suivant': 2}
+Suivez	14	{'suivez': 6, 'Suivez': 8}
+suivirent	19	{'suivirent': 19}
+suivit	13	{'suivit': 13}
+suivre	41	{'suivre': 41}
+sujet	22	{'sujet': 22}
+suppose	34	{'suppose': 34}
+sur	897	{'Sur': 32, 'sur': 865}
+sûr	44	{'sûr': 44}
+surpris	12	{'surpris': 12}
+surprise	15	{'surprise': 15}
+surtout	11	{'Surtout': 1, 'surtout': 10}
+t	272	{'t': 259, 'T': 13}
+ta	35	{'ta': 33, 'Ta': 2}
+table	14	{'TABLE': 1, 'table': 13}
+taille	18	{'taille': 18}
+talons	13	{'talons': 13}
+talus	17	{'talus': 17}
+tandis	106	{'Tandis': 17, 'tandis': 89}
+tant	64	{'Tant': 5, 'tant': 59}
+tantôt	22	{'tantôt': 22}
+tard	42	{'tard': 41, 'Tard': 1}
+tarda	12	{'tarda': 12}
+tas	10	{'tas': 10}
+te	110	{'te': 109, 'Te': 1}
+tel	52	{'tel': 50, 'Tel': 2}
+telle	42	{'telle': 39, 'Telle': 3}
+tellement	14	{'tellement': 14}
+telles	10	{'telles': 10}
+tels	12	{'tels': 12}
+tempête	17	{'tempête': 17}
+temps	281	{'temps': 281}
+tenaient	22	{'tenaient': 22}
+tenait	44	{'tenait': 44}
+tendit	10	{'tendit': 10}
+ténèbres	73	{'ténèbres': 70, 'Ténèbres': 3}
+tenir	29	{'tenir': 29}
+tenter	10	{'tenter': 10}
+tenu	12	{'tenu': 12}
+terminé	11	{'terminé': 11}
+terre	103	{'terre': 86, 'Terre': 17}
+terres	52	{'terres': 46, 'Terres': 6}
+terreur	15	{'terreur': 14, 'Terreur': 1}
+terrible	16	{'Terrible': 2, 'terrible': 14}
+tes	32	{'tes': 30, 'Tes': 2}
+tête	168	{'tête': 168}
+têtes	23	{'têtes': 21, 'Têtes': 2}
+Thengel	10	{'Thengel': 10}
+Théoden	128	{'Théoden': 128}
+tiens	14	{'Tiens': 5, 'tiens': 9}
+tinrent	15	{'tinrent': 15}
+tint	32	{'tint': 32}
+tira	15	{'tira': 15}
+tirer	24	{'tirer': 24}
+Tirith	32	{'Tirith': 32}
+toi	69	{'toi': 64, 'Toi': 5}
+tomba	36	{'tomba': 36}
+tombaient	17	{'Tombaient': 1, 'tombaient': 16}
+tombé	20	{'tombé': 20}
+tombée	15	{'tombée': 15}
+tomber	31	{'tomber': 31}
+tombés	13	{'tombés': 13}
+ton	77	{'ton': 73, 'Ton': 4}
+tonnerre	21	{'tonnerre': 21}
+torches	15	{'torches': 15}
+torrent	12	{'torrent': 12}
+tôt	18	{'tôt': 17, 'Tôt': 1}
+Touc	12	{'Touc': 12}
+toucher	20	{'toucher': 20}
+toujours	153	{'toujours': 143, 'Toujours': 10}
+tour	120	{'tour': 96, 'Tour': 24}
+tourna	36	{'tourna': 36}
+tournait	12	{'tournait': 12}
+tournant	20	{'tournant': 19, 'Tournant': 1}
+tourné	17	{'tourné': 17}
+tourner	15	{'tourner': 15}
+tournèrent	11	{'tournèrent': 11}
+tours	26	{'Tours': 4, 'TOURS': 2, 'tours': 20}
+tous	260	{'tous': 227, 'Tous': 33}
+tout	621	{'tout': 552, 'Tout': 69}
+toute	162	{'toute': 151, 'Toute': 11}
+toutefois	26	{'toutefois': 20, 'Toutefois': 6}
+toutes	83	{'toutes': 76, 'Toutes': 7}
+trace	12	{'trace': 12}
+traces	13	{'traces': 13}
+train	30	{'train': 30}
+traits	20	{'traits': 20}
+tranquille	18	{'tranquille': 18}
+travers	109	{'travers': 109}
+traverser	14	{'traverser': 14}
+très	231	{'très': 202, 'Très': 29}
+trésor	93	{'trésor': 47, 'Trésor': 46}
+triste	14	{'triste': 14}
+trois	91	{'Trois': 14, 'trois': 77}
+troisième	30	{'TROISIÈME': 2, 'troisième': 22, 'Troisième': 6}
+trop	121	{'trop': 116, 'Trop': 5}
+trou	26	{'trou': 26}
+troupe	11	{'troupe': 11}
+trous	19	{'trous': 19}
+trouva	26	{'trouva': 26}
+trouvaient	31	{'trouvaient': 31}
+trouvait	54	{'trouvait': 54}
+trouve	44	{'trouve': 44}
+trouvé	35	{'trouvé': 35}
+trouvent	11	{'trouvent': 11}
+trouver	78	{'trouver': 77, 'Trouver': 1}
+trouvèrent	15	{'trouvèrent': 15}
+tu	353	{'tu': 276, 'Tu': 77}
+tué	16	{'tué': 15, 'Tué': 1}
+tuer	24	{'tuer': 24}
+tués	11	{'tués': 11}
+tunnel	37	{'tunnel': 37}
+Uglúk	58	{'Uglúk': 58}
+un	2361	{'Un': 137, 'un': 2224}
+une	1566	{'une': 1462, 'Une': 104}
+Ungol	10	{'Ungol': 10}
+unique	10	{'Unique': 4, 'unique': 6}
+uns	20	{'uns': 20}
+usage	11	{'usage': 11}
+va	109	{'va': 97, 'Va': 12}
+vais	87	{'vais': 87}
+Val	15	{'Val': 14, 'val': 1}
+vallée	71	{'vallée': 65, 'Vallée': 6}
+vallées	13	{'vallées': 13}
+vallon	12	{'vallon': 12}
+vapeur	10	{'vapeur': 10}
+vapeurs	11	{'vapeurs': 11}
+vas	14	{'vas': 14}
+vaste	35	{'vaste': 35}
+vastes	18	{'vastes': 18}
+vaut	13	{'vaut': 11, 'Vaut': 2}
+venaient	19	{'venaient': 19}
+venait	32	{'venait': 32}
+venant	10	{'venant': 10}
+Venez	20	{'Venez': 17, 'venez': 3}
+venir	45	{'venir': 45}
+vent	98	{'vent': 86, 'Vent': 12}
+ventre	19	{'ventre': 18, 'Ventre': 1}
+venu	51	{'venu': 51}
+venue	32	{'venue': 32}
+venus	31	{'venus': 31}
+véritable	11	{'véritable': 11}
+vérité	27	{'vérité': 27}
+verra	16	{'verra': 16}
+verrez	11	{'verrez': 11}
+vers	336	{'vers': 333, 'Vers': 3}
+versant	10	{'versant': 10}
+vert	31	{'vert': 31}
+verte	30	{'verte': 30}
+vertes	13	{'vertes': 13}
+verts	12	{'verts': 12}
+veut	45	{'veut': 44, 'Veut': 1}
+veux	39	{'veux': 39}
+victoire	11	{'victoire': 11}
+vide	24	{'vide': 24}
+vie	43	{'vie': 43}
+vieil	13	{'vieil': 11, 'Vieil': 2}
+vieillard	37	{'vieillard': 37}
+vieille	27	{'vieille': 25, 'Vieille': 2}
+vieilles	15	{'vieilles': 15}
+viennent	26	{'viennent': 26}
+viens	20	{'viens': 10, 'Viens': 10}
+vient	28	{'vient': 28}
+vieux	88	{'vieux': 77, 'Vieux': 11}
+vif	24	{'vif': 24}
+vin	13	{'vin': 13}
+vint	32	{'vint': 32}
+virent	40	{'virent': 40}
+visage	65	{'visage': 65}
+visages	16	{'visages': 15, 'Visages': 1}
+visible	11	{'visible': 11}
+vision	11	{'vision': 10, 'Vision': 1}
+vit	58	{'vit': 58}
+vite	61	{'vite': 58, 'Vite': 3}
+vitesse	11	{'vitesse': 11}
+vivant	18	{'vivant': 16, 'Vivant': 2}
+vivants	13	{'VIVANTS': 1, 'vivants': 11, 'Vivants': 1}
+vive	12	{'vive': 12}
+vivement	20	{'vivement': 19, 'Vivement': 1}
+voici	61	{'Voici': 26, 'voici': 35}
+voie	17	{'voie': 17}
+voilà	93	{'Voilà': 32, 'voilà': 61}
+voile	12	{'voile': 12}
+voir	181	{'voir': 179, 'Voir': 2}
+vois	44	{'vois': 43, 'Vois': 1}
+voit	16	{'voit': 15, 'Voit': 1}
+voix	202	{'voix': 202}
+volonté	36	{'volonté': 36}
+vont	39	{'vont': 39}
+vos	96	{'vos': 94, 'Vos': 2}
+votre	207	{'votre': 191, 'Votre': 16}
+voudrais	31	{'voudrais': 30, 'Voudrais': 1}
+voulait	22	{'voulait': 22}
+voulez	38	{'voulez': 32, 'Voulez': 6}
+vouloir	14	{'vouloir': 14}
+voulu	20	{'voulu': 20}
+voulut	12	{'voulut': 12}
+vous	1386	{'Vous': 176, 'vous': 1210}
+voûte	13	{'voûte': 13}
+voyage	42	{'Voyage': 2, 'voyage': 40}
+voyageurs	16	{'voyageurs': 16}
+voyaient	22	{'voyaient': 22}
+voyait	43	{'voyait': 43}
+voyant	12	{'voyant': 9, 'Voyant': 3}
+voyez	33	{'voyez': 24, 'Voyez': 9}
+vrai	45	{'vrai': 45}
+vraiment	41	{'vraiment': 39, 'Vraiment': 2}
+vu	91	{'vu': 91}
+vue	64	{'vue': 64}
+vus	15	{'vus': 15}
+y	725	{'y': 713, 'Y': 12}
+yeux	288	{'yeux': 288}
+z	10	{'z': 10}
