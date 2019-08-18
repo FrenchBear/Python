@@ -14,17 +14,15 @@ files2*1 -> 2901 in 9.33s
 files3*1 -> 2901 in 10.24s
 """
 
-"""
->>> [f.name for f in os.scandir(r'c:\users\Pierre') if f.is_file()]
-['.bash_history', '.git-credentials', '.gitconfig', '.productivitypowerpack2017', '.viminfo', 'IP_Log_Data.js', 'Network_Meter_Data.js', 'ntuser.dat', 'ntuser.dat.log1', 'ntuser.dat.log2', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.0.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.1.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.2.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TM.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000001.regtrans-ms', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TM.blf', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000001.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.ini', 'ntuser.pol', '_viminfo', '_vimrc']
->>> [f for f in os.listdir(r'c:\users\Pierre') if os.path.isfile(os.path.join(r'c:\users\Pierre', f))]
-['.bash_history', '.git-credentials', '.gitconfig', '.productivitypowerpack2017', '.viminfo', 'IP_Log_Data.js', 'Network_Meter_Data.js', 'ntuser.dat', 'ntuser.dat.log1', 'ntuser.dat.log2', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.0.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.1.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.2.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TM.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000001.regtrans-ms', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TM.blf', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000001.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.ini', 'ntuser.pol', '_viminfo', '_vimrc']
->>> l1=[f.name for f in os.scandir(r'c:\users\Pierre') if f.is_file()]
->>> l2=[f for f in os.listdir(r'c:\users\Pierre') if os.path.isfile(os.path.join(r'c:\users\Pierre', f))]
->>> l1==l2
-True
->>> 
-"""
+# >>> [f.name for f in os.scandir(r'c:\users\Pierre') if f.is_file()]
+# ['.bash_history', '.git-credentials', '.gitconfig', '.productivitypowerpack2017', '.viminfo', 'IP_Log_Data.js', 'Network_Meter_Data.js', 'ntuser.dat', 'ntuser.dat.log1', 'ntuser.dat.log2', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.0.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.1.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.2.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TM.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000001.regtrans-ms', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TM.blf', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000001.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.ini', 'ntuser.pol', '_viminfo', '_vimrc']
+# >>> [f for f in os.listdir(r'c:\users\Pierre') if os.path.isfile(os.path.join(r'c:\users\Pierre', f))]
+# ['.bash_history', '.git-credentials', '.gitconfig', '.productivitypowerpack2017', '.viminfo', 'IP_Log_Data.js', 'Network_Meter_Data.js', 'ntuser.dat', 'ntuser.dat.log1', 'ntuser.dat.log2', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.0.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.1.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.2.regtrans-ms', 'NTUSER.DAT{02ea2724-e200-11e7-a8fc-8c5539d148f7}.TxR.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TM.blf', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000001.regtrans-ms', 'NTUSER.DAT{02ea2725-e200-11e7-a8fc-8c5539d148f7}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TM.blf', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000001.regtrans-ms', 'ntuser.dat{125b04a9-fcbd-11e7-8c7a-9cb6d0f2a6e2}.TMContainer00000000000000000002.regtrans-ms', 'ntuser.ini', 'ntuser.pol', '_viminfo', '_vimrc']
+# >>> l1=[f.name for f in os.scandir(r'c:\users\Pierre') if f.is_file()]
+# >>> l2=[f for f in os.listdir(r'c:\users\Pierre') if os.path.isfile(os.path.join(r'c:\users\Pierre', f))]
+# >>> l1==l2
+# True
+# >>> 
 
 import os
 import os.path
