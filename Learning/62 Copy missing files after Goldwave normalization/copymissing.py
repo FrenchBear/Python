@@ -42,7 +42,10 @@ def CopyMissingFiles(source, target):
 
 
 
-source = r'U:\Pierre\A_Trier\A_Trier Brut\Georges Delerue\128'
-target = r'C:\Temp\LP128'
+#source = r'U:\Pierre\A_Trier\A_Trier Brut\Georges Delerue\128'
+#target = r'C:\Temp\LP128'
+
+source = r'U:\Pierre\A_Trier\A_Trier Brut'
+target = r'C:\Temp\LP'
 
 CopyMissingFiles(source, target)
