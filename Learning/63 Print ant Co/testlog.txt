@@ -1,0 +1,6 @@
+DEBUG:root:Hello
+DEBUG:__main__:Hello 2
+DEBUG:root:Hello
+DEBUG:__main__:Hello 2
+DEBUG:root:Hello
+DEBUG:__main__:Hello 2
