@@ -1,0 +1,10 @@
+# .pylintrc for print and co project
+# 2019-08-28    PV
+# Was initially generated using pylint --generate-rcfile > .pylintrc
+# but it's more than 500 lines, so I've simplified it!!!
+
+[TYPECHECK]
+generated-members=curses.*
+
+[MESSAGES CONTROL]
+disable=C0111,C0103

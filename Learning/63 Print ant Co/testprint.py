@@ -1,4 +1,4 @@
-# print1.py
+# testprint.py
 # Leaning python, variations on print
 #
 # 2019-08-28    PV
@@ -8,7 +8,7 @@
 from functools import partial
 import sys
 redirect = lambda function, stream: partial(function, file=stream)
-prefix = lambda function, prefix: partial(function, prefix)
+prefix = lambda function, prefixarg: partial(function, prefixarg)
 error = prefix(redirect(print, sys.stderr), '[ERROR]')
 error('Something went wrong')
 
