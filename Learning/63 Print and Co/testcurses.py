@@ -1,5 +1,7 @@
 # curses.py
 # Leaning python, variations on curses module
+# From "Your Guide to the Python Print Function", https://realpython.com/python-print/
+#
 # Need a pip install windows-curses
 # Just a basic example, will crash when hitting screen limits
 #

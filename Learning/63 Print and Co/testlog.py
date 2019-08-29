@@ -1,5 +1,6 @@
 # testlog.py
 # Leaning python, variations on logging
+# From "Your Guide to the Python Print Function", https://realpython.com/python-print/
 #
 # 2019-08-28    PV
 

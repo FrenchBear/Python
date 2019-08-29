@@ -1,5 +1,7 @@
 # testmock.py
 # Leaning python, variations on print mocking
+# From "Your Guide to the Python Print Function", https://realpython.com/python-print/
+#
 # Need much more work to undertand mocking
 # https://docs.python.org/3/library/unittest.mock.html
 # https://docs.python.org/3/library/unittest.mock-examples.html

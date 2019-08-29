@@ -1,5 +1,6 @@
 # testprint.py
 # Leaning python, variations on print
+# From "Your Guide to the Python Print Function", https://realpython.com/python-print/
 #
 # 2019-08-28    PV
 
