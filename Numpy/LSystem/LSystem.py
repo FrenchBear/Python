@@ -51,7 +51,7 @@ with open("fractint.l", 'r') as f:
             sd = None
             continue
         print(line)
-        assert(false)
+        assert(False)
 
 
 # Recursive iterator implementation
@@ -118,15 +118,17 @@ def GenerateAndPlot(name, level):
     PlotLSystem(generated, level, sd.name, sd.angle)
 
 
-if __name__=="__main__": 
-    if len(sys.argv)>1:
-        name = sys.argv[1]
-    else:
-       name = "Dragon"
-    if len(sys.argv)>2:
-        level = int(sys.argv[2])
-    else:
-       level = 6
-    GenerateAndPlot(name, level)
-else:
-    GenerateAndPlot("Hilbert", 6)
+GenerateAndPlot("Hilbert", 6)
+
+# if __name__=="__main__":
+#     if len(sys.argv)>1:
+#         name = sys.argv[1]
+#     else:
+#        name = "Dragon"
+#     if len(sys.argv)>2:
+#         level = int(sys.argv[2])
+#     else:
+#        level = 6
+#     GenerateAndPlot(name, level)
+# else:
+#     GenerateAndPlot("Hilbert", 6)
