@@ -1,0 +1,35 @@
+Show images density
+https://imagemagick.org/script/escape.php
+C:\Development\Temp\CropImageBorders\3 Redressé\5253>identify -format "%f %x %y\n" ..\*.png
+T18-130.png 39.359999999999999 39.359999999999999
+T18-131.png 39.359999999999999 39.359999999999999
+T18-132.png 39.359999999999999 39.359999999999999
+T18-133.png 236.21000000000001 236.21000000000001
+T18-134.png 39.359999999999999 39.359999999999999
+T18-135.png 39.359999999999999 39.359999999999999
+T18-136.png 39.359999999999999 39.359999999999999
+T18-137.png 236.21000000000001 236.21000000000001
+
+
+Change image density
+convert ..\T18-053.png -density 39.36 -units PixelsPerCentimeter out.png
+
+for %f in (*.png) do convert %f -density 39.36 -units PixelsPerCentimeter ..\4\%f
+
+
+
+Get image size
+identify -format "%f %w %h\n" *.png
+
+Extend images to the same size
+convert input.jpg -gravity center -background white -extent 3953x5632 output.jpg
+
+for %f in (*.png) do convert %f -gravity center -background white -extent 3953x5632 ..\6
+
+
+
+Resize pics
+http://www.imagemagick.org/Usage/resize
+
+convert dragon.png -resize 50%  half_dragon.png
+for %f in (*.png) do convert %f -resize 50% ..\7\%f
