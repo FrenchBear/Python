@@ -49,8 +49,8 @@ def process(file: str, numpage: int):
     print(file, ';', numpage, ';', sep='', end='')
 
     img = mpimg.imread(file)
-    width:int = img.shape[1]
-    height:int = img.shape[0]
+    width: int = img.shape[1]
+    height: int = img.shape[0]
     print(width, ';', height, ';', sep='', end='')
 
     if numpage % 2 == 0:
@@ -59,15 +59,15 @@ def process(file: str, numpage: int):
         (colmin, colmax) = (colminimpair, colmaximpair)
 
     area = img[rowmin:rowmax, colmin:colmax, :]
-    areaheight:int = area.shape[0]
-    areawidth:int = area.shape[1]
+    areaheight: int = area.shape[0]
+    areawidth: int = area.shape[1]
 
     area = (area-yellow)**2
     area = area.reshape(areawidth*areaheight, 3)
     area = np.apply_along_axis(veclength, 1, area)
     area = area.reshape(areaheight, areawidth)
 
-    colp:Optional[int] = None
+    colp: Optional[int] = None
     if numpage % 2 == 0:
         r = range(0, areawidth)
     else:
@@ -78,7 +78,7 @@ def process(file: str, numpage: int):
             colp = col+colmin
             break
 
-    rowp:Optional[int] = None
+    rowp: Optional[int] = None
     for row in range(areaheight-1, 0, -1):
         n = (area[row, :] < 0.05).sum()
         if n >= 100:
@@ -133,11 +133,25 @@ print('colpmax:', colpmax, '  margedmax:', margedmax)
 print('margegmax:', margegmax)
 
 print()
+finalwidth = colpmax+margedmax
+finalheight = rowpmax+margebmax
 for page in Pages:
     print(page)
     if page.numpage % 2 == 1:
         if page.colp:
             addmargeg = colpmax-page.colp
             addmarged = margedmax-(page.width-page.colp)
-            newwidth = page.width+addmargeg+addmarged
-            print('addmargeg', addmargeg, '  addmarged', addmarged, '  newwidth', newwidth)
+        else:
+            addmargeg = (finalwidth-page.width)//2
+            addmarged = finalwidth-page.width-addmargeg
+        newwidth = page.width+addmargeg+addmarged
+        print('addmargeg', addmargeg, '  addmarged', addmarged, '  newwidth', newwidth)
+
+        if page.rowp:
+            addmargeh = rowpmax-page.rowp
+            addmargeb = margebmax-(page.height-page.rowp)
+        else:
+            addmargeh = (finalheight-page.height)//2
+            addmargeb = finalheight-page.height-addmargeh
+        newheight = page.height+addmargeh+addmargeb
+        print('addmargeh', addmargeh, '  addmargeb', addmargeb, '  newheight', newheight)
