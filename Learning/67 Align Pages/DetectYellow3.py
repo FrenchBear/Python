@@ -307,12 +307,13 @@ print()
 #     print("Pages.append("+repr(page)+")")
 
 finalwidthimpair = colpimpairmax+margedmax
+margebmax = max(page.height-page.rowp for page in Pages if page.rowp)
 finalheight = rowpmax+margebmax
 margegmax = max(colppairmax-page.colp for page in Pages if page.colp and page.numpage % 2 == 0)
-margebmax = max(page.height-page.rowp for page in Pages if page.rowp)
 finalwidthpair = max(page.width+colppairmax-page.colp for page in Pages if page.colp and page.numpage % 2 == 0)
 finalwidth = max(finalwidthpair, finalwidthimpair)
 print("finalwidth:", finalwidth)
+print("finalheight:", finalheight)
 
 for page in Pages:
     if page.numpage<=20:
@@ -349,4 +350,4 @@ for page in Pages:
         newheight = page.height+addmargeh+addmargeb
         #print('addmargeh', addmargeh, '  addmargeb', addmargeb, '  newheight', newheight)
 
-        print(f'convert "{page.file}" -background red -extent {finalwidth}x{finalheight}-{addmargeg}-{addmargeh} C:\\temp\\page{page.numpage:0>3}.png')
+        print(f'convert "{page.file}" -background white -extent {finalwidth}x{finalheight}-{addmargeg}-{addmargeh} C:\\temp\\page{page.numpage:0>3}.png')
