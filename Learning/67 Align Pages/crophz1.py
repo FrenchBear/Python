@@ -5,8 +5,11 @@ import math
 import matplotlib.image as mpimg
 
 
-source = r'C:\Scans\THS32\1 Scans\1'
-dest = r'C:\Scans\THS32\2 Crop HZ\1'
+# source = r'C:\Scans\THS32\1 Scans\1'
+# dest = r'C:\Scans\THS32\2 Crop HZ\1'
+
+source = r'C:\Scans\THS32\1 Scans\2'
+dest = r'C:\Scans\THS32\2 Crop HZ\2'
 
 
 def files1(path):
@@ -23,9 +26,12 @@ def process(file: str, picout: str, numfile: int):
     height: int = img.shape[0]
     print(width, ';', height, ';', sep='', end='')
 
-    if numfile >= 17 or numfile == 3 or numfile == 13:
-        img = img[:, :-143, :]
-    img = img[:, 42:, :]
+    if numfile%2==1:
+        if numfile >= 17 or numfile == 3 or numfile == 13:
+            img = img[:, :-143, :]
+        img = img[:, 42:, :]
+    else:
+        img = img[:, 100:-50, :]
 
     mpimg.imsave(picout, img, dpi=600)
     print('->', picout)
