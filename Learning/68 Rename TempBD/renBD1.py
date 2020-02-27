@@ -24,16 +24,17 @@ def Step1(out):
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'–', '-', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)
-        newname = re.sub(r'(( +-)|(- +))+', ' - ', newname, flags=re.IGNORECASE)
 
         # Exceptions to . removan
-        newname = re.sub(r'D Gray-Man', 'D.Gray-Man', newname, flags=re.IGNORECASE)
-        
+        newname = re.sub(r'D Gray[- ]Man', 'D.Gray-Man', newname, flags=re.IGNORECASE)
 
         # Remove blocs between [] () {}
         newname = re.sub(r'\([^\)]+\)', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'\{[^\}]+\}', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'\[[^\]]+\]', ' ', newname, flags=re.IGNORECASE)
+
+        # Normalizes -
+        newname = re.sub(r'(( +-)|(- +))+', ' - ', newname, flags=re.IGNORECASE)
 
         # Renum T##
         def getnum(matchobj):
@@ -65,6 +66,7 @@ def Step1(out):
         newname = re.sub(r'Ã¨', 'è', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã´', 'ô', newname, flags=re.IGNORECASE)
         newname = re.sub(r"Ã'", 'ô', newname, flags=re.IGNORECASE)
+        newname = re.sub(r"Ã¶", 'ö', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã®', 'î', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã«', 'ë', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã¯', 'ï', newname, flags=re.IGNORECASE)
