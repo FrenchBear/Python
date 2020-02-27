@@ -52,19 +52,20 @@ def croppic(picin, picout):
 
     img2 = img[:, pmin:pmax, :]
 
-    mpimg.imsave(picout, img2)
+    mpimg.imsave(picout, img2, dpi=600)
 
     #plt.imshow(img2)
     #plt.show()
 
 #croppic('T18-006.png', 'T18-006-crop.png')
 
-source = r'T:\Scans\THS 18'
+source = r'T:\Scans\THS23\1 Scans'
+dest = r'C:\Scans\THS23\2 Crop'
 files = [f for f in os.listdir(source) if f!='Thumbs.db' and os.path.isfile(os.path.join(source, f))]
 
 for i in range(len(files)):
     picin = os.path.join(source, files[i])
-    picout = os.path.join("out", files[i])
+    picout = os.path.join(dest, files[i])
     print(picin, '->', end='')
     croppic(picin, picout)
     print(picout)
