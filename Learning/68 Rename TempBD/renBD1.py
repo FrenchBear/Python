@@ -62,6 +62,7 @@ def Step1(out):
         newname = re.sub(r'ÃÂª', 'ê', newname, flags=re.IGNORECASE)
         newname = re.sub(r'ÃÂ', 'à', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã¹', 'ù', newname, flags=re.IGNORECASE)
+        newname = re.sub(r'Ã»', 'û', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã©', 'é', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã¨', 'è', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Ã´', 'ô', newname, flags=re.IGNORECASE)
