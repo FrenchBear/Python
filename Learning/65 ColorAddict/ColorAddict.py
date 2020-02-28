@@ -5,7 +5,7 @@
 # Règle: on a 3 cartes retournées, si on ne peut pas jouer parmi les cartes retournées
 # on en retourne une de plus et on passe son tour, si on peut jouer, on en retourne une de plus s'il
 # y en a moins de trois retournées.
-# Si les deux joeurs sont bloqués, cette version arrête la simulation et retourne "Game stuck"
+# Si les deux joueurs sont bloqués, cette version arrête la simulation et retourne "Game stuck"
 
 from enum import Enum, auto
 from collections import namedtuple, Counter

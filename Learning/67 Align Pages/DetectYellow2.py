@@ -5,7 +5,7 @@ import numpy as np
 import scipy
 import math
 
-pathfile = r'C:\\Scans\\THS23\\3 Crop Vt\\THS23-018.png'
+pathfile = r'T:\Scans\THS32\3 BCI\THS32-005.png'
 path, file = os.path.split(pathfile)
 basename, ext = os.path.splitext(file)
 numpage = int(basename[-3:])
@@ -44,8 +44,8 @@ area = area.reshape(areawidth*areaheight, 3)
 area = np.apply_along_axis(veclength, 1, area)
 area = area.reshape(areaheight, areawidth)
 
-# plt.imshow(area, cmap='gray')
-# plt.show()
+plt.imshow(area, cmap='gray')
+plt.show()
 
 colp = None
 rowp = None
@@ -56,7 +56,7 @@ if numpage % 2 == 0:
 else:
     r = range(areawidth-1, -1, -1)
 for col in r:
-    n = (area[:, col] < 0.075).sum()
+    n = (area[:, col] < 0.1).sum()
     dcol.append(n)
     # if n >= 50:
     #     colp = col+colmin
@@ -67,7 +67,7 @@ plt.show()
 
 
 for row in range(areaheight-1, 0, -1):
-    n = (area[row, :] < 0.05).sum()
+    n = (area[row, :] < 0.1).sum()
     if n >= 100:
         rowp = row+rowmin
         break

@@ -99,12 +99,12 @@ def Step1(out):
         newname = re.sub(r'^[  \-]*', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' +', ' ', newname, flags=re.IGNORECASE)
 
-        if basename!=newname:
-            print(f"{basename:<120} |{newname}|")
-            out.write(f"{basename:<150} |{newname}|\n")
+        if file!=newname+ext.lower():
+            print(f"{file:<120} |{newname}{ext.lower()}|")
+            out.write(f"{file:<150} |{newname}{ext.lower()}|\n")
 
             try:
-                os.rename(os.path.join(source, file), os.path.join(source, newname+ext))
+                os.rename(os.path.join(source, file), os.path.join(source, newname+ext.lower()))
             except:
                 out.write("*** Err\n")
 
