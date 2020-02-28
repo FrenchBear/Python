@@ -46,7 +46,7 @@ def Step1(out):
 
         # Remove specific strings
         newname = re.sub(r'(BD|Comics|Manga)[ \.-]*FR', ' ', newname, flags=re.IGNORECASE)
-        newname = re.sub(r'Pressecitron|iBooker|FRENCH|HYBRiD|eBook|WEBRip|BDPACK|STC|REPACK|RESCAN|BROKER|One shot|MagPF|Full Color|Adult Comic|Bdstudio|by 5Cobres', '', newname, flags=re.IGNORECASE)
+        newname = re.sub(r'Pressecitron|iBooker|FRENCH|HYBRiD|eBook|WEBRip|BDPACK|STC|REPACK|RESCAN|BROKER|One shot|MagPF|Full Color|Adult Comic|Bdstudio|by 5Cobres|caso DKFR|DKFR', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' OS | BDX FR | BDX | FR | HD | HQ | Pack ', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r' !', '!', newname, flags=re.IGNORECASE)
         newname = re.sub(r'\d{4}px', '', newname, flags=re.IGNORECASE)
