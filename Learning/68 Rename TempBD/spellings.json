@@ -1,79 +1,321 @@
 [
     [
-        "Exilium",
-        "eXilium"
+        "Jeremiah",
+        "J\u00e9r\u00e9miah"
     ],
     [
-        "Ils ont fait l'Histoire",
-        "Ils Ont Fait L'histoire"
+        "Ast\u00e9rix",
+        "Asterix"
     ],
     [
-        "Les naufrag\u00e9s d'Ythaq",
-        "Les Naufrag\u00e9s D'ythaq"
+        "Les h\u00e9ritiers du soleil",
+        "Les heritiers du soleil"
     ],
     [
-        "La petite B\u00e9d\u00e9th\u00e8que des Savoirs",
-        "La petite b\u00e9d\u00e9th\u00e8que des savoirs"
+        "Les Ames d'Helios",
+        "Les \u00e2mes d'Helios",
+        "Les \u00e2mes d'H\u00e9lios"
     ],
     [
-        "Le Donjon de Naheulbeuk",
-        "Le donjon de Naheulbeuk"
+        "Prom\u00e9thee",
+        "Prom\u00e9th\u00e9e",
+        "Promethee"
     ],
     [
-        "Blue Space",
-        "Blue space"
+        "Mill\u00e9nium",
+        "Millenium"
     ],
     [
-        "Brynhildr in the Darkness",
-        "Brynhildr in the darkness"
+        "Meta-Baron",
+        "M\u00e9ta-Baron"
     ],
     [
-        "Le coll\u00e8ge Invisible",
-        "Le coll\u00e8ge invisible"
+        "Irr\u00e9cup\u00e9rable",
+        "Irr\u00e9cuperable"
     ],
     [
-        "Le sang du Dragon",
-        "Le Sang du Dragon"
+        "La caste des Meta-Barons",
+        "La Caste des M\u00e9ta-Barons"
     ],
     [
-        "Le Fr\u00e8re de G\u00f6ring",
-        "Le fr\u00e8re de G\u00f6ring"
+        "H\u00e9loise de Montfort",
+        "H\u00e9lo\u00efse de Montfort"
     ],
     [
-        "Les Profs",
-        "Les profs"
+        "L'expedition",
+        "L'exp\u00e9dition"
     ],
     [
-        "l'histoire secr\u00e8te",
-        "L'Histoire secr\u00e8te"
+        "Op\u00e9ration Overlord",
+        "Operation Overlord"
     ],
     [
-        "Le Journal de Spirou",
-        "Le journal de Spirou"
+        "L\u00e9onard",
+        "Leonard"
     ],
     [
-        "Les sisters",
-        "Les Sisters"
+        "Les guerri\u00e8res de Troy",
+        "Les guerrieres de Troy"
     ],
     [
-        "Les filles de soleil",
-        "Les Filles De Soleil",
-        "Les Filles de Soleil"
+        "Les ma\u00eetres cartographes",
+        "Les maitres cartographes"
     ],
     [
-        "L'oeil de la nuit",
-        "L'Oeil de la nuit"
+        "Les maitres inquisiteurs",
+        "Les ma\u00eetres inquisiteurs"
     ],
     [
-        "Les passagers du vent",
-        "Les Passagers du vent"
+        "Les naufrages d'Ythaq",
+        "Les naufrag\u00e9s d'Ythaq"
     ],
     [
-        "Blackwood",
-        "BlacKwooD"
+        "Lucifera",
+        "Lucif\u00e9ra"
     ],
     [
-        "La voix des anges",
-        "La Voix des Anges"
+        "Valerian",
+        "Val\u00e9rian"
+    ],
+    [
+        "Les myst\u00e9rieuses cit\u00e9s d'or",
+        "Les Mysterieuses Cites d'Or"
+    ],
+    [
+        "Medicis",
+        "M\u00e9dicis"
+    ],
+    [
+        "Tristan le menestrel",
+        "Tristan Le m\u00e9nestrel"
+    ],
+    [
+        "Androides",
+        "Andro\u00efdes"
+    ],
+    [
+        "Les gens honn\u00eates",
+        "Les Gens Honnetes"
+    ],
+    [
+        "Julie, Claire, C\u00e9cile",
+        "Julie, Claire, Cecile"
+    ],
+    [
+        "Il \u00e9tait une fois en France",
+        "Il etait une fois en France"
+    ],
+    [
+        "Kran",
+        "Kr\u00e4n"
+    ],
+    [
+        "Les sales blagues de L'\u00c9cho",
+        "Les sales blagues de l'Echo"
+    ],
+    [
+        "Th\u00e9odore Poussin",
+        "Theodore Poussin"
+    ],
+    [
+        "Acriborea",
+        "Acribor\u00e9a"
+    ],
+    [
+        "Beno\u00eet Brisefer",
+        "Benoit Brisefer"
+    ],
+    [
+        "Demon",
+        "D\u00e9mon"
+    ],
+    [
+        "Du plomb dans la t\u00eate",
+        "Du Plomb dans la Tete"
+    ],
+    [
+        "J\u00e9r\u00f4me K J\u00e9r\u00f4me Bloche",
+        "J\u00e9rome K J\u00e9rome Bloche",
+        "Jerome K Jerome Bloche"
+    ],
+    [
+        "La vie compliquee de Lea Olivier",
+        "La vie compliqu\u00e9e de L\u00e9a Olivier"
+    ],
+    [
+        "L'ultime Chim\u00e8re",
+        "L'ultime Chimere"
+    ],
+    [
+        "Mor\u00e9a",
+        "Morea"
+    ],
+    [
+        "Alpha Premi\u00e8res armes",
+        "Alpha Premieres armes"
+    ],
+    [
+        "St\u00e9phane Cl\u00e9ment",
+        "Stephane Cl\u00e9ment"
+    ],
+    [
+        "Les \u00e9ternels",
+        "Les Eternels"
+    ],
+    [
+        "Apr\u00e8s-guerre",
+        "Apr\u00e9s-Guerre"
+    ],
+    [
+        "Bibi Fricotin Integrale",
+        "Bibi Fricotin Int\u00e9grale"
+    ],
+    [
+        "Du c\u00f4t\u00e9 de chez Poje",
+        "Du cot\u00e9 de chez Poje"
+    ],
+    [
+        "L'\u00e9p\u00e9e de feu",
+        "L'Epee de Feu"
+    ],
+    [
+        "Eternels",
+        "\u00c9ternels"
+    ],
+    [
+        "Haikyu!! Les as du volley",
+        "Haiky\u016b!! Les as du volley"
+    ],
+    [
+        "Eclipse",
+        "\u00c9clipse"
+    ],
+    [
+        "Le maitre de jeu",
+        "Le ma\u00eetre de jeu"
+    ],
+    [
+        "Au-Dela des Nuages",
+        "Au-del\u00e0 des nuages"
+    ],
+    [
+        "Les velo maniacs",
+        "Les v\u00e9lo maniacs"
+    ],
+    [
+        "Sempe",
+        "Semp\u00e9"
+    ],
+    [
+        "Le Clan des Chimeres",
+        "Le clan des chim\u00e8res"
+    ],
+    [
+        "Am\u00e8re patrie",
+        "Amere Patrie"
+    ],
+    [
+        "Aspic, d\u00e9tectives de l'etrange",
+        "Aspic, d\u00e9tectives de l'\u00e9trange"
+    ],
+    [
+        "Le Cinquieme Evangile",
+        "Le cinquieme \u00e9vangile"
+    ],
+    [
+        "Le Concombre Masque",
+        "Le concombre masqu\u00e9"
+    ],
+    [
+        "Napol\u00e9on",
+        "Napoleon"
+    ],
+    [
+        "Tintin S\u00e9lection",
+        "Tintin Selection"
+    ],
+    [
+        "Un petit go\u00fbt de noisette",
+        "Un petit gout de noisette"
+    ],
+    [
+        "Chute de Velo",
+        "Chute de v\u00e9lo"
+    ],
+    [
+        "L'Histoire secr\u00e8te",
+        "L'Histoire Secrete"
+    ],
+    [
+        "Echos Graphiques",
+        "\u00c9chos graphiques"
+    ],
+    [
+        "Litteul Kevin",
+        "Litteul K\u00e9vin"
+    ],
+    [
+        "Un bel \u00e9t\u00e9",
+        "Un bel \u00e9te"
+    ],
+    [
+        "L'Envolee Sauvage",
+        "L'envol\u00e9e sauvage"
+    ],
+    [
+        "D\u00e9tectives",
+        "Detectives"
+    ],
+    [
+        "Le Capitaine Ecarlate",
+        "Le capitaine \u00e9carlate"
+    ],
+    [
+        "Les esclaves oubli\u00e9s de Tromelin",
+        "Les esclaves oublies de Tromelin"
+    ],
+    [
+        "L'empereur-oc\u00e9an",
+        "L'Empereur-Ocean"
+    ],
+    [
+        "Asphodele",
+        "Asphod\u00e8le"
+    ],
+    [
+        "Corps a Corps",
+        "Corps \u00e0 corps"
+    ],
+    [
+        "Car\u00e8me",
+        "Careme"
+    ],
+    [
+        "Elias le Maudit",
+        "\u00c9lias le maudit"
+    ],
+    [
+        "L'Epee de Crystal",
+        "L'ep\u00e9e de Crystal"
+    ],
+    [
+        "Petite Bedetheque des savoirs",
+        "Petite b\u00e9d\u00e9th\u00e8que des savoirs"
+    ],
+    [
+        "Frontiere",
+        "Fronti\u00e8re"
+    ],
+    [
+        "M\u00e9chant Benjamin",
+        "Mechant Benjamin"
+    ],
+    [
+        "L'arm\u00e9e des anges",
+        "L'Armee des Anges"
+    ],
+    [
+        "Les chercheurs de tr\u00e9sor",
+        "Les chercheurs de tresor"
     ]
 ]

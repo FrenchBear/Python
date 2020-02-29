@@ -8,6 +8,7 @@ from collections import defaultdict
 from typing import Dict, List, Tuple, DefaultDict, Iterable
 import json
 import re
+import unicodedata
 
 
 REBUILDFILESLIST = False
@@ -24,10 +25,16 @@ if REBUILDFILESLIST:
     with open(r'files.json', 'w') as outfile:
         json.dump(files, outfile, indent=4)
     print("Done.")
-    sys.exit(0)
+    #sys.exit(0)
 else:
     with open(r'files.json', 'r') as infile:
         files = json.load(infile)
+
+
+
+def lower_noaccent(s: str) -> str:
+    # Mn = Mark, Nonspacing = combining latin characters accents
+    return "".join(c for c in unicodedata.normalize("NFD", s.lower()) if unicodedata.category(c)!='Mn')       
 
 print("Grouping files...")
 series: DefaultDict[str, set] = defaultdict(set)
@@ -38,7 +45,8 @@ for file in files:
     basename, ext = os.path.splitext(file)
     segments = basename.split(" - ")
     serie = segments[0]
-    series[serie.lower()].add(serie)
+    serie_lna = lower_noaccent(serie)
+    series[serie_lna].add(serie)
 # Replace set by list to serialize
 # Or check https://stackoverflow.com/questions/8230315/how-to-json-serialize-sets
 series2 = {k:list(v) for (k,v) in series.items()}
@@ -47,34 +55,6 @@ series2 = {k:list(v) for (k,v) in series.items()}
 
 print(f'{nf} fichiers')
 print(f'{len(series)} séries')
-
-
-def RenameSeriesUsingOfficialSpelling():
-    # Load official spellings
-    spo = []
-    with open(r'spellingsofficiel.json', 'r') as infile:
-        spo = json.load(infile)    
-    dicspo = {}
-    for spelling in spo:
-        dicspo[spelling.lower()] = spelling
-
-    # Rename series using official spelling
-    for file in files:
-        basename, ext = os.path.splitext(file)
-        segments = basename.split(" - ")
-        serie = segments[0]
-        if serie.lower() in dicspo.keys():
-            if segments[0] != dicspo[serie.lower()]:
-                segments[0] = dicspo[serie.lower()]
-                newname = " - ".join(segments)+ext.lower()
-                print(f'{file:<100} -> {newname}')
-                try:
-                    os.rename(os.path.join(source, file), os.path.join(source, newname))
-                except:
-                    print("*** Err")
-
-
-RenameSeriesUsingOfficialSpelling()
 
 
 
@@ -96,6 +76,33 @@ def FindSeriesWithMultipleSpellings():
 #FindSeriesWithMultipleSpellings()
 
 
+def RenameSeriesUsingOfficialSpelling():
+    # Load official spellings
+    spo = []
+    with open(r'spellingsofficiel.json', 'r') as infile:
+        spo = json.load(infile)    
+    dicspo = {}
+    for spelling in spo:
+        dicspo[lower_noaccent(spelling)] = spelling
+
+    # Rename series using official spelling
+    for file in files:
+        basename, ext = os.path.splitext(file)
+        segments = basename.split(" - ")
+        serie = segments[0]
+        serie_lna = lower_noaccent(serie)
+        if serie_lna in dicspo.keys():
+            if segments[0] != dicspo[serie_lna]:
+                segments[0] = dicspo[serie_lna]
+                newname = " - ".join(segments)+ext.lower()
+                print(f'{file:<100} -> {newname}')
+                try:
+                    os.rename(os.path.join(source, file), os.path.join(source, newname))
+                except:
+                    print("*** Err")
+
+#RenameSeriesUsingOfficialSpelling()
+
 
 def FindSeriesEndingWithNumbers():
     print("Series ending with numbers")
@@ -111,4 +118,4 @@ def FindSeriesEndingWithNumbers():
         outfile.write('\n'.join(sorted(snum)))
     print(f'{len(snum)} series written in seriesendnum.txt')
 
-#FindSeriesEndingWithNumbers()
+FindSeriesEndingWithNumbers()
