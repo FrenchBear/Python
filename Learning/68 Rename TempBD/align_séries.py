@@ -98,7 +98,7 @@ def FindSeriesWithMultipleSpellings():
         json.dump(seriesm, outfile, indent=4)
     print(f"Written {len(seriesm)} series with 2 or more spellings in spellings.txt and spellings.json")
 
-FindSeriesWithMultipleSpellings()
+#FindSeriesWithMultipleSpellings()
 
 
 def RenameSeriesUsingOfficialSpelling():
@@ -126,7 +126,7 @@ def RenameSeriesUsingOfficialSpelling():
                 except:
                     print("*** Err")
 
-#RenameSeriesUsingOfficialSpelling()
+RenameSeriesUsingOfficialSpelling()
 
 
 def FindSeriesEndingWithNumbers():
