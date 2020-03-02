@@ -32,6 +32,7 @@ def is_clean_file(s: str) -> bool:
 
 
 source = r'W:\TempBD\cbr'
+#source = r'C:\temp'
 
 def clean_files():
     with open(r'analyze.txt', mode='w', encoding='utf-8') as out:
@@ -59,8 +60,12 @@ def analyse_archives():
             if ext.lower() in ['.cbr', '.rar']:
                     print(f'{archive:<100}', end='')
                     fullpath = os.path.join(source, archive)
-                    cnt = analyze_one_archive(fullpath)
+                    try:
+                        cnt = analyze_one_archive(fullpath)
+                    except:
+                        cnt = -1
                     print(cnt)
                     out.write(f'{cnt};{archive}\n')
                     out.flush()
-                    
+
+analyse_archives()
