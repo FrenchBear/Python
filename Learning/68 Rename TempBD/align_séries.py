@@ -15,12 +15,12 @@ REBUILDFILESLIST = True
 
 source = r'W:\TempBD'
 
-def GetFiles(source: str) -> List[str]:
+def get_files(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
 
 if REBUILDFILESLIST:
     print("Reading files...")
-    files = GetFiles(source)
+    files = get_files(source)
     print(f"Wrting {len(files)} in cache files.json")
     with open(r'files.json', 'w') as outfile:
         json.dump(files, outfile, indent=4)
