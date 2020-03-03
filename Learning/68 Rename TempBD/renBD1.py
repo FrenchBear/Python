@@ -1,10 +1,10 @@
 # renbd1.py
-# Rename BD files 1step after download in eMULE
+# Rename BD files 1step after download in emule
 # 2020-02-22    PV
 
 import os, sys
 import re
-from unicodedata import normalize
+import unicodedata
 from typing import List
 
 source = r'D:\Downloads\eMule\BD1'
@@ -12,15 +12,21 @@ outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'
 
-def GetFiles(source: str) -> List[str]:
+def get_files(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
+
+def clean_file_name(s: str) -> str:
+    res = ''.join(c for c in s if c in " ,.%!#&@$()[]¿°·½-+'" or unicodedata.category(c) in ['Ll', 'Lu', 'Nd'])
+    return res
+
 
 def Step1(out):
     n = 0
-    for file in GetFiles(source):
+    for file in get_files(source):
         basename, ext = os.path.splitext(file)
-        newname = ' '+normalize('NFC', basename)+' '
+        newname = ' '+unicodedata.normalize('NFC', basename)+' '
         newname = re.sub('\xa0', ' ', newname, flags=re.IGNORECASE)
+        newname = re.sub('`', "'", newname, flags=re.IGNORECASE)
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'–', '-', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)
@@ -99,6 +105,7 @@ def Step1(out):
         newname = re.sub(r'[  \-]*$', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'^[  \-]*', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' +', ' ', newname, flags=re.IGNORECASE)
+        newname = clean_file_name(newname)
 
         if file!=newname+ext.lower():
             print(f"{file:<120} |{newname}{ext.lower()}|")
