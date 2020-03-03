@@ -26,6 +26,7 @@ def Step1(out):
         basename, ext = os.path.splitext(file)
         newname = ' '+unicodedata.normalize('NFC', basename)+' '
         newname = re.sub('\xa0', ' ', newname, flags=re.IGNORECASE)
+        newname = re.sub('`', "'", newname, flags=re.IGNORECASE)
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'–', '-', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)

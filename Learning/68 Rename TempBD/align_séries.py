@@ -14,6 +14,7 @@ import unicodedata
 REBUILDFILESLIST = True
 
 source = r'W:\TempBD'
+source = r'D:\Downloads\eMule\BD1'
 
 def get_files(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
