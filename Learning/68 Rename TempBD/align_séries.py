@@ -22,18 +22,17 @@ if REBUILDFILESLIST:
     print("Reading files...")
     files = get_files(source)
     print(f"Wrting {len(files)} in cache files.json")
-    with open(r'files.json', 'w') as outfile:
-        json.dump(files, outfile, indent=4)
+    with open(r'files.json', 'w', encoding='utf8') as outfile:
+        json.dump(files, outfile, indent=4, ensure_ascii=False)
     print("Done.")
     #sys.exit(0)
 else:
-    with open(r'files.json', 'r') as infile:
+    with open(r'files.json', 'r', encoding='utf8') as infile:
         files = json.load(infile)
 
 
 def memoize_normalize_serie(f): 
     memory = {} 
-    # This inner function has access to memory and 'f' 
     def inner(s): 
         if s not in memory:          
             memory[s] = f(s) 
@@ -72,8 +71,8 @@ for file in files:
 # Replace set by list to serialize
 # Or check https://stackoverflow.com/questions/8230315/how-to-json-serialize-sets
 series2 = {k:list(v) for (k,v) in series.items()}
-# with open(r'series.json', 'w') as outfile:
-#     json.dump(series2, outfile, indent=4)
+# with open(r'series.json', 'w', encoding='utf8') as outfile:
+#     json.dump(series2, outfile, indent=4, ensure-ascii=False)
 
 print(f'{nf} fichiers')
 print(f'{len(series)} séries')
@@ -100,8 +99,8 @@ def find_series_with_multiple_spellings():
                     for spelling in lv:
                         out.write(spelling+';')
                     out.write('\n')
-    with open(r'spellings.json', 'w') as outfile:
-        json.dump(seriesm, outfile, indent=4)
+    with open(r'spellings.json', 'w', encoding='utf8') as outfile:
+        json.dump(seriesm, outfile, indent=4, ensure_ascii=False)
     print(f"Written {len(seriesm)} series with 2 or more spellings in spellings.txt and spellings.json")
 
 find_series_with_multiple_spellings()
@@ -110,7 +109,7 @@ find_series_with_multiple_spellings()
 def rename_series_using_official_spelling():
     # Load official spellings
     spo = []
-    with open(r'spellingsofficiel.json', 'r') as infile:
+    with open(r'spellingsofficiel.json', 'r', encoding='utf8') as infile:
         spo = json.load(infile)    
     dicspo = {}
     for spelling in spo:
@@ -138,7 +137,7 @@ def rename_series_using_official_spelling():
 def find_series_ending_with_numbers():
     print("Series ending with numbers")
     ENDDIGITS_RE = re.compile(r".*[ 0-9]+")
-    with open(r'seriesvalidesavecnum.json', 'r') as infile:
+    with open(r'seriesvalidesavecnum.json', 'r', encoding='utf8') as infile:
         seriesvalidesavecnum = json.load(infile)
     snum = []
     for (k,_) in series.items():
