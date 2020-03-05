@@ -56,8 +56,12 @@ def rename_series():
     for bad, good in extra_rename:
         dicren[bad.lower()] = good
 
+    nf = 0
+    nr = 0
+
     # Rename series using official spelling
     for fullpath in files:
+        nf += 1
         path, file = os.path.split(fullpath)
         basename, ext = os.path.splitext(file)
         segments = basename.split(" - ")
@@ -75,6 +79,7 @@ def rename_series():
                 to_rename = True
 
         if to_rename:
+            nr += 1
             newname = " - ".join(segments)+ext.lower()
             newname
             print(f'{file:<100} -> {newname}')
@@ -83,5 +88,8 @@ def rename_series():
                     os.rename(fullpath, os.path.join(path, newname))
                 except:
                     print("*** Err")
+    if not DO_IT:
+        print("No action: ", end='')
+    print(f'{nf} fichiers analysés, {nr} renommé(s)')
 
 rename_series()

@@ -5,26 +5,29 @@
 import os, sys
 import re
 import unicodedata
+import json
 from typing import List
 
 from common import *
 
 
+DO_IT = True
 source = r'D:\Downloads\eMule\BD1'
 outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'
 
+with open(r'seriesvalidesavecnum.json', 'r', encoding='utf8') as infile:
+    seriesvalidesavecnum = json.load(infile)
 
 def Step1(out):
-    n = 0
+    nf = 0
+    nr = 0
     for file in get_files(source):
+        nf += 1
         basename, ext = os.path.splitext(file)
-        newname = ' '+unicodedata.normalize('NFC', basename)+' '
-        newname = re.sub('\xa0', ' ', newname, flags=re.IGNORECASE)
-        newname = re.sub('`', "'", newname, flags=re.IGNORECASE)
+        newname = ' '+unicodedata.normalize('NFC', basename).translate(transtab)+' '
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
-        newname = re.sub(r'–', '-', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)
 
         # Exceptions to . removan
@@ -51,9 +54,9 @@ def Step1(out):
         newname = re.sub(r'Pressecitron|iBooker|FRENCH|HYBRiD|eBook|WEBRip|BDPACK|STC|REPACK|RESCAN|BROKER|One shot|MagPF|Full Color|Adult Comic|Bdstudio|by 5Cobres|caso DKFR|DKFR', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' OS | BDX FR | BDX | FR | HD | HQ | Pack ', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r' !', '!', newname, flags=re.IGNORECASE)
+        newname = re.sub(r' Int ', ' Intégrale ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'\d{4}px', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'1920|1600', '', newname, flags=re.IGNORECASE)
-
 
         # Replace wrong accents
         newname = re.sub(r'ÃÂ©', 'é', newname, flags=re.IGNORECASE)
@@ -97,6 +100,13 @@ def Step1(out):
         newname = re.sub(r'^ *\d{2}[- ]\d{4}', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'^ *\d{6}', '', newname, flags=re.IGNORECASE)
 
+        # Series ending with numbers
+        if (p := newname.find(" - "))<0:
+            p = len(newname)
+        nnt = newname[:p]
+        if ma := re.fullmatch(r"(.*) (\d\d)( *)", newname[:p]):
+            newname = ma.group(1)+' - '+ma.group(2)+ma.group(3)+newname[p:]
+
         # Final clean-up
         newname = re.sub(r'[  \-]*$', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'^[  \-]*', '', newname, flags=re.IGNORECASE)
@@ -106,11 +116,15 @@ def Step1(out):
         if file!=newname+ext.lower():
             print(f"{file:<120} |{newname}{ext.lower()}|")
             out.write(f"{file:<150} |{newname}{ext.lower()}|\n")
-
-            try:
-                os.rename(os.path.join(source, file), os.path.join(source, newname+ext.lower()))
-            except:
-                out.write("*** Err\n")
+            nr += 1
+            if DO_IT:
+                try:
+                    os.rename(os.path.join(source, file), os.path.join(source, newname+ext.lower()))
+                except:
+                    out.write("*** Err\n")
+    if not DO_IT:
+        print("No action: ", end='')
+    print(f'{nf} fichiers analysés, {nr} renommé(s)')
 
 
 with open(outfile, mode='w', encoding='utf-8') as out:
