@@ -19,20 +19,21 @@ DO_IT = True
 
 source = r'D:\Downloads\eMule\BD1'
 #source = r'W:\TempBD\raw'
+#source = r'W:\TempBD\pdf'
 #source = r'W:\TempBD\archives'
 
 
 if REBUILD_FILES_LIST:
-    print("Reading files...")
-    files = get_files(source)
-    print(f"Wrting {len(files)} in cache files.json")
-    with open(r'files.json', 'w', encoding='utf8') as outfile:
+    print("Reading files hierarchy...")
+    files = list(get_all_files(source))
+    print(f"Wrting {len(files)} records in cache filesH.json")
+    with open(r'filesH.json', 'w', encoding='utf8') as outfile:
         json.dump(files, outfile, indent=4, ensure_ascii=False)
     print("Done.")
-    # sys.exit(0)
 else:
-    with open(r'files.json', 'r', encoding='utf8') as infile:
+    with open(r'filesH.json', 'r', encoding='utf-8') as infile:
         files = json.load(infile)
+    print(f"Loaded {len(files)} records from filesH.json")
 
 
 extra_rename = [
@@ -56,9 +57,8 @@ def rename_series():
         dicren[bad.lower()] = good
 
     # Rename series using official spelling
-    for file in files:
-        # if file=='Les Cahiers De La Bande Dessinée - 25 - Giraud.cbr':
-        #     breakpoint()
+    for fullpath in files:
+        path, file = os.path.split(fullpath)
         basename, ext = os.path.splitext(file)
         segments = basename.split(" - ")
         serie = segments[0]
@@ -80,7 +80,7 @@ def rename_series():
             print(f'{file:<100} -> {newname}')
             if DO_IT:
                 try:
-                    os.rename(os.path.join(source, file), os.path.join(source, newname))
+                    os.rename(fullpath, os.path.join(path, newname))
                 except:
                     print("*** Err")
 

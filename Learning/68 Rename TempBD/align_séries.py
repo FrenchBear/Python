@@ -13,30 +13,42 @@ import unicodedata
 from common import *
 
 
-REBUILD_FILES_LIST = False
+source = r'W:\TempBD'
 
-source = r'F:\TempBD'
 
+REBUILD_FILES_LIST = True
 
 if REBUILD_FILES_LIST:
-    print("Reading files...")
-    files = get_files(source)
-    print(f"Wrting {len(files)} in cache files.json")
-    with open(r'files.json', 'w', encoding='utf8') as outfile:
+    print("Reading files hierarchy...")
+    files = list(get_all_files(source))
+    print(f"Wrting {len(files)} records in cache filesH.json")
+    with open(r'filesH.json', 'w', encoding='utf8') as outfile:
         json.dump(files, outfile, indent=4, ensure_ascii=False)
     print("Done.")
-    #sys.exit(0)
 else:
-    with open(r'files.json', 'r', encoding='utf8') as infile:
+    with open(r'filesH.json', 'r', encoding='utf-8') as infile:
         files = json.load(infile)
+    print(f"Loaded {len(files)} records from filesH.json")
+
+# if REBUILD_FILES_LIST:
+#     print("Reading files...")
+#     files = get_files(source)
+#     print(f"Wrting {len(files)} in cache files.json")
+#     with open(r'files.json', 'w', encoding='utf8') as outfile:
+#         json.dump(files, outfile, indent=4, ensure_ascii=False)
+#     print("Done.")
+#     #sys.exit(0)
+# else:
+#     with open(r'files.json', 'r', encoding='utf8') as infile:
+#         files = json.load(infile)
+
 
 
 print("Grouping files...")
 series: DefaultDict[str, set] = defaultdict(set)
 nf = 0
-for file in files:
-    nf += 1
-    # if nf>100: break
+for fullpath in files:
+    path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
     segments = basename.split(" - ")
     serie = segments[0]

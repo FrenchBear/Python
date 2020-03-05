@@ -13,9 +13,9 @@ from common import *
 source = r'W:\TempBD'
 
 
-REBUILDFILESLIST = True
+REBUILD_FILES_LIST = True
 
-if REBUILDFILESLIST:
+if REBUILD_FILES_LIST:
     print("Reading files hierarchy...")
     files = list(get_all_files(source))
     print(f"Wrting {len(files)} records in cache filesH.json")
