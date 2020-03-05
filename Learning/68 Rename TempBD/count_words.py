@@ -1,27 +1,19 @@
-from collections import Counter
+# Compte les mos les plus fréquents dans les noms de BD
+# 2020-05-04    PV
 
 import os, sys
 import re
-import unicodedata
 import json
-from typing import List, Iterable
 from collections import Counter
+from typing import Counter as TCounter
+
+from common import *
+
 
 source = r'W:\TempBD'
 
-def get_files(source: str) -> List[str]:
-    return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
 
-def get_all_files(path: str) -> Iterable[str]:
-    for root, subs, files in os.walk(path):
-        for file in files:
-            yield os.path.join(root, file)
-
-def clean_file_name(s: str) -> str:
-    res = ''.join(c for c in s if c in " ,.%!#&@$()[]¿°·½-+'" or unicodedata.category(c) in ['Ll', 'Lu', 'Nd'])
-    return res
-
-REBUILDFILESLIST = False
+REBUILDFILESLIST = True
 
 if REBUILDFILESLIST:
     print("Reading files hierarchy...")
@@ -36,15 +28,16 @@ else:
     print(f"Loaded {len(files)} records from filesH.json")
 
 
-
-cnt = Counter()
+cnt: TCounter[str] = Counter()
 for fullpath in files:
     path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
     s = re.findall(r"[\w']+", basename)
     cnt.update(s)
 
-for (s, c) in cnt.most_common(100):
-    if not re.fullmatch(r'''\d+''', s):
-        print(f"{c:4} {s}")
+word: str
+c: int
+for (word, c) in cnt.most_common(200):
+    if not re.fullmatch(r'''\d+''', word):
+        print(f"{c:4} {word}")
 #print(cnt.most_common(10))

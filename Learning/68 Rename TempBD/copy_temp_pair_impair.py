@@ -3,7 +3,7 @@ from typing import List, Iterable
 from shutil import copyfile
 
 
-source = r'\\teraz\backup_temp\temp'
+source = r'e:\eMuleTemp.bak'
 target = r'e:\eMuleTemp'
 
 def get_files(source: str) -> List[str]:
@@ -20,4 +20,5 @@ for fullpath in get_all_files(source):
     n = int(file[:p])
     if n%2==0:
         print(n, file)
-        copyfile(fullpath, os.path.join(target, file))
+        #copyfile(fullpath, os.path.join(target, file))
+        os.rename(fullpath, os.path.join(target, file))

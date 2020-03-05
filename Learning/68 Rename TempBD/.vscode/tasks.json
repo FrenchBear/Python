@@ -12,7 +12,8 @@
         {
             "label": "mypy Python type anotations check (folder)",
             "type": "shell",
-            "command": "mypy ."
+            "command": "mypy .",
+            "problemMatcher": []
         }
     ]
 }

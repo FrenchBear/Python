@@ -10,15 +10,15 @@ import json
 import re
 import unicodedata
 
+from common import *
 
-REBUILDFILESLIST = False
+
+REBUILD_FILES_LIST = False
 
 source = r'F:\TempBD'
 
-def get_files(source: str) -> List[str]:
-    return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
 
-if REBUILDFILESLIST:
+if REBUILD_FILES_LIST:
     print("Reading files...")
     files = get_files(source)
     print(f"Wrting {len(files)} in cache files.json")
@@ -30,32 +30,6 @@ else:
     with open(r'files.json', 'r', encoding='utf8') as infile:
         files = json.load(infile)
 
-
-def memoize_normalize_serie(f): 
-    memory = {} 
-    def inner(s): 
-        if s not in memory:          
-            memory[s] = f(s) 
-        return memory[s] 
-    return inner 
-
-
-@memoize_normalize_serie
-def normalize_serie(serie: str) -> str:
-    # Mn = Mark, Nonspacing = combining latin characters accents
-    serie = ''.join(c for c in unicodedata.normalize("NFD", serie.lower()) if unicodedata.category(c)!='Mn' and c!=',')
-    for prefix in ['les aventures de ', "les aventures d'", 'une aventure de ', "une aventure d'", "la legende de ", "la legende des ","la legende d'", "legende de ", "legende des ","legende d'", "legendes de ", "legendes des ","legendes d'", 'le ','la ', 'les ', "l'", 'un ', 'une ']:
-        if serie.startswith(prefix):
-            serie = serie[len(prefix):]
-    for suffix in [' - pdf', ' - rar', ' - zip',' pdf', ' rar', ' zip']:
-        if serie.endswith(suffix):
-            # A vérifier
-            serie = serie[:-len(suffix)]
-    for subst in [
-        ('blake & mortimer', 'blake et mortimer'),
-        ]:
-        serie = serie.replace(subst[0], subst[1])
-    return serie
 
 print("Grouping files...")
 series: DefaultDict[str, set] = defaultdict(set)
@@ -106,34 +80,6 @@ def find_series_with_multiple_spellings():
 find_series_with_multiple_spellings()
 
 
-def rename_series_using_official_spelling():
-    # Load official spellings
-    spo = []
-    with open(r'spellingsofficiel.json', 'r', encoding='utf8') as infile:
-        spo = json.load(infile)    
-    dicspo = {}
-    for spelling in spo:
-        dicspo[normalize_serie(spelling)] = spelling
-
-    # Rename series using official spelling
-    for file in files:
-        basename, ext = os.path.splitext(file)
-        segments = basename.split(" - ")
-        serie = segments[0]
-        serie_lna = normalize_serie(serie)
-        if serie_lna in dicspo.keys():
-            if segments[0] != dicspo[serie_lna]:
-                segments[0] = dicspo[serie_lna]
-                newname = " - ".join(segments)+ext.lower()
-                print(f'{file:<100} -> {newname}')
-                try:
-                    os.rename(os.path.join(source, file), os.path.join(source, newname))
-                except:
-                    print("*** Err")
-
-#rename_series_using_official_spelling()
-
-
 def find_series_ending_with_numbers():
     print("Series ending with numbers")
     ENDDIGITS_RE = re.compile(r".*[ 0-9]+")
@@ -149,7 +95,6 @@ def find_series_ending_with_numbers():
     print(f'{len(snum)} series written in seriesendnum.txt')
 
 #find_series_ending_with_numbers()
-
 
 
 

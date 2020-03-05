@@ -7,17 +7,13 @@ import re
 import unicodedata
 from typing import List
 
+from common import *
+
+
 source = r'D:\Downloads\eMule\BD1'
 outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'
-
-def get_files(source: str) -> List[str]:
-    return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
-
-def clean_file_name(s: str) -> str:
-    res = ''.join(c for c in s if c in " ,.%!#&@$()[]¿°·½-+'" or unicodedata.category(c) in ['Ll', 'Lu', 'Nd'])
-    return res
 
 
 def Step1(out):
