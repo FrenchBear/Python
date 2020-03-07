@@ -4,7 +4,7 @@ import re
 from typing import List
 from common import *
 
-source = r'W:\TempBD\archives\pdf'
+source = r"W:\TempBD\archives\cbrn.rerar"
 DO_IT = True
 
 NUM_DOT_TITLE = re.compile("(\d+)\. ?(.+)")

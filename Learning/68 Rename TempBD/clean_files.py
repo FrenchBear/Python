@@ -15,7 +15,7 @@ from common import *
 
 DO_IT = False
 
-source = r'D:\Downloads\eMule\BD1'
+source = r'W:\TempBD\archives\cbrn'
 #source = r'W:\TempBD'
 
 def clean_files():

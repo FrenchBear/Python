@@ -12,7 +12,7 @@ from common import *
 
 
 DO_IT = True
-source = r"W:\TempBD\archives\pdf\L'Incal"
+source = r"W:\TempBD\archives\cbrn.pdf"
 outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'

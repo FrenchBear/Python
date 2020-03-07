@@ -17,7 +17,7 @@ from common import *
 REBUILD_FILES_LIST = True
 DO_IT = True
 
-source = r'W:\TempBD\archives\archiven'
+source = r"W:\TempBD\archives\cbrn.rerar"
 
 
 if REBUILD_FILES_LIST:
