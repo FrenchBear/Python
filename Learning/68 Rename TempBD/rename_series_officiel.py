@@ -17,10 +17,7 @@ from common import *
 REBUILD_FILES_LIST = True
 DO_IT = True
 
-source = r'D:\Downloads\eMule\BD1'
-#source = r'W:\TempBD\raw'
-#source = r'W:\TempBD\pdf'
-#source = r'W:\TempBD\archives'
+source = r'W:\TempBD\archives\archiven'
 
 
 if REBUILD_FILES_LIST:

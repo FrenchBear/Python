@@ -50,7 +50,7 @@ nf = 0
 for fullpath in files:
     path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
-    segments = basename.split(" - ")
+    segments = basename.split(' - ')
     serie = segments[0]
     serie_lna = normalize_serie(serie)
     series[serie_lna].add(serie)

@@ -11,6 +11,10 @@ from typing import List, Iterable, Tuple
 def get_files(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
 
+# Juste les sous-dossiers d'un dossier, juste les noms
+def get_folders(source: str) -> List[str]:
+    return list([f for f in os.listdir(source) if os.path.isdir(os.path.join(source, f))])
+
 # Chemin complet de tous les fichiers à partir d'une racine
 def get_all_files(path: str) -> Iterable[str]:
     for root, subs, files in os.walk(path):

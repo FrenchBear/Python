@@ -1,7 +1,7 @@
 # Analyse le contenu de fichiers rar
 # 2020-03-05    PV
 
-import os
+import os, shutil
 import rarfile
 import unicodedata
 from typing import List, Tuple, TextIO
@@ -16,8 +16,8 @@ Ignorer les dossiers __MACOSX
 """
 
 
-DO_IT = False
-source = r'W:\TempBD'
+DO_IT = True
+source = r'W:\TempBD\archives'
 
 
 def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str]:
@@ -61,6 +61,19 @@ def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str
         sother = '{}'
     return len(folders), n_image, n_pdf, n_archive, n_other, n_mac, sother
 
+created = []
+dest = ''
+
+def move(fullpath: str, subfolder: str):
+    global dest
+    dest = subfolder
+    path, file = os.path.split(fullpath)
+    print(f' -->  {subfolder:<8}')
+    if DO_IT:
+        if subfolder not in created:
+            created.append(subfolder)
+            os.mkdir(os.path.join(source, subfolder))
+        os.rename(fullpath, os.path.join(source, subfolder, file))
 
 def analyse_archives(out: TextIO):
     totf = 0
@@ -76,9 +89,38 @@ def analyse_archives(out: TextIO):
                 except:
                     status = 'Error'
                     nf,ni,np,na,no,nm,so = (0,0,0,0,0,0,'')
-                print(status,nf,ni,np,na,no,nm,so)
-                out.write(f'{status};{file};{nf};{ni};{np};{na};{no};{nm};{so}\n')
+                print(status,nf,ni,np,na,no,nm,so, end='')
+
+                if status=='Error':
+                    move(fullpath, "error")
+                else:
+                    if so.lower().find(".exe")>=0:
+                        move(fullpath, "exe")
+                    else:
+                        if ni==0 and na==0 and np==1:
+                            move(fullpath, "pdf1")
+                        else:
+                            if ni==0 and na==0 and np>1:
+                                move(fullpath, "pdf")
+                            else:
+                                if nf==1 and np==0 and na==0 and ni>0:
+                                    move(fullpath, "cbr1")
+                                else:
+                                    if nf>=1 and np==0 and na==0 and ni>0:
+                                        move(fullpath, "cbrn")
+                                    else:
+                                        if ni==0 and np==0 and na==1:
+                                            move(fullpath, "archive1")
+                                        else:
+                                            if ni==0 and np==0 and na>1:
+                                                move(fullpath, "archiven")
+                                            else:
+                                                move(fullpath, "hyprid")
+
+                out.write(f'{dest};{status};{file};{nf};{ni};{np};{na};{no};{nm};{so}\n')
                 out.flush()
+
+
     if not DO_IT:
         print("No action: ", end='')
     print(f'{totf} fichiers analysés')

@@ -12,7 +12,7 @@ from common import *
 
 
 DO_IT = True
-source = r'D:\Downloads\eMule\BD1'
+source = r"W:\TempBD\archives\pdf\L'Incal"
 outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'
@@ -23,9 +23,11 @@ with open(r'seriesvalidesavecnum.json', 'r', encoding='utf8') as infile:
 def Step1(out):
     nf = 0
     nr = 0
-    for file in get_files(source):
+    for fullpath in get_all_files(source):
         nf += 1
+        path, file = os.path.split(fullpath)
         basename, ext = os.path.splitext(file)
+
         newname = ' '+unicodedata.normalize('NFC', basename).translate(transtab)+' '
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)
@@ -104,7 +106,7 @@ def Step1(out):
         if (p := newname.find(" - "))<0:
             p = len(newname)
         nnt = newname[:p]
-        if ma := re.fullmatch(r"(.*) (\d\d)( *)", newname[:p]):
+        if ma := re.fullmatch(r"(.*) (\d?\d\d)( *)", newname[:p]):
             newname = ma.group(1)+' - '+ma.group(2)+ma.group(3)+newname[p:]
 
         # Final clean-up
@@ -119,7 +121,7 @@ def Step1(out):
             nr += 1
             if DO_IT:
                 try:
-                    os.rename(os.path.join(source, file), os.path.join(source, newname+ext.lower()))
+                    os.rename(os.path.join(path, file), os.path.join(path, newname+ext.lower()))
                 except:
                     out.write("*** Err\n")
     if not DO_IT:
