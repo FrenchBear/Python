@@ -39,7 +39,7 @@ def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str
                 ext=ext.lower()
                 folders.add(folder)
                 type = ''
-                if ext in ['.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.png']:
+                if ext in ['.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.png', '.tif', '.tiff']:
                     type='image'
                     n_image += 1
                 else:

@@ -1,2 +1,0 @@
-mkdir "W:\TempBD\archives\cbrn.rerar\Gay Wulfgar Comics"
-"c:\Program Files\WinRAR\rar.exe" a -ep "W:\TempBD\archives\cbrn.rerar\Gay Wulfgar Comics\[fxc] werewolf by insemination pt 1" "W:\TempBD\archives\cbrn\Gay Wulfgar Comics\[fxc] werewolf by insemination pt 1"

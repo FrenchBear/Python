@@ -4,7 +4,7 @@ import re
 from typing import List
 from common import *
 
-source = r"W:\TempBD\archives\cbrn.rerar"
+source = r"W:\TempBD\final"
 DO_IT = True
 
 NUM_DOT_TITLE = re.compile("(\d+)\. ?(.+)")
@@ -26,9 +26,10 @@ def rename_file(folderfp: str, serie: str, file: str):
         rename(folderfp, file, newname)
         return
     if ma:=NUM_DASH_TITLE.fullmatch(basename):
-        newname = serie+' - '+format_num(ma.group(1))+' - '+ma.group(2)+ext
-        rename(folderfp, file, newname)
-        return
+        if serie!='666':
+            newname = serie+' - '+format_num(ma.group(1))+' - '+ma.group(2)+ext
+            rename(folderfp, file, newname)
+            return
     if ma:=HSNUM_DOT_TITLE.fullmatch(basename):
         newname = serie+' - HS '+format_num(ma.group(1))+' - '+ma.group(2)+ext
         rename(folderfp, file, newname)

@@ -3,7 +3,9 @@
 
 import sys
 import os
+import shutil
 import unicodedata
+
 from typing import List, Iterable, Tuple
 
 
@@ -45,7 +47,7 @@ def memoize_normalize_serie(f):
         return memory[s]
     return inner
 
-# Retourne une version caconisée du nom de série, en minuscule, sans accents, en enlevant certains préfixes et suffies
+# Retourne une version canonisée du nom de série, en minuscule, sans accents, en enlevant certains préfixes et suffies
 @memoize_normalize_serie
 def normalize_serie(serie: str) -> str:
     # Mn = Mark, Nonspacing = combining latin characters accents
@@ -64,3 +66,44 @@ def normalize_serie(serie: str) -> str:
     ]:
         serie = serie.replace(subst[0], subst[1])
     return serie
+
+
+def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT:bool = False):
+    nfm = 0     # Number of files moved
+    ndn = 0     # Number of duplicates name, renamed
+    nds = 0     # number of duplicates name+size, not moved
+    nfnm = 0  # Number of files not moved
+    for file in get_files(sourcefolderfp):
+        nfm += 1
+        basename, ext = os.path.splitext(file)
+        sourcefilefp = os.path.join(sourcefolderfp, file)
+        targetfilefp = os.path.join(targetfolderfp, file)
+        to_move = True
+        if os.path.exists(targetfilefp):
+            if os.path.getsize(sourcefilefp) == os.path.getsize(targetfilefp):
+                nds += 1
+                nfnm += 1
+                to_move = False
+            else:
+                ndn += 1
+                for suffix in ['bis', 'ter', 'quater', '5', '6']:
+                    targetfilefp = os.path.join(targetfolderfp, basename+' - '+suffix+ext)
+                    if not os.path.exists(targetfilefp):
+                        break
+        if to_move:
+            print(f'  {sourcefilefp}  ->  {targetfilefp}')
+            if DO_IT:
+                try:
+                    os.rename(sourcefilefp, targetfilefp)
+                except:
+                    print(f"*** Err renaming {sourcefilefp} into {targetfilefp}")
+
+    # Cleanup
+    if DO_IT:
+        lr = get_files(sourcefolderfp)
+        if len(lr) < nfnm or len(lr) > nfnm+1:      # +1 for thumbs.db
+            breakpoint()
+        shutil.rmtree(sourcefolderfp)
+
+    return nfm, ndn, nds
+

@@ -30,19 +30,6 @@ else:
         files = json.load(infile)
     print(f"Loaded {len(files)} records from filesH.json")
 
-# if REBUILD_FILES_LIST:
-#     print("Reading files...")
-#     files = get_files(source)
-#     print(f"Wrting {len(files)} in cache files.json")
-#     with open(r'files.json', 'w', encoding='utf8') as outfile:
-#         json.dump(files, outfile, indent=4, ensure_ascii=False)
-#     print("Done.")
-#     #sys.exit(0)
-# else:
-#     with open(r'files.json', 'r', encoding='utf8') as infile:
-#         files = json.load(infile)
-
-
 
 print("Grouping files...")
 series: DefaultDict[str, set] = defaultdict(set)
