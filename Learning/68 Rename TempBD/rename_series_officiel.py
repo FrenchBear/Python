@@ -17,7 +17,7 @@ from common import *
 REBUILD_FILES_LIST = True
 DO_IT = True
 
-source = r"W:\TempBD\archives\cbrn.rerar"
+source = r"D:\Downloads\eMule\BD1"
 
 
 if REBUILD_FILES_LIST:
