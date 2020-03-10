@@ -14,23 +14,25 @@ import unicodedata
 from common import *
 
 
-REBUILD_FILES_LIST = True
+#REBUILD_FILES_LIST = True
 DO_IT = True
 
-source = r"W:\TempBD\archives\cbrn.rerar"
+source = r"D:\Downloads\eMule\BD1"
+source = r"W:\TempBD\final"
 
+# if REBUILD_FILES_LIST:
+#     print("Reading files hierarchy...")
+#     files = list(get_all_files(source))
+#     print(f"Wrting {len(files)} records in cache filesH.json")
+#     with open(r'filesH.json', 'w', encoding='utf8') as outfile:
+#         json.dump(files, outfile, indent=4, ensure_ascii=False)
+#     print("Done.")
+# else:
+#     with open(r'filesH.json', 'r', encoding='utf-8') as infile:
+#         files = json.load(infile)
+#     print(f"Loaded {len(files)} records from filesH.json")
 
-if REBUILD_FILES_LIST:
-    print("Reading files hierarchy...")
-    files = list(get_all_files(source))
-    print(f"Wrting {len(files)} records in cache filesH.json")
-    with open(r'filesH.json', 'w', encoding='utf8') as outfile:
-        json.dump(files, outfile, indent=4, ensure_ascii=False)
-    print("Done.")
-else:
-    with open(r'filesH.json', 'r', encoding='utf-8') as infile:
-        files = json.load(infile)
-    print(f"Loaded {len(files)} records from filesH.json")
+files = list(get_all_files(source))
 
 
 extra_rename = [
@@ -43,7 +45,7 @@ extra_rename = [
 def rename_series():
     # Load official spellings
     spo = []
-    with open(r'casing_officiel.json', 'r', encoding='utf8') as infile:
+    with open(r'spellings_officiel.json', 'r', encoding='utf8') as infile:
         spo = json.load(infile)
     dicspo = {}
     for spelling in spo:

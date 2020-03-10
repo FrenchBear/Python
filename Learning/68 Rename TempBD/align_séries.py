@@ -13,23 +13,11 @@ import unicodedata
 from common import *
 
 
-source = r'W:\TempBD'
+source = r'W:\TempBD\Final'
 
 
-REBUILD_FILES_LIST = True
-
-if REBUILD_FILES_LIST:
-    print("Reading files hierarchy...")
-    files = list(get_all_files(source))
-    print(f"Wrting {len(files)} records in cache filesH.json")
-    with open(r'filesH.json', 'w', encoding='utf8') as outfile:
-        json.dump(files, outfile, indent=4, ensure_ascii=False)
-    print("Done.")
-else:
-    with open(r'filesH.json', 'r', encoding='utf-8') as infile:
-        files = json.load(infile)
-    print(f"Loaded {len(files)} records from filesH.json")
-
+print("Reading files hierarchy...")
+files = list(get_all_files(source))
 
 print("Grouping files...")
 series: DefaultDict[str, set] = defaultdict(set)
