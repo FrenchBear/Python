@@ -13,7 +13,6 @@ from common import *
 
 DO_IT = True
 source = r"D:\Downloads\eMule\BD1"
-source = r"W:\TempBD\final.BDA"
 outfile = r'c:\temp\names.txt'
 
 #source = r'W:\TempBD'
