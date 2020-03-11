@@ -6,7 +6,8 @@ from typing import List, TextIO
 from common import *
 
 
-source = r'W:\TempBD\archives\cbrn'
+source = r'W:\TempBD\cbrn.BDA'
+target = r'W:\TempBD\cbrn.BDA.rerar'
 DO_IT = False
 
 rar = r"c:\Program Files\WinRAR\rar.exe"
@@ -35,7 +36,7 @@ def move_folder_content_up(parent: str, folderfp: str):
 
 
 def make_archive(out: TextIO, sourcefp: str):
-    destfp = sourcefp.replace(r'\cbrn', r'\cbrn.rerar')
+    destfp = target + sourcefp[len(source):]
     destfolder, _ = os.path.split(destfp)
     try:
         os.mkdir(destfolder)
