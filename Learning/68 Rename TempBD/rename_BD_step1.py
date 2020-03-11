@@ -15,10 +15,12 @@ DO_IT = True
 source = r"D:\Downloads\eMule\BD1"
 outfile = r'c:\temp\names.txt'
 
-#source = r'W:\TempBD'
+#source = r"W:\TempBD\raw"
+#source = r'W:\TempBD\final.BDA'
 
-with open(r'seriesvalidesavecnum.json', 'r', encoding='utf8') as infile:
-    seriesvalidesavecnum = json.load(infile)
+
+with open(r'series_avec_num.json', 'r', encoding='utf8') as infile:
+    series_avec_num = json.load(infile)
 
 def Step1(out):
     nf = 0
@@ -32,7 +34,7 @@ def Step1(out):
         newname = re.sub(r'\.', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'_', ' ', newname, flags=re.IGNORECASE)
 
-        # Exceptions to . removan
+        # Exceptions to . removal
         newname = re.sub(r'D Gray[- ]Man', 'D.Gray-Man', newname, flags=re.IGNORECASE)
 
         # Remove blocs between [] () {}
@@ -43,12 +45,19 @@ def Step1(out):
         # Normalizes -
         newname = re.sub(r'(( +-)|(- +))+', ' - ', newname, flags=re.IGNORECASE)
 
+        # Protect series with num, replace space by _
+        segment1 = newname.split(" - ")[0].strip()
+        segment1_normalized = normalize_serie(segment1)
+        if segment1_normalized in series_avec_num:
+            segment1_prot = segment1.replace(' ', '_')
+            newname = newname.replace(segment1, segment1_prot)
+
         # Renum T##
         def getnum(matchobj):
             n = int(matchobj.group(1))
             return f' {n:0>2} '
         newname = re.sub(r'T(\d?\d?\d)', getnum, newname, flags=re.IGNORECASE)
-        newname = re.sub(r'Tome ', '', newname, flags=re.IGNORECASE)
+        newname = re.sub(r' Tome ', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r'Tomo ', '', newname, flags=re.IGNORECASE)
 
         # Remove specific strings
@@ -102,6 +111,22 @@ def Step1(out):
         newname = re.sub(r'^ *\d{2}[- ]\d{4}', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'^ *\d{6}', '', newname, flags=re.IGNORECASE)
 
+        # Rename THS
+        newname = re.sub(r' THS ', ' HS ', newname, flags=re.IGNORECASE)
+        def getnum5(matchobj):
+            return ' HS '+matchobj.group(1)+' '
+        newname = re.sub(r' HS(\d\d) ', getnum5, newname, flags=re.IGNORECASE)
+
+        # Remove n° prefix
+        def getnum4(matchobj):
+            return ' - '+matchobj.group(1)+' '
+        newname = re.sub(r' n°?(\d\d+) ', getnum4, newname, flags=re.IGNORECASE)
+
+        # Remove non-significant zeros for numeric sequences of 3 or more
+        def getnum3(matchobj):
+            return ' '+matchobj.group(1)+' '
+        newname = re.sub(r' 0+(\d\d+) ', getnum3, newname, flags=re.IGNORECASE)
+
         # Series ending with numbers
         if (p := newname.find(" - "))<0:
             p = len(newname)
@@ -110,10 +135,20 @@ def Step1(out):
             newname = ma.group(1)+' - '+ma.group(2)+ma.group(3)+newname[p:]
 
         # Final clean-up
+        newname = re.sub('_', ' ', newname)     # Unprotect series with num
         newname = re.sub(r'[  \-]*$', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r'^[  \-]*', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' +', ' ', newname, flags=re.IGNORECASE)
         newname = clean_file_name(newname)
+
+        # Each segment starts with uppercase
+        segments = newname.split(" - ")
+        def fix_case(s: str) -> str:
+            if len(s)>0:
+                return s[0].upper()+s[1:]
+            else:
+                return s
+        newname = " - ".join(fix_case(segment) for segment in segments)
 
         if file!=newname+ext.lower():
             print(f"{file:<120} |{newname}{ext.lower()}|")

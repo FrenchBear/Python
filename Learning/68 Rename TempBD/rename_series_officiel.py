@@ -13,12 +13,16 @@ import unicodedata
 
 from common import *
 
+#######################
+# ToDO: Rename folders
+ 
 
 #REBUILD_FILES_LIST = True
 DO_IT = True
 
 source = r"D:\Downloads\eMule\BD1"
 #source = r"W:\TempBD\final"
+#source = r"W:\TempBD\raw"
 
 # if REBUILD_FILES_LIST:
 #     print("Reading files hierarchy...")
@@ -45,7 +49,7 @@ extra_rename = [
 def rename_series():
     # Load official spellings
     spo = []
-    with open(r'spellings_officiel.json', 'r', encoding='utf8') as infile:
+    with open(r'spellings_officiel.json', 'r', encoding='utf-8_sig') as infile:
         spo = json.load(infile)
     dicspo = {}
     for spelling in spo:
