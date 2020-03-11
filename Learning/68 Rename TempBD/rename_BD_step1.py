@@ -1,5 +1,5 @@
-# renbd1.py
-# Rename BD files 1step after download in emule
+# rename_BD_step1.py
+# Rename BD files 1st step after download in emule
 # 2020-02-22    PV
 
 import os, sys

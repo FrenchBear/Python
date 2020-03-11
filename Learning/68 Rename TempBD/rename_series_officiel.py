@@ -17,7 +17,8 @@ from common import *
 #REBUILD_FILES_LIST = True
 DO_IT = True
 
-source = r"W:\TempBD\final"
+source = r"D:\Downloads\eMule\BD1"
+#source = r"W:\TempBD\final"
 
 # if REBUILD_FILES_LIST:
 #     print("Reading files hierarchy...")
