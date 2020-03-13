@@ -45,6 +45,24 @@ glolbal_rename = [
     ('Spirou & Fantasio', 'Spirou et Fantasio'),
     ('Blake & Mortimer', 'Blake et Mortimer'),
     ('Far West', 'Far-West'),
+    ('^PFA ', 'BDA - PFA '),
+    ('^Priodique ', 'Périodique '),
+    ('^Périodique ', 'Périodique '),
+    ('^Periodique ', 'Periodique '),
+    ('^Périodique PFA ', 'BDA - Périodique PFA '),
+    ('^Terrificolor ', 'BDA - Terrificolor '),
+    ('^Contes Malicieux ', 'BDA - Contes Malicieux '),
+    ('^Luciféra ', 'BDA - Luciféra'),
+    ('^Lucifera ', 'BDA - Luciféra'),
+    ('^Revue - DBD ', 'dBD '),
+    ('^Revue - Fluide glacial ', 'Fluide glacial '),
+    ('^Revue - Les cahiers de la BD', 'Les cahiers de la BD'),
+    ('^Revue - Métal Hurlant ', 'Métal Hurlant '),
+    ('^Revue - Pif Gadget ', 'Pif Gadget '),
+    ('^Revue - Pilote ', 'Pilote '),
+    ("L'ile", "L'île"),
+    ("Les iles", "Les îles"),
+    ('maitre', 'maître'),
 ]
 
 
@@ -68,7 +86,7 @@ def rename_series():
         # First process general substitutions
         to_rename = False
         for before, after in glolbal_rename:
-            newname = re.sub(re.escape(before), after, basename, flags=re.IGNORECASE)
+            newname = re.sub(before, after, basename, flags=re.IGNORECASE)
             if basename!=newname:
                 basename=newname
                 to_rename=True
