@@ -107,3 +107,13 @@ def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT:bool = False):
 
     return nfm, ndn, nds
 
+
+def get_safe_name(namefp: str) -> str:
+    if not os.path.exists(namefp):
+        return namefp
+    folder, file = os.path.split(namefp)
+    basename, ext = os.path.splitext(file)
+    for suffix in ['bis', 'ter', 'quater', '5', '6']:
+        targetfilefp = os.path.join(folder, basename+' - '+suffix+ext)
+        if not os.path.exists(targetfilefp):
+            return targetfilefp

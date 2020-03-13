@@ -19,6 +19,8 @@ Ignorer les dossiers __MACOSX
 DO_IT = True
 source = r'W:\TempBD\archives'
 
+rarfile.UNRAR_TOOL= r"c:\Program Files\WinRAR\rar.exe"
+
 
 def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str]:
     folders = set()
@@ -72,8 +74,10 @@ def move(fullpath: str, subfolder: str):
     if DO_IT:
         if subfolder not in created:
             created.append(subfolder)
-            os.mkdir(os.path.join(source, subfolder))
-        os.rename(fullpath, os.path.join(source, subfolder, file))
+            if not os.path.exists(os.path.join(source, subfolder)):
+                os.mkdir(os.path.join(source, subfolder))
+        newname = get_safe_name(os.path.join(source, subfolder, file))
+        os.rename(fullpath, newname)
 
 def analyse_archives(out: TextIO):
     totf = 0
