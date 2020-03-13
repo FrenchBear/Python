@@ -76,27 +76,28 @@ def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT:bool = False):
     for file in get_files(sourcefolderfp):
         nfm += 1
         basename, ext = os.path.splitext(file)
-        sourcefilefp = os.path.join(sourcefolderfp, file)
-        targetfilefp = os.path.join(targetfolderfp, file)
-        to_move = True
-        if os.path.exists(targetfilefp):
-            if os.path.getsize(sourcefilefp) == os.path.getsize(targetfilefp):
-                nds += 1
-                nfnm += 1
-                to_move = False
-            else:
-                ndn += 1
-                for suffix in ['bis', 'ter', 'quater', '5', '6']:
-                    targetfilefp = os.path.join(targetfolderfp, basename+' - '+suffix+ext)
-                    if not os.path.exists(targetfilefp):
-                        break
-        if to_move:
-            print(f'  {sourcefilefp}  ->  {targetfilefp}')
-            if DO_IT:
-                try:
-                    os.rename(sourcefilefp, targetfilefp)
-                except:
-                    print(f"*** Err renaming {sourcefilefp} into {targetfilefp}")
+        if ext.lower()!='.db':
+            sourcefilefp = os.path.join(sourcefolderfp, file)
+            targetfilefp = os.path.join(targetfolderfp, file)
+            to_move = True
+            if os.path.exists(targetfilefp):
+                if os.path.getsize(sourcefilefp) == os.path.getsize(targetfilefp):
+                    nds += 1
+                    nfnm += 1
+                    to_move = False
+                else:
+                    ndn += 1
+                    for suffix in ['bis', 'ter', 'quater', '5', '6']:
+                        targetfilefp = os.path.join(targetfolderfp, basename+' - '+suffix+ext)
+                        if not os.path.exists(targetfilefp):
+                            break
+            if to_move:
+                print(f'  {sourcefilefp}  ->  {targetfilefp}')
+                if DO_IT:
+                    try:
+                        os.rename(sourcefilefp, targetfilefp)
+                    except:
+                        print(f"*** Err renaming {sourcefilefp} into {targetfilefp}")
 
     # Cleanup
     if DO_IT:

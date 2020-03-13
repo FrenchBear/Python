@@ -119,7 +119,7 @@ def analyse_archives(out: TextIO):
                                             if ni==0 and np==0 and na>1:
                                                 move(fullpath, "archiven")
                                             else:
-                                                move(fullpath, "hyprid")
+                                                move(fullpath, "hybrid")
 
                 out.write(f'{dest};{status};{file};{nf};{ni};{np};{na};{no};{nm};{so}\n')
                 out.flush()

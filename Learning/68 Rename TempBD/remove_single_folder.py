@@ -3,7 +3,7 @@ import os, sys, shutil
 from typing import List
 from common import *
 
-source = r'W:\TempBD\archives\cbrn'
+source = r'W:\TempBD\archives\archiven'
 DO_IT = True
 
 for folder in get_folders(source):

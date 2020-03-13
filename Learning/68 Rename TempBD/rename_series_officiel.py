@@ -17,7 +17,7 @@ from common import *
 DO_IT = True
 
 source = r"D:\Downloads\eMule\BD1"
-#source = r"W:\TempBD\final"
+#source = r"W:\TempBD\archives\archiven"
 
 
 #REBUILD_FILES_LIST = True

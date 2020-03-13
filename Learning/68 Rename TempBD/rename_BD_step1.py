@@ -15,7 +15,7 @@ DO_IT = True
 source = r"D:\Downloads\eMule\BD1"
 outfile = r'c:\temp\names.txt'
 
-#source = r"W:\TempBD\raw"
+source = r"W:\TempBD\archives\archiven"
 #source = r'W:\TempBD\final.BDA'
 
 
