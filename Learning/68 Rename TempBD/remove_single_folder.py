@@ -3,8 +3,11 @@ import os, sys, shutil
 from typing import List
 from common import *
 
-source = r'W:\TempBD\archives\archiven'
+
+source = r'W:\TempBD\archives\cbrn'
+
 DO_IT = True
+
 
 for folder in get_folders(source):
     folderfp = os.path.join(source, folder)

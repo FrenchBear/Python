@@ -4,8 +4,11 @@ import re
 from typing import List
 from common import *
 
+
 source = r"W:\TempBD\archives\pdf"
+
 DO_IT = True
+
 
 NUM_DOT_TITLE = re.compile("(\d+)\. ?(.+)")
 NUM_DASH_TITLE = re.compile("(\d+) - (.+)")

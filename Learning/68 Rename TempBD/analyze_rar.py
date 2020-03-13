@@ -9,18 +9,12 @@ from typing import List, Tuple, TextIO
 from common import *
 
 
-"""
-ne chercher que les formats d'image et PDF
-Signater les archives contenant des PDF
-Ignorer les dossiers __MACOSX
-"""
-
-
-DO_IT = True
 source = r'W:\TempBD\archives'
 
-rarfile.UNRAR_TOOL= r"c:\Program Files\WinRAR\rar.exe"
+DO_IT = True
 
+
+rarfile.UNRAR_TOOL= r"c:\Program Files\WinRAR\rar.exe"
 
 def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str]:
     folders = set()
