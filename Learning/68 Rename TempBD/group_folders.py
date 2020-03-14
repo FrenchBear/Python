@@ -7,12 +7,13 @@ from typing import List, TextIO
 from common import *
 
 
-source = r'W:\TempBD\final'
+#source = r'W:\TempBD\final'
+source = r'W:\TempBD\final.Revues'
 
 DO_IT = True
 
 
-TO_RENAME_RE = re.compile(r'(.*) - \d\d( |-)\d\d.*')
+#TO_RENAME_RE = re.compile(r'(.*) - \d\d( |-)\d\d.*')
 TO_RENAME_RE = re.compile(r'(.*?) - (.*)')
 
 nf = 0      # Number of folders

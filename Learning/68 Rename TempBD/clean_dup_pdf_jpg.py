@@ -4,7 +4,7 @@ from common import *
 
 
 source = r'W:\TempBD\archives\hybrid'
-DO_IT = False
+DO_IT = True
 
 
 for root, subs, files in os.walk(source, False):

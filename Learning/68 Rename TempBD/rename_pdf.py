@@ -5,14 +5,15 @@ from typing import List
 from common import *
 
 
-source = r"W:\TempBD\archives\pdf"
+source = r"W:\TempBD\archives\hybrid"
 
 DO_IT = True
 
 
-NUM_DOT_TITLE = re.compile("(\d+)\. ?(.+)")
-NUM_DASH_TITLE = re.compile("(\d+) - (.+)")
-HSNUM_DOT_TITLE = re.compile("HS(\d+)\. (.+)")
+NUM_DOT_TITLE = re.compile(r"(\d+)\. ?(.+)")
+NUM_DASH_TITLE = re.compile(r"(\d+) - (.+)")
+HSNUM_DOT_TITLE = re.compile(r"HS(\d+)\. (.+)", flags=re.IGNORECASE)
+TOME_NUM_DASH_TITLE = re.compile(r"^Tome (\d+) - (.+)", flags=re.IGNORECASE)
 
 def rename(folderfp: str, oldname: str, newname: str):
     print(f'{oldname} -> {newname}')
@@ -35,6 +36,10 @@ def rename_file(folderfp: str, serie: str, file: str):
             return
     if ma:=HSNUM_DOT_TITLE.fullmatch(basename):
         newname = serie+' - HS '+format_num(ma.group(1))+' - '+ma.group(2)+ext
+        rename(folderfp, file, newname)
+        return
+    if ma:=TOME_NUM_DASH_TITLE.fullmatch(basename):
+        newname = serie+' - '+format_num(ma.group(1))+' - '+ma.group(2)+ext
         rename(folderfp, file, newname)
         return
     if ma:=re.fullmatch(re.escape(serie)+' (\d+)\. (.+)', basename, flags=re.IGNORECASE):
