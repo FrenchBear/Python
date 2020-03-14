@@ -8,15 +8,17 @@ import unicodedata
 from typing import List, Iterable, Tuple
 
 
-# Juste les fichiers d'un dossier, juste les noms
+# Juste les fichiers d'un dossier, noms sans chemins
 def get_files(source: str) -> List[str]:
-    return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
+    #return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
+    _1, _2, files = next(os.walk(source))
+    return files
 
-# Juste les sous-dossiers d'un dossier, juste les noms
-
-
+# Juste les sous-dossiers d'un dossier, noms sans chemins
 def get_folders(source: str) -> List[str]:
-    return list([f for f in os.listdir(source) if os.path.isdir(os.path.join(source, f))])
+    #return list([f for f in os.listdir(source) if os.path.isdir(os.path.join(source, f))])
+    _1, folders, _2 = next(os.walk(source))
+    return folders
 
 # Chemin complet de tous les fichiers à partir d'une racine
 
@@ -77,7 +79,7 @@ def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT: bool = False)
     nfm = 0     # Number of files moved
     ndn = 0     # Number of duplicates name, renamed
     nds = 0     # number of duplicates name+size, not moved
-    nfnm = 0  # Number of files not moved
+    nfnm = 0    # Number of files not moved
     for file in get_files(sourcefolderfp):
         nfm += 1
         basename, ext = os.path.splitext(file)
