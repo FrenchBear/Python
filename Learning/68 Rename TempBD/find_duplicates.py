@@ -1,9 +1,7 @@
 
-import os, sys, shutil
+import os
 from collections import defaultdict
-from typing import List, TextIO
-
-from common import *
+from typing import Iterable
 
 
 source = r'W:\TempBD\archives\cbrn'

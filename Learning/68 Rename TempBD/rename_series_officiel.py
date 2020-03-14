@@ -14,7 +14,7 @@ import unicodedata
 from common import *
 
 
-DO_IT = True
+DO_IT = False
 
 source = r"D:\Downloads\eMule\BD1"
 #source = r"W:\TempBD\archives\archiven"
@@ -33,13 +33,14 @@ source = r"D:\Downloads\eMule\BD1"
 #         files = json.load(infile)
 #     print(f"Loaded {len(files)} records from filesH.json")
 
-
+files: List[str]
+folders: List[str]
 files = list(get_all_files(source))
-for _, folders, _ in os.walk(source):
-    break
+# for _1, folders, _2 in os.walk(source):
+#     break
+_1, folders, _2 = next(os.walk(source))
 
-
-glolbal_rename = [
+glolbal_rename: List[Tuple[str, str]] = [
     ('Bande Dessinée', 'BD'),
     ('Bande Dessinee', 'BD'),
     ('Spirou & Fantasio', 'Spirou et Fantasio'),

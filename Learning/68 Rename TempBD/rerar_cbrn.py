@@ -1,7 +1,7 @@
 
-import os, sys, shutil
+import os
 import subprocess
-from typing import List, TextIO
+from typing import TextIO
 
 from common import *
 
@@ -36,7 +36,7 @@ def make_archive(out: TextIO, sourcefp: str):
     try:
         os.rename(sourcefp, backupfp)
     except Exception as ex:
-        msg = f'  *** Failed to move folder {sourcefp} to {backup}: {ex.message}'
+        msg = f'  *** Failed to move folder {sourcefp} to {backup}: {ex}'
         print(msg)
         out.write(msg+'\n')
         out.flush()
@@ -54,5 +54,5 @@ with open(r'rerar.txt', 'w', encoding='utf8') as out:
                 make_archive(out, folder2fp)
             try:
                 os.rmdir(folderfp)
-            except Exception as ex:
+            except:
                 pass

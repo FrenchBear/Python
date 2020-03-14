@@ -1,6 +1,6 @@
 
-import os, sys, shutil
-from typing import List
+import os, shutil
+
 from common import *
 
 

@@ -6,7 +6,7 @@ import os, sys
 import re
 import unicodedata
 import json
-from typing import List
+from typing import List, TextIO
 
 from common import *
 
@@ -22,7 +22,7 @@ source = r"W:\TempBD\archives\archiven"
 with open(r'series_avec_num.json', 'r', encoding='utf8') as infile:
     series_avec_num = json.load(infile)
 
-def Step1(out):
+def Step1(out: TextIO):
     nf = 0
     nr = 0
     for fullpath in get_all_files(source):

@@ -1,8 +1,8 @@
 
-import os, sys, shutil
+import os
 import json
 from collections import defaultdict, Counter
-from typing import List
+from typing import DefaultDict, Counter as CounterType
 
 from common import *
 
@@ -13,7 +13,7 @@ output = r'spellings_officiel_Temp.json'
 for root, folders, files in os.walk(source):
     break
 
-series = defaultdict(Counter)
+series: DefaultDict[str, CounterType] = defaultdict(Counter)
 for folder in folders:
     serie = normalize_serie(folder)
     series[serie].update({folder:1})

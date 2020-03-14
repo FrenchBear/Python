@@ -1,4 +1,4 @@
-import os, sys, shutil
+import os, sys
 from collections import defaultdict
 import re
 from typing import List
@@ -11,10 +11,11 @@ source = r'W:\TempBD\final'
 DO_IT = False
 
 
-for _, folders, _ in os.walk(source):
-    break
+# for _1, folders, _2 in os.walk(source):
+#     break
+folders: List[str]
+_1, folders, _2 = next(os.walk(source))
 folders.sort()
-series = defaultdict(int)
 
 with open(r'badseries.txt', 'w', encoding='utf8') as out1:
     with open(r'missing_in_series.txt', 'w', encoding='utf8') as out2:
@@ -44,7 +45,7 @@ with open(r'badseries.txt', 'w', encoding='utf8') as out1:
                         bad_serie_out = True
                         print(f'{folder:<50} {file}')
                         out1.write(f'{folder:<50} {file}\n')
-            if max_num-min_num>=3 and len(nums)<max_num-min_num+1:
+            if max_num-min_num >= 3 and len(nums) < max_num-min_num+1:
                 out2.write(f'{folder:<50} ')
                 for n in range(min_num, max_num+1):
                     if not n in nums:

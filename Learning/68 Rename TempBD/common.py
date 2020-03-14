@@ -1,7 +1,6 @@
 # Sous-programmes communs du projet RenameTempBD
 # 2020-03-05    PV
 
-import sys
 import os
 import shutil
 import unicodedata
@@ -14,10 +13,14 @@ def get_files(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
 
 # Juste les sous-dossiers d'un dossier, juste les noms
+
+
 def get_folders(source: str) -> List[str]:
     return list([f for f in os.listdir(source) if os.path.isdir(os.path.join(source, f))])
 
 # Chemin complet de tous les fichiers à partir d'une racine
+
+
 def get_all_files(path: str) -> Iterable[str]:
     for root, subs, files in os.walk(path):
         for file in files:
@@ -38,6 +41,8 @@ def clean_file_name(s: str) -> str:
     return res
 
 # Performance hlper
+
+
 def memoize_normalize_serie(f):
     memory = {}
 
@@ -68,7 +73,7 @@ def normalize_serie(serie: str) -> str:
     return serie
 
 
-def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT:bool = False):
+def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT: bool = False) -> Tuple[int, int, int]:
     nfm = 0     # Number of files moved
     ndn = 0     # Number of duplicates name, renamed
     nds = 0     # number of duplicates name+size, not moved
@@ -76,7 +81,7 @@ def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT:bool = False):
     for file in get_files(sourcefolderfp):
         nfm += 1
         basename, ext = os.path.splitext(file)
-        if ext.lower()!='.db':
+        if ext.lower() != '.db':
             sourcefilefp = os.path.join(sourcefolderfp, file)
             targetfilefp = os.path.join(targetfolderfp, file)
             to_move = True
@@ -118,3 +123,4 @@ def get_safe_name(namefp: str) -> str:
         targetfilefp = os.path.join(folder, basename+' - '+suffix+ext)
         if not os.path.exists(targetfilefp):
             return targetfilefp
+    return os.path.join(folder, basename+' - 999'+ext)

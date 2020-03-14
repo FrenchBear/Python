@@ -1,10 +1,9 @@
 # Analyse le contenu de fichiers rar
 # 2020-03-05    PV
 
-import os, shutil
-import rarfile
-import unicodedata
-from typing import List, Tuple, TextIO
+import os
+import rarfile       # type: ignore
+from typing import Tuple, TextIO
 
 from common import *
 
@@ -14,7 +13,8 @@ source = r'W:\TempBD\archives'
 DO_IT = True
 
 
-rarfile.UNRAR_TOOL= r"c:\Program Files\WinRAR\rar.exe"
+rarfile.UNRAR_TOOL = r"c:\Program Files\WinRAR\rar.exe"
+
 
 def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str]:
     folders = set()
@@ -27,27 +27,27 @@ def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str
     rf = rarfile.RarFile(archive)
     for f in rf.infolist():
         if f.file_size > 0:
-            if f.filename.find("__MACOSX")>=0:
+            if f.filename.find("__MACOSX") >= 0:
                 n_mac += 1
             else:
                 folder, filename = os.path.split(f.filename)
                 basename, ext = os.path.splitext(filename)
-                ext=ext.lower()
+                ext = ext.lower()
                 folders.add(folder)
-                type = ''
+                #type = ''
                 if ext in ['.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.png', '.tif', '.tiff']:
-                    type='image'
+                    #type = 'image'
                     n_image += 1
                 else:
-                    if ext=='.pdf':
-                        type='pdf'
+                    if ext == '.pdf':
+                        #type = 'pdf'
                         n_pdf += 1
                     else:
                         if ext in ['.cbr', '.rar', '.cbz', '.zip']:
-                            type='archive'
+                            #type = 'archive'
                             n_archive += 1
                         else:
-                            type='other'
+                            #type = 'other'
                             n_other += 1
                             other.add(ext)
     rf.close()
@@ -57,8 +57,10 @@ def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str
         sother = '{}'
     return len(folders), n_image, n_pdf, n_archive, n_other, n_mac, sother
 
+
 created = []
 dest = ''
+
 
 def move(fullpath: str, subfolder: str):
     global dest
@@ -73,6 +75,7 @@ def move(fullpath: str, subfolder: str):
         newname = get_safe_name(os.path.join(source, subfolder, file))
         os.rename(fullpath, newname)
 
+
 def analyse_archives(out: TextIO):
     totf = 0
     for fullpath in get_all_files(source):
@@ -80,44 +83,43 @@ def analyse_archives(out: TextIO):
         path, file = os.path.split(fullpath)
         basename, ext = os.path.splitext(file)
         if ext.lower() in ['.cbr', '.rar']:
-                print(f'{file:<100}', end='')
-                try:
-                    status='Ok'
-                    nf,ni,np,na,no,nm,so = analyze_one_archive(fullpath)
-                except:
-                    status = 'Error'
-                    nf,ni,np,na,no,nm,so = (0,0,0,0,0,0,'')
-                print(status,nf,ni,np,na,no,nm,so, end='')
+            print(f'{file:<100}', end='')
+            try:
+                status = 'Ok'
+                nf, ni, np, na, no, nm, so = analyze_one_archive(fullpath)
+            except:
+                status = 'Error'
+                nf, ni, np, na, no, nm, so = (0, 0, 0, 0, 0, 0, '')
+            print(status, nf, ni, np, na, no, nm, so, end='')
 
-                if status=='Error':
-                    move(fullpath, "error")
+            if status == 'Error':
+                move(fullpath, "error")
+            else:
+                if so.lower().find(".exe") >= 0:
+                    move(fullpath, "exe")
                 else:
-                    if so.lower().find(".exe")>=0:
-                        move(fullpath, "exe")
+                    if ni == 0 and na == 0 and np == 1:
+                        move(fullpath, "pdf1")
                     else:
-                        if ni==0 and na==0 and np==1:
-                            move(fullpath, "pdf1")
+                        if ni == 0 and na == 0 and np > 1:
+                            move(fullpath, "pdf")
                         else:
-                            if ni==0 and na==0 and np>1:
-                                move(fullpath, "pdf")
+                            if nf == 1 and np == 0 and na == 0 and ni > 0:
+                                move(fullpath, "cbr1")
                             else:
-                                if nf==1 and np==0 and na==0 and ni>0:
-                                    move(fullpath, "cbr1")
+                                if nf >= 1 and np == 0 and na == 0 and ni > 0:
+                                    move(fullpath, "cbrn")
                                 else:
-                                    if nf>=1 and np==0 and na==0 and ni>0:
-                                        move(fullpath, "cbrn")
+                                    if ni == 0 and np == 0 and na == 1:
+                                        move(fullpath, "archive1")
                                     else:
-                                        if ni==0 and np==0 and na==1:
-                                            move(fullpath, "archive1")
+                                        if ni == 0 and np == 0 and na > 1:
+                                            move(fullpath, "archiven")
                                         else:
-                                            if ni==0 and np==0 and na>1:
-                                                move(fullpath, "archiven")
-                                            else:
-                                                move(fullpath, "hybrid")
+                                            move(fullpath, "hybrid")
 
-                out.write(f'{dest};{status};{file};{nf};{ni};{np};{na};{no};{nm};{so}\n')
-                out.flush()
-
+            out.write(f'{dest};{status};{file};{nf};{ni};{np};{na};{no};{nm};{so}\n')
+            out.flush()
 
     if not DO_IT:
         print("No action: ", end='')
