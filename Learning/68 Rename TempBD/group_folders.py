@@ -7,11 +7,13 @@ from typing import List, TextIO
 from common import *
 
 
-source = r'W:\TempBD\archives\cbrn.pdf'
+source = r'W:\TempBD\final'
+
 DO_IT = True
 
-TO_RENAME_RE = re.compile(r'(.*) - \d\d( |-)\d\d.*')
 
+TO_RENAME_RE = re.compile(r'(.*) - \d\d( |-)\d\d.*')
+TO_RENAME_RE = re.compile(r'(.*?) - (.*)')
 
 nf = 0      # Number of folders
 nfm = 0     # Number of files moved
@@ -22,6 +24,7 @@ for sourcefolder in get_folders(source):
         nf += 1
         sourcefolderfp = os.path.join(source, sourcefolder)
         targetfolder = ma.group(1)
+        if " - " in targetfolder: breakpoint()
         print(f'{sourcefolder:<80} {targetfolder}')
         targetfolderfp = os.path.join(source, targetfolder)
         if not os.path.exists(targetfolderfp):

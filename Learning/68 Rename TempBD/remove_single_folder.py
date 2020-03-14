@@ -1,40 +1,39 @@
-
 import os, shutil
-
+from typing import Tuple, Iterable
 from common import *
 
 
-source = r'W:\TempBD\archives\cbrn'
-
+source = r'W:\TempBD\archives\hybrid'
 DO_IT = True
 
 
-for folder in get_folders(source):
-    folderfp = os.path.join(source, folder)
-    print(folderfp, end=' -> ')
-    lst = get_folders(folderfp)
-    if len(lst)==0:
-        print('no sf')
-    else:
-        if len(lst)>1:
-            print('multiple sf')
-        else:
-            onefolder = os.path.join(folderfp, lst[0])
-            print('one sf, moving up... ', end='')
-            for root, subs, files in os.walk(onefolder):
-                for sub in subs:
-                    if DO_IT:
-                        os.rename(os.path.join(root, sub), os.path.join(folderfp, sub))
-                    # else:
-                    #     print(f'rename {os.path.join(root, sub)}  -->  {os.path.join(folderfp, sub)}')
-                print('subs ', end='')
-                for file in files:
-                    if DO_IT:
-                        os.rename(os.path.join(root, file), os.path.join(folderfp, file))
-                    # else:
-                    #     print(f'rename {os.path.join(root, file)}  -->  {os.path.join(folderfp, file)}')
-                print('files ', end='')
-                if DO_IT:
-                    shutil.rmtree(onefolder)
-                print('rmdir')
-                break
+def get_folgers_with_just_one_sub(source: str) -> Iterable[str]:
+    for root, subs, files in os.walk(source, False):
+        if len(files)==0 and len(subs)==1:
+            yield root
+
+def move_content_up(folderfp: str, singlesub: str):
+    singlesubfp = os.path.join(folderfp, singlesub)
+    _, subs, files = next(os.walk(singlesubfp))
+    for sub in subs:
+        if DO_IT:
+            os.rename(os.path.join(singlesubfp, sub),  get_safe_name(os.path.join(folderfp, sub)))
+    print('  subs ', end='')
+    for file in files:
+        if DO_IT:
+            os.rename(os.path.join(singlesubfp, file), get_safe_name(os.path.join(folderfp, file)))
+    print('files ', end='')
+    if DO_IT:
+        _, subs, files = next(os.walk(singlesubfp))
+        if len(subs)>0 or len(files)>0:
+            breakpoint()
+        shutil.rmtree(singlesubfp)
+    print('rmdir')
+
+
+for folderfp in list(get_folgers_with_just_one_sub(source)):
+    _, subs, files = next(os.walk(folderfp))
+    if len(subs)==1 and len(files)==0:
+        singlesub = subs[0]
+        print(f'{folderfp:<100} {singlesub}')
+        move_content_up(folderfp, singlesub)

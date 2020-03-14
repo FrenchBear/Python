@@ -11,12 +11,13 @@ from typing import List, TextIO
 from common import *
 
 
-DO_IT = True
 source = r"D:\Downloads\eMule\BD1"
-outfile = r'c:\temp\names.txt'
+outfile = r'names.txt'
 
-source = r"W:\TempBD\archives\archiven"
-#source = r'W:\TempBD\final.BDA'
+#source = r"W:\TempBD\archives\archiven"
+#source = r'W:\TempBD\final'
+
+DO_IT = True
 
 
 with open(r'series_avec_num.json', 'r', encoding='utf8') as infile:
@@ -144,7 +145,7 @@ def Step1(out: TextIO):
         # Each segment starts with uppercase
         segments = newname.split(" - ")
         def fix_case(s: str) -> str:
-            if len(s)>0:
+            if len(s)>0 and not s in ['dBD']:
                 return s[0].upper()+s[1:]
             else:
                 return s

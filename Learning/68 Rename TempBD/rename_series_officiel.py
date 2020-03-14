@@ -14,10 +14,10 @@ import unicodedata
 from common import *
 
 
-DO_IT = False
-
 source = r"D:\Downloads\eMule\BD1"
-#source = r"W:\TempBD\archives\archiven"
+#source = r"W:\TempBD\final"
+
+DO_IT = True
 
 
 #REBUILD_FILES_LIST = True

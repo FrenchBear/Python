@@ -13,10 +13,10 @@ import unicodedata
 
 from common import *
 
+source = r'W:\TempBD\archives\hybrid'
+#source = r'W:\TempBD'
 DO_IT = False
 
-source = r'W:\TempBD\archives\cbrn'
-#source = r'W:\TempBD'
 
 def clean_files():
     nf = 0

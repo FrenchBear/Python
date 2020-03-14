@@ -5,8 +5,11 @@ from typing import List
 
 from common import *
 
+
 source = r'W:\TempBD\final'
+
 DO_IT = True
+
 
 for root, folders, files in os.walk(source):
     break
@@ -52,7 +55,7 @@ for serie in dicsf.keys():
                     os.remove(sourcefilefp)
                 else:
                     basename, ext = os.path.splitext(file)
-                    for suffix in ['bis', 'ter', 'quater', '5', '6']:
+                    for suffix in ['Bis', 'Ter', 'Quater', '5', '6']:
                         targetfilefp = os.path.join(targetfolderfp, basename+' - '+suffix+ext)
                         if not os.path.exists(targetfilefp):
                             break
@@ -83,35 +86,3 @@ for serie in dicsf.keys():
                     os.rename(sourcefilefp, targetfilefp)
 
 print(f'{existing} séries existantes, {newserie} nouvelles séries dont {to_create} à créer')
-
-
-
-# folders = set()
-# series = defaultdict(set)
-# for root, subs, files in os.walk(source):
-#     for folder in subs:
-#         folders.add(folder.lower())
-#     for file in files:
-#         segments = file.split(' - ')
-#         serie = normalize_serie(segments[0].lower())
-#         series[serie].add(file)
-#     break
-
-# for serie in series.keys():
-#     to_move = False
-#     if serie in folders:
-#         to_move = True
-#     else:
-#         to_move = len(series[serie])>=3
-#     if to_move:
-#         for file in series[serie]:
-#             segments = file.split(' - ')
-#             folder = segments[0]
-#             if not folder.lower() in folders:
-#                 print(f'mkdir "{folder}"')
-#                 if DO_IT:
-#                     os.mkdir(os.path.join(source, folder))
-#                 folders.add(folder.lower())
-#             print(f'move "{file}" "{folder}"')
-#             if DO_IT:
-#                 os.rename(os.path.join(source, file), os.path.join(source, folder, file))
