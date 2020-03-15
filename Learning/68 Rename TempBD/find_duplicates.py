@@ -1,12 +1,11 @@
-
 import os
 from collections import defaultdict
-from typing import Iterable
+from typing import Iterable, List
+from common import *
 
+source = r'W:\TempBD\final'
 
-source = r'W:\TempBD\archives\cbrn'
-
-DO_IT = True
+DO_IT = False
 
 
 # Chemin complet de tous les fichiers à partir d'une racine
@@ -15,14 +14,29 @@ def get_all_folders(path: str) -> Iterable[str]:
         for folder in folders:
             yield os.path.join(root, folder)
 
-ds = defaultdict(set)
+def basename(filefp: str) -> str:
+    _, file = os.path.split(filefp)
+    basename, _ = os.path.splitext(file)
+    return basename.lower()
 
-for folder in get_all_folders(source):
-    with os.scandir(folder) as it:
+nd = 0
+for folder in get_folders(source):
+    folderfp = os.path.join(source, folder)
+    ds = defaultdict(list)
+    with os.scandir(folderfp) as it:
         entry: os.DirEntry
         for entry in it:
             if entry.is_file():
-                ds[entry.stat().st_size].add(entry.path)
+                ds[entry.stat().st_size].append(entry.path)
+    dups = [v for k,v in ds.items() if len(v)>1]
+    if dups:
+        s: List[str]
+        for s in dups:
+            s.sort(key=lambda x: basename(x))
+            for file in s[1:]:
+                print(file)
+                nd += 1
+                if DO_IT:
+                    os.remove(file)
 
-dups = [(k,v) for k,v in ds.items() if len(v)>1]
-print(dups)
+print(f'{nd} duplicates deleted')

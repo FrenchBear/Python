@@ -1,15 +1,14 @@
-
 import os
 import re
 from typing import List
 from common import *
 
 
-source = r"W:\TempBD\archives\hybrid"
-
+source = r"W:\TempBD\final"
 DO_IT = True
 
 
+NUM = re.compile(r"(\d+)")
 NUM_DOT_TITLE = re.compile(r"(\d+)\. ?(.+)")
 NUM_DASH_TITLE = re.compile(r"(\d+) - (.+)")
 HSNUM_DOT_TITLE = re.compile(r"HS(\d+)\. (.+)", flags=re.IGNORECASE)
@@ -18,13 +17,17 @@ TOME_NUM_DASH_TITLE = re.compile(r"^Tome (\d+) - (.+)", flags=re.IGNORECASE)
 def rename(folderfp: str, oldname: str, newname: str):
     print(f'{oldname} -> {newname}')
     if DO_IT:
-        os.rename(os.path.join(folderfp, oldname), os.path.join(folderfp, newname))
+        os.rename(os.path.join(folderfp, oldname), get_safe_name(os.path.join(folderfp, newname)))
 
 def format_num(num: str) -> str:
     return f"{int(num):02}"
 
 def rename_file(folderfp: str, serie: str, file: str):
     basename, ext = os.path.splitext(file)
+    if ma:=NUM.fullmatch(basename):
+        newname = serie+' - '+format_num(ma.group(1))+ext
+        rename(folderfp, file, newname)
+        return
     if ma:=NUM_DOT_TITLE.fullmatch(basename):
         newname = serie+' - '+format_num(ma.group(1))+' - '+ma.group(2)+ext
         rename(folderfp, file, newname)
