@@ -157,7 +157,7 @@ def Step1(out: TextIO):
             nr += 1
             if DO_IT:
                 try:
-                    os.rename(os.path.join(path, file), os.path.join(path, newname+ext.lower()))
+                    os.rename(os.path.join(path, file), get_safe_name(os.path.join(path, newname+ext.lower())))
                 except:
                     out.write("*** Err\n")
     if not DO_IT:

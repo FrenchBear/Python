@@ -12,6 +12,7 @@ NUM = re.compile(r"(\d+)")
 NUM_DOT_TITLE = re.compile(r"(\d+)\. ?(.+)")
 NUM_DASH_TITLE = re.compile(r"(\d+) - (.+)")
 HSNUM_DOT_TITLE = re.compile(r"HS(\d+)\. (.+)", flags=re.IGNORECASE)
+TOME_NUM = re.compile(r"^Tome (\d+)", flags=re.IGNORECASE)
 TOME_NUM_DASH_TITLE = re.compile(r"^Tome (\d+) - (.+)", flags=re.IGNORECASE)
 
 def rename(folderfp: str, oldname: str, newname: str):
@@ -33,12 +34,16 @@ def rename_file(folderfp: str, serie: str, file: str):
         rename(folderfp, file, newname)
         return
     if ma:=NUM_DASH_TITLE.fullmatch(basename):
-        if serie!='666':
+        if serie!='666' and serie!='6666':
             newname = serie+' - '+format_num(ma.group(1))+' - '+ma.group(2)+ext
             rename(folderfp, file, newname)
             return
     if ma:=HSNUM_DOT_TITLE.fullmatch(basename):
         newname = serie+' - HS '+format_num(ma.group(1))+' - '+ma.group(2)+ext
+        rename(folderfp, file, newname)
+        return
+    if ma:=TOME_NUM.fullmatch(basename):
+        newname = serie+' - '+format_num(ma.group(1))+ext
         rename(folderfp, file, newname)
         return
     if ma:=TOME_NUM_DASH_TITLE.fullmatch(basename):

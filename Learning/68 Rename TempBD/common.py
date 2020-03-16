@@ -26,6 +26,12 @@ def get_all_files(path: str) -> Iterable[str]:
         for file in files:
             yield os.path.join(root, file)
 
+# Chemin complet de tous les dossiers à partir d'une racine
+def get_all_folders(path: str) -> Iterable[str]:
+    for root, folders, _ in os.walk(path):
+        for folder in folders:
+            yield os.path.join(root, folder)
+
 
 # Replace special quotes by normal one, and unbreakable space by space
 intab = "`‘’\xa0‽⁉“”−—º"
