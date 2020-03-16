@@ -108,7 +108,7 @@ def rename_series():
             print(f'{file:<100} -> {newname}')
             if DO_IT:
                 try:
-                    os.rename(fullpath, os.path.join(path, newname))
+                    os.rename(fullpath, get_safe_name(os.path.join(path, newname)))
                 except:
                     print("*** Err")
     if not DO_IT:
