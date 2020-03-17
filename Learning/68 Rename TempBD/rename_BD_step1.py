@@ -151,6 +151,18 @@ def Step1(out: TextIO):
                 return s
         newname = " - ".join(fix_case(segment) for segment in segments)
 
+        # Special rename patterns
+        if ma:=re.fullmatch(r"(.*), (\d\d) FRN( |,)+", newname, re.IGNORECASE):         # "Agharta, 05 FRN , ,"
+            newname = ma.group(1)+' - '+ma.group(2)
+        if ma:=re.fullmatch(r"(.*), (\d\d) (.+), FRN( |,)+", newname, re.IGNORECASE):   # "Asphodele, 03 L'ange noir, FRN , ,"
+            newname = ma.group(1)+' - '+ma.group(2)+' - '+ma.group(3)
+        if ma:=re.fullmatch(r"(.*) (- )?µ.*", newname):       # "Agharta, 05 FRN , ,"
+            newname = ma.group(1)
+        if ma:=re.fullmatch(r"(.*\d\d) & (\d\d.*)", newname, re.IGNORECASE):
+            newname = ma.group(1)+'-'+ma.group(2)
+        if ma:=re.fullmatch(r"(.*) \)", newname):
+            newname = "BDA - "+ma.group(1)
+
         if file!=newname+ext.lower():
             print(f"{file:<120} |{newname}{ext.lower()}|")
             out.write(f"{file:<150} |{newname}{ext.lower()}|\n")
