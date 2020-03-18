@@ -4,7 +4,7 @@ from typing import List
 from common import *
 
 
-source = r"W:\TempBD\archives\pdf"
+source = r"W:\TempBD\archives\hybrid"
 DO_IT = True
 
 
@@ -60,8 +60,8 @@ def rename_file(folderfp: str, serie: str, file: str):
         return
 
 
-for folder in get_folders(source):
-    folderfp = os.path.join(source, folder)
+for folderfp in get_all_folders(source):
+    _, folder = os.path.split(folderfp)
     for file in get_files(folderfp):
         series_segments = folder.split(" - ")
         rename_file(folderfp, series_segments[0], file)

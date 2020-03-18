@@ -4,7 +4,7 @@ from typing import List
 from common import *
 
 
-source = r'W:\TempBD\archives\cbr1.pdf'
+source = r'W:\TempBD\archives\hybrid'
 target = r'W:\TempBD\final'
 DO_IT = True
 

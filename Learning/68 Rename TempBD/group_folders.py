@@ -1,4 +1,3 @@
-
 import os
 import sys
 import re
@@ -6,10 +5,8 @@ from typing import List, TextIO
 
 from common import *
 
-
 #source = r'W:\TempBD\final'
-source = r'W:\TempBD\archives\archiven'
-
+source = r'W:\TempBD\archives\hybrid'
 DO_IT = True
 
 
