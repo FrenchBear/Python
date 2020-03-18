@@ -52,7 +52,7 @@ with open(r'badseries.txt', 'w', encoding='utf8') as out1:
                         print(f'{folder:<50} {file}')
                         out1.write(f'{folder:<50} {file}\n')
             
-            if max_num-min_num >= 3 and max_num-min_num <= len(nums) < max_num-min_num+1:
+            if min_num<=2 and max_num-min_num >= 3 and max_num-min_num <= len(nums) < max_num-min_num+1:
                 out2.write(f'{folder:<50} ')
                 for n in range(min_num, max_num+1):
                     if not n in nums:
