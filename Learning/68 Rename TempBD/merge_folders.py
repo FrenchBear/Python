@@ -1,11 +1,10 @@
-
 import os
 from typing import List
 
 from common import *
 
 
-source = r'W:\TempBD\final.Revues'
+source = r'W:\TempBD\archives\cbrn.pdf'
 target = r'W:\TempBD\final'
 
 DO_IT = True

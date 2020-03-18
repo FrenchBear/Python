@@ -9,8 +9,8 @@ from typing import List
 from common import *
 
 
-#source = r"W:\TempBD\raw"
 source = r"D:\Downloads\eMule\BD1"
+#source = r"W:\TempBD\archives\archiven"
 DO_IT = True
 
 

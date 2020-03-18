@@ -3,7 +3,7 @@ from typing import Tuple, Iterable
 from common import *
 
 
-source = r'W:\TempBD\archives\hybrid.Gay'
+source = r'W:\TempBD\archives\hybrid'
 DO_IT = True
 
 

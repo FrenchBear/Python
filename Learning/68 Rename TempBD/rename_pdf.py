@@ -4,7 +4,7 @@ from typing import List
 from common import *
 
 
-source = r"W:\TempBD\final"
+source = r"W:\TempBD\archives\archiven"
 DO_IT = True
 
 

@@ -1,12 +1,166 @@
-from collections import defaultdict
+import os, sys
+import re
+from typing import List
 
-class DefaultDictList(dict): 
-    def __missing__(self, key):
-        value = list()
-        self[key] = value 
-        return value
+from common import *
 
-ndg = DefaultDictList()
-#ndg = defaultdict(list)
-nds = ndg['pomme']
-nds.append('Joe')
+z={
+      1: "La vampire",                           
+      2: "Zara contre Dracula",                  
+      3: "Du sang sur les lèvres",               
+      4: "L'homme au cercueil",                  
+      5: "La cannibale",                         
+      6: "La maîtresse de Satan",                
+      7: "Les monstres",                         
+      8: "Les chasseurs de vampires",            
+      9: "Le regard qui tue",                    
+     10: "L'homme amphibie",                     
+     11: "La nuit et la peur",                   
+     12: "Dracula, mon amour",                   
+     13: "Le cercueil à deux places",            
+     14: "L'ermite",                             
+     15: "La corruptrice",                       
+     16: "Les deux vierges",                     
+     17: "Obsession",                            
+     18: "Les vampires à Venise",                
+     19: "Necrophilia",                          
+     20: "Le sang et la rose",                   
+     21: "Valse diabolique",                     
+     22: "Frau Murder",                          
+     23: "Réincarnation",                        
+     24: "Le navire des cercueils",              
+     25: "Les filles de Satan",                  
+     26: "La soif des vampires",                 
+     27: "Chair humaine",                        
+     28: "Lycanthrope",                          
+     29: "Vengeance",                            
+     30: "Le bal des noyés",                     
+     31: "La reine des abîmes",                  
+     32: "Le retour de Frau Murder",             
+     33: "Sang bleu",                            
+     34: "La tombe étrusque",                    
+     35: "Le poignard magique",                  
+     36: "La mort des vampires",                 
+     37: "Le pacte de Satan",                    
+     38: "Les morts se lèvent",                  
+     39: "Poupées de cire",                      
+     40: "La vengeance de Frau Murder",          
+     41: "Satan soit loué !",                    
+     42: "Le feu dans les veines !",             
+     43: "Le cercueil de cristal",               
+     44: "Tu seras vierge",                      
+     45: "L'ennemi du mal",                      
+     46: "Zara contre Satan",                    
+     47: "La fille de Zara",                     
+     48: "Louis de Bavière",                     
+     49: "Une bombe dans l'crâne",               
+     50: "Télépathie",                           
+     51: "Affaire d'espionnage",                 
+     52: "Zara joue la vampire",                 
+     53: "Frankenstein, le monstre",             
+     54: "Suleimida",                            
+     55: "Alleluja",                             
+     56: "Sœur Zara, priez pour nous !",         
+     57: "Un amour de momie",                    
+     58: "Sandokan, le pirate",                  
+     59: "Le retour de Dracula",                 
+     60: "Alexandre Ier roi de Pologne",         
+     61: "Le défi du docteur Morten",            
+     62: "La fortune de Franz Gotenberg",        
+     63: "Le trésor des Incas",                  
+     64: "Eldorado",                             
+     65: "Un bourreau pour Frau Murder",         
+     66: "Zara retombe en enfance",              
+     67: "L'esclave de Dracula",                 
+     68: "Le bal des vampires",                  
+     69: "L'homme aux dents d'acier",            
+     70: "Le guerrier celte",                    
+     71: "Escroquerie",                          
+     72: "A bord de l'Océanus",                  
+     73: "Le diable tentateur",                  
+     74: "Marva la sorcière",                    
+     75: "Avis de recherche",                    
+     76: "Les scorpions",                        
+     77: "De profondis",                         
+     78: "Les perversions du duc de Gastmoore",  
+     79: "Sacrée Frau",                          
+     80: "Le roi Midas",                         
+     81: "La veuve joyeuse",                     
+     82: "Les vampires contre l'humanité",       
+     83: "La Chose",                           
+     84: "Le système Morrisson",                 
+     85: "Le cercueil de glace",                 
+     86: "Étreintes égyptiennes",                
+     87: "Une terreur aveugle",                  
+     88: "L'héritière de Cortez",                
+     89: "Modèles réduits",                      
+     90: "La tour des momies",                   
+     91: "Terrible est la nuit",                 
+     92: "Écorchée vive",                        
+     93: "L'horrible équation",                  
+     94: "Au crocodile gourmand",              
+     95: "Amour à la Chinoises",                 
+     96: "Le trésor des pirates",                
+     97: "Sang pur",                             
+     98: "La femme de marbre",                   
+     99: "Feu follet",                           
+    100: "Prisonnière de Dracula",               
+    101: "Mirage",                               
+    102: "Les brumes du passé",                  
+    103: "Ah ! Mon beau château !",              
+    104: "La farine du diable",                  
+    105: "La traite des blondes",                
+    106: "Au service de la reine",               
+    107: "L'exil",                               
+    108: "Le château du loup",                   
+    109: "Le tableau ensanglanté",               
+    110: "L'île de la peur",                     
+    111: "Amours royales",                       
+    112: "Te dégonfle pas !",                    
+    113: "L'autre",                              
+    114: "Métaphore",                            
+    115: "Camille",                              
+    116: "Faille temporelle",                    
+    117: "Drôle de gibier",                      
+    118: "Un vampire contre la mafia",           
+    119: "Excursion en Transylvanie",            
+    120: "La décapitée",                         
+    121: "Nymphomanie chronique",                
+    122: "Le plus beau cul du monde",            
+    123: "Le bal masqué",                        
+    124: "Le collectionneur de têtes",           
+    125: "L'esclavage",                          
+    126: "Celle qui ne voulait",                 
+    127: "Mission érotique",                     
+    128: "Lutte mortelle",                       
+    129: "Les voleurs de cadavres",              
+    130: "Le tragique destin d'une vampire",     
+    131: "Le portrait de Marlène",               
+    132: "Transmigration",                       
+    133: "La Baronne Von Weiss",                 
+    134: "L'île des dieux",                      
+    135: "Les fugitifs du passé",                
+    136: "Le tragique destin de Jessica",        
+    137: "L'enfer artificiel",                   
+    138: "Futur antérieur",                      
+    139: "Tout le monde en piste",               
+    140: "Danse macabre",                        
+    141: "La croisade contre le vice",           
+    142: "Une enquête meurtrière"
+}
+
+source = r'W:\TempBD\archives\archive1\BDA - PFA Elvifrance - Zara la vampire'
+
+created = set()
+
+for file in get_files(source):
+    if ma:=re.fullmatch(r"Zara la vampire (\d+)-(\d+)\.jpg", file, re.IGNORECASE):
+        n = int(ma.group(1))
+        folder = f'Zara la vampire - {n:>02}'
+        if n in z:
+            folder += ' - '+z[n]
+        if not n in created:
+            created.add(n)
+            print(folder)
+            os.mkdir(os.path.join(source, folder))
+        os.rename(os.path.join(source, file), os.path.join(source, folder, file))
