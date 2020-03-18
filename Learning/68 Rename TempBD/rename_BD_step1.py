@@ -8,6 +8,7 @@ import unicodedata
 import json
 from typing import List, TextIO
 
+
 from common import *
 
 
@@ -15,7 +16,7 @@ source = r"D:\Downloads\eMule\BD1"
 outfile = r'names.txt'
 
 #source = r"W:\TempBD\archives\archiven"
-source = r'W:\TempBD\final'
+#source = r'W:\TempBD\final'
 DO_IT = True
 
 

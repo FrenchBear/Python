@@ -5,8 +5,8 @@ from pprint import pprint
 from common import *
 
 
-sources = [r'W:\BD\Classique', r'W:\BD\Adulte', r'W:\BD\Ancien', r'W:\BD\Extra', r'W:\BD\Comics', r'W:\TempBD\final']
-#sources = [r'W:\TempBD\raw', r'D:\Downloads\eMule\BD1']
+#sources = [r'W:\BD\Classique', r'W:\BD\Adulte', r'W:\BD\Ancien', r'W:\BD\Extra', r'W:\BD\Comics', r'W:\TempBD\final']
+sources = [r'W:\TempBD\raw', r'D:\Downloads\eMule\BD1']
 DO_IT = True
 
 
