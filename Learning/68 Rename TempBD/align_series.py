@@ -62,7 +62,7 @@ def find_series_with_multiple_spellings():
         json.dump(seriesm, outfile, indent=4, ensure_ascii=False)
     print(f"Written {len(seriesm)} series with 2 or more spellings in spellings.txt and spellings.json")
 
-find_series_with_multiple_spellings()
+#find_series_with_multiple_spellings()
 
 
 def find_series_ending_with_numbers():
@@ -138,4 +138,4 @@ def series_with_distance_one():
             if levenshtein_distance(seriesnonum[i], seriesnonum[j])<=1:
                 print(f"{seriesnonum[i]:<80} {seriesnonum[j]}")
 
-#series_with_distance_one()
+series_with_distance_one()
