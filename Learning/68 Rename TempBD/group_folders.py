@@ -5,8 +5,8 @@ from typing import List, TextIO
 
 from common import *
 
-#source = r'W:\TempBD\final'
-source = r'W:\TempBD\archives\hybrid'
+source = r'W:\TempBD\final'
+#source = r'W:\TempBD\archives\hybrid'
 DO_IT = True
 
 

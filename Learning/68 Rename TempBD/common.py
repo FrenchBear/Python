@@ -130,3 +130,8 @@ def get_safe_name(namefp: str) -> str:
         if not os.path.exists(targetfilefp):
             return targetfilefp
     return os.path.join(folder, basename+' - 999'+ext)
+
+
+def file_length(pathfp: str) -> int:
+    sr = os.stat(pathfp)
+    return sr.st_size

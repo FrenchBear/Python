@@ -14,8 +14,8 @@ import unicodedata
 from common import *
 
 
-source = r"D:\Downloads\eMule\BD1"
-#source = r"W:\TempBD\final"
+#source = r"D:\Downloads\eMule\BD1"
+source = r"W:\TempBD\final"
 
 DO_IT = True
 
@@ -129,7 +129,7 @@ def rename_folders():
                 if DO_IT:
                     folderfp = os.path.join(source, folder)
                     try:
-                        os.rename(folderfp, os.path.join(source, newname))
+                        os.rename(folderfp, get_safe_name(os.path.join(source, newname)))
                     except:
                         print("*** Err")
     if not DO_IT:
@@ -138,4 +138,4 @@ def rename_folders():
 
 
 rename_series()
-#rename_folders()
+rename_folders()
