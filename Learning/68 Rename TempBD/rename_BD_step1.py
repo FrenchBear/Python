@@ -8,15 +8,11 @@ import unicodedata
 import json
 from typing import List, TextIO
 
-
 from common import *
 
 
 source = r"D:\Downloads\eMule\BD1"
 outfile = r'names.txt'
-
-#source = r"W:\TempBD\archives\archiven"
-#source = r'W:\TempBD\final'
 DO_IT = True
 
 
@@ -63,7 +59,7 @@ def Step1(out: TextIO):
 
         # Remove specific strings
         newname = re.sub(r'(BD|Comics|Manga)[ \.-]*FR', ' ', newname, flags=re.IGNORECASE)
-        newname = re.sub(r'Pressecitron|iBooker|FRENCH|HYBRiD|eBook|WEBRip|BDPACK|STC|REPACK|RESCAN|BROKER|One shot|MagPF|Full Color|Adult Comic|Bdstudio|by 5Cobres|caso DKFR|DKFR', '', newname, flags=re.IGNORECASE)
+        newname = re.sub(r'Pressecitron|iBooker|FRENCH|\bHYBRiD\b|eBook|WEBRip|BDPACK|STC|REPACK|RESCAN|BROKER|One shot|MagPF|Full Color|Adult Comic|Bdstudio|by 5Cobres|By Le mulot|caso DKFR|DKFR', '', newname, flags=re.IGNORECASE)
         newname = re.sub(r' OS | BDX FR | BDX | FR | HD | HQ | Pack ', ' ', newname, flags=re.IGNORECASE)
         newname = re.sub(r' !', '!', newname, flags=re.IGNORECASE)
         newname = re.sub(r' Int ', ' Intégrale ', newname, flags=re.IGNORECASE)

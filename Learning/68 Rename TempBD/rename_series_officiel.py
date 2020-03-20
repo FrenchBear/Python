@@ -6,7 +6,7 @@ import os
 import sys
 import re
 from collections import defaultdict
-from typing import Dict, List, Tuple, DefaultDict, Iterable
+from typing import Dict, List, Tuple, DefaultDict, Iterable, TextIO
 import json
 import re
 import unicodedata
@@ -14,30 +14,14 @@ import unicodedata
 from common import *
 
 
-#source = r"D:\Downloads\eMule\BD1"
-source = r"W:\TempBD\final"
-
+source = r"D:\Downloads\eMule\BD1"
+#source = r"W:\TempBD\final"
 DO_IT = True
 
-
-#REBUILD_FILES_LIST = True
-# if REBUILD_FILES_LIST:
-#     print("Reading files hierarchy...")
-#     files = list(get_all_files(source))
-#     print(f"Wrting {len(files)} records in cache filesH.json")
-#     with open(r'filesH.json', 'w', encoding='utf8') as outfile:
-#         json.dump(files, outfile, indent=4, ensure_ascii=False)
-#     print("Done.")
-# else:
-#     with open(r'filesH.json', 'r', encoding='utf-8') as infile:
-#         files = json.load(infile)
-#     print(f"Loaded {len(files)} records from filesH.json")
 
 files: List[str]
 folders: List[str]
 files = list(get_all_files(source))
-# for _1, folders, _2 in os.walk(source):
-#     break
 _1, folders, _2 = next(os.walk(source))
 
 glolbal_rename: List[Tuple[str, str]] = [
@@ -77,7 +61,7 @@ for spelling in spo:
 
 
 # Rename series using official spelling
-def rename_series():
+def rename_series(out: TextIO):
     nf = nr = 0
     for fullpath in files:
         nf += 1
@@ -105,7 +89,8 @@ def rename_series():
             nr += 1
             newname = " - ".join(segments)+ext.lower()
             newname
-            print(f'{file:<100} -> {newname}')
+            print(f'{file:<70} -> {newname}')
+            out.write(f'{file:<70} -> {newname}\n')
             if DO_IT:
                 try:
                     os.rename(fullpath, get_safe_name(os.path.join(path, newname)))
@@ -116,7 +101,7 @@ def rename_series():
     print(f'{nf} fichiers analysés, {nr} renommé(s)')
 
 
-def rename_folders():
+def rename_folders(out: TextIO):
     nf = nr = 0
     for folder in folders:
         nf += 1
@@ -124,7 +109,8 @@ def rename_folders():
         if folder_lna in dicspo.keys():
             if folder != dicspo[folder_lna]:
                 newname = dicspo[folder_lna]
-                print(f'{folder:<100} -> {newname}')
+                print(f'{folder:<70} -> {newname}')
+                out.write(f'{folder:<70} -> {newname}\n')
                 nr += 1
                 if DO_IT:
                     folderfp = os.path.join(source, folder)
@@ -137,5 +123,7 @@ def rename_folders():
     print(f'{nf} dossiers analysés, {nr} renommé(s)')
 
 
-rename_series()
-rename_folders()
+with open('rename.txt', 'w', encoding='utf-8') as out:
+    rename_series(out)
+    out.write('\n\n----------------------------------\n\n')
+    rename_folders(out)
