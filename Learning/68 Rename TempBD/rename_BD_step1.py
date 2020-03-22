@@ -13,6 +13,7 @@ from common import *
 
 source = r"D:\Downloads\eMule\BD1"
 outfile = r'names.txt'
+
 DO_IT = True
 
 

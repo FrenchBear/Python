@@ -120,8 +120,10 @@ def merge_folders(sourcefolderfp: str, targetfolderfp: str, DO_IT: bool = False)
     return nfm, ndn, nds
 
 
-def get_safe_name(namefp: str) -> str:
+def get_safe_name(namefp:str, original:str = None) -> str:
     if not os.path.exists(namefp):
+        return namefp
+    if original and original!=namefp and original.lower()==namefp.lower():
         return namefp
     folder, file = os.path.split(namefp)
     basename, ext = os.path.splitext(file)

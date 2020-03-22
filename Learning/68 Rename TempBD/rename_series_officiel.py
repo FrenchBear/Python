@@ -93,7 +93,7 @@ def rename_series(out: TextIO):
             out.write(f'{file:<70} -> {newname}\n')
             if DO_IT:
                 try:
-                    os.rename(fullpath, get_safe_name(os.path.join(path, newname)))
+                    os.rename(fullpath, get_safe_name(os.path.join(path, newname), fullpath))
                 except:
                     print("*** Err")
     if not DO_IT:
@@ -115,7 +115,7 @@ def rename_folders(out: TextIO):
                 if DO_IT:
                     folderfp = os.path.join(source, folder)
                     try:
-                        os.rename(folderfp, get_safe_name(os.path.join(source, newname)))
+                        os.rename(folderfp, get_safe_name(os.path.join(source, newname), folderfp))
                     except:
                         print("*** Err")
     if not DO_IT:
