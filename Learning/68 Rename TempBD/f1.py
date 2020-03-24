@@ -1,3 +1,34 @@
+import os
+import re
+from typing import List
+from common import *
 
-l = 1_291_878_012
-print(f"Length <{'{:_}'.format(l).replace('_', ' ').rjust(13)}>")
+source = r'W:\TempBD\archives\cbrn\BDA - PFA ElviFrance Terrificolor'
+
+NUM = re.compile(r"(\d+)\.jpg", re.IGNORECASE)
+
+folders = get_folders(source)
+for file in get_files(source):
+    if ma:=NUM.fullmatch(file):
+        for folder in folders:
+            if folder.startswith(ma.group(1)):
+                print(file, ' -> ', folder)
+                filefp = os.path.join(source, file)
+                dest = os.path.join(source, folder, file)
+                os.rename(filefp, dest)
+                break
+
+"""
+NUM = re.compile(r"(\d+)-(\d+) (.*)\.jpg", re.IGNORECASE)
+
+for file in get_files(source):
+    if ma:=NUM.fullmatch(file):
+        folder = f'{int(ma.group(1)):>02}'+' - '+ma.group(3)
+        folderfp = os.path.join(source, folder)
+        if not os.path.exists(folderfp):
+            os.mkdir(folderfp)
+        filefp = os.path.join(source, file)
+        dest = os.path.join(folderfp, file)
+        os.rename(filefp, dest)
+        print(folder, '    ', file)
+"""

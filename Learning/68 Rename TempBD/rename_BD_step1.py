@@ -11,7 +11,8 @@ from typing import List, TextIO
 from common import *
 
 
-source = r"D:\Downloads\eMule\BD1"
+source = r'D:\Downloads\eMule\BD1'
+#source = r'W:\TempBD\archives\archiven.pdf'
 outfile = r'names.txt'
 
 DO_IT = True

@@ -4,12 +4,11 @@ from typing import List
 from common import *
 
 
-source = r"W:\TempBD\archives\hybrid.BDA"
-
+source = r"W:\TempBD\archives\hybrid"
 DO_IT = True
 
-PICTURE_EXT = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tif']
-ARCHIVE_EXT = ['.cbr', '.cbz', '.rar', '.zip', ]
+PICTURE_EXT = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tif', '.webp']
+ARCHIVE_EXT = ['.cbr', '.cbz', '.rar', '.zip']
 PDF_EXT = ['.epub', '.pdf']
 IGNORE_EXT = ['.db']
 

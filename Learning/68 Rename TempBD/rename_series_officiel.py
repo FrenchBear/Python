@@ -14,8 +14,9 @@ import unicodedata
 from common import *
 
 
-source = r"D:\Downloads\eMule\BD1"
-#source = r"W:\TempBD\final"
+source = r'D:\Downloads\eMule\BD1'
+#source = r'W:\TempBD\archives\hybrid.pdf'
+#source = r'W:\TempBD\final'
 DO_IT = True
 
 
