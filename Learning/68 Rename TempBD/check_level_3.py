@@ -5,9 +5,9 @@ import shutil
 from common import *
 
 
-source = r'W:\TempBD\archives\cbrn'
+source = r'W:\TempBD\!!cbrn.Adult'
 
-DO_IT = True
+DO_IT = False
 
 
 # ToDo: manage name conflicts in move_folder_content_up

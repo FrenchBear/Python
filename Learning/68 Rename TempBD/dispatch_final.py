@@ -5,7 +5,7 @@ from typing import List
 from common import *
 
 
-source = r'W:\TempBD\final.adult'
+source = r'W:\TempBD\final.Gay'
 DO_IT = True
 
 

@@ -3,15 +3,17 @@ import re
 from typing import List
 from common import *
 
-source = r'W:\TempBD\archives\cbrn\BDA - PFA ElviFrance Terrificolor'
+source = r'W:\TempBD\!!cbrn.Adult\PFA ElviFrance 3de4\PFA - S Rose'
 
+"""
 NUM = re.compile(r"(\d+)\.jpg", re.IGNORECASE)
 
 folders = get_folders(source)
 for file in get_files(source):
     if ma:=NUM.fullmatch(file):
         for folder in folders:
-            if folder.startswith(ma.group(1)):
+            fs = f'{int(ma.group(1)):>02} '
+            if folder.startswith(fs):
                 print(file, ' -> ', folder)
                 filefp = os.path.join(source, file)
                 dest = os.path.join(source, folder, file)
@@ -19,6 +21,7 @@ for file in get_files(source):
                 break
 
 """
+
 NUM = re.compile(r"(\d+)-(\d+) (.*)\.jpg", re.IGNORECASE)
 
 for file in get_files(source):
@@ -31,4 +34,3 @@ for file in get_files(source):
         dest = os.path.join(folderfp, file)
         os.rename(filefp, dest)
         print(folder, '    ', file)
-"""
