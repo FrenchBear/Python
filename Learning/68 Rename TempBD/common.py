@@ -65,7 +65,7 @@ def normalize_serie(serie: str) -> str:
     serie = ''.join(c for c in unicodedata.normalize("NFD", serie.lower())
                     if unicodedata.category(c) != 'Mn' and c != ',')
     for prefix in ['les aventures de ', "les aventures d'", 'une aventure de ', "une aventure d'", "la legende de ", "la legende des ", "la legende d'", "legende de ", "legende des ", "legende d'", "legendes de ", "legendes des ", "legendes d'", 'le ', 'la ', 'les ', "l'", 'un ', 'une ']:
-        if serie.startswith(prefix) and not serie in ['voyageur', 'le voyageur']:
+        if serie.startswith(prefix) and not serie in ['voyageur', 'le voyageur', 'jojo', 'les aventures de jojo']:
             serie = serie[len(prefix):]
     for suffix in [' - pdf', ' - rar', ' - zip', ' pdf', ' rar', ' zip']:
         if serie.endswith(suffix):
