@@ -3,7 +3,7 @@ from typing import Tuple, Iterable
 from common import *
 
 
-source = r'W:\TempBD\archives\archiven'
+source = r'W:\TempBD\archives'
 DO_IT = True
 
 
