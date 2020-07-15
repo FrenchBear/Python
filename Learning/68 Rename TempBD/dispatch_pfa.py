@@ -3,7 +3,7 @@ import re
 from typing import List
 from common import *
 
-source = r'W:\TempBD\!!cbrn.Adult\PFA ElviFrance 3de4\PFA - S Rose'
+source = r'W:\TempBD\archives\cbr2\ElviFrance - Terrificolor'
 
 """
 NUM = re.compile(r"(\d+)\.jpg", re.IGNORECASE)
