@@ -3,7 +3,7 @@ import re
 from collections import Counter
 from common import *
 
-source = r'W:\TempBD\!!cbrn.Adult'
+source = r'W:\TempBD\archives'
 DO_IT = True
 
 keep = ['.jpg', '.jpeg', '.png', '.gif', '.cbr', '.cbz', '.rar', '.zip', '.bmp', '.tif', '.epub', '.pdf', '.webp']

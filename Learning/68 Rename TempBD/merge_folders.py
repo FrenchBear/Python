@@ -4,8 +4,8 @@ from typing import List
 from common import *
 
 
-source = r'W:\TempBD\!!cbrn.Adult.pdf'
-target = r'W:\TempBD\final.Adult'
+source = r'W:\TempBD\archives'
+target = r'W:\TempBD\Qfinal'
 DO_IT = True
 
 
