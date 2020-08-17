@@ -4,7 +4,7 @@
 
 import os
 
-import tmdbsimple as tmdb
+import tmdbsimple as tmdb       # type: ignore
 
 from typing import Iterable
 

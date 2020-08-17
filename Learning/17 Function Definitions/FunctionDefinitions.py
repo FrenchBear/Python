@@ -53,7 +53,7 @@ single_star(*range(6))
 double_star(3, **{'Pierre':50, 'Claude':59, 'Jacques':46})
 
 # Annotations
-def annot(a: "First parameter", b: 42) -> "test function":
+def annot(a="First parameter", b=42) -> None:
     print(annot.__annotations__)
     print(a, b)
 

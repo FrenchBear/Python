@@ -18,7 +18,12 @@
         "titleBar.inactiveForeground": "#15202b99",
         "statusBar.background": "#a09010",
         "statusBarItem.hoverBackground": "#72660b",
-        "statusBar.foreground": "#15202b"
+        "statusBar.foreground": "#15202b",
+        "activityBar.activeBackground": "#ceba15",
+        "activityBar.activeBorder": "#0c7468"
     },
-    "peacock.color": "#a09010"
+    "peacock.color": "#a09010",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUnboundVariable": "none"
+    }
 }

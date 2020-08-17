@@ -2,7 +2,11 @@ import os, sys
 import re
 from typing import List
 
-from common import *
+# Juste les fichiers d'un dossier, noms sans chemins
+def get_files(source: str) -> List[str]:
+    #return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
+    _1, _2, files = next(os.walk(source))
+    return files
 
 z={
       1: "La vampire",                           

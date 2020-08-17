@@ -1,7 +1,7 @@
 # Decimal period for inverts
 # 2020-07-15    PV
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt     # type: ignore
 
 # https://oeis.org/A003592
 # Numbers of the form 2^i*5^j with i, j >= 0.
