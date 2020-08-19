@@ -1,6 +1,8 @@
 # sector_engine
 # Sector game simulation, basic text interface
 # 2020-08-17    PV
+#
+# ToDO: Evasion option
 
 from random import randint
 import re
@@ -9,6 +11,22 @@ from typing import Tuple
 
 class sector_engine:
     def __init__(self) -> None:
+        self.new_game()
+
+    def new_game(self):
+        self.move_sub()
+        self.b = 0
+        self.boat_N = [35, 30, 25, 25]
+        self.boat_E = [25, 25, 30, 35]
+        self.boat_dir_N = [1, 1, 1, 1]
+        self.boat_dir_E = [1, 1, 1, 1]
+        self.boat_speed = [0, 0, 0, 0]
+        self.moved = False
+        self.fired = False
+        self.fire_dir_N = 0
+        self.fire_dir_E = 1
+
+    def move_sub(self):
         self.sub_depth = randint(1, 3)
         self.sub_E = randint(30, 70)
         self.sub_N = randint(30, 70)
@@ -18,19 +36,16 @@ class sector_engine:
             if self.sub_dir_E != 0 or self.sub_dir_N != 0:
                 break
 
-        self.b = 0
-        self.boat_N = [35, 30, 25, 25]
-        self.boat_E = [25, 25, 30, 35]
-        self.boat_dir_N = [1, 1, 1, 1]
-        self.boat_dir_E = [1, 1, 1, 1]
-        self.boat_speed = [0, 0, 0, 0]
-        self.moved = False
-        self.fired = False
-        self.fire_N = 0
-        self.fire_E = 1
+    def teach_mode(self):
+        self.new_game()
+        self.sub_N = 35
+        self.sub_E = 35
+        self.sub_dir_N = 1
+        self.sub_dir_E = 1
+        self.sub_depth = 1
 
     # Returns distance of current boat to sub, and a boolean True if in firing range
-    def get_dist(self) -> Tuple[int, bool]:
+    def get_range(self) -> Tuple[int, bool]:
         dN = abs(self.sub_N-self.boat_N[self.b])
         dE = abs(self.sub_E-self.boat_E[self.b])
         d = max(dN, dE)
@@ -45,8 +60,8 @@ class sector_engine:
         self.b = (self.b + 1) % 4
         self.moved = False
         self.fired = False
-        self.sub_E += self.sub_dir_E
         # Sub only navigates between coord 30 and 70 on both directions
+        self.sub_E += self.sub_dir_E
         if self.sub_E < 30 or self.sub_E > 70:
             self.sub_dir_E = -self.sub_dir_E
             self.sub_E += 2*self.sub_dir_E
@@ -74,17 +89,25 @@ class sector_engine:
     def move(self) -> Tuple[str, bool]:
         if self.moved:
             return ('Already moved', False)     # Can only move once per turn
-        new_N = self.boat_N[self.b] + self.boat_speed[self.b]*self.boat_dir_N[self.b]
-        new_E = self.boat_E[self.b] + self.boat_speed[self.b]*self.boat_dir_E[self.b]
+
+        # Move 1 cell at a time to detect collisions
+        new_N = 0
+        new_E = 0
+        for i in range(1, self.boat_speed[self.b]+1):
+            new_N = self.boat_N[self.b] + i*self.boat_dir_N[self.b]
+            new_E = self.boat_E[self.b] + i*self.boat_dir_E[self.b]
+            if self.occupied(new_N, new_E):
+                # Bump from colision point
+                self.boat_N[self.b] = new_N
+                self.boat_E[self.b] = new_E
+                self.bump()
+                return ('Collision!  Bumped!', False)
+
+        # Can't play out of 20-80 grid
         if not (20 <= new_N <= 80 and 20 <= new_E <= 80):
-            return ("Can't move outside of 25-75 grid", False)
+            return ("Can't move outside of 20-80 grid", False)
 
         self.moved = True
-
-        if self.occupied(new_N, new_E):
-            self.bump()
-            return ('Collision!  Bumped!', False)
-
         self.boat_N[self.b] = new_N
         self.boat_E[self.b] = new_E
         return ('', True)
@@ -92,8 +115,8 @@ class sector_engine:
     # Returns False if there is a problem (fire direction unchanged), True if fire direction has been set
     def set_fire_dir(self, fire_N: int, fire_E: int) -> bool:
         if isinstance(fire_N, int) and -1 <= fire_N <= 1 and isinstance(fire_E, int) and -1 <= fire_E <= 1 and abs(fire_E)+abs(fire_N) != 0:
-            self.fire_N = fire_N
-            self.fire_E = fire_E
+            self.fire_dir_N = fire_N
+            self.fire_dir_E = fire_E
             return True
         return False
 
@@ -106,19 +129,20 @@ class sector_engine:
 
             if 1 <= depth <= 3:
                 # Check that we're in firing range
-                (dist, canfire) = self.get_dist()
+                (dist, canfire) = self.get_range()
                 if not canfire:
                     self.bump()
                     return ('Not in firing range, bumped!', False)
 
                 # Check that direction is correct
-                if self.boat_N[self.b] + self.fire_N*dist != self.sub_N or self.boat_E[self.b] + self.fire_E*dist != self.sub_E:
+                if self.boat_N[self.b] + self.fire_dir_N*dist != self.sub_N or self.boat_E[self.b] + self.fire_dir_E*dist != self.sub_E:
                     self.bump()
                     return('Fired in wrong direction, bumped!', False)
 
                 # Check depth
                 if self.sub_depth == depth:
-                    return('Sumbarine hit! You won!', True)
+                    self.move_sub()
+                    return('Sumbarine hit! You won!  New sub position generated', True)
                 return(f'Almost hit submarine! Depth offset={abs(self.sub_depth-depth)}', True)
 
                 self.canfire = False    # Can only fire once per turn
@@ -127,7 +151,7 @@ class sector_engine:
 
     def bump(self):
         while True:
-            # Chose random direction
+            # Chose random direction, keep speed
             while True:
                 self.boat_dir_N[self.b] = randint(-1, 1)
                 self.boat_dir_E[self.b] = randint(-1, 1)
@@ -135,7 +159,9 @@ class sector_engine:
                     break
             new_N = self.boat_N[self.b] + self.boat_dir_N[self.b]*self.boat_speed[self.b]
             new_E = self.boat_E[self.b] + self.boat_dir_E[self.b]*self.boat_speed[self.b]
-            if not self.occupied(new_N, new_E) and 25 <= new_N <= 75 and 25 <= new_E <= 75:
+            if not self.occupied(new_N, new_E) and 20 <= new_N <= 80 and 20 <= new_E <= 80:
+                self.boat_N[self.b] = new_N
+                self.boat_E[self.b] = new_E
                 break
 
     # Check if cell (N, E) is occupied by a different boat than current boat
@@ -163,32 +189,41 @@ se = sector_engine()
 
 def direction(dir_N: int, dir_E: int) -> str:
     i = (dir_N+1)*3+(dir_E+1)
-    return ['SW', 'S', 'SE', 'W', '0', 'E', 'NW', 'N', 'NE'][i]
+    return ['SW', 'S ', 'SE', 'W ', '0', 'E ', 'NW', 'N ', 'NE'][i]
 
 
 def print_help():
     print("Sector Commands:")
-    print("  q, quit:    Terminate game")
-    print("  h, help:    Show help")
-    print("  b, boats:   Show boats status")
-    print("  n, next:    Select next boat, move submarine")
-    print('  d, dist:    Show distance from current boat')
-    print('  s#, speed#: Set current boat speed from 0 to 9')
-    print('  dXX, dirXX: Set compass direction to XX, where XX in E, NE, N, NW, W, SW, S, SE')
-    print('  m, move:    Move current boat')
+    print("  q, quit:     Terminate game")
+    print("  h, help:     Show help")
+    print("  b, boats:    Show boats status")
+    print("  n, next:     Select next boat, move submarine")
+    print('  r, range:    Show distance from current boat')
+    print('  s#, speed#:  Set current boat speed from 0 to 9')
+    print('  dXX, dirXX:  Set compass direction to XX, where XX in E, NE, N, NW, W, SW, S, SE')
+    print('  m, move:     Move current boat')
     print('  fXX, fireXX: Set fire direction to XX, where XX in E, NE, N, NW, W, SW, S, SE')
-    print('  f#, fire#:  Fire sub at given depth, from 1 to 3')
+    print('  f#, fire#:   Fire sub at given depth, from 1 to 3')
+    print('  t, teach:    Set teach mode')
+    print('  show:        Show boats and sub info')
+
+
+def show_sub():
+    print(f"sub:    {se.sub_N}N {se.sub_E}E dir={direction(se.sub_dir_N, se.sub_dir_E)} depth={se.sub_depth}")
+
+
+def show_boat(b: int):
+    print(
+        f"boat {b+1}: {se.boat_N[b]}N {se.boat_E[b]}E dir={direction(se.boat_dir_N[b], se.boat_dir_E[b])} speed={se.boat_speed[b]}")
 
 
 print("Sector hunt starts!")
 while True:
     print()
-    print(f"sub: N={se.sub_N} E={se.sub_E} dir={direction(se.sub_dir_N, se.sub_dir_E)} depth={se.sub_depth}")
-    (_, infirerange) = se.get_dist()
+    show_boat(se.b)
+    (_, infirerange) = se.get_range()
     if infirerange:
-        print("In fire range!")
-    print(
-        f"boat {se.b+1}: N={se.boat_N[se.b]} E={se.boat_E[se.b]} dir={direction(se.boat_dir_N[se.b], se.boat_dir_E[se.b])} speed={se.boat_speed[se.b]}")
+        print(f"In fire range!  Fire dir={direction(se.fire_dir_N, se.fire_dir_E)}")
     if se.moved:
         print("Boat already moved")
     if se.fired:
@@ -214,9 +249,9 @@ while True:
         se.next_boat()
         continue
 
-    if rep == 'd' or rep == 'dist':
-        (dist, infirerange) = se.get_dist()
-        print(f"Distance: {dist}")
+    if rep == 'r' or rep == 'range':
+        (rng, infirerange) = se.get_range()
+        print(f"Range: {rng}")
         if infirerange:
             print("In fire range!")
         continue
@@ -242,6 +277,9 @@ while True:
         continue
 
     if rep == 'm' or rep == 'move':
+        if se.moved:
+            print('Already moved!')
+            continue
         (status, success) = se.move()
         if success:
             print("Boat moved successfully")
@@ -277,6 +315,17 @@ while True:
             print('Jump successful')
         else:
             print('Jump failed')
+        continue
+
+    if rep == 't' or rep == 'teach':
+        se.teach_mode()
+        print('Teach mode started')
+        continue
+
+    if rep == 'show':
+        show_sub()
+        for i in range(4):
+            show_boat(i)
         continue
 
     print("Unknown command, enter h for help")
