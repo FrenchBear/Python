@@ -1,11 +1,10 @@
 # sector_engine
 # Sector game simulation, basic text interface
 # 2020-08-17    PV
-#
-# ToDO: Evasion option
 
-from random import randint
+import math
 import re
+from random import randint
 from typing import Tuple
 
 
@@ -35,6 +34,7 @@ class sector_engine:
             self.sub_dir_N = randint(-1, 1)
             if self.sub_dir_E != 0 or self.sub_dir_N != 0:
                 break
+        self.sub_evasive = False
 
     def teach_mode(self):
         self.new_game()
@@ -43,6 +43,9 @@ class sector_engine:
         self.sub_dir_N = 1
         self.sub_dir_E = 1
         self.sub_depth = 1
+
+    def evasive_mode(self):
+        self.sub_evasive = True
 
     # Returns distance of current boat to sub, and a boolean True if in firing range
     def get_range(self) -> Tuple[int, bool]:
@@ -60,15 +63,23 @@ class sector_engine:
         self.b = (self.b + 1) % 4
         self.moved = False
         self.fired = False
-        # Sub only navigates between coord 30 and 70 on both directions
         self.sub_E += self.sub_dir_E
+        self.sub_N += self.sub_dir_N
+        # Sub only navigates between coord 30 and 70 on both directions
         if self.sub_E < 30 or self.sub_E > 70:
             self.sub_dir_E = -self.sub_dir_E
             self.sub_E += 2*self.sub_dir_E
-        self.sub_N += self.sub_dir_N
+            while True:
+                self.sub_dir_N = randint(-1, 1)
+                if self.sub_dir_E != 0 or self.sub_dir_N != 0:
+                    break
         if self.sub_N < 30 or self.sub_N > 70:
             self.sub_dir_N = -self.sub_dir_N
             self.sub_N += 2*self.sub_dir_N
+            while True:
+                self.sub_dir_E = randint(-1, 1)
+                if self.sub_dir_E != 0 or self.sub_dir_N != 0:
+                    break
 
     # Returns False if there is a problem (speed unchanged), True if speed has been set
     def set_speed(self, s: int) -> bool:
@@ -137,17 +148,28 @@ class sector_engine:
                 # Check that direction is correct
                 if self.boat_N[self.b] + self.fire_dir_N*dist != self.sub_N or self.boat_E[self.b] + self.fire_dir_E*dist != self.sub_E:
                     self.bump()
+                    if self.evasive_mode():
+                        self.sub_changecap()
                     return('Fired in wrong direction, bumped!', False)
 
                 # Check depth
                 if self.sub_depth == depth:
                     self.move_sub()
                     return('Sumbarine hit! You won!  New sub position generated', True)
+
+                if self.evasive_mode():
+                    self.sub_changecap()
                 return(f'Almost hit submarine! Depth offset={abs(self.sub_depth-depth)}', True)
 
-                self.canfire = False    # Can only fire once per turn
-                return ('ToDo', True)
         return ('Arg err', False)
+
+    # sub can turn left 45°, right 45°, or not
+    def sub_changecap(self):
+        a = math.atan2(self.sub_dir_N, self.sub_dir_E)
+        a += randint(-1, 1)*math.pi/4
+        self.sub_dir_N = int(round(math.sin(a), 0))
+        self.sub_dir_E = int(round(math.cos(a), 0))
+        pass
 
     def bump(self):
         while True:
@@ -183,7 +205,7 @@ class sector_engine:
         return False
 
 
-# tests
+# Console interactive game, text mode
 se = sector_engine()
 
 
@@ -193,11 +215,11 @@ def direction(dir_N: int, dir_E: int) -> str:
 
 
 def print_help():
-    print("Sector Commands:")
-    print("  q, quit:     Terminate game")
-    print("  h, help:     Show help")
-    print("  b, boats:    Show boats status")
-    print("  n, next:     Select next boat, move submarine")
+    print('Sector Commands:')
+    print('  q, quit:     Terminate game')
+    print('  h, help:     Show help')
+    print('  b, boats:    Show boats status')
+    print('  n, next:     Select next boat, move submarine')
     print('  r, range:    Show distance from current boat')
     print('  s#, speed#:  Set current boat speed from 0 to 9')
     print('  dXX, dirXX:  Set compass direction to XX, where XX in E, NE, N, NW, W, SW, S, SE')
@@ -205,32 +227,35 @@ def print_help():
     print('  fXX, fireXX: Set fire direction to XX, where XX in E, NE, N, NW, W, SW, S, SE')
     print('  f#, fire#:   Fire sub at given depth, from 1 to 3')
     print('  t, teach:    Set teach mode')
+    print('  e, evasive:  Set evasive mode')
     print('  show:        Show boats and sub info')
 
 
 def show_sub():
-    print(f"sub:    {se.sub_N}N {se.sub_E}E dir={direction(se.sub_dir_N, se.sub_dir_E)} depth={se.sub_depth}")
+    print(f'sub:    {se.sub_N}N {se.sub_E}E dir={direction(se.sub_dir_N, se.sub_dir_E)} depth={se.sub_depth}')
+    if se.evasive_mode:
+        print('Sub in evasive mode')
 
 
 def show_boat(b: int):
     print(
-        f"boat {b+1}: {se.boat_N[b]}N {se.boat_E[b]}E dir={direction(se.boat_dir_N[b], se.boat_dir_E[b])} speed={se.boat_speed[b]}")
+        f'boat {b+1}: {se.boat_N[b]}N {se.boat_E[b]}E dir={direction(se.boat_dir_N[b], se.boat_dir_E[b])} speed={se.boat_speed[b]}')
 
 
-print("Sector hunt starts!")
+print('Sector hunt starts!')
 while True:
     print()
     show_boat(se.b)
     (_, infirerange) = se.get_range()
     if infirerange:
-        print(f"In fire range!  Fire dir={direction(se.fire_dir_N, se.fire_dir_E)}")
+        print(f'In fire range!  Fire dir={direction(se.fire_dir_N, se.fire_dir_E)}')
     if se.moved:
-        print("Boat already moved")
+        print('Boat already moved')
     if se.fired:
-        print("Boat already fired")
+        print('Boat already fired')
 
     print()
-    rep = str.lower(str(input(f"[{se.b+1}] Command? ")))
+    rep = str.lower(str(input(f'[{se.b+1}] Command? ')))
 
     if rep == 'q' or rep == 'quit':
         break
@@ -242,7 +267,7 @@ while True:
     if rep == 'b' or rep == 'boats':
         for b in range(4):
             print(
-                f"boat {b+1}: N={se.boat_N[b]} E={se.boat_E[b]} dir={direction(se.boat_dir_N[b], se.boat_dir_E[b])} speed={se.boat_speed[b]}")
+                f'boat {b+1}: N={se.boat_N[b]} E={se.boat_E[b]} dir={direction(se.boat_dir_N[b], se.boat_dir_E[b])} speed={se.boat_speed[b]}')
         continue
 
     if rep == 'n' or rep == 'next':
@@ -251,29 +276,29 @@ while True:
 
     if rep == 'r' or rep == 'range':
         (rng, infirerange) = se.get_range()
-        print(f"Range: {rng}")
+        print(f'Range: {rng}')
         if infirerange:
-            print("In fire range!")
+            print('In fire range!')
         continue
 
-    if ma := re.fullmatch(r"(s|speed) *([0-9])", rep):
+    if ma := re.fullmatch(r'(s|speed) *([0-9])', rep):
         s = int(ma.group(2))
         if se.set_speed(s):
-            print("Speed set successfully")
+            print('Speed set successfully')
         else:
-            print("Error setting speed")
+            print('Error setting speed')
         continue
 
-    if ma := re.fullmatch(r"(d|dir) *(e|ne|n|nw|w|sw|s|se)", rep):
+    if ma := re.fullmatch(r'(d|dir) *(e|ne|n|nw|w|sw|s|se)', rep):
         dir = str.lower(ma.group(2))
         ddir_N = {'e': 0, 'ne': 1, 'n': 1, 'nw': 1, 'w': 0, 'sw': -1, 's': -1, 'se': -1}
         ddir_E = {'e': 1, 'ne': 1, 'n': 0, 'nw': -1, 'w': -1, 'sw': -1, 's': 0, 'se': 1}
         dir_N = ddir_N.get(dir, -2)
         dir_E = ddir_E.get(dir, -2)
         if se.set_dir(dir_N, dir_E):
-            print("Direction set successfully")
+            print('Direction set successfully')
         else:
-            print("Error setting direction")
+            print('Error setting direction')
         continue
 
     if rep == 'm' or rep == 'move':
@@ -282,33 +307,33 @@ while True:
             continue
         (status, success) = se.move()
         if success:
-            print("Boat moved successfully")
+            print('Boat moved successfully')
         else:
-            print(f"Error moving boat: {status}")
+            print(f'Error moving boat: {status}')
         continue
 
-    if ma := re.fullmatch(r"(f|fire) *(e|ne|n|nw|w|sw|s|se)", rep):
+    if ma := re.fullmatch(r'(f|fire) *(e|ne|n|nw|w|sw|s|se)', rep):
         dir = str.lower(ma.group(2))
         ddir_N = {'e': 0, 'ne': 1, 'n': 1, 'nw': 1, 'w': 0, 'sw': -1, 's': -1, 'se': -1}
         ddir_E = {'e': 1, 'ne': 1, 'n': 0, 'nw': -1, 'w': -1, 'sw': -1, 's': 0, 'se': 1}
         dir_N = ddir_N.get(dir, -2)
         dir_E = ddir_E.get(dir, -2)
         if se.set_fire_dir(dir_N, dir_E):
-            print("Fire direction set successfully")
+            print('Fire direction set successfully')
         else:
-            print("Error setting fire direction")
+            print('Error setting fire direction')
         continue
 
-    if ma := re.fullmatch(r"(f|fire) *([1-3])", rep):
+    if ma := re.fullmatch(r'(f|fire) *([1-3])', rep):
         depth = int(ma.group(2))
         (status, success) = se.fire(depth)
         if success:
-            print("Fire result: ", status)
+            print('Fire result: ', status)
         else:
-            print("Error firing: ", status)
+            print('Error firing: ', status)
         continue
 
-    if ma := re.fullmatch(r"(j|jump) *(\d\d)(,|( +))(\d\d)", rep):
+    if ma := re.fullmatch(r'(j|jump) *(\d\d)(,|( +))(\d\d)', rep):
         new_N = int(ma.group(2))
         new_E = int(ma.group(5))
         if se.jump(new_N, new_E):
@@ -322,10 +347,15 @@ while True:
         print('Teach mode started')
         continue
 
+    if rep == 'e' or rep == 'evasive':
+        se.evasive_mode()
+        print('Sub in evasive mode')
+        continue
+
     if rep == 'show':
         show_sub()
         for i in range(4):
             show_boat(i)
         continue
 
-    print("Unknown command, enter h for help")
+    print('Unknown command, enter h for help')
