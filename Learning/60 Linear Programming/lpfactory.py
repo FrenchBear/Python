@@ -2,7 +2,7 @@
 # From https://hackernoon.com/linear-programming-in-python-a-straight-forward-tutorial-a0d152618121
 # 2019-04-14    PV
 
-from pulp import LpProblem, LpVariable, LpMaximize
+from pulp import LpProblem, LpVariable, LpMaximize      #type: ignore
 problem = LpProblem("problemName", LpMaximize)
 
 # factory cost per day

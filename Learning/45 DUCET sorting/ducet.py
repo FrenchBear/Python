@@ -153,7 +153,7 @@ print(sorted(lf, key=locale.strxfrm))
 # pip install pyuca
 # https://github.com/jtauber/pyuca
 
-import pyuca
+import pyuca    #type: ignore
 coll = pyuca.Collator()
 print("\npyuca:")
 print(sorted(lf, key=coll.sort_key))

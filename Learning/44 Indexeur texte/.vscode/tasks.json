@@ -4,9 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "mypy Python 3.7 type anotations check",
+            "label": "mypy Python type anotations check (current file)",
             "type": "shell",
-            "command": "mypy '${file}'"
+            "command": "mypy \"${file}\"",
+            "problemMatcher": []
+        },
+        {
+            "label": "mypy Python type anotations check (folder)",
+            "type": "shell",
+            "command": "mypy .",
+            "problemMatcher": []
         }
     ]
 }

@@ -14,12 +14,6 @@
             "type": "shell",
             "command": "mypy .",
             "problemMatcher": []
-        },
-        {
-            "label": "pyflakes current file",
-            "type": "shell",
-            "command": "python3 -m pyflakes \"${file}\"",
-            "problemMatcher": []
         }
     ]
 }

@@ -203,7 +203,7 @@ print(fibo2(6))
 # Use of singledispatch to provide 'overrides' on 1st parameter type
 
 import math
-import scipy.special
+import scipy.special    #type: ignore
 
 
 print("\n@functools.singledispatch")

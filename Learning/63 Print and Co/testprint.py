@@ -25,18 +25,18 @@ del print
 
 # Pretty printing: pprint use repr() instead of str
 from pprint import pprint
-data = {'pow8': [8**x for x in range(11)], 'pow9': [9**x for x in range(11)]}
-print(data)
-pprint(data)
+data1 = {'pow8': [8**x for x in range(11)], 'pow9': [9**x for x in range(11)]}
+print(data1)
+pprint(data1)
 
 # Printing json data
 import json
-data = {'username': 'pierre', 'password': 's3cret'}
-print(json.dumps(data))
-print(json.dumps(data, indent=4, sort_keys=True))
+data2 = {'username': 'pierre', 'password': 's3cret'}
+print(json.dumps(data2))
+print(json.dumps(data2, indent=4, sort_keys=True))
 
 # Colors
-import colorama
+import colorama  #type: ignore
 colorama.init() # On Windows, calling init() will filter ANSI escape sequences out of any text sent to stdout or stderr, and replace them with equivalent Win32 calls
 # Note that with new Windows Terminal, colorama is not needed anymore, it event prevent use of underline attribute
 # Using colorama helpers:

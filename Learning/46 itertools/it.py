@@ -5,7 +5,7 @@
 # 2018-09-01    PV      Use itertools.islice instead of top
 
 from itertools import *
-from typing import Iterable
+from typing import Dict, Iterable, Any
 import collections
 import functools
 import operator
@@ -61,7 +61,7 @@ for key, group in gi:
 
 
 def mygroupby(list: Iterable, key):
-    dic = {}
+    dic: Dict[Any, Any] = {}
     for item in list:
         k = key(item)
         if k in dic:

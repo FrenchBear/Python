@@ -53,8 +53,8 @@ with open('skull.gif', 'rb') as fp:
     img = memoryview(fp.read())  # 2
 header = img[:10]  # 3
 print(bytes(header))  # 4       # b'GIF89a\xe2\x00\xb5\x00'
-s = struct.unpack(fmt, header)  # 5
-print(s)   # (b'GIF', b'89a', 226, 181)
+ss = struct.unpack(fmt, header)  # 5
+print(ss)   # (b'GIF', b'89a', 226, 181)
 del header  # 6
 del img
 

@@ -127,7 +127,7 @@ class forms_locations():
         return sum(c for c in self.forms.values())
 
 
-def index_file(file: str, wordre, canonize) -> DefaultDict[str, forms_locations]:
+def index_file(file: str, wordre, canonize) -> Tuple[DefaultDict[str, forms_locations], int]:
     index: DefaultDict[str, forms_locations] = collections.defaultdict(forms_locations)
     words_count = 0
     with open(file, "r", encoding="utf-8-sig") as fp:
@@ -208,7 +208,7 @@ def search_quote(file: str):
 
 
 def count_letters(file: str):
-    dic = collections.defaultdict(int)
+    dic: DefaultDict[str, int] = collections.defaultdict(int)
     with open(file, "r", encoding="utf-8-sig") as fp:
         for line in fp:
             for char in line:

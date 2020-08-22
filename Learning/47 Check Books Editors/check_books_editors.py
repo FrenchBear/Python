@@ -7,6 +7,7 @@
 import os
 import re
 import collections
+from typing import Counter
 
 EDITOR_RE = re.compile(r'\[([^]]+)\]')
 
@@ -15,14 +16,20 @@ EDITOR_RE = re.compile(r'\[([^]]+)\]')
 
 diffMax = 2
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
-def LevenshteinDistance(s, t):
+
+
+def LevenshteinDistance(s: str, t: str) -> int:
     # Optimisation perso, j'ai pas besoin des distances supérieures à diffMax
-    if abs(len(s) - len(t)) > diffMax: return diffMax + 1
+    if abs(len(s) - len(t)) > diffMax:
+        return diffMax + 1
 
     # degenerate cases
-    if s == t: return 0
-    if len(s) == 0: return t.Length
-    if len(t) == 0: return s.Length
+    if s == t:
+        return 0
+    if len(s) == 0:
+        return len(t)
+    if len(t) == 0:
+        return len(s)
 
     # # convert to lowercase, we're doing case insensitive compare here
     # s = s.lower()
@@ -53,9 +60,12 @@ def LevenshteinDistance(s, t):
 
     return v1[len(t)]
 
-def tld(a,b,d):
-    dc = LevenshteinDistance(a,b)
-    if d!=dc: print(a + ", "+b+", "+str(d)+", "+str(dc))
+
+def tld(a, b, d):
+    dc = LevenshteinDistance(a, b)
+    if d != dc:
+        print(a + ", "+b+", "+str(d)+", "+str(dc))
+
 
 """
 # Some tests
@@ -68,8 +78,8 @@ tld("Il était un petit navire", "Il était u petit naavire", 2)
 """
 
 
-cc = collections.Counter()
-for dirpath, dirname, filenames in os.walk(r'W:\Livres'):       #\informatique'):
+cc: Counter[str] = collections.Counter()
+for dirpath, dirname, filenames in os.walk(r'W:\Livres'):  # \informatique'):
     for filename in filenames:
         ma = EDITOR_RE.search(filename)
         if ma:
@@ -82,7 +92,7 @@ print()
 
 for i in range(len(l)):
     for j in range(i+1, len(l)):
-        e1 = l[i][0]
-        e2 = l[j][0]
-        if LevenshteinDistance(e1, e2)==1:
-            print(e1,e2)
+        e1: str = l[i][0]
+        e2: str = l[j][0]
+        if LevenshteinDistance(e1, e2) == 1:
+            print(e1, e2)
