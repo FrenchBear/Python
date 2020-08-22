@@ -1,5 +1,5 @@
-# sector_engine
-# Sector game simulation, basic text interface
+# sector_engine.py
+# Sector game simulation, core game engine (no interface)
 # 2020-08-17    PV
 
 import math

@@ -31,7 +31,7 @@ def print_help():
 
 
 def show_sub():
-    print(f'sub:    {se.sub_N}N {se.sub_E}E dir={direction(se.get_sub_dir_N(), se.get_sub_dir_E())} depth={se.sub_depth}')
+    print(f'sub:    {se.sub_N}N {se.sub_E}E dir={direction(se.sub_dir_N, se.sub_dir_E)} depth={se.sub_depth}')
     if se.sub_evasive:
         print('Sub in evasive mode')
 
