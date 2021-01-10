@@ -1,39 +1,17 @@
-import os
-import shutil
-import unicodedata
+# comparebookssize.py
+# Eliminates duplicated books
+# 2021-01-09    PV
 
-from typing import List, Iterable, Tuple, Dict
+from vlib import *
+from typing import Dict
 
+def isSameName1(file1: str, file2: str) -> bool:
+    return filenamepart(file1).lower()==filenamepart(file2).lower()
 
-# Juste les fichiers d'un dossier, noms sans chemins
-def get_files(source: str) -> List[str]:
-    #return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
-    _1, _2, files = next(os.walk(source))
-    return files
-
-# Juste les sous-dossiers d'un dossier, noms sans chemins
-def get_folders(source: str) -> List[str]:
-    #return list([f for f in os.listdir(source) if os.path.isdir(os.path.join(source, f))])
-    _1, folders, _2 = next(os.walk(source))
-    return folders
-
-# Chemin complet de tous les fichiers à partir d'une racine
-def get_all_files(path: str) -> Iterable[str]:
-    for root, subs, files in os.walk(path):
-        for file in files:
-            yield os.path.join(root, file)
-
-# Chemin complet de tous les dossiers à partir d'une racine
-def get_all_folders(path: str) -> Iterable[str]:
-    for root, folders, _ in os.walk(path):
-        for folder in folders:
-            yield os.path.join(root, folder)
-
-def filepart(filefp: str) -> str:
-    _, file = os.path.split(filefp)
-    return file
-   
-
+def isSameName2(file1: str, file2: str) -> bool:
+    (file1, file2) = (filenamepart(file1).lower(), filenamepart(file2).lower())
+    if len(file1)>len(file2): (file1, file2) = (file2, file1)
+    return file1 == file2[len(file2)-len(file1):]
 
 source = r'W:\Livres\Informatique'
 allfiles = list(get_all_files(source))
@@ -49,6 +27,7 @@ for file in allfiles:
 for file in allfiles:
     if '!a_trier' in file.lower():
         size = os.stat(file).st_size
-        if size in lref and filepart(file).lower()==filepart(lref[size]).lower():
+        if size in lref: # and isSameName2(file, lref[size]):
             #print(f'dup size and name {size}:\n  {lref[size]}\n  {file}\n')
             print('del "'+file+'"')
+            #os.remove(file)
