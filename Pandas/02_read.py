@@ -77,7 +77,7 @@ import matplotlib.gridspec as gridspec
 plt.figure(figsize = (2,2))
 # gs1 = gridspec.GridSpec(2, 2)
 # gs1.update(wspace=0.025, hspace=0.05) # set the spacing between axes.
-plt.subplots_adjust(left=0.05, bottom=0.05, right=0.975, top=0.95)
+plt.subplots_adjust(left=0.065, bottom=0.05, right=0.975, top=0.95)
 
 
 # uptime
@@ -86,7 +86,7 @@ plt.title('uptime (days) avg/15 min')
 df_uptime:DataFrame = df[df.uptime.notnull() & df.Server!='EU50TSVP411']     # Only take records with values
 dp_uptime:DataFrame = df_uptime.pivot_table(index='DateG', columns='Server', values='uptime', aggfunc='mean')
 plt.plot(dp_uptime)
-plt.legend(dp_uptime.columns, loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize='small')
+plt.legend(dp_uptime.columns, loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize='x-small')
 #print(dp_uptime.columns)
 
 # tFile
@@ -111,7 +111,7 @@ dp_ram:DataFrame = df_ram.pivot_table(index='DateG', columns='Server', values='t
 #dp_ram.plot(title='tRam avg/15 min').legend(loc='center left',bbox_to_anchor=(1.0, 0.5))
 ax.set_xlim([0,10])
 ax.set_xticks( np.arange(0,11), minor=False)
-dp_ram.boxplot(vert=False)
+dp_ram.boxplot(vert=False, sym='.')
 ax.set_title('tRAM boxplot')
 ax.set_ylabel('Server')
 ax.set_xlabel('tRAM (s)')
@@ -122,7 +122,7 @@ ax = plt.subplot(2,2,4)
 df_cpu:DataFrame = df[df.tCPU.notnull()]     # Only take records with values
 dp_cpu:DataFrame = df_cpu.pivot_table(index='DateG', columns='Server', values='tCPU', aggfunc='mean')
 #dp_cpu.plot(title='tRam avg/15 min').legend(loc='center left',bbox_to_anchor=(1.0, 0.5))
-dp_cpu.boxplot(vert=False)
+dp_cpu.boxplot(vert=False, sym='.')
 plt.title('tCPU boxplot')
 plt.ylabel('Server')
 plt.xlabel('tCPU (s)')
