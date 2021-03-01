@@ -104,6 +104,8 @@ plt.plot(dp_tfile)
 # s3 = s2-s1
 # print(s3)
 
+plt.figure(figsize = (2,2))
+
 # RAM
 ax = plt.subplot(2,2,3)
 df_ram:DataFrame = df[df.tRAM.notnull() & df.tRAM>0]     # Only take records with values
