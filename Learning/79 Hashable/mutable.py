@@ -2,7 +2,13 @@
 # play with immutable hashable class
 # 2021-03-02    PV
 
+import math
+
+
+# Playing class
 class Vect2D:
+    typecode = 'd'
+
     def __init__(self, x, y) -> None:
         self.__x = x        # __ makes __x private (at least declaratively, the name is just decorated in dir())
         self.__y = y
@@ -20,7 +26,8 @@ class Vect2D:
         return f"({self.__x}, {self.__y})"
 
     def __repr__(self) -> str:
-        return f"Vect2D({repr(self.__x)}, {repr(self.__y)})"
+        #return f"Vect2D({repr(self.__x)}, {repr(self.__y)})"
+        return '{}({!r}, {!r})'.format(type(self).__name__, *self)
 
     def __iter__(self):
         yield self.__x
@@ -35,15 +42,52 @@ class Vect2D:
     def mutate(self):
         self.__x = self.__x + 12
 
+    def __complex__(self):
+        return complex(self.__x, self.__y)
+
+    # __int__ and __float__ do not make sense here
+
+    def __bool__(self):
+        return bool(abs(self))
+
+    def __abs__(self):
+        return math.hypot(self.__x, self.__y)
+
+    def argument(self):
+        return math.atan2(self.__y, self.__x)
+
+    def __format__(self, format_spec: str) -> str:
+        if format_spec == None:
+            return str(self)
+        if format_spec.endswith('r'):
+            nf = '{:'+format_spec[:-1]+'f}'
+            return '('+nf.format(self.x)+', '+nf.format(self.y)+')'
+        if format_spec.endswith('p'):
+            nf = '{:'+format_spec[:-1]+'f}'
+            import math
+            arg = math.atan2(self.y, self.x)
+            mod = math.hypot(self.x, self.y)
+            return '('+nf.format(mod)+' ∠'+nf.format(arg)+')'
+        return str(self)
+
+    def __bytes__(self):
+        from array import array
+        return bytes([ord(self.typecode)])+bytes(array(self.typecode, self))
+
+    @classmethod
+    def frombytes(cls, octets):
+        typecode=chr(octets[0])
+        memv = memoryview(octets[1:]).cast(typecode)
+        return cls(*memv)
 
 v1 = Vect2D(3, 4)
 v2 = Vect2D(4, 3)
 
-print(v1, hash(v1))
-print(v2, hash(v2))
+print(v1, 'hash:', hash(v1))
+print(v2, 'hash:', hash(v2))
 
 v3 = Vect2D('a', (3.14, 1.732))
-print(repr(v3), hash(v3))
+print(repr(v3), 'hash:', hash(v3))
 
 d = {}
 d[v1] = 'vect1'
@@ -54,3 +98,11 @@ v1.mutate()
 print(v1._Vect2D__x)  # Cheating...
 v1._Vect2D__x = 7     # even worse cheating
 print(v1)
+print(complex(v1))    # use __complex__
+print('abs=', abs(v1), ', arg=', v1.argument()) # use __abs__
+print(format(v1, '.3r'), format(v1, '.3p'))  # custom formats, rect and polar
+print(tuple(v1))      # v1 is iterable
+
+print()
+b = bytes(v1)
+print(Vect2D.frombytes(b))      # Members converted to float because of typecode d
