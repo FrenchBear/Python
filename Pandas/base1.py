@@ -22,3 +22,4 @@ print(purchases)
 # Locate order using customer name:
 print(purchases.loc['Robert'])
 
+print(purchases.loc['Robert'].apples)
