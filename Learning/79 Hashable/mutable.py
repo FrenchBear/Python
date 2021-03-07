@@ -1,6 +1,7 @@
 # mutable.py
 # play with immutable hashable class
 # 2021-03-02    PV
+# 2021-03-07    PV      Test virtual methods and @property x is read only (a getter only)
 
 import math
 
@@ -80,6 +81,16 @@ class Vect2D:
         memv = memoryview(octets[1:]).cast(typecode)
         return cls(*memv)
 
+    def virt_method(self):
+        print('Vect2D.virt_method()')
+
+    def test_virt(self):
+        print(self.virt_method())
+
+class SubVect2D(Vect2D):
+    def virt_method(self):
+        print('SubVect2D.virt_method()')
+
 v1 = Vect2D(3, 4)
 v2 = Vect2D(4, 3)
 
@@ -93,6 +104,8 @@ d = {}
 d[v1] = 'vect1'
 v1.mutate()
 # print(d[v1])        # fails, a hashable object should be immutable
+print(v1.x)
+# v1.x = 7            # AttributeError: can't set attribute
 
 # print(v1.__x)       # Error: 'Vect2D' object has no attribute '__x'
 print(v1._Vect2D__x)  # Cheating...
@@ -106,3 +119,8 @@ print(tuple(v1))      # v1 is iterable
 print()
 b = bytes(v1)
 print(Vect2D.frombytes(b))      # Members converted to float because of typecode d
+
+# In python, class functions are always 'virtual'
+v1.test_virt()
+sv1 = SubVect2D(2, 3)
+sv1.test_virt()     # test_virt is in base class Vect2D, but it calls virt_method of SubVect2D
