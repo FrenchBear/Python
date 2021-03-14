@@ -6,6 +6,7 @@ import functools
 import math
 import operator
 from array import array
+import numbers
 
 class Vector:
     typecode = 'd'
@@ -38,60 +39,69 @@ class Vector:
         return iter(self._coords)
 
     def __eq__(self, o: object) -> bool:
-        return issubclass(type(o), Vector) and len(self) == len(o) and all(map(lambda p: p[0] == p[1], zip(self._coords, iter(o))))
+        return issubclass(type(o), Vector) and len(self) == len(o) and all(a==b for a, b in zip(self, o))
 
     def __hash__(self) -> int:
         return functools.reduce(operator.xor, map(hash, self._coords), 0)
 
     def __bool__(self):
-        return all(map(bool, self._coords))
+        return any(map(bool, self._coords))
 
     def __abs__(self):
-        return math.hypot(self._coords)
+        return math.hypot(*iter(self._coords))
 
     def __complex__(self):
         if len(self._coords) == 2:
-            return complex(self._coords)
+            return complex(self._coords[0], self._coords[1])
         else:
-            raise f'Complex only supported for a dimension 2 {type(self).__name__}'
+            raise ValueError(f'Complex only supported for a dimension 2 {type(self).__name__}')
 
     def argument(self):
         if len(self._coords) == 2:
-            return math.atan2(self.__y, self.__x)
+            return math.atan2(self._coords[1], self._coords[0])
         else:
-            raise f'Argument only supported for a dimension 2 {type(self).__name__}'
+            raise ValueError(f'Argument only supported for a dimension 2 {type(self).__name__}')
 
+    # custom format r (rectangular) and p (polar) for dimension 2 only
+    # Possible extensions (mybe later):
+    # - cylindrical coordinates for dimension 3
+    # - hyperspherical corrdinates
+    # See Fluent Python Chap 10 p. 300
     def __format__(self, format_spec: str) -> str:
         if format_spec == None:
             return str(self._coords)
         if format_spec.endswith('r'):
             if len(self._coords) == 2:
                 nf = '{:'+format_spec[:-1]+'f}'
-                return '('+nf.format(self.x)+', '+nf.format(self.y)+')'
+                return '('+nf.format(self._coords[0])+', '+nf.format(self._coords[1])+')'
             else:
                 raise f'Format specifier r only supported for a dimension 2 {type(self).__name__}'
         if format_spec.endswith('p'):
             if len(self._coords) == 2:
                 nf = '{:'+format_spec[:-1]+'f}'
                 import math
-                arg = math.atan2(self.y, self.x)
-                mod = math.hypot(self.x, self.y)
+                arg = math.atan2(self._coords[1], self._coords[0])
+                mod = math.hypot(self._coords[0], self._coords[1])
                 return '('+nf.format(mod)+' ∠'+nf.format(arg)+')'
             else:
                 raise f'Format specifier p only supported for a dimension 2 {type(self).__name__}'
         return str(self)
 
+    # Dynamic attributes .x, .y, .z and .t for the first 4 elements
     def __getattr__(self, name: str):
         cls = type(self)
         if len(name) == 1 and name in cls.shortcuts:
-            #p = shortcuts.index(name)      # DO NOT use index, it will throw an exception if name is not found, while find returns -1
             p = cls.shortcuts.find(name)
             if 0 <= p < len(self._coords):
                 return self._coords[p]
             else:
                 raise AttributeError(f'{cls.__name__} object has no attribute {name}')
 
+    # Attributes x, y, z and t are reserved and immutable
     def __setattr__(self, name: str, value) -> None:
+        cls = type(self)
+        if len(name)==1 and cls.shortcuts.find(name)>=0:
+            raise AttributeError(f'{cls.__name__} object attribute {name} is immutable')
         super.__setattr__(self, name, value)
 
     def __bytes__(self):
@@ -104,7 +114,20 @@ class Vector:
         memv = memoryview(octets[1:]).cast(typecode)
         return cls(*memv)
 
+    def __getitem__(self, index):
+        cls = type(self)
+        if isinstance(index, slice):
+            return cls(self._coords[index])
+        elif isinstance(index, numbers.Integral):
+            return self._coords[index]
+        else:
+            raise(TypeError(f'{cls.__name__} indices must be integers'))
+
+# ToDo: vector arithmetic
 
 if __name__ == '__main__':
-    v = Vector(3, 4)
-    print(hash(v))
+    v = Vector(range(8))
+    print(v[2], 2.0)
+    print(v[-1], 7.0)
+    print(v[2:7], Vector(2.0, 3.0, 4.0, 5.0, 6.0))
+    print(v[2:7:2], Vector(2.0, 4.0, 6.0))
