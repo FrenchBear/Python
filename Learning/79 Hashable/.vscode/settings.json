@@ -15,5 +15,15 @@
         "titleBar.inactiveBackground": "#a0901099",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.color": "#a09010"
+    "peacock.color": "#a09010",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*_test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true
 }
