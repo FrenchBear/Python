@@ -1,5 +1,5 @@
 # Numerical Tower
-# Test of numarical ABCs
+# Test of numerical ABCs
 # 2021-04-26    PV
 
 import builtins
@@ -28,7 +28,7 @@ fr = fractions.Fraction(2,3)
 test(fr)
 test(float(1.414))
 test(2+3j)
-d = decimal.Decimal(3.1416)
+d = decimal.Decimal(3.1416) # A decimal is a number, bt not a real!
 test(d)
 bs = bytes(1)
 test(bs)
