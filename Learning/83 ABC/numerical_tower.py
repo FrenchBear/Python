@@ -8,7 +8,10 @@ import fractions
 import decimal
 import datetime
 
-lb = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral]
+from typing import Type
+
+
+lb: list[Type] = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral]
 
 def test(x) -> None:
     print("{:<10.10} {:<10} ".format(str(x), type(x).__name__), end='')

@@ -3,22 +3,24 @@
 # 2021-04-27    PV
 
 import abc
+from typing import Iterable, Tuple
 
 class Tombola(abc.ABC):
 
     @abc.abstractmethod
-    def load(self, iterable):
+    def load(self, iterable: Iterable):
         """Add items from an iterable."""
     
     @abc.abstractmethod
     def pick(self):
         """Remove item at random, returning it.  Raise LookupError when the instance is empty."""
 
-    def loaded(self):
+    # Default implem is waaaaaaay too heavy
+    def loaded(self) -> bool:
         """Returns True it there is at least one item."""
         return bool(self.inspect())
 
-    def inspect(self):
+    def inspect(self) -> Tuple:
         """Returns a sorted tuple of the current items."""
         items = []
         while True:
@@ -26,7 +28,5 @@ class Tombola(abc.ABC):
                 items.append(self.pick())
             except LookupError:
                 break
-            self.load(items)
-            return tuple(sorted(items))
-
-
+        self.load(items)
+        return tuple(sorted(items))
