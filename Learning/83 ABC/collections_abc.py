@@ -3,12 +3,13 @@
 
 from collections.abc import *
 from collections import *
-from typing import Type
+from typing import Type, Union, Any
 from types import MappingProxyType
 import math
 from array import array
 
-lb: list[Type] = [MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, KeysView, Sequence, Mapping, Set, MappingView, Iterator, Iterable, Container, Sized, Callable, Hashable]
+# Any beacuse of Hashable
+lb: list[Union[Type,Any]] = [MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, KeysView, Sequence, Mapping, Set, MappingView, Iterator, Iterable, Container, Sized, Callable, Hashable]
 
 def test(x) -> None:
     print("{:<15.15} {:<11.11}".format(str(x), type(x).__name__), end='')

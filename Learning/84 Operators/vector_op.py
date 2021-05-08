@@ -1,12 +1,15 @@
-# vector.cls
-# Playing with a good pythonic object
-# 2021-03-14    PV
+# vector_op.py
+# Play with operators
+# 2021-05-09    PV
 
+from __future__ import annotations
 import functools
 import math
 import operator
 from array import array
 import numbers
+import itertools
+
 
 class Vector:
     typecode = 'd'
@@ -123,11 +126,38 @@ class Vector:
         else:
             raise(TypeError(f'{cls.__name__} indices must be integers'))
 
-# ToDo: vector arithmetic
+    # Unitary operators (__abs__ already defined, returns a scalar)
+    def __pos__(self) -> Vector:
+        return Vector(self)
+
+    def __neg__(self) -> Vector:
+        return Vector(-x for x in self)
+
+    # Don't define __invert__(self) since there is no obvious use for a Vector
+
+    # Infix operators
+
+    # Addition, do not check type of other, as long it's iterable, it's Ok so we can add Vector and tuples, lists, ranges...
+    # If an error is raised because other is not iterable, or other iterable item type doesn't support addition to float, 
+    # return special singleton value NotImplemented so that Python will try other.__radd__
+    # This way we get a clean error msg 'unsupported operand...' instead of a cryptic error raised by zip_longest or +
+    def __add__(self, other):
+        try:
+            return Vector(a+b for a,b in itertools.zip_longest(self, other, fillvalue=0.0))
+        except TypeError:
+            return NotImplemented       # Do not confuse with NotImplementedError
+
+    # Reverse add  delegates to forward method, since vector addition is commutative, that's easy
+    def __radd__(self, other):
+        return self.__add__(other)      # or self+other, same thing
+
+
 
 if __name__ == '__main__':
-    v = Vector(range(8))
-    print(v[2], 2.0)
-    print(v[-1], 7.0)
-    print(v[2:7], Vector(2.0, 3.0, 4.0, 5.0, 6.0))
-    print(v[2:7:2], Vector(2.0, 4.0, 6.0))
+    v = Vector(range(3))
+    print(+v)
+    print(-v)
+    print(v+[-1,-1,-1])     # __add__
+    print([-1,-1,-1]+v)     # __radd__
+    # print(v+4.14)         # unsupported operand type(s) for +: 'Vector' and 'float'
+    # print(v+'aze')        # unsupported operand type(s) for +: 'Vector' and 'str'
