@@ -11,7 +11,7 @@ import datetime
 from typing import Type
 
 
-lb: list[Type] = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral]
+lb: list[Type] = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral, bool]
 
 def test(x) -> None:
     print("{:<10.10} {:<10} ".format(str(x), type(x).__name__), end='')

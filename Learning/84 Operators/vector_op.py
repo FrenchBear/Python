@@ -2,7 +2,9 @@
 # Play with operators
 # 2021-05-09    PV
 
+# A class can reference itself without using a string
 from __future__ import annotations
+
 import functools
 import math
 import operator
@@ -12,11 +14,12 @@ import itertools
 
 
 class Vector:
+    # float.  We don't allow Vectors with complex values.  All other numerical types are converted to float.
     typecode = 'd'
     shortcuts = 'xyzt'
 
     def __init__(self, *values) -> None:
-        if len(values)>1:
+        if len(values) > 1:
             # Vector(1, 2)
             self._coords = array(self.typecode, values)
         else:
@@ -24,7 +27,7 @@ class Vector:
                 it = iter(values[0])    # test if it's iterable since array contructor need an iterable
                 # Vector([1, 2])
                 self._coords = array(self.typecode, values[0])
-            except TypeError:        
+            except TypeError:
                 # Vector(1)
                 self._coords = array(self.typecode, [values[0]])     # A list of one scalar is an iterable
 
@@ -42,7 +45,7 @@ class Vector:
         return iter(self._coords)
 
     def __eq__(self, o) -> bool:
-        return issubclass(type(o), Vector) and len(self) == len(o) and all(a==b for a, b in zip(self, o))
+        return issubclass(type(o), Vector) and len(self) == len(o) and all(a == b for a, b in zip(self, o))
 
     def __hash__(self) -> int:
         return functools.reduce(operator.xor, map(hash, self._coords), 0)
@@ -103,7 +106,7 @@ class Vector:
     # Attributes x, y, z and t are reserved and immutable
     def __setattr__(self, name: str, value) -> None:
         cls = type(self)
-        if len(name)==1 and cls.shortcuts.find(name)>=0:
+        if len(name) == 1 and cls.shortcuts.find(name) >= 0:
             raise AttributeError(f'{cls.__name__} object attribute {name} is immutable')
         super.__setattr__(self, name, value)
 
@@ -138,18 +141,83 @@ class Vector:
     # Infix operators
 
     # Addition, do not check type of other, as long it's iterable, it's Ok so we can add Vector and tuples, lists, ranges...
-    # If an error is raised because other is not iterable, or other iterable item type doesn't support addition to float, 
+    # If an error is raised because other is not iterable, or other iterable item type doesn't support addition to float,
     # return special singleton value NotImplemented so that Python will try other.__radd__
     # This way we get a clean error msg 'unsupported operand...' instead of a cryptic error raised by zip_longest or +
-    def __add__(self, other):
+    def __add__(self, other) -> Vector:
         try:
-            return Vector(a+b for a,b in itertools.zip_longest(self, other, fillvalue=0.0))
+            return Vector(a+b for a, b in itertools.zip_longest(self, other, fillvalue=0.0))
         except TypeError:
             return NotImplemented       # Do not confuse with NotImplementedError
 
     # Reverse add  delegates to forward method, since vector addition is commutative, that's easy
-    def __radd__(self, other):
+    def __radd__(self, other) -> Vector:
         return self.__add__(other)      # or self+other, same thing
+
+
+    # Infix -
+    def __sub__(self, other) -> Vector:
+        return self+(-other)        # To keep it simple, but cloning __add__ code is more efficient
+
+    def __rsub__(self, other) -> Vector:
+        return self-other
+
+
+    # * is for Scalar multiplication
+    def __mul__(self, scalar) -> Vector:
+        # Multiplication by complex will work, but not allowed
+        if isinstance(scalar, numbers.Real) and not isinstance(scalar, bool):
+            return Vector(x * scalar for x in self)
+        else:
+            return NotImplemented
+
+    def __rmul__(self, scalar) -> Vector:
+        return self.__mul__(scalar)
+
+    # @ is for dot product
+    def __matmul__(self, other) -> float:
+        try:
+            return sum(a*b for a, b in itertools.zip_longest(self, other, fillvalue=0.0))
+        except TypeError:
+            return NotImplemented
+
+    def __rmatmult(self, other) -> float:
+        return self@other
+
+    # ** is for cross product, but in ℝ³ and between vectors only
+    def __pow__(self, other) -> Vector:
+        if isinstance(other, Vector):
+            if len(self) != 3 or len(other) != 3:
+                raise ArithmeticError('cross product only supported between 3-divension Vectors')
+            else:
+                return Vector(self.y*other.z-self.z*other.y, self.z*other.x-self.x*other.z, self.x*other.y-self.y*other.x)
+        else:
+            return NotImplemented
+
+    # No need to define reverse version actually since cross product is only supported between Vector object,
+    # and reverse method is only called when other is not a vector
+    # def __rpow__(self, other) -> Vector:
+    #     return self**other
+
+
+    # Inplace method, returning self for a mutable object, or a new object that will be rebound for immutable classes such as Vector
+    # Actually inplace method should only be implemented for mutable objects; for immutable objects it's useless
+    def __iadd__(self, other):
+        if isinstance(other, Vector):
+            return self+other       # Which is stupid since it's default implementation anyway...
+        else:
+            return NotImplemented
+
+    # Comparison
+    def __eq__(self, other):
+        if isinstance(other, Vector) and len(self)==len(other):
+            return all(a==b for a,b in zip(self, other))
+        else:
+            return NotImplemented       # calls other.__eq__(self), then fallfack on oblect.__eq__ that returns id(self)==id(other)
+            
+
+    # Comparison operators do not make sense for Vector      
+
 
 
 
@@ -157,7 +225,29 @@ if __name__ == '__main__':
     v = Vector(range(3))
     print(+v)
     print(-v)
-    print(v+[-1,-1,-1])     # __add__
-    print([-1,-1,-1]+v)     # __radd__
+    
+    print(v+[-1, -1, -1])   # __add__
+    print([-1, -1, -1]+v)   # __radd__
     # print(v+4.14)         # unsupported operand type(s) for +: 'Vector' and 'float'
     # print(v+'aze')        # unsupported operand type(s) for +: 'Vector' and 'str'
+    
+    print(v*3)
+    print(3*v)
+    # print(v*'a')          # can't multiply sequence by non-int of type 'Vector'
+    # print(v*False)        # bool is rejected; otherwise True=1, False=0
+    
+    w = Vector(1, 2, -1)
+    print(v@w)
+    print(v@(2, -2, 1))
+
+    print(v**w)
+    print(Vector(3, -3, 1) ** Vector(4, 9, 2))      # Expected is Vector(−15, −2, 39)
+
+    v_alias = v
+    v += w
+    print(id(v_alias), id(v))   # Different values, v has been rebound
+    print(v)
+
+    print(v==w)
+    print(v!=w)             # __ne__ is automatic (from object) in this case
+
