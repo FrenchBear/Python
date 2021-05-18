@@ -13,8 +13,6 @@ import math
 import random
 
 # Helper to limit the size of an interable to the first n elements
-
-
 # use islice instead
 # def top(seq: Iterable, n: int):
 #     for item in seq:
@@ -37,7 +35,7 @@ print(list(accumulate([1, 2, 3, 4, 5, 6], lambda a, b: a+b**2)))
 # Same thing but returns last element
 print(functools.reduce(lambda a, b: a+b**2, ([1, 2, 3, 4, 5, 6])))
 print(list(chain("ABC", [1, 2, 3], (False, True))))
-print(list(chain.from_iterable(["ABC", [1, 2, 3], (False, True)])))
+print(list(chain.from_iterable(["ABC", [1, 2, 3], (False, True)])))     # mypy expects a parameter Iterable[Iterable[<nothing>]]
 print(list(compress("ABCDEFG", [1, 0, 1, 0, 0, 1, 1, 0])))
 print(list(dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1])))
 print(list(filterfalse(lambda x: x % 2, range(10))))
@@ -81,6 +79,12 @@ print(list(islice('ABCDEFG', 2, None, 2)))
 print(list(starmap(pow, [(2, 5), (3, 2), (10, 3)])))
 print(list(takewhile(lambda x: x < 5, [1, 4, 6, 4, 1])))
 
+# tee is actually powerful, since it returns multiple copies of an iterator, which can all be iterated over independently.
+# After calling tee, the iterator used as an argument shouldn't be used.
+# Internally tee keeps a list containing objects returned by the most advanced output iterator which haven't been consumed
+# by the slowest iterator yet, so it may consume memory for large iterables and iterators of different pace.
+# Note that clone() can't be used with generators (current state of iterator is not stored in a private property such
+# as index but by the  state machine implementation of a generator)
 w1, w2, w3 = tee("ABC", 3)
 print(list(w1), list(w2), list(w3))
 

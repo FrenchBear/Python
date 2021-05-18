@@ -1,7 +1,7 @@
-# seq2.py
+# seq4.py
 # Sequence of words, many ways of implementing an iterable object
-# v2: Classic iterator, using a separate class
-# 2021-05-17    PV
+# v4: Lazy implementation (generate words only when next is called)
+# 2021-05-18    PV
 
 import re
 import reprlib              # reprlib.repr shortens representations of very large objects
@@ -16,32 +16,14 @@ RE_WORD = re.compile(r'\w+')
 class Sentence():
     def __init__(self, text: str) -> None:
         self.text = text
-        self.words = RE_WORD.findall(text)
 
     def __repr__(self) -> str:
         return f'Sentence({reprlib.repr(self.text)})'
 
+    # A generator function returns a generator object, which is an Iterator
     def __iter__(self) -> Iterator:
-        return SentenceIterator(self.words)
-
-
-# Classic basic iterator, with no generator expression or yield keyword, a call to __next__
-# just returns next item or StopIteration
-class SentenceIterator:
-    def __init__(self, words: Sequence[str]) -> None:
-        self.words = words
-        self.index = 0
-
-    def __next__(self) -> str:
-        try:
-            word = self.words[self.index]
-            self.index += 1
-        except IndexError:
-            raise StopIteration()
-        return word
-
-    def __iter__(self) -> Iterator:
-        return self
+        for match in RE_WORD.finditer(self.text):   # note: it's not re.findall. finditer builds an iterator.
+            yield match.group()
 
 
 if __name__ == '__main__':
