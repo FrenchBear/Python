@@ -3,7 +3,7 @@
 # 2021-04-10    PV      Support du filesystem isolé sous common_fs.py
 
 import os
-from typing import List, Iterable, Tuple
+from typing import List, Iterable
 
 
 # Juste les fichiers d'un dossier, noms sans chemins

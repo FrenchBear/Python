@@ -1,6 +1,6 @@
 # Charlots_dups.py
 # Liste les fichiers manquants entre la 1ère compil et la 2è
-# 2021-04-10
+# 2021-04-10    PV
 
 from common_fs import *
 import os
