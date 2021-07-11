@@ -3,8 +3,9 @@
 # 2021-07-10    PV
 
 from functools import wraps
+from typing import Callable
 
-def coroutine(func: callable):
+def coroutine(func: Callable):
     """Decorator: primes 'func' by advancing to first yield"""
     @wraps(func)
     def primer(*args, **kwargs):
