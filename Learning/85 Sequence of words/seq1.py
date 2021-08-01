@@ -9,7 +9,7 @@ import reprlib              # reprlib.repr shortens representations of very larg
 import collections.abc
 from typing import Union, Iterable
 
-from isiterable import isIterable
+from isiterable import is_iterable
 
 RE_WORD = re.compile(r'\w+')
 
@@ -37,4 +37,4 @@ if __name__ == '__main__':
     print('Iterable from collections.abc: ', issubclass(Sentence, collections.abc.Iterable))   # False
     # False because it does not implement __iter__
     print('issubclass(Iterable):', issubclass(Sentence, Iterable))   # False, same thing than above
-    print('isIterable:', isIterable(s))
+    print('isIterable:', is_iterable(s))

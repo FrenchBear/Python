@@ -10,14 +10,14 @@ import seq4
 import seq5
 import seq6
 
-from isiterable import isIterable
+from isiterable import is_iterable
 
 
 def test_seq(Sentence, name: str):
     print('Testing', name)
     s = Sentence('Once upon a time...')
     print('  issubclass(Iterable):', issubclass(Sentence, Iterable))   # True, same thing
-    print('  isIterable:', isIterable(s))
+    print('  isIterable:', is_iterable(s))
     try:
         it: Iterator[str] = iter(s)
     except:
