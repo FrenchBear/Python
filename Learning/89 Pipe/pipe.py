@@ -3,8 +3,11 @@
 # 2021-08-01    PV
 
 from typing import Callable, Iterable, Iterator, Optional, TypeVar
+from numbers import Number
+
 T = TypeVar('T')
 U = TypeVar('U')
+
 
 class Pipe:
     def __init__(self, source: Iterable[T]) -> None:
@@ -40,6 +43,20 @@ class Pipe:
             # Do not yield anything if there is no match for a first
         return Pipe(first_or_none())
 
+    def pipe_sort(self, key = None, reverse: bool = False) -> 'Pipe':
+        def sorter():
+            l = list(self.iter)
+            l.sort(key=key, reverse=reverse)
+            yield from l
+        return Pipe(sorter())
+
+    def pipe_reverse(self) -> 'Pipe':
+        def reverser():
+            l = list(self.iter)
+            l.reverse()
+            yield from l
+        return Pipe(reverser())
+
     def final_count(self, predicate: Optional[Callable[[T], bool]] = None) -> int:
         count = 0
         for item in self.iter:
@@ -60,18 +77,21 @@ class Pipe:
         # Return None if there is no match for a first
         return None
 
+    def final_sum(self, predicate: Optional[Callable[[T], bool]] = None) -> Number:
+        sum:Number = 0
+        for item in self.iter:
+            if predicate:
+                if predicate(item):
+                    sum += item
+            else:
+                sum += item
+        return sum
 
-animaux = ['chien', 'chat', 'ours', 'âne', 'porc', 'boeuf']
 
-p = Pipe(animaux) \
-    .pipe_select(lambda a: len(a))  \
-    .pipe_where(lambda l: l % 2 == 0)  \
-    .final_count(lambda l: l>=6)
-print(p)
 
-p = Pipe(animaux)   \
-    .pipe_first(lambda a: a.startswith('z'))
-for a in p:
-    print(a)
+animaux = ['chien', 'chat', 'ours', 'rat', 'porc', 'boeuf']
 
-print(Pipe(animaux).final_first_or_none(lambda a: a.startswith('s')))
+p = Pipe(animaux).pipe_reverse()
+r = ','.join(repr(a) for a in p)
+print(f'[{r}]')
+
