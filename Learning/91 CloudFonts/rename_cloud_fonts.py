@@ -14,10 +14,11 @@ for df in ff:
     family = df['f']
     print(family)
     for sf in df['sf']:
-        gn = sf['gn']
+        dn = sf['dn']
         id = sf['id']
-        print('  '+gn)
-        p = os.path.join('C:\\temp\\CloudFonts', family, id+'.ttf')
+        print('  '+dn)
+        ext = '.'+sf['t']
+        p = os.path.join('C:\\temp\\CloudFonts', family, id+ext)
         if os.path.exists(p):
-            newp = os.path.join('C:\\temp\\CloudFonts', family, gn+'.ttf')
+            newp = os.path.join('C:\\temp\\CloudFonts', family, dn+ext)
             os.rename(p, newp)
