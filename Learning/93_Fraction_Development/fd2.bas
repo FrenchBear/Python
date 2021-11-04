@@ -7,19 +7,18 @@
 60 k = 0
 70 For i = 0 To d - 1
     80 n = n * 10
-    90 dec = n \ d
     100 n = n Mod d
     110 If n = 0 Then k = 1: GoTo 200
     120 m = n0
     130 For j = 0 To i - 1
         140 m = m * 10
-        150 decl = n \ d
         160 m = m Mod d
         170 If n = m Then k = 2: GoTo 200
     180 Next
 190 Next
 200 n = n0
 210 Print Mid$(Str$(n \ d), 2); ".";
+215 n = n Mod d
 220 If k = 2 Then Print "[";
 230 For i = 0 To d - 1
     240 n = n * 10
