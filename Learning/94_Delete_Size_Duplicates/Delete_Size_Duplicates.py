@@ -26,7 +26,8 @@ for filefp in get_all_files(source):
 dups = [v for v in dic.values() if len(v)>1]
 print(f'{len(dups)} size duplicates group(s) found.')
 for lst in dups:
-    #print()
+    print()
     for file in lst:
-        if 'a_trier' in file.casefold():
-            print(file)
+        #if 'a_trier' in file.casefold():
+            #os.remove(file)
+            print(f'del "{file}"')

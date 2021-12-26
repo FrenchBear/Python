@@ -63,8 +63,9 @@ def fixword(word: str) -> str:
 casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
            'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
            'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
-           'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', 'TSI', 'C++', 'InDesign', 'Photoshop',
-           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2']
+           'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', ',TSI', 'C++', 'InDesign', 'Photoshop',
+           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans' 'Java', 'JavaScript',
+           'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'ee', 'Maya', 'MCSA', 'QCM', 'Web' ]
 
 avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
 
@@ -125,4 +126,7 @@ for filefp in get_all_files(source):
     newname = process_name(basename)
     if basename != newname:
         #print(f'{basename}{ext} -> {newname}{ext}')
+        f1 = os.path.join(folder, basename+ext)
+        f2 = os.path.join(folder, newname+ext)
         print(newname)
+        os.rename(f1, f2)
