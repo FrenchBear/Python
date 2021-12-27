@@ -4,6 +4,7 @@
 # 2021-12-16    PV
 
 from collections import defaultdict
+from collections import Counter
 from os import replace
 from typing import DefaultDict
 from common_fs import *
@@ -33,44 +34,92 @@ for mot in to_delete:
     del mfsa[mot]
 
 
-def fixword(word: str) -> str:
-    '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
+
+casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
+           'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
+           'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
+           'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', 'TSI', 'C++', 'InDesign', 'Photoshop',
+           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans' 'Java', 'JavaScript',
+           'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'EE', 'Maya', 'MCSA', 'QCM', 'Web', 'XSLT',
+           'CAPES', 'API', 'PowerShell', 'Core', 'Power', 'BI', 'Desktop', 'Big', 'Data', 'Science', 'JSF', 'Server',
+           'Scientist', 'Visual', 'Studio', 'Django', 'Raspberry', 'Pi', 'Kids', 'Arduino', 'ECT', 'Tage',
+           'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC' ]
+
+avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
+
+dic_casefix = dict([(mot.casefold(), mot) for mot in casefix])
+dic_avectirets = dict([(mot.casefold(), mot) for mot in avectirets])
+
+
+def fixcase(before: str, after: str) -> str:
+    '''Si le mot d'origine commence par une majuscule, alors on force le remplacement à commencer par une majuscule'''
+    return after[0].upper()+after[1:] if before[0] == before[0].upper() else after
+
+uw = Counter()
+def fixwordbase(word: str) -> str:
     if word.casefold() in dmf:
-        return dmf[word.casefold()]        # fix case if needed
+        return fixcase(word, dmf[word.casefold()])      # fix case if needed
     if word.casefold() in mfsa:
-        return mfsa[word.casefold()][0]    # fix accent and case
+        return fixcase(word, mfsa[word.casefold()][0])  # fix accent and case
 
     if "'" in word:
         p = word.find("'")
         prefix = word[:p+1]
         word2 = word[p+1:]
         if word2.casefold() in dmf:
-            return prefix+dmf[word2.casefold()]        # fix case if needed
+            return prefix+dmf[word2.casefold()]         # fix case if needed
         if word2.casefold() in mfsa:
-            return prefix+mfsa[word2.casefold()][0]    # fix accent and case
+            return prefix+mfsa[word2.casefold()][0]     # fix accent and case
 
     if word[0] in 'lLdD' and (not "'" in word) and word.casefold() != 'lte':
         prefix = word[0]+"'"
         word2 = word[1:]
         if word2.casefold() in dmf:
-            return prefix+dmf[word2.casefold()]        # fix case if needed
+            return prefix+dmf[word2.casefold()]         # fix case if needed
         if word2.casefold() in mfsa:
-            return prefix+mfsa[word2.casefold()][0]    # fix accent and case
+            return prefix+mfsa[word2.casefold()][0]     # fix accent and case
 
+    if len(word)>1 and not word.casefold() in dic_casefix:
+        uw.update([word])
     return word
 
 
-casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
-           'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
-           'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
-           'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', ',TSI', 'C++', 'InDesign', 'Photoshop',
-           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans' 'Java', 'JavaScript',
-           'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'ee', 'Maya', 'MCSA', 'QCM', 'Web' ]
+def fixword(word: str) -> str:
+    '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
+    if word in ['The', 'the', 'Dart']:
+        return word
+    if word in ['2e','3e','4e']:
+        return word[0]+'è'
 
-avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
+    i = 0
+    prefix = ''
+    w = ''
+    suffix = ''
 
-dic_casefix = dict([(mot.casefold(), mot) for mot in casefix])
-dic_avectirets = dict([(mot.casefold(), mot) for mot in avectirets])
+    while i < len(word):
+        c = word[i]
+        if unicodedata.category(c) in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
+            break
+        prefix += c
+        i += 1
+    if i == len(word):
+        return word
+    while i < len(word):
+        c = word[i]
+        if unicodedata.category(c) not in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
+            break
+        w += c
+        i += 1
+    if w == '':
+        return word
+    suffix = word[i:]
+    # return f'<{prefix}><{w}><{suffix}>'
+    return prefix+fixwordbase(w)+suffix
+
+
+# for w in ['pomme', 'ecs2', '3arbres', '123abc456', '1234']:
+#     print(w, '->', fixword(w))
+# breakpoint()
 
 
 def ireplace(text: str, old: str, new: str) -> str:
@@ -114,19 +163,25 @@ def process_name(name: str) -> str:
     return nn
 
 
-# print(process_name("lapprentissage profond avec python"))
-# breakpoint()
+print(process_name("Scripting avance avec PowerShell - [Eyrolles] - X"))
+breakpoint()
 
+nd = 0
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
     basename, ext = os.path.splitext(file)
 
-    #if basename=='Algèbre et geométrie mp 5ed - [Dunod] - X': breakpoint()
-
     newname = process_name(basename)
     if basename != newname:
-        #print(f'{basename}{ext} -> {newname}{ext}')
+        nd += 1
+        print(f'{basename}{ext} -> {newname}{ext}')
+
         f1 = os.path.join(folder, basename+ext)
         f2 = os.path.join(folder, newname+ext)
-        print(newname)
         os.rename(f1, f2)
+
+print()
+print(nd, 'fichier(s) à renommer')
+
+# for w,c in uw.items():
+#     print(w,c)

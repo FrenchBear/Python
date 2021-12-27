@@ -1,4 +1,5 @@
 # Fraction Development 2
+#
 # 2021-11-03    PV      Second version using O(1) memory (sint does not really count) but O(d²) time
 # 2021-11-05    PV      Sign; /0; tests
 
@@ -53,6 +54,8 @@ def develop(n: int, d: int) -> str:
             return sint+']'
         if n == 0:
             return sint
+
+    return ''       # To lease mypy
 
 
 # print(develop(1,9801))

@@ -72417,6 +72417,9 @@ cryptogramme
 cryptogrammes
 cryptographie
 cryptographies
+cryptologie
+cryptologue
+cryptologues
 cryptons
 cuba
 cubage
