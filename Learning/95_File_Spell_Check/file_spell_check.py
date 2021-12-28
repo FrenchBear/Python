@@ -10,7 +10,8 @@ from typing import DefaultDict
 from common_fs import *
 import unicodedata
 
-source = r'W:\Livres\A_Trier'
+source = r'W:\Livres\A_Trier\New'
+doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 with open('mots_fr2.txt', 'r', encoding='UTF-8') as f:
@@ -177,9 +178,10 @@ for filefp in get_all_files(source):
         nd += 1
         print(f'{basename}{ext} -> {newname}{ext}')
 
-        f1 = os.path.join(folder, basename+ext)
-        f2 = os.path.join(folder, newname+ext)
-        os.rename(f1, f2)
+        if doit:
+            f1 = os.path.join(folder, basename+ext)
+            f2 = os.path.join(folder, newname+ext)
+            os.rename(f1, f2)
 
 print()
 print(nd, 'fichier(s) à renommer')
