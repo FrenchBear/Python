@@ -163,8 +163,9 @@ def process_name(name: str) -> str:
     return nn
 
 
-print(process_name("Scripting avance avec PowerShell - [Eyrolles] - X"))
-breakpoint()
+# Tests
+# print(process_name("La reference"))
+# breakpoint()
 
 nd = 0
 for filefp in get_all_files(source):
