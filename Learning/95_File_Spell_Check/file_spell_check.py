@@ -11,6 +11,7 @@ from common_fs import *
 import unicodedata
 
 source = r'W:\Livres\A_Trier\New'
+source = r'D:\Downloads\A_Trier\!A_Trier_Livres\BNF Sciences et technologies'
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot

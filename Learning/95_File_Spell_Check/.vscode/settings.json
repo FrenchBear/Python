@@ -21,5 +21,6 @@
     "peacock.color": "#a09010",
     "spellright.language": [
         "fr"
-    ]
+    ],
+    "python.pythonPath": "C:\\Program Files\\Python310\\python.exe"
 }
