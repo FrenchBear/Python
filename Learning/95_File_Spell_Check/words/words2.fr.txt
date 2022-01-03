@@ -2518,7 +2518,7 @@ Bayonne
 bazar
 bazarder
 BBC
-bd
+BD
 béatitude
 Beatles
 Béatrice
@@ -2663,7 +2663,7 @@ bibliographie
 bibliothèque
 bibliothèques
 biblique
-bic
+Bic
 bicarbonate de sodium
 bicentenaire
 bicyclette
@@ -5942,7 +5942,7 @@ David
 Davis
 de
 dé
-deale
+deal
 dealers
 Deauville
 débâcle
@@ -14022,7 +14022,6 @@ millimètres
 million
 millionnaire
 millions
-Millon
 mimi
 min
 minable
@@ -14112,7 +14111,7 @@ mitterrandiste
 mitterrandistes
 mixte
 mixtes
-mlle
+Mlle
 moabite
 mobile
 mobiles
@@ -14596,7 +14595,7 @@ nazi
 nazie
 nazis
 nazisme
-N'djamena
+N'Djamena
 ne
 né
 néanmoins
@@ -15114,7 +15113,7 @@ onduler
 onduleux
 one
 onéreux
-Ong
+ONG
 ongle
 ongles
 onguent
@@ -16380,7 +16379,6 @@ plâtre
 plâtrer
 plats
 plausible
-play
 plèbe
 pléiade
 plein
@@ -18505,7 +18503,7 @@ rendue
 rendues
 rendus
 rêne
-rené
+René
 renégat
 renégate
 renégociation
@@ -19071,7 +19069,6 @@ riches
 richesse
 richesses
 Richet
-richter
 ride
 rideau
 ridicule
@@ -20833,7 +20830,6 @@ survenus
 survêtement
 survie
 survient
-survît
 survivant
 survivants
 survivre
@@ -22657,7 +22653,7 @@ Wales
 Walesa
 wallon
 Walt
-walter
+Walter
 warning
 warrants
 Washington
@@ -22672,21 +22668,21 @@ western
 Westminster
 White
 wigwam
-wilfried
-william
-williams
-willy
+Wilfried
+William
+Williams
+Willy
 Wilson
 Wim
 Wimbledon
 Windhoek
 Wolf
-wolfgang
+Wolfgang
 Word
 world
 Worms
 Wyoming
-xavier
+Xavier
 Xenakis
 xénophobie
 xiloïdine
@@ -22698,7 +22694,7 @@ Yamaguchi
 Yamaha
 Yamoussoukro
 yang
-yannick
+Yannick
 yard
 Yasser
 Yémen
@@ -22715,11 +22711,11 @@ Yougoslavie
 Young
 Yukon
 Yvelines
-yves
-yvette
-yvon
+Yves
+Yvette
+Yvon
 Zagreb
-zaïre
+Zaïre
 zaïrois
 Zambèze
 zébré

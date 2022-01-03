@@ -1,33 +1,46 @@
-# file spell check.py
+# file_spell_check.py
 # Tentative de correction automatique de fautes d'accents sur des noms de fichiers en français
 #
 # 2021-12-16    PV
+# 2022-01-03    PV      Fusionne les mots de mots_fr.txt avec ceux de mots_fr2.txt (typiquement les nom propres); Mots en anglais
 
 from collections import defaultdict
 from collections import Counter
 from os import replace
-from typing import DefaultDict
+from typing import DefaultDict, Tuple, Counter
 from common_fs import *
 import unicodedata
 
-source = r'W:\Livres\A_Trier\New'
-source = r'D:\Downloads\A_Trier\!A_Trier_Livres\BNF Sciences et technologies'
-doit = True
+source = r'W:\Livres\A_Trier'
+doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
-with open('mots_fr2.txt', 'r', encoding='UTF-8') as f:
+with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
     dmf = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
-# print(len(dmf))
+with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
+    dmf |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf])
+with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
+    dmf |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf])
+
+# dme est l'ensemble des mots anglais
+with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
+    dme = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
+with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
+    dme |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme])
+
+# dmx est l'ensemble des mots ni français ni anglais
+with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
+    dmx = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
+
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent
 for mot in dmf.values():
     # Mn = Mark, Nonspacing = combining latin characters accents
-    mot_sans_accents = ''.join(c for c in unicodedata.normalize(
-        "NFD", mot) if unicodedata.category(c) != 'Mn').casefold()
+    mot_sans_accents = ''.join(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) != 'Mn').casefold()
     if mot != mot_sans_accents:
         mfsa[mot_sans_accents].append(mot)
 
-# On élimine les entrées comme cote -> ['côte', 'coté', 'côté'] puisqu'il on ne sais pas quelle version accentuée choisir
+# On élimine les entrées comme cote -> ['côte', 'coté', 'côté'] puisqu'on ne sait pas quelle version accentuée choisir
 to_delete = []
 for key, lst in mfsa.items():
     if len(lst) > 1:
@@ -45,7 +58,7 @@ casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP
            'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'EE', 'Maya', 'MCSA', 'QCM', 'Web', 'XSLT',
            'CAPES', 'API', 'PowerShell', 'Core', 'Power', 'BI', 'Desktop', 'Big', 'Data', 'Science', 'JSF', 'Server',
            'Scientist', 'Visual', 'Studio', 'Django', 'Raspberry', 'Pi', 'Kids', 'Arduino', 'ECT', 'Tage',
-           'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC' ]
+           'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC']
 
 avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
 
@@ -57,7 +70,7 @@ def fixcase(before: str, after: str) -> str:
     '''Si le mot d'origine commence par une majuscule, alors on force le remplacement à commencer par une majuscule'''
     return after[0].upper()+after[1:] if before[0] == before[0].upper() else after
 
-uw = Counter()
+uw: Counter[str] = Counter()
 def fixwordbase(word: str) -> str:
     if word.casefold() in dmf:
         return fixcase(word, dmf[word.casefold()])      # fix case if needed
@@ -85,14 +98,7 @@ def fixwordbase(word: str) -> str:
         uw.update([word])
     return word
 
-
-def fixword(word: str) -> str:
-    '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
-    if word in ['The', 'the', 'Dart']:
-        return word
-    if word in ['2e','3e','4e']:
-        return word[0]+'è'
-
+def break_word(word:str) -> Tuple[str, str, str]:
     i = 0
     prefix = ''
     w = ''
@@ -105,7 +111,7 @@ def fixword(word: str) -> str:
         prefix += c
         i += 1
     if i == len(word):
-        return word
+        return ('', word, '')       # For numeric-only words for instance
     while i < len(word):
         c = word[i]
         if unicodedata.category(c) not in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
@@ -113,9 +119,18 @@ def fixword(word: str) -> str:
         w += c
         i += 1
     if w == '':
+        return (prefix, word, '')
+    return (prefix, word, word[i:])
+
+
+def fixword(word: str) -> str:
+    '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
+    if word in ['The', 'the', 'Dart']:
         return word
-    suffix = word[i:]
-    # return f'<{prefix}><{w}><{suffix}>'
+    if word in ['2e','3e','4e']:
+        return word[0]+'è'
+
+    prefix, w, suffix = break_word(word)
     return prefix+fixwordbase(w)+suffix
 
 
@@ -135,12 +150,41 @@ def ireplace(text: str, old: str, new: str) -> str:
         idx = index_l + len(new)
     return text
 
+def guess_language(words: str) -> Tuple[str, int, int, int]:
+    xx = fr = en = 0
+    for word in words.split(' '):
+        _, w, _ = break_word(word)
+        if any(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) == 'Mn'):
+            fr += 1
+        else:
+            wc = w.casefold()
+            if wc in dmx:
+                xx += 1
+            else:
+                if wc in dme:
+                    en += 1
+                if wc in dmf:
+                    fr += 1
+    l = sorted([(fr, 'fr'), (en, 'en'), (xx, 'xx')], reverse=True)
+    if l[0][0]>=3 and l[0][0]-l[1][0]>=2:
+        return (l[0][1], fr, en, xx)
+    return ('??', fr, en, xx)
 
 def process_name(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
+    lng,fr,en,xx = guess_language(s1)
+    print(f'{lng}\t{fr}\t{en}\t{xx}\t{s1}')
+    return name
+
+# process_name("Électronique Tout le cours en fiches")
+# breakpoint()
+
+def process_name0(name: str) -> str:
+    ts = name.split(' - ')
+    s1 = ts[0]
     l = []
-    for word in s1.split(' '):
+    for word in s1.split(' \''):
         if len(word) > 0:
             nw = fixword(word)
             nwcf = nw.casefold()
@@ -155,7 +199,7 @@ def process_name(name: str) -> str:
 
     p1 = nn.find('[')
     p2 = nn.find(']', p1+1)
-    if p1 >= 0 and p2 > p1:
+    if p1 >= 0 and p2 > p1+1:   # p1+1 avoids [] causing problem with editor[0]
         editor = nn[p1+1:p2]
         editor = ireplace(editor, 'oreilly', "O'Reilly")
         editor = editor[0].upper()+editor[1:]
@@ -166,7 +210,7 @@ def process_name(name: str) -> str:
 
 
 # Tests
-# print(process_name("La reference"))
+# print(process_name("la france"))
 # breakpoint()
 
 nd = 0
@@ -175,17 +219,17 @@ for filefp in get_all_files(source):
     basename, ext = os.path.splitext(file)
 
     newname = process_name(basename)
-    if basename != newname:
-        nd += 1
-        print(f'{basename}{ext} -> {newname}{ext}')
+#     if basename != newname:
+#         nd += 1
+#         print(f'{basename}{ext} -> {newname}{ext}')
 
-        if doit:
-            f1 = os.path.join(folder, basename+ext)
-            f2 = os.path.join(folder, newname+ext)
-            os.rename(f1, f2)
+#         if doit:
+#             f1 = os.path.join(folder, basename+ext)
+#             f2 = os.path.join(folder, newname+ext)
+#             os.rename(f1, f2)
 
-print()
-print(nd, 'fichier(s) à renommer')
+# print()
+# print(nd, 'fichier(s) à renommer')
 
 # for w,c in uw.items():
 #     print(w,c)
