@@ -120,7 +120,7 @@ def break_word(word:str) -> Tuple[str, str, str]:
         i += 1
     if w == '':
         return (prefix, word, '')
-    return (prefix, word, word[i:])
+    return (prefix, w, word[i:])
 
 
 def fixword(word: str) -> str:
@@ -150,34 +150,32 @@ def ireplace(text: str, old: str, new: str) -> str:
         idx = index_l + len(new)
     return text
 
-def guess_language(words: str) -> Tuple[str, int, int, int]:
-    xx = fr = en = 0
+def guess_language(words: str) -> Tuple[str, int, int]:
+    fr = en = 0
     for word in words.split(' '):
         _, w, _ = break_word(word)
         if any(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) == 'Mn'):
             fr += 1
         else:
             wc = w.casefold()
-            if wc in dmx:
-                xx += 1
-            else:
+            if not wc in dmx:
                 if wc in dme:
                     en += 1
                 if wc in dmf:
                     fr += 1
-    l = sorted([(fr, 'fr'), (en, 'en'), (xx, 'xx')], reverse=True)
+    l = sorted([(fr, 'fr'), (en, 'en')], reverse=True)
     if l[0][0]>=3 and l[0][0]-l[1][0]>=2:
-        return (l[0][1], fr, en, xx)
-    return ('??', fr, en, xx)
+        return (l[0][1], fr, en)
+    return ('??', fr, en)
 
 def process_name(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
-    lng,fr,en,xx = guess_language(s1)
-    print(f'{lng}\t{fr}\t{en}\t{xx}\t{s1}')
+    lng,fr,en = guess_language(s1)
+    print(f'{lng}\t{fr}\t{en}\t{s1}')
     return name
 
-# process_name("Électronique Tout le cours en fiches")
+# process_name("Toutes les maths, PSI")
 # breakpoint()
 
 def process_name0(name: str) -> str:
