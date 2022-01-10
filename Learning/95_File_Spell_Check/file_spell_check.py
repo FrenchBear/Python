@@ -16,21 +16,21 @@ doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
+    dmf = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf])
+    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
 with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf])
+    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
 
 # dme est l'ensemble des mots anglais
 with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
-    dme = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
+    dme = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
-    dme |= dict([(mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme])
+    dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
 
 # dmx est l'ensemble des mots ni français ni anglais
 with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
-    dmx = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
+    dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent

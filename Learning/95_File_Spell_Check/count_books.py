@@ -4,8 +4,10 @@
 # 2022-01-04    PV
 
 from common_fs import *
+import os
 
 source = r'W:\Livres\A_Trier'
+dest = r'W:\Livres\A_Trier2'
 
 tot = 0
 tots = [0, 0, 0, 0]
@@ -28,6 +30,8 @@ for filefp in get_all_files(source):
             authx += 1
         else:
             auth += 1
+            newloc = os.path.join(dest, file)
+            os.rename(filefp, newloc)
 
 print(f'{tot} total files')
 print(f'Sections: 1={tots[1]}, 2={tots[2]}, 3={tots[3]}, Autre={tots[0]}')

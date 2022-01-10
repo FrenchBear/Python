@@ -10,12 +10,6 @@ import psutil   # type: ignore
 
 mem1 = psutil.Process().memory_info().rss / (1024 * 1024)
 
-# # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
-# print('dic version')
-# with open('mots_fr2.txt', 'r', encoding='UTF-8') as f:
-#     dmf = dict([(mot.casefold(), mot) for mot in f.read().splitlines()])
-#     #dmf = [mot for mot in f.read().splitlines()]
-# print(len(dmf))
 
 smf = set()
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
