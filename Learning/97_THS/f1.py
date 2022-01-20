@@ -1,6 +1,8 @@
+import operator
+import pprint
 from common_fs import *
 
-for file in get_files(r'C:\Users\Pierr\Desktop\Bibliothèque Tangente HS All'):
-    for c in file:
-        if c<' ' or c>'z':
-            print(c, file)
+l:list = [(len(filepart(file)), filepart(file)) for file in get_all_files(r'D:\Ygg\Seeding\Mes Uplads PDF\#Bibliothèque Tangente HS All')]
+l.sort(key=operator.itemgetter(0))
+
+pprint.pprint(l)

@@ -3,8 +3,8 @@
 # 2020-03-05    PV
 # 2021-04-10    PV      Support du filesystem isolé sous common_fs.py
 # 2022-01-06    PV      Version avec commentaires
-# 2022-01-08    PV      basename
-
+# 2022-01-08    PV      Ajout de basename
+# 2022-01-20    PV      Ajout de filesize vu que je ne me rappelle jamais de os.path.getsize... 
 import os
 from typing import List, Iterable
 
@@ -41,6 +41,10 @@ def basename(filewithext: str) -> str:
     '''Retourne le nom de fichier sans extension'''
     base, _ = os.path.splitext(filewithext)
     return base
+
+def filesize(filename: str) -> int:
+    '''Retourne la taille du fichier'''
+    return os.path.getsize(filename)
 
 
 if __name__=='__main__':
