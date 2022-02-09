@@ -6,70 +6,77 @@
 #
 # 2022-02-07    PV
 
-# Python program for KMP Algorithm
-def KMPSearch(pat, txt):
+def KMPSearch(txt, pat, lps=None):
     M = len(pat)
     N = len(txt)
 
-    # create lps[] that will hold the longest prefix suffix
-    # values for pattern
-    lps = [0]*M
-    j = 0  # index for pat[]
-
     # Preprocess the pattern (calculate lps[] array)
-    computeLPSArray(pat, M, lps)
-    print(lps)
+    if not lps:
+        lps = computeLPSArray(pat)
+        print(lps)
 
     i = 0  # index for txt[]
+    j = 0  # index for pat[]
     while i < N:
         if pat[j] == txt[i]:
             i += 1
             j += 1
 
         if j == M:
-            print('Found pattern at index ' + str(i-j))
+            print('Found pattern at index', i-j)
             j = lps[j-1]
 
         # mismatch after j matches
         elif i < N and pat[j] != txt[i]:
-            # Do not match lps[0..lps[j-1]] characters,
-            # they will match anyway
+            # Do not match lps[0..lps[j-1]] characters, they will match anyway
             if j != 0:
                 j = lps[j-1]
             else:
                 i += 1
 
 
-def computeLPSArray(pat, M, lps):
-    len = 0  # length of the previous longest prefix suffix
+def computeLPSArray(pat: str, verbose=False) -> list[int]:
+    M = len(pat)
+    # create lps[] that will hold the longest prefix suffix values for pattern
+    lps = [0]*M
 
-    lps[0]  # lps[0] is always 0
+    length = 0  # length of the previous longest prefix suffix
+
+    # lps[0] is always 0
     i = 1
 
     # the loop calculates lps[i] for i=1 to M-1
     while i < M:
-        if pat[i] == pat[len]:
-            print(f'Match pat[{i=}]==pat[{len=}] and store and forward')
-            len += 1
-            lps[i] = len
+        if pat[i] == pat[length]:
+            if verbose:
+                print(f'Match pat[{i=}]==pat[{length=}]')
+            length += 1
+            if verbose:
+                print(f'Len incremented {length=}, lps[{i=}]=length, ++i={i+1}')
+            lps[i] = length
             i += 1
-            print(f'Len incremented {len=}, lps[{i=}]={len=}, i incremented {i=}')
         else:
-            # This is tricky. Consider the example.
-            # AAACAAAA and i = 7. The idea is similar to search step.
-            if len != 0:
-                len = lps[len-1]
-                print(f'Mismatch rollback len=lps[len-1]: {len=}')
-                # Also, note that we do not increment i here
+            if length != 0:
+                # Since we don't match but still have a non-zero match in progress, try again reducing length
+                if verbose:
+                    print(f'Mismatch rollback length=lps[length-1={length-1}]={lps[length-1]}')
+                length = lps[length-1]
+                # Note that we do not increment i here
             else:
-                print(f'Mismatch rollback lps[{i=}]=0, increment i {i=}')
+                if verbose:
+                    print(f'Mismatch reset lps[{i=}]=0, ++i={i+1}')
                 lps[i] = 0
                 i += 1
+    
+    return lps
 
 # txt = 'ABABDABACDABABCABAB'
 # pat = 'ABABCABAB'
 
 
-txt = 'AABAACAAABAACAABAABAC'
-pat = 'AABAACAABAA'
-KMPSearch(pat, txt)
+#txt = 'AABAACAAABAACAABAABAC'
+#pat = 'AABAACAABAAB'
+
+txt = 'BCDDABDDABBCDDDDAABBBBBBCDABBCAACCCCCDDACDDAAAAAAACABBBBBCDAAAAAABCDACCCAAAABBCC'
+pat = 'CDAACD'
+KMPSearch(txt, pat)
