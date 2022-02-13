@@ -52,6 +52,13 @@ class TestMultKaratsuba(unittest.TestCase):
         self.assertEqual(ns_add('-12','-345'), '-357')
         self.assertEqual(ns_add('-345','-12'), '-357')
 
+    def test_split(self):
+        self.assertEqual(ns_split('123456', 2), ('1234', '56'))
+        self.assertEqual(ns_split('123456', 3), ('123', '456'))
+        self.assertEqual(ns_split('123456', 5), ('1', '23456'))
+        self.assertEqual(ns_split('123456', 6), ('0', '123456'))
+        self.assertEqual(ns_split('123456', 7), ('0', '123456'))
+
     def test_mult(self):
         n1 = '1234'
         n2 = '5678'

@@ -7,6 +7,7 @@
 # 2022-02-12    PV
 
 import math
+from typing import Tuple
 
 DIRECT_LEN = 4
 
@@ -64,8 +65,8 @@ def ns_add(n1: str, n2: str) -> str:
     # At this point, n1 and n2 are absolute values, s1 and s2 contains original sign of n1 and n2
 
     # Special case for 0
-    if n1=='0': return n2
-    if n2=='0': return n1
+    if n1=='0': return s2+n2
+    if n2=='0': return s1+n1
 
     # Decide if we must do an addition (op='+') or a subtraction (op='-')
     # For subtraction (|n1|-|n2|) ensure that |n1|>|n2|, and resneg bool tells if result is negative
@@ -101,11 +102,20 @@ def ns_add(n1: str, n2: str) -> str:
 
 
 def ns_neg(n: str) -> str:
+    '''Returns opposed value of a number in string'''
     if n[0]=='-':
         return n[1:]
     if n=='0':
         return n
     return '-'+n
+
+
+def ns_split(n: str, k: int) -> Tuple[str, str]:
+    '''Split a number in string, returning (high remaining digits, k lower digits)'''
+    if len(n)>k:
+        return n[:-k], n[-k:] 
+    else:
+        return '0', n
 
 
 def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
@@ -121,47 +131,52 @@ def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     len1 = len(n1)
     len2 = len(n2)
 
-    # If numbres are small enough, use language/processor multiplication
-    if len1<=DIRECT_LEN and len2<=DIRECT_LEN:
+    # If numbers are small enough, use language/processor multiplication
+    if len1+len2<=2*DIRECT_LEN:
         if n1=='0' or n2=='0':
             return '0'
         return ('-' if resneg else '') + str(int(n1)*int(n2))
 
-
     k = max(math.ceil(len1/2), math.ceil(len2/2))
-    n1 = n1.zfill(2*k)
-    n2 = n2.zfill(2*k)
-    a = n1[k:]
-    b = n1[:k]
-    c = n2[k:]
-    d = n2[:k]
+    (b, a) = ns_split(n1, k)
+    (d, c) = ns_split(n2, k)
 
-    print('  '*depth+f'  {a=}')
-    print('  '*depth+f'  {b=}')
-    print('  '*depth+f'  {c=}')
-    print('  '*depth+f'  {d=}')
+    # print('    '*depth+f'__{a=}')
+    # print('    '*depth+f'__{b=}')
+    # print('    '*depth+f'__{c=}')
+    # print('    '*depth+f'__{d=}')
     
     ac = mult_karatsuba(a, c, depth+1)
     bd = mult_karatsuba(b, d, depth+1)
-    print('  '*depth+f' {ac=}')
-    print('  '*depth+f' {bd=}')
-    amb = ns_add(a, '-'+b)
-    cmd = ns_add(c, '-'+d)
-    print('  '*depth+f'{amb=}')
-    print('  '*depth+f'{cmd=}')
+    # print('    '*depth+f'_{ac=}')
+    # print('    '*depth+f'_{bd=}')
+    amb = ns_add(a, ns_neg(b))
+    cmd = ns_add(c, ns_neg(d))
+    # print('    '*depth+f'{amb=}')
+    # print('    '*depth+f'{cmd=}')
     m3 = mult_karatsuba(amb, cmd, depth+1)
-    print('  '*depth+f' {m3=}')
-    m3 = ns_add(m3, '-'+ac)
-    m3 = ns_add(m3, '-'+bd)
+    # print('    '*depth+f'_{m3=}')
+    m3 = ns_add(m3, ns_neg(ac))
+    m3 = ns_add(m3, ns_neg(bd))
 
-    bd = bd + '0'*2*k
-    m3 = m3 + '0'*k
+    if bd!='0': 
+        bds = bd + '0'*2*k
+    else:
+        bds = '0'
+    if m3!='0': 
+        m3s = m3 + '0'*k
+    else:
+        m3s = '0'
 
-    r = ns_add(bd, '-'+m3)
+    # print('    '*depth+f'{bds=}')
+    # print('    '*depth+f'{m3s=}')
+    # print('    '*depth+f'_{ac=}')
+
+    r = ns_add(bds, ns_neg(m3s))
     r = ns_add(r, ac)
 
     res = ns_neg(r) if resneg else r
-    print('  '*depth+f'{res=}')
+    # print('    '*depth+f'{res=}')
     return res
 
 if __name__ == '__main__':
@@ -171,6 +186,9 @@ if __name__ == '__main__':
     # Pb assert
     n1 = '4235567885'
     n2 = '85301234423567567'
+
+    n1 = '4'
+    n2 = '85301234'
 
     r1 = mult_karatsuba(n1, n2)
     r2 = str(int(n1)*int(n2))
