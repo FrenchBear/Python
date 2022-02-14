@@ -9,7 +9,7 @@ SLICE_LEN = 2
 SLICE_VAL = 10**SLICE_LEN
 
 
-def mult_classic(n1, n2):
+def mult_classic(n1: str, n2: str) -> str:
     len1 = math.ceil(len(n1)/SLICE_LEN)
     len2 = math.ceil(len(n2)/SLICE_LEN)
     n1 = '0'*(SLICE_LEN*len1-len(n1))+n1

@@ -11,7 +11,7 @@
 import math
 from operator import le
 
-nab_max = 100
+#nab_max = 2048
 
 
 def fft(f: list[complex], n: int, isign: int):
@@ -54,8 +54,8 @@ def fft(f: list[complex], n: int, isign: int):
 
 def mult_fft(n1: str, n2: str) -> str:
     # 1. Set-up multiplicands
-    a = [0] * nab_max
-    b = [0] * nab_max
+    a = [0] * len(n1)
+    b = [0] * len(n2)
     base = 10
 
     def getdigs(n: str, base: int, a: list[int]) -> int:
@@ -73,9 +73,9 @@ def mult_fft(n1: str, n2: str) -> str:
     while nf < nc:
         nf += nf
 
-    print(f'{na=}')
-    print(f'{nb=}')
-    print(f'{nf=}')
+    # print(f'{na=}')
+    # print(f'{nb=}')
+    # print(f'{nf=}')
 
     # 3. Copy a[] to complex array fa[], justify left, pad zeros to the right, also b[] to fb[]
     fa = [complex(0)] * nf
@@ -85,29 +85,29 @@ def mult_fft(n1: str, n2: str) -> str:
     for i in range(nb):
         fb[i] = complex(b[i])
 
-    print(f'{fa=}')
-    print(f'{fb=}')
+    # print(f'{fa=}')
+    # print(f'{fb=}')
 
     # 4. Perform FFT on fa[] and fb[]
     fft(fa, nf, +1)
     fft(fb, nf, +1)
-    print(f'After FFT {fa=}')
-    print(f'After FFT {fb=}')
+    # print(f'After FFT {fa=}')
+    # print(f'After FFT {fb=}')
 
     # 5. Multiply elementwise: fa[k] = fa[k]*fb[k]
     for k in range(nf):
         fa[k] *= fb[k]
-    print(f'After memberwise mult {fa=}')
+    # print(f'After memberwise mult {fa=}')
 
     # 6. Perform FFT⁻¹ including normalization
     fft(fa, nf, -1)
-    print(f'After FFT⁻¹ {fa=}')
+    # print(f'After FFT⁻¹ {fa=}')
 
     # 7. Copy fa[] to real array c
     c = [0]*nc
     for k in range(nc):
         c[k] = int(fa[k].real + 0.5)
-    print(f'Real product {c=}')
+    # print(f'Real product {c=}')
 
     # 8. Shift by one, the lease significant is c[nc-2]
     k = nc-2
@@ -115,7 +115,7 @@ def mult_fft(n1: str, n2: str) -> str:
         c[k+1] = c[k]
         k -= 1
     c[0] = 0
-    print(f'After shift, {c=}')
+    # print(f'After shift, {c=}')
 
     # 9. Carry
     k = nc-1
@@ -125,7 +125,7 @@ def mult_fft(n1: str, n2: str) -> str:
         c[k-1] += carry
         k -= 1
 
-    print(f'Final, {c=}')
+    # print(f'Final, {c=}')
 
     res = ''.join(str(d) for d in c)
     return res.lstrip('0')

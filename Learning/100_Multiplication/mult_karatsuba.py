@@ -11,91 +11,107 @@ from typing import Tuple
 
 DIRECT_LEN = 4
 
+
 def ns_compare(n1: str, n2: str) -> int:
     '''Number in string compare: 0 if n1==n2, 1 if n1>n2, -1 if n1<n2'''
-    if n1[0]=='-':
+    if n1[0] == '-':
         n1 = n1[1:]
         s1 = '-'
     else:
         s1 = '+'
 
-    if n2[0]=='-':
+    if n2[0] == '-':
         n2 = n2[1:]
         s2 = '-'
     else:
         s2 = '+'
 
     # Special case for 0 since we don't care about sign
-    if n1=='0' and n2=='0':
+    if n1 == '0' and n2 == '0':
         return 0
 
     # If opposite signs, don't care about values to return result
-    if s1=='+' and s2=='-':
+    if s1 == '+' and s2 == '-':
         return 1
-    if s1=='-' and s2=='+':
+    if s1 == '-' and s2 == '+':
         return -1
-    
+
     # if both are negative, then just swap absolute values
-    if s1=='-' and s2=='-':
+    if s1 == '-' and s2 == '-':
         (n1, n2) = (n2, n1)
-    
+
     len1 = len(n1)
     len2 = len(n2)
-    if len1>len2: return 1
-    if len1<len2: return -1
-    if n1==n2: return 0
-    return 1 if n1>n2 else -1
+    if len1 > len2:
+        return 1
+    if len1 < len2:
+        return -1
+    if n1 == n2:
+        return 0
+    return 1 if n1 > n2 else -1
 
 
 # Numeric string addition
 def ns_add(n1: str, n2: str) -> str:
     '''Number in string addition, return n1+n2'''
-    if n1[0]=='-':
+    if n1[0] == '-':
         n1 = n1[1:]
         s1 = '-'
     else:
-        s1 = '+'
+        s1 = ''
 
-    if n2[0]=='-':
+    if n2[0] == '-':
         n2 = n2[1:]
         s2 = '-'
     else:
-        s2 = '+'
+        s2 = ''
 
     # At this point, n1 and n2 are absolute values, s1 and s2 contains original sign of n1 and n2
+    # Because of recursive slicing, n1 or n2 can start with zeroes, we need to remove them because of
+    # length-based comparison mechanism used
+    if n1.startswith('0'):
+        n1 = n1.lstrip('0')
+        if n1 == '':
+            n1 = '0'
+    if n2.startswith('0'):
+        n2 = n2.lstrip('0')
+        if n2 == '':
+            n2 = '0'
 
     # Special case for 0
-    if n1=='0': return s2+n2
-    if n2=='0': return s1+n1
+    if n1 == '0':
+        return s2+n2
+    if n2 == '0':
+        return s1+n1
 
     # Decide if we must do an addition (op='+') or a subtraction (op='-')
     # For subtraction (|n1|-|n2|) ensure that |n1|>|n2|, and resneg bool tells if result is negative
-    if s1=='+' and s2=='+':
+    if s1 == '' and s2 == '':
         op = '+'
         resneg = False
-    elif s1=='-' and s2=='-':
+    elif s1 == '-' and s2 == '-':
         op = '+'
         resneg = True
-    elif s1=='+' and s2=='-':
+    elif s1 == '' and s2 == '-':
         op = '-'
-        if ns_compare(n1, n2)<0:        # For subtraction, 
+        if ns_compare(n1, n2) < 0:        # For subtraction,
             (n1, n2) = (n2, n1)
             resneg = True
         else:
             resneg = False
-    elif s1=='-' and s2=='+':
+    elif s1 == '-' and s2 == '':
         op = '-'
-        if ns_compare(n1, n2)<0:
+        if ns_compare(n1, n2) < 0:
             (n1, n2) = (n2, n1)
             resneg = False
         else:
             resneg = True
 
     # Cheat for unitary tests
-    if op=='+':
+    if op == '+':
         r = str(int(n1)+int(n2))
     else:
-        assert(int(n1)>=int(n2))
+        assert(int(n1) >= int(n2))
         r = str(int(n1)-int(n2))
 
     return '-'+r if resneg else r
@@ -103,17 +119,17 @@ def ns_add(n1: str, n2: str) -> str:
 
 def ns_neg(n: str) -> str:
     '''Returns opposed value of a number in string'''
-    if n[0]=='-':
+    if n[0] == '-':
         return n[1:]
-    if n=='0':
+    if n == '0':
         return n
     return '-'+n
 
 
 def ns_split(n: str, k: int) -> Tuple[str, str]:
     '''Split a number in string, returning (high remaining digits, k lower digits)'''
-    if len(n)>k:
-        return n[:-k], n[-k:] 
+    if len(n) > k:
+        return n[:-k], n[-k:]
     else:
         return '0', n
 
@@ -121,10 +137,10 @@ def ns_split(n: str, k: int) -> Tuple[str, str]:
 def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     # Find sign of result, remove sign from n1 and n2
     resneg = False
-    if n1[0]=='-':
+    if n1[0] == '-':
         n1 = n1[1:]
         resneg = not resneg
-    if n2[0]=='-':
+    if n2[0] == '-':
         n2 = n2[1:]
         resneg = not resneg
 
@@ -132,8 +148,8 @@ def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     len2 = len(n2)
 
     # If numbers are small enough, use language/processor multiplication
-    if len1+len2<=2*DIRECT_LEN:
-        if n1=='0' or n2=='0':
+    if len1+len2 <= 2*DIRECT_LEN:
+        if n1 == '0' or n2 == '0':
             return '0'
         return ('-' if resneg else '') + str(int(n1)*int(n2))
 
@@ -145,7 +161,7 @@ def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     # print('    '*depth+f'__{b=}')
     # print('    '*depth+f'__{c=}')
     # print('    '*depth+f'__{d=}')
-    
+
     ac = mult_karatsuba(a, c, depth+1)
     bd = mult_karatsuba(b, d, depth+1)
     # print('    '*depth+f'_{ac=}')
@@ -159,11 +175,11 @@ def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     m3 = ns_add(m3, ns_neg(ac))
     m3 = ns_add(m3, ns_neg(bd))
 
-    if bd!='0': 
+    if bd != '0':
         bds = bd + '0'*2*k
     else:
         bds = '0'
-    if m3!='0': 
+    if m3 != '0':
         m3s = m3 + '0'*k
     else:
         m3s = '0'
@@ -179,6 +195,7 @@ def mult_karatsuba(n1: str, n2: str, depth: int = 0) -> str:
     # print('    '*depth+f'{res=}')
     return res
 
+
 if __name__ == '__main__':
     n1 = '12344235567885'
     n2 = '567885301234423567567'
@@ -187,11 +204,11 @@ if __name__ == '__main__':
     n1 = '4235567885'
     n2 = '85301234423567567'
 
-    n1 = '4'
-    n2 = '85301234'
+    n1 = '057'
+    n2 = '-94'
 
     r1 = mult_karatsuba(n1, n2)
     r2 = str(int(n1)*int(n2))
     print(r1)
     print(r2)
-    print('Ok' if r1==r2 else 'FAIL!')
+    print('Ok' if r1 == r2 else 'FAIL!')
