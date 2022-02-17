@@ -1,6 +1,6 @@
 # gsp.py
 # Grid Shorter Path
-# From Programmation efficace
+# From Programmation efficace p.51
 #
 # 2022-02-17    PV
 
