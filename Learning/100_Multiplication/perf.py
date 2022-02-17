@@ -66,7 +66,7 @@ def perf_python(n1: str, n2: str, res:str) -> float:
     
 
 
-l = 600
+l = 2000
 n1 = get_random_number(l)
 n2 = get_random_number(l)
 res = str(int(n1)*int(n2))
@@ -75,3 +75,12 @@ print('Classic:   ', perf_classic(n1, n2, res))
 print('Karatsuba: ', perf_karatsuba(n1, n2, res))
 print('FFT:       ', perf_fft(n1, n2, res))
 print('Python:    ', perf_fft(n1, n2, res))
+
+'''
+Test on Krema
+l=2000
+Classic:    7.25604760000715
+Karatsuba:  3.078994800001965
+FFT:        0.6981029000016861
+Python:     0.6984193999960553
+'''
