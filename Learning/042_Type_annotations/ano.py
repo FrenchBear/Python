@@ -1,5 +1,8 @@
 # Type annotations
 # Exercices on Pyhton 3.7 and mypy
+#
+# This file generates error when checked using mypy, this is normal and on purpose!!!
+#
 # 2008-08-24    PV
 
 from typing import Dict, List, Union

@@ -8,7 +8,7 @@
 # -------------------------------------------------
 # Synchronous version
 
-import requests
+import requests     # type: ignore
 import time
 
 def download_site_synchronous(url, session):
@@ -72,7 +72,7 @@ def test_threading():
 
 import asyncio
 import time
-import aiohttp
+import aiohttp  
 
 
 async def download_site_asyncio(session, url):

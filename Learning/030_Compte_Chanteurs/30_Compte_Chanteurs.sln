@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "30 Compte Chanteurs", "30 Compte Chanteurs.pyproj", "{17D1107C-9497-4C65-BFFE-9767DD27E3AE}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "30_Compte_Chanteurs", "30_Compte_Chanteurs.pyproj", "{17D1107C-9497-4C65-BFFE-9767DD27E3AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,7 @@
 # Weather.py
 # Learning Python
 # From https://www.hackster.io/gatoninja236/real-time-weather-with-raspberry-pi-4-ad621f
+#
 # 2019-08-28    PV
 
 import time

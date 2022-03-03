@@ -1,8 +1,7 @@
-import os, sys
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+import os
+import matplotlib.pyplot as plt     # type: ignore
+import matplotlib.image as mpimg    # type: ignore
 import numpy as np
-import scipy
 import math
 
 pathfile = r'T:\Scans\THS32\3 BCI\THS32-005.png'
@@ -11,7 +10,7 @@ basename, ext = os.path.splitext(file)
 numpage = int(basename[-3:])
 print(numpage)
 
-img = mpimg.imread(pathfile)[:,:,:3]
+img = mpimg.imread(pathfile)[:, :, :3]
 height = img.shape[0]
 width = img.shape[1]
 print(height, width)
@@ -21,14 +20,18 @@ yellow = np.array([0.7921569, 0.6392157, 0.27058825])
 (colminpair, colmaxpair) = (200, 550)
 (colminimpair, colmaximpair) = (3320, 3820)
 
+
 def dotdist(p1, p2):
     return np.linalg.norm(p2-p1)
+
 
 def dotdistyellow(p):
     return math.sqrt((p[0]-yellow[0])**2+(p[1]-yellow[1])**2+(p[2]-yellow[2])**2)
 
+
 def veclength(p):
     return math.sqrt(p[0]**2+p[1]**2+p[2]**2)
+
 
 if numpage % 2 == 0:
     (colmin, colmax) = (colminpair, colmaxpair)

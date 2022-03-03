@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "26 Built-in Functions", "26 Built-in Functions.pyproj", "{F24FBE53-61F3-4517-842E-404073E11A56}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "26_Built-in_Functions", "26_Built-in_Functions.pyproj", "{F24FBE53-61F3-4517-842E-404073E11A56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +16,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B18C375F-0F86-43E6-9CB7-FB2773158232}
 	EndGlobalSection
 EndGlobal

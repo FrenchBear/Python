@@ -1,7 +1,7 @@
 import os
 import os.path
 import numpy as np
-import matplotlib.image as mpimg
+import matplotlib.image as mpimg    # type: ignore
 
 def croppic(index, picin, picout):
     img = mpimg.imread(picin)

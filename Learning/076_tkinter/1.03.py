@@ -1,8 +1,8 @@
-"""
+'''
 Code illustration: 01.03
 A demonstration of all core tkinter widgets
 Tkinter GUI Application Development Blueprints
-"""
+'''
 
 import tkinter as tk
 
@@ -63,13 +63,15 @@ tk.Radiobutton(my_frame_1, text='Radio tk.Button  Tres', value=3).pack()
 
 #tk.OptionMenu Widget
 tk.Label(my_frame_1, text='Example of tk.OptionMenu Widget:').pack()
-tk.OptionMenu(my_frame_1, '', "Option A", "Option B", "Option C").pack()
+sv = tk.StringVar()
+tk.OptionMenu(my_frame_1, sv, 'Option A', 'Option B', 'Option C').pack()
 
 #adding my_image image
 tk.Label(my_frame_1, text='Image Fun with Bitmap Class:').pack()
-my_image = tk.BitmapImage(file="gir.xbm")
-my_label = tk.Label(my_frame_1, image=my_image)
-my_label.image = my_image  # keep a reference!
+my_image = tk.BitmapImage(file='gir.xbm')
+my_label = tk.Label(my_frame_1, image=my_image)    
+# keep a reference!
+my_label.image = my_image       # type: ignore[attr-defined]
 my_label.pack()
 
 #
@@ -87,7 +89,7 @@ tk.Label(
     my_frame_2, text='Image displayed with \nPhotoImage class widget:').pack()
 dance_photo = tk.PhotoImage(file='dance.gif')
 dance_photo_label = tk.Label(my_frame_2, image=dance_photo)
-dance_photo_label.image = dance_photo
+dance_photo_label.image = dance_photo           # type: ignore[attr-defined]
 dance_photo_label.pack()
 
 #add my_listbox widget to my_frame_2
@@ -99,7 +101,7 @@ my_listbox.pack()
 
 #spinbox widget
 tk.Label(my_frame_2, text='Below is an example of spinbox widget:').pack()
-tk.Spinbox(my_frame_2, values=(1, 2, 4, 8, 10)).pack()
+tk.Spinbox(my_frame_2, values=('1', '2', '4', '8', '10')).pack()
 
 #scale widget
 tk.Scale(
@@ -108,7 +110,7 @@ tk.Scale(
 
 #LabelFrame
 label_frame = tk.LabelFrame(
-    my_frame_2, text="LabelFrame Widget", padx=10, pady=10)
+    my_frame_2, text='LabelFrame Widget', padx=10, pady=10)
 label_frame.pack(padx=10, pady=10)
 tk.Entry(label_frame).pack()
 

@@ -4,7 +4,7 @@
 import weakref
 import collections
 import random
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt     # type: ignore
 import math
 
 # Classe objet arbitraire
@@ -15,9 +15,9 @@ class sprocket:
 
 def test_cache(global_size:int, cache_size: int, rounds: int) -> float:
     # Les objects ne sont présents dans ce cache que s'ils existent dans cache_que.  Le test est rapide puisque c'est un dictionnaire
-    cache_dic = weakref.WeakValueDictionary()
+    cache_dic: weakref.WeakValueDictionary = weakref.WeakValueDictionary()
     # Simple queue de stockage des objets cachés, limitée à cache_size entrées
-    cache_que = collections.deque(maxlen=cache_size)
+    cache_que: collections.deque = collections.deque(maxlen=cache_size)
 
     # Retourne le coût pour obtenir le sprocket de clé key, par convention la création de l'objet a un coût de 50 (ex: lecture BD) contre 1 s'il est dans le cache
     def build_item(key: int) -> int:

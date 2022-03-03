@@ -1,9 +1,9 @@
 import numpy as np
-from skimage.feature import canny
-from skimage.transform import hough_line, hough_line_peaks
-from skimage import io
-from skimage.transform import rotate
-from skimage.color import rgb2gray
+from skimage.feature import canny                               # type: ignore
+from skimage.transform import hough_line, hough_line_peaks      # type: ignore
+from skimage import io                                          # type: ignore
+from skimage.transform import rotate                            # type: ignore
+from skimage.color import rgb2gray                              # type: ignore
 
 from typing import Any, Dict, List, Tuple, Optional
 
@@ -38,7 +38,7 @@ def _calculate_deviation(angle: float) -> float:
 
 def determine_skew_dev(  # pylint: disable=too-many-locals
         image: np.ndarray, sigma: float = 3.0, num_peaks: int = 20
-) -> Tuple[Optional[float], Any, Any, Tuple[Any, Any, Any]]:
+) -> Tuple[Optional[float], Any, Any, Optional[Tuple[Any, Any, Any]]]:
     img = image
     edges = canny(img, sigma=sigma)
     out, angles, distances = hough_line(edges)
@@ -54,6 +54,7 @@ def determine_skew_dev(  # pylint: disable=too-many-locals
     bin_0_45n = []
     bin_45_90n = []
 
+    angle: float
     for angle in angles_peaks_degree:
 
         deviation_sum = int(90 - angle + average_deviation)
@@ -75,25 +76,26 @@ def determine_skew_dev(  # pylint: disable=too-many-locals
         if _compare_sum(deviation_sum):
             bin_45_90n.append(angle)
 
-    angles = [bin_0_45, bin_45_90, bin_0_45n, bin_45_90n]
+    anglesll:list[list[float]] = [bin_0_45, bin_45_90, bin_0_45n, bin_45_90n]
     nb_angles_max = 0
     max_angle_index = -1
-    for angle_index, angle in enumerate(angles):
-        nb_angles = len(angle)
+    for angle_index, anglelist in enumerate(anglesll):
+        nb_angles = len(anglelist)
         if nb_angles > nb_angles_max:
             nb_angles_max = nb_angles
             max_angle_index = angle_index
 
+    a: float
     if nb_angles_max:
         ans_arr = _get_max_freq_elem(angles[max_angle_index])
-        angle = np.mean(ans_arr)
+        a = np.mean(ans_arr)
     elif angles_peaks_degree:
         ans_arr = _get_max_freq_elem(angles_peaks_degree)
-        angle = np.mean(ans_arr)
+        a = np.mean(ans_arr)
     else:
         return None, angles, average_deviation, (out, angles, distances)
     
-    return angle, None,None,None
+    return a, None,None,None
 
     if 0 <= angle <= 90:
         rot_angle = angle - 90

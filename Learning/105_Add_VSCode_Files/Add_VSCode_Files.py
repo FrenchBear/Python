@@ -1,6 +1,8 @@
 # Add_VSCode_Files.py
 # Add missing launch.json and tasks.json files in Python learning projects
 #
+# https://stackoverflow.com/questions/123198/how-to-copy-files
+#
 # 2022-03-03    PV
 
 from common_fs import *

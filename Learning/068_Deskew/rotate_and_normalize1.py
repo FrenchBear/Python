@@ -1,17 +1,13 @@
 # rotate_and_normalize1.py
 # confirm that rotation creates gray
+#
 # 2020-02-25    PV
 
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt                 # type: ignore
 import numpy as np
-import os
-import scipy
-import skimage, skimage.io, skimage.transform
-# from skimage.io import imread, imshow, show, imsave
-# from skimage.transform import rotate
-# from skimage import img_as_ubyte
-# from skimage.filters import gaussian, threshold_otsu
+import scipy                                    # type: ignore
+import skimage, skimage.io, skimage.transform   # type: ignore
 
 filename = r'blocB.png'
 image = skimage.io.imread(filename, as_gray=True)
@@ -37,7 +33,7 @@ x = []
 y = []
 yc = []
 yd = []
-ar = -1
+ar:float = -1
 iar = 0
 while ar<1:
     imager = skimage.transform.rotate(image, ar, resize=True, mode='edge', order=3)

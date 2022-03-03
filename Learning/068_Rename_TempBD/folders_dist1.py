@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 from common import *
 
 source = r'W:\TempBD\final'
@@ -6,14 +7,20 @@ source = r'W:\TempBD\final'
 
 diffMax = 1
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
-def levenshtein_distance(s: List, t: List):
+
+
+def levenshtein_distance(s: str, t: str):
     # Optimisation perso, j'ai pas besoin des distances supérieures à diffMax
-    if abs(len(s) - len(t)) > diffMax: return diffMax + 1
+    if abs(len(s) - len(t)) > diffMax:
+        return diffMax + 1
 
     # degenerate cases
-    if s == t: return 0
-    if len(s) == 0: return len(t)
-    if len(t) == 0: return len(s)
+    if s == t:
+        return 0
+    if len(s) == 0:
+        return len(t)
+    if len(t) == 0:
+        return len(s)
 
     # # convert to lowercase, we're doing case insensitive compare here
     # s = s.lower()
@@ -28,20 +35,20 @@ def levenshtein_distance(s: List, t: List):
 
     for i in range(len(s)):
         # calculate v1 (current row distances) from the previous row v0
-        
+
         # first element of v1 is A[i+1][0]
         # edit distance is delete (i+1) chars from s to match empty t
         v1[0] = i + 1
-        
+
         # use formula to fill in the rest of the row
         for j in range(len(t)):
             cost = 0 if s[i] == t[j] else 1
             v1[j + 1] = min(v1[j] + 1, v0[j + 1] + 1, v0[j] + cost)
-        
+
         # copy v1 (current row) to v0 (previous row) for next iteration
         for j in range(len(v0)):
             v0[j] = v1[j]
-    
+
     return v1[len(t)]
 
 
@@ -50,6 +57,6 @@ print(f'{len(folders)} dossiers à analyser')
 with open("folders_dist1.txt", 'w', encoding='utf-8') as out:
     for i in range(len(folders)):
         for j in range(i+1, len(folders)):
-            if levenshtein_distance(folders[i], folders[j])<=1:
+            if levenshtein_distance(folders[i], folders[j]) <= 1:
                 print(f"{folders[i]:<40} {folders[j]}")
                 out.write("("+repr(folders[i])+", "+repr(folders[j])+"),\n")

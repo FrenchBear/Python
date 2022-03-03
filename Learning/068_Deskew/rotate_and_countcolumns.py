@@ -1,19 +1,14 @@
 # rotate_and_countcolumns.py
 # After rotation, count black columns
+#
 # 2020-02-25    PV
 
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt         # type: ignore
 import numpy as np
-import os
-import scipy
-import skimage
-import skimage.io
-import skimage.transform
-# from skimage.io import imread, imshow, show, imsave
-# from skimage.transform import rotate
-# from skimage import img_as_ubyte
-# from skimage.filters import gaussian, threshold_otsu
+import skimage                          # type: ignore
+import skimage.io                       # type: ignore
+import skimage.transform                # type: ignore
 
 filename = r'blocA.png'
 image = skimage.io.imread(filename, as_gray=True)

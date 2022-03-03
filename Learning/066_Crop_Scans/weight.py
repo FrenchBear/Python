@@ -1,7 +1,7 @@
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+import matplotlib.pyplot as plt         # type: ignore
+import matplotlib.image as mpimg        # type: ignore
 import numpy as np
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks     # type: ignore
 
 img = mpimg.imread('T18-050.png')
 # print(img.shape)

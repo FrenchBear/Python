@@ -1,33 +1,33 @@
 import os, shutil, re
 
 
-source = r"U:\A_Trier Music\France Gall\Après 1970"
+source = r'U:\A_Trier Music\France Gall\Après 1970'
 sourcefiles = []
 for root, subs, files in os.walk(source):
     for file in files:
         match = re.search(r'^(.+) - (.+) - (.+)\.mp3', file, re.IGNORECASE)
         if match:
             fullpath = os.path.join(root, file)
-            song = match.groups(0)[2]
+            song = str(match.groups(0)[2])
             if not song in sourcefiles: 
                 sourcefiles.append(song)
-                shutil.copy(fullpath, os.path.join(r"c:\Temp\FG\!All", song+".mp3"))
+                shutil.copy(fullpath, os.path.join(r'c:\Temp\FG\!All', song+'.mp3'))
             else:
-                specdir = os.path.join(r"c:\Temp\FG", song)
+                specdir = os.path.join(r'c:\Temp\FG', song)
                 if not os.path.exists(specdir):
                     os.makedirs(specdir)
-                    shutil.move(os.path.join(r"c:\Temp\FG\!All", song+".mp3"), os.path.join(specdir, "1 - "+song+".mp3"))
+                    shutil.move(os.path.join(r'c:\Temp\FG\!All', song+'.mp3'), os.path.join(specdir, '1 - '+song+'.mp3'))
                 n = len(os.listdir(specdir))+1
-                shutil.copy(fullpath, os.path.join(specdir, str(n)+" - "+song+".mp3"))
+                shutil.copy(fullpath, os.path.join(specdir, str(n)+' - '+song+'.mp3'))
 
         #else:
-        #    print("No match: "+file)
+        #    print('No match: '+file)
 
 print(len(sourcefiles))
 
 
-"""
-extra = r"U:\A_Trier Music\France Gall\France Gall - Évidement"
+'''
+extra = r'U:\A_Trier Music\France Gall\France Gall - Évidement'
 extrafiles = []
 for root, subs, files in os.walk(extra):
     for file in files:
@@ -35,13 +35,13 @@ for root, subs, files in os.walk(extra):
         if match:
             song = match.groups(0)[2]
             if not song in sourcefiles: 
-                print("Extra: "+file)
-                # print("COPY \""+os.path.join(root, file)+"\" C:\\Temp")
-"""
+                print('Extra: '+file)
+                # print('COPY \''+os.path.join(root, file)+'\' C:\\Temp')
+'''
 
 
 
-"""
+'''
 diffMax = 2
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
 def LevenshteinDistance(s, t):
@@ -88,4 +88,4 @@ for nf in sourcefiles:
             print(of)
             print(nf)
             print()
-"""
+'''

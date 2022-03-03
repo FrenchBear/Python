@@ -4,6 +4,12 @@
 # 2018-08-17    PV
 
 # List: mutable, any type
+from collections import deque
+from typing import Deque
+import numpy as np
+from array import array
+from collections import namedtuple
+
 l = [1, 2, 3.1416, True, "Yes"]
 print(type(l), l)
 l.append(4)
@@ -14,7 +20,6 @@ t = (1, 2, 3.1416, True, "Yes")
 print(type(t), t)
 
 # Named tuple
-from collections import namedtuple
 NTDemo = namedtuple("NTDemo", "int1 int2 decimal booleen ouinon")
 nt = NTDemo(1, 2, 3.1416, True, "Yes")
 print(type(nt), nt)
@@ -23,7 +28,6 @@ d = nt.decimal
 
 # Python array, behaves like a list but more efficient and lean (as a C array), can only contain one type.
 # a*2 returns an array of twice the length, two copies of a appended (it's not a numpy array!)
-from array import array
 ai = array('I', [0, 1, 1, 2, 3, 5, 8, 13, 3000000000])  # I=unsigned int
 print(type(ai), ai)
 with open('int.bin', 'wb') as fp:
@@ -42,7 +46,6 @@ memv_oct = memv.cast('B')  # B=unsigned byte
 print(memv_oct.tolist())
 
 # numpy arrays
-import numpy as np
 an = np.random.randint(0, 100, (2, 5))  # Default type is I
 print(an)
 print(an > 50)
@@ -50,8 +53,7 @@ print(np.max(an, axis=0))
 print(np.sum(an, axis=1))
 
 # dequeue
-from collections import deque
-dq = deque(range(5))
+dq:Deque[float] = deque(range(5))
 dq.rotate(3)
 dq.extend([11, 22])
 dq.extendleft([100, 200])
@@ -76,10 +78,9 @@ d = {"un": 1, "deux": 2, "π": 3.1416, "vrai": True, "oui": "Yes"}
 print(type(d), d)
 d["e"] = 2.71828
 d.update({"r2": 1.414, "r3": 1.732})
-#x = d.get("trois", 3)       # Get value or default
+# x = d.get("trois", 3)       # Get value or default
 try:
     x = d[3]
 except KeyError:
     x = 3
 print(x)
-

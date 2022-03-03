@@ -4,9 +4,10 @@
 
 import functools
 
+
 def ComputeEfficiency(l):
     # Computes products of elements in a list, that is, the number of elements of a block compressed using factorization wheel
-    prod = functools.reduce(lambda x,y: x * y, l)
+    prod = functools.reduce(lambda x, y: x * y, l)
     # We need 1 bit per element of the block before compression
     fl = range(prod)
     # Eliminate in the block all multiples of elements in the list
@@ -17,8 +18,8 @@ def ComputeEfficiency(l):
 
 
 ComputeEfficiency([2])
-ComputeEfficiency([2,3])
-ComputeEfficiency([2,3,5])
-ComputeEfficiency([2,3,5,7])
-ComputeEfficiency([2,3,5,7,11])
-ComputeEfficiency([2,3,5,7,11,13])
+ComputeEfficiency([2, 3])
+ComputeEfficiency([2, 3, 5])
+ComputeEfficiency([2, 3, 5, 7])
+ComputeEfficiency([2, 3, 5, 7, 11])
+ComputeEfficiency([2, 3, 5, 7, 11, 13])

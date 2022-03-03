@@ -12,7 +12,7 @@
 # What are the optimal counts of Solido and Liquidex to buy to achiee the needs?
 
 #from pulp import LpProblem, LpVariable, LpMinimize
-import pulp
+import pulp     # type: ignore
 
 problem = pulp.LpProblem("regime", pulp.LpMinimize)
 

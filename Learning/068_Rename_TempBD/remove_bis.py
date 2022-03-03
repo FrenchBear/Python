@@ -21,7 +21,7 @@ FILE_QUATER = re.compile(r"(.*) - Quater", flags=re.IGNORECASE)
 nfiles = nfolders = 0
 
 
-def attempt_rename(original: str, base: str, ext: str, *suffixes: List[str]) -> int:
+def attempt_rename(original: str, base: str, ext: str, *suffixes: str) -> int:
     for suffix in suffixes:
         newname = base+suffix+ext
         if not os.path.exists(newname):
@@ -39,20 +39,20 @@ def attempt_rename(original: str, base: str, ext: str, *suffixes: List[str]) -> 
 
 for filefp in get_all_files(source):
     basename, ext = os.path.splitext(filefp)
-    if ma:=FILE_BIS.fullmatch(basename):
+    if ma := FILE_BIS.fullmatch(basename):
         nfiles += attempt_rename(filefp, ma.group(1), ext, '')
     else:
-        if ma:=FILE_TER.fullmatch(basename):
+        if ma := FILE_TER.fullmatch(basename):
             nfiles += attempt_rename(filefp, ma.group(1), ext, '', ' - Bis')
         else:
-            if ma:=FILE_QUATER.fullmatch(basename):
+            if ma := FILE_QUATER.fullmatch(basename):
                 nfiles += attempt_rename(filefp, ma.group(1), ext, '', ' - Bis', ' - Ter')
 
 print(f'{nfiles} fichiers renommés')
 
 
 for folderfp in get_all_folders(source):
-    if ma:=FILE_BIS.fullmatch(folderfp):
+    if ma := FILE_BIS.fullmatch(folderfp):
         newnamefp = ma.group(1)
         if not os.path.exists(newnamefp):
             _, newfolder = os.path.split(newnamefp)

@@ -7,17 +7,18 @@ source = r'W:\TempBD\archives'
 DO_IT = True
 
 keep = ['.jpg', '.jpeg', '.png', '.gif', '.cbr', '.cbz', '.rar', '.zip', '.bmp', '.tif', '.epub', '.pdf', '.webp']
-keepcounter = Counter()
-delcounter = Counter()
+keepcounter: Counter[str] = Counter()
+delcounter: Counter[str] = Counter()
 
 with open(r'deleted.txt', mode='w', encoding='utf-8') as out:
     for i, fullpath in enumerate(get_all_files(source)):
-        if i%1000==0: print('.', end='')
+        if i % 1000 == 0:
+            print('.', end='')
         _, ext = os.path.splitext(fullpath)
         ext = ext.lower()
         if ext in keep or re.fullmatch('\.r\d{2,3}', ext):
             keepcounter.update([ext])
-            if ext=='.epub':
+            if ext == '.epub':
                 print(fullpath)
         else:
             #print(f'del "{fullpath}"')

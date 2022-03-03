@@ -1,9 +1,8 @@
 #image processing resources
-from skimage.io import imread, imshow, show
-from skimage.filters import gaussian, threshold_otsu
-from skimage.feature import canny
-from skimage.transform import probabilistic_hough_line, rotate
-#from skimage.color import rgb2gray
+from skimage.io import imread, imshow, show                         # type: ignore
+from skimage.filters import gaussian, threshold_otsu                # type: ignore
+from skimage.feature import canny                                   # type: ignore
+from skimage.transform import probabilistic_hough_line, rotate      # type: ignore
 
 #testing 
 import numpy as np

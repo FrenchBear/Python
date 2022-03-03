@@ -208,8 +208,8 @@ def repeatfunc(func, times=None, *args):
     return starmap(func, repeat(args, times))
 
 
-def pairwise(iterable):
-    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+def my_pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2,s3), ..."
     a, b = tee(iterable)
     next(b, None)
     return zip(a, b)

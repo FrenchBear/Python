@@ -4,10 +4,11 @@
 # 2021-09-16    PV      Write an OEM850 batch file; use upgrade-assistant
 
 from io import TextIOWrapper
+from typing import TextIO
 from common_fs import *
 import os.path
 
-def convert_folder(folder: str, script: TextIOWrapper):
+def convert_folder(folder: str, script: TextIO|TextIOWrapper):
     lf = [file for file in get_files(folder) if file.lower().endswith('.vbproj') or file.lower().endswith('.csproj')]
     if len(lf)==0:
         print(f'No .vbproj found in folder {folder}')

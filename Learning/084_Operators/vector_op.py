@@ -44,8 +44,8 @@ class Vector:
     def __iter__(self):
         return iter(self._coords)
 
-    def __eq__(self, o) -> bool:
-        return issubclass(type(o), Vector) and len(self) == len(o) and all(a == b for a, b in zip(self, o))
+    # def __eq__(self, o) -> bool:
+    #     return issubclass(type(o), Vector) and len(self) == len(o) and all(a == b for a, b in zip(self, o))
 
     def __hash__(self) -> int:
         return functools.reduce(operator.xor, map(hash, self._coords), 0)

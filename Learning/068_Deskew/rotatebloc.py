@@ -1,15 +1,13 @@
-from skimage.io import imread, imshow, show, imsave
-from skimage.transform import rotate
-from skimage import img_as_ubyte
-import matplotlib.pyplot as plt
+from skimage.filters import gaussian, threshold_otsu    # type: ignore
+from skimage.io import imread, imshow, show     # type: ignore
+from skimage.transform import rotate            # type: ignore
+from skimage import img_as_ubyte                # type: ignore
+import matplotlib.pyplot as plt                 # type: ignore
 import numpy as np
-import os
 
 filename = r'blocB.png'
 image = imread(filename, as_gray=True)
 
-
-from skimage.filters import gaussian, threshold_otsu
 
 thresh = threshold_otsu(image)
 image = image > thresh
@@ -20,6 +18,7 @@ image = gaussian(image, 1)
 imshow(image)
 show()
 
+
 def moving_average(a, n=3):
     ret = np.cumsum(a, dtype=float)
     ret[n:] = ret[n:] - ret[:-n]
@@ -28,9 +27,9 @@ def moving_average(a, n=3):
 
 x = []
 y = []
-ar = -1
+ar: float = -1
 iar = 0
-while ar<1:
+while ar < 1:
     imager = rotate(image, ar, resize=True, mode='edge', order=3)
     (height, width) = imager.shape
     deltarows = 4
@@ -40,7 +39,7 @@ while ar<1:
     x.append(ar)
     y.append(s)
     print(ar, s)
-    
+
     # imshow(delta)
     # show()
 

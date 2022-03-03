@@ -11,7 +11,7 @@ def process_folder(root: str):
     folder2 = ''.join(chr(ord(c)^0x15) for c in folder)
     root = os.path.join(path, folder2)
     root = root.replace("{KB_HOME}", os.environ['KB_HOME'])
-    dc = Counter()     
+    dc: Counter = Counter()     
     for f in get_all_files(root):
         _, ext = os.path.splitext(f)
         dc.update([ext])

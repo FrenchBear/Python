@@ -19,8 +19,8 @@ def factorial(n: int = 0)->int:
 print('42! =', factorial(42))
 
 # Can add on-the-fly attributes to user-defined functions, into __dict__ member
-factorial.author = "Pierre Violent"
-factorial.datewritten = "2018-09-24"
+factorial.author = "Pierre Violent"         # type: ignore[attr-defined]
+factorial.datewritten = "2018-09-24"        # type: ignore[attr-defined]
 
 
 def function_info(f):
@@ -93,8 +93,8 @@ print(f('hello', b='word'))
 
 print('\n\n')
 
-print('myfunc.__defaults__:', myfunc.__defaults__)
-print('myfunc.__kwdefaults__:', myfunc.__kwdefaults__)
+print('myfunc.__defaults__:', myfunc.__defaults__)      # type: ignore[attr-defined]
+print('myfunc.__kwdefaults__:', myfunc.__kwdefaults__)  # type: ignore[attr-defined]
 print('myfunc varnames:', myfunc.__code__.co_varnames)
 print('myfunc argcount:', myfunc.__code__.co_argcount)
 

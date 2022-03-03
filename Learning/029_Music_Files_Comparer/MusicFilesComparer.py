@@ -1,5 +1,6 @@
 # MusicFilesCOmparer
 # Detects duplicates in newly downloaded music files
+#
 # 2017-08-17    PV
 
 
@@ -13,10 +14,10 @@ def GetAllFiles(path):
             yield os.path.join(root, file)
 
 
-accent_tabin =  u'àâäéèêëîïôöûüùÿç'
-accent_tabout = u'aaaeeeeiioouuuyc'
-accent_tabin = [ord(char) for char in accent_tabin]
-accent_table = dict(zip(accent_tabin, accent_tabout))
+accent_tabin_str =  u'àâäéèêëîïôöûüùÿç'
+accent_tabout_str = u'aaaeeeeiioouuuyc'
+accent_tabin = [ord(char) for char in accent_tabin_str]
+accent_table = dict(zip(accent_tabin, accent_tabout_str))
 def LowerNoAccent(s):
     return s.lower().translate(accent_table)
 
@@ -27,7 +28,7 @@ newFolder = "C:\Temp\Work\LP";
 for file in GetAllFiles(newFolder):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
-        name = LowerNoAccent(match.groups(0)[0] + " - " + match.groups(0)[1])
+        name = LowerNoAccent(str(match.groups(0)[0]) + ' - ' + str(match.groups(0)[1]))
         newFiles.append(name)
         newDic[name] = file
     else:
@@ -41,7 +42,7 @@ oldFolder2 = "C:\Temp\Work\Chansons Intl"
 for file in GetAllFiles(oldFolder1):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
-        name = LowerNoAccent(match.groups(0)[0] + " - " + match.groups(0)[1])
+        name = LowerNoAccent(str(match.groups(0)[0]) + ' - ' + str(match.groups(0)[1]))
         oldFiles.append(name)
         oldDic[name] = file
     else:
@@ -49,7 +50,7 @@ for file in GetAllFiles(oldFolder1):
 for file in GetAllFiles(oldFolder2):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
-        name = LowerNoAccent(match.groups(0)[0] + " - " + match.groups(0)[1])
+        name = LowerNoAccent(str(match.groups(0)[0]) + ' - ' + str(match.groups(0)[1]))
         oldFiles.append(name)
         oldDic[name] = file
     else:

@@ -1,9 +1,8 @@
 import os
 import os.path
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+import matplotlib.image as mpimg        # type: ignore
 import numpy as np
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks     # type: ignore
 
 
 def croppic(picin, picout):

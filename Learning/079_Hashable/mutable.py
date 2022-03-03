@@ -35,7 +35,7 @@ class Vect2D:
         yield self.__y
 
     def __eq__(self, o: object) -> bool:
-        return self.__x == o.__x and self.__y == o.__y
+        return self.__x == o.__x and self.__y == o.__y      # type: ignore[attr-defined]
 
     def __hash__(self) -> int:
         return hash(self.__x) ^ hash(self.__y)
@@ -108,8 +108,8 @@ print(v1.x)
 # v1.x = 7            # AttributeError: can't set attribute
 
 # print(v1.__x)       # Error: 'Vect2D' object has no attribute '__x'
-print(v1._Vect2D__x)  # Cheating...
-v1._Vect2D__x = 7     # even worse cheating
+print(v1._Vect2D__x)  # type: ignore[attr-defined]    # Cheating...
+v1._Vect2D__x = 7     # type: ignore[attr-defined]    # even worse cheating
 print(v1)
 print(complex(v1))    # use __complex__
 print('abs=', abs(v1), ', arg=', v1.argument()) # use __abs__

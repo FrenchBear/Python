@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 import math
-import matplotlib.image as mpimg
+import matplotlib.image as mpimg        # type: ignore
 
 
 # source = r'C:\Scans\THS32\1 Scans\1'
@@ -26,7 +26,7 @@ def process(file: str, picout: str, numfile: int):
     height: int = img.shape[0]
     print(width, ';', height, ';', sep='', end='')
 
-    if numfile%2==1:
+    if numfile % 2 == 1:
         if numfile >= 17 or numfile == 3 or numfile == 13:
             img = img[:, :-143, :]
         img = img[:, 42:, :]

@@ -130,7 +130,7 @@ class TestPipe(unittest.TestCase):
         p = Pipe(animaux).sort(lambda a: len(a))
         self.assertEqual(list(p), ['rat', 'chat', 'ours', 'porc', 'chien', 'boeuf'])
 
-    def test_sort_2(self):
+    def test_sort_4(self):
         animaux = ['chien', 'chat', 'ours', 'rat', 'porc', 'boeuf']
         p = Pipe(animaux).sort(lambda a: len(a), True)
         self.assertEqual(list(p), ['chien', 'boeuf', 'chat', 'ours', 'porc', 'rat'])

@@ -21,12 +21,14 @@ c’est à dire au plus 17 minutes après ?
 
 # itertools.combinations(l, r) retourne la liste des combinaisons de r éléments pris dans l
 import itertools
+from typing import Tuple
 
 
 # 2è partie de move, indépendante du sens du déplacement.
 # Détecte les solutions (newLeft est vide) et les ajoute à la variable globale solutions.
 # Poursuit récursivement l'exploration (en appelant move) tant que le temps total est inférieur à 21 minutes.
 def move2(newLeft, newRight, s, leftToRight, totalTime, seq):
+    global solutions
     newTotalTime = totalTime+max(speed[x] for x in s)
     if newTotalTime <= 20:
         seq2 = list(seq)
@@ -43,21 +45,21 @@ def move2(newLeft, newRight, s, leftToRight, totalTime, seq):
 def move(left, right, leftToRight, totalTime, seq):
     if leftToRight:
         for s in itertools.chain(itertools.combinations(left, 2), itertools.combinations(left, 1)):
-            nexLeft = [x for x in left if x not in s]
+            newLeft = [x for x in left if x not in s]
             newRight = list(right)
             newRight.extend(s)
-            move2(nexLeft, newRight, s, leftToRight, totalTime, seq)
+            move2(newLeft, newRight, s, leftToRight, totalTime, seq)
     else:
         for s in itertools.chain(itertools.combinations(right, 1), itertools.combinations(right, 2)):
-            nexLeft = list(left)
-            nexLeft.extend(s)
+            newLeft = list(left)
+            newLeft.extend(s)
             newRight = [x for x in right if x not in s]
-            move2(nexLeft, newRight, s, leftToRight, totalTime, seq)
+            move2(newLeft, newRight, s, leftToRight, totalTime, seq)
 
 
 # Données du problème et état initial
 speed = {'A': 1, 'B': 2, 'C': 5, 'D': 10}
-solutions = []
+solutions:list[Tuple[int, list]] = []
 
 # Résolution
 move(['A', 'B', 'C', 'D'], [], True, 0, [])

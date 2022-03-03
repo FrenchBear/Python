@@ -32,7 +32,7 @@ class Sentence():
 if __name__ == '__main__':
     s = Sentence('"The time has come," the Walrus said')
     # mypy complain, but it's wrong: seq1.py:43: error: "Sentence1" has no attribute "__iter__" (not iterable)
-    for word in s:
+    for word in s:      # type: ignore[attr-defined]
         print(word)
     print('Iterable from collections.abc: ', issubclass(Sentence, collections.abc.Iterable))   # False
     # False because it does not implement __iter__
