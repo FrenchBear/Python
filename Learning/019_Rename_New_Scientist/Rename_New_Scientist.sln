@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Rename_New_Scientist", "Rename_New_Scientist.pyproj", "{C8A870B1-687E-46DE-B0D7-392522A113BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8A870B1-687E-46DE-B0D7-392522A113BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A870B1-687E-46DE-B0D7-392522A113BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A2925B9-93A1-45A3-931C-F0F8FF7027EE}
+	EndGlobalSection
+EndGlobal

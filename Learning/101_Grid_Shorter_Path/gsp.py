@@ -6,7 +6,10 @@
 
 
 # define weights of paths
-w = {}
+from typing import Tuple
+
+
+w: dict[str, int] = {}
 w['00->01'] = 3
 w['00->11'] = 2
 w['00->10'] = 1
@@ -63,7 +66,7 @@ for r in range(rows):
 
 
 # calculate absolute distance to cells
-ad = {}
+ad: dict[str, Tuple[int, str]] = {}
 for r in range(rows):
     for c in range(cols):
         ck = f'{r}{c}'                  # (current) cell key
@@ -90,8 +93,8 @@ for r in range(rows):
                 dpk = f'{r-1}{c-1}'     # diagonal predecessor key
                 dak = f'{dpk}->{ck}'    # arc (from top predecessor) key
 
-                l = [(ad[lpk][0] + w[lak], lpk), (ad[tpk][0] + w[tak], tpk), (ad[dpk][0] + w[dak], dpk)]
-                ad[ck] = min(l)
+                tl = [(ad[lpk][0] + w[lak], lpk), (ad[tpk][0] + w[tak], tpk), (ad[dpk][0] + w[dak], dpk)]
+                ad[ck] = min(tl)
 
 # Shortest path
 sp = []

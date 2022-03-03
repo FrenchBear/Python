@@ -18,7 +18,7 @@ class Dog(Animal):
 
     def __repr__(self):
         return "Dog({},{})".format(repr(self.color), repr(self.name))
-    
+
     def __str__(self):
         return "I am a {} Dog named {}.".format(self.color, self.name)
 
@@ -27,7 +27,8 @@ class Dog(Animal):
         return len(self.name)
 
     def __eq__(self, other):
-        if type(other) is not type(self): return False
+        if type(other) is not type(self):
+            return False
         return self.name == other.name
 
 
@@ -49,4 +50,3 @@ print()
 # __ne__ is automatically generated
 print(shelly != kafi_f)
 print(kafi_f != kafi_b)
-

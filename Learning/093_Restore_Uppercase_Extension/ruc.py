@@ -12,8 +12,8 @@ root = r'X:\Archives\Disquettes'
 
 for fileFP in list(get_all_files(root)):
     folder, file = os.path.split(fileFP)
-    basename, ext = os.path.splitext(file)
-    if len(basename)<=8 and (not any(str.islower(c)  or c==' 'for c in basename)) and any(str.islower(c) for c in ext):
-        new_name = os.path.join(folder, basename+str.upper(ext))
+    bname, ext = os.path.splitext(file)
+    if len(bname)<=8 and (not any(str.islower(c)  or c==' 'for c in bname)) and any(str.islower(c) for c in ext):
+        new_name = os.path.join(folder, bname+str.upper(ext))
         print(fileFP, new_name)
         os.rename(fileFP, new_name)

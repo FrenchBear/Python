@@ -1,7 +1,8 @@
 # Date_Des.py
-# Affiche ttes les dates avec deux dés
-# 2022-02-25    PV
+# Affiche toutes les dates avec deux dés
 # J'ai trouvé la solution de tête en tapant ce commentaire, 6 et 9 ne nécessitent pas deux faces de dé!
+#
+# 2022-02-25    PV
 
 l1 = [1, 6, 9, 2, 0, 7, 8]
 l2 = [1, 5, 2, 0, 3, 4]

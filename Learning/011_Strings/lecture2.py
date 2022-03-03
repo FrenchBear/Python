@@ -5,9 +5,9 @@ print(s)
 t = "Hello " "world"
 print(t)
 
-b = "ba" + "na"*2
-print(b)
-print(type(b))
+bs = "ba" + "na"*2
+print(bs)
+print(type(bs))
 
 print(1,2,3)
 print(1,2,3, sep=', ', end='\n\n')

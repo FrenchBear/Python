@@ -22,9 +22,9 @@ def filtername(name: str) -> str:
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
     if not 'petit futé' in folder.casefold():
-        basename, ext = os.path.splitext(file)
+        bname, ext = os.path.splitext(file)
         if ext.casefold()=='.pdf':       # '.epub'
-            dic[filtername(basename)].append(filefp)
+            dic[filtername(bname)].append(filefp)
 
 dups = [v for v in dic.values() if len(v)>1]
 print(f'{len(dups)} name duplicates group(s) found.')

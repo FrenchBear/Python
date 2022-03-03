@@ -214,9 +214,9 @@ def process_name0(name: str) -> str:
 nd = 0
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
-    basename, ext = os.path.splitext(file)
+    bname, ext = os.path.splitext(file)
 
-    newname = process_name(basename)
+    newname = process_name(bname)
 #     if basename != newname:
 #         nd += 1
 #         print(f'{basename}{ext} -> {newname}{ext}')

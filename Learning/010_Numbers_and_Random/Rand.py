@@ -1,19 +1,19 @@
 # Beware: do not name this file random.py, otherwise "import random" import itself!!!
 
 import random
+import numpy as np
+
 
 g = []
 n = []
 
 mu = 2.0
 si = 1.0
-np = 10000
+num = 10000
 
-for i in range(np):
+for i in range(num):
     g.append(random.gauss(mu, si))
     n.append(random.normalvariate(mu, si))
-
-import numpy as np
 
 ag = np.mean(g)
 an = np.mean(n)

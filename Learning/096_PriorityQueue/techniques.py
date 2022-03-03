@@ -2,12 +2,12 @@
 # 2021-12-29    PV
 
 import math
-from typing import Any, Tuple
+from typing import Any, DefaultDict, Dict, Iterable, Tuple
 from collections import defaultdict, Counter
 
 
-def majority1(l: list) -> Any:
-    count = {}
+def majority1(l: Iterable) -> Any:
+    count:Dict[Any, int] = {}
     for item in l:
         if item in count:
             count[item] += 1
@@ -17,15 +17,15 @@ def majority1(l: list) -> Any:
     return itemmax
 
 
-def majority2(l: list) -> Any:
-    count = defaultdict(int)
+def majority2(l: Iterable) -> Any:
+    count:DefaultDict[Any, int] = defaultdict(int)
     for item in l:
         count[item] += 1
     return max((count[item], item) for item in count)[1]
 
 
-def majority3(l: list) -> Any:
-    count = Counter()
+def majority3(l: Iterable) -> Any:
+    count:Counter = Counter()
     count.update(l)
     return count.most_common(1)[0][0]
 
@@ -48,7 +48,7 @@ l = [61, 69, 51, 27, 82, 25, 10, 2, 89, 70, 42, 24, 65, 91, 83, 97, 19, 59, 79, 
 print(closest(l))
 
 
-def max_interval_intersect(s: list[Any, Any]) -> Any:
+def max_interval_intersect(s: list[Tuple[Any, Any]]) -> Any:
     b: list[Tuple[Any, int]] = [(left, +1) for left, _ in s]+[(right, -1) for _, right in s]
     b.sort()
     c = 0

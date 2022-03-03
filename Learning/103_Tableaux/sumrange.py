@@ -2,6 +2,7 @@
 # somme d'une plage en O(1) avec précalcul en O(n)
 # Programmer efficacement chap 4
 # Mon implémentation (pas dans le livre)
+#
 # 2022-05-25    PV
 
 import random

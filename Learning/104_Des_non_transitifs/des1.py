@@ -1,4 +1,6 @@
 # Dés non transitifs
+# Exemple de 3 dés où A>B, B>C, C>A
+#
 # 2022-02-26    PV
 
 import math

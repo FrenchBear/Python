@@ -15,7 +15,7 @@ dic: defaultdict[int, list[str]] = defaultdict(list)
 
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
-    basename, ext = os.path.splitext(file)
+    _, ext = os.path.splitext(file)
     if ext.casefold() in ['.pdf', '.epub']:
         s = os.path.getsize(filefp)
         dic[s].append(filefp)

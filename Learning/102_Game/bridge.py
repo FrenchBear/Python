@@ -1,5 +1,6 @@
 # bridge.py
 # Combien de chemins pour aller de la case (0,0) à (4,2) sur un damier 3x5 passant par 4 cases noires et 3 cases blanches (0,0) étant noir?
+#
 # 2022-02-23    PV
 
 sol = 0

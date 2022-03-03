@@ -15,10 +15,10 @@ auth = 0
 authx = 0
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
-    basename, ext = os.path.splitext(file)
+    bname, ext = os.path.splitext(file)
     tot += 1
 
-    ts = basename.split(' - ')
+    ts = bname.split(' - ')
     if 1 <= len(ts) <= 3:
         tots[len(ts)] += 1
     else:
