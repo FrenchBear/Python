@@ -3,7 +3,7 @@
 # This time using match of Python 3.10
 #
 # 2022-03-19    PV
-# 2022-04-16    PV      Added exceptions in init_float for math.nan and math.inf
+# 2022-04-16    PV      Added exceptions in init_float for math.nan and math.inf. Can build from a sequence of 2 integers
 
 import numbers
 import fractions
@@ -51,6 +51,8 @@ class Fract:
                 self.init_fract(numerator)
             case fractions.Fraction():      # Does not support deconstruction, juct check type.  Must use parentheses
                 self.init_fraction(numerator)
+            case [int(n), int(d)]:          # Extension for match, any sequence of 2 integers can be converted to a fraction
+                self.init_int(n, d)
             case _:
                 raise TypeError('Unsupported Fract init value')
 
@@ -71,7 +73,7 @@ class Fract:
         self.den = f.denominator
 
     # Stern-Brocot algorithm to transform a periodic decimal suite into a fraction
-    # Based on the fact that Stern-Brocot tree of fractions contains one and only once all fractions,
+    # Based on the fact that Stern-Brocot tree of fractions contains one and only once all fractions
     def init_float(self, f: float):
         epsilon = 1e-6
 
@@ -148,8 +150,6 @@ class Fract:
     @property
     def denominator(self):
         return self.den
-
-
 
 
 # Python's library fractions.Fraction does not support (yet) match deconstruction

@@ -33,7 +33,7 @@ test(float(1.414))
 test(2+3j)
 d = decimal.Decimal(3.1416) # A decimal is a number, bt not a real!
 test(d)
-bs = bytes(1)
+bs = bytes(1)               # Beware, bytes is actually a 'string of bytes', not a byte number
 test(bs)
 test('z')
 n = datetime.datetime.now()

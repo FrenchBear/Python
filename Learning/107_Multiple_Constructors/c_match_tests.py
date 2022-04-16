@@ -2,7 +2,7 @@
 # Tests for c_checkargs, verifies Fract constructors using match for type checking
 #
 # 2022-03-19    PV
-# 2022-04-16    PV      Added test cases using math.nan and math.inf
+# 2022-04-16    PV      Added test cases using math.nan, math.inf and sequences of 2 int
 
 from c_match import *
 import unittest
@@ -34,6 +34,12 @@ class TestOptargs(unittest.TestCase):
         self.assertEqual(str(Fract(0.25)), '1/4')
         self.assertEqual(str(Fract(0.3333333)), '1/3')
         self.assertEqual(str(Fract(3.1415926535)), '355/113')
+        self.assertEqual(str(Fract(-0.0)), '0')
+
+        # Convert from sequence of 2 integers
+        self.assertEqual(str(Fract([2, 8])), '1/4')
+        self.assertEqual(str(Fract((3, 6))), '1/2')
+        self.assertEqual(str(Fract(range(4,6))), '4/5')
 
         # Check invalid cases
         with self.assertRaises(TypeError):
