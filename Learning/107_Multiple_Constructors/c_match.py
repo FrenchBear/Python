@@ -3,6 +3,7 @@
 # This time using match of Python 3.10
 #
 # 2022-03-19    PV
+# 2022-04-16    PV      Added exceptions in init_float for math.nan and math.inf
 
 import numbers
 import fractions
@@ -12,8 +13,7 @@ import math
 class Fract:
     num: int
     den: int
-
-    __match_args__ = ('num', 'den')
+    __match_args__ = ('num', 'den')     # For matching with deconstruction (see testmatch.py)
 
     # Construct a fraction from:
     # ()        -> zero
@@ -45,7 +45,7 @@ class Fract:
         match numerator:
             case float(f1):
                 self.init_float(f1)
-            # case Fract(n, d):               # Example with deconstruction
+            # case Fract(n, d):             # Example with deconstruction
             #     self.init_int(n, d)
             case Fract():                   # Example without deconstruction
                 self.init_fract(numerator)
@@ -74,6 +74,12 @@ class Fract:
     # Based on the fact that Stern-Brocot tree of fractions contains one and only once all fractions,
     def init_float(self, f: float):
         epsilon = 1e-6
+
+        # Special float values are not supported
+        if math.isnan(f):
+            raise ValueError('Cannot convert NaN to integer ratio')
+        if math.isinf(f):
+            raise OverflowError('Cannot convert Infinity to integer ratio')
 
         # Special case
         if f == 0.0:
@@ -144,23 +150,22 @@ class Fract:
         return self.den
 
 
+
+
+# Python's library fractions.Fraction does not support (yet) match deconstruction
+# Fraction is a derived class adding support for match deconstruction
 class Fraction(fractions.Fraction):
     __match_args__ = ('numerator', 'denominator')
 
 
-#f1 = Fract(2, 3)
-#f2 = Fract(f1)
-#print(f1)
-#print(f2)
-#
-#f3 = Fraction(4, 3)
-#match f3:
-#    case Fraction(n, d):
-#        print(f'Match Fraction: n={n}, d={d}')
-#
-#match f3:
-#    case fractions.Fraction():
-#        print(f'Match fractions.Fraction')
+f3 = Fraction(4, 3)
+match f3:
+   case Fraction(n, d):
+       print(f'Match Fraction: n={n}, d={d}')
 
-#print('__match_args__' in Fract.__dict__)
-#print('__match_args__' in fractions.Fraction.__dict__)
+match f3:
+   case fractions.Fraction():
+       print(f'Match fractions.Fraction: {f3!s} = {f3!r}')
+
+print('__match_args__' in Fract.__dict__)
+print('__match_args__' in fractions.Fraction.__dict__)

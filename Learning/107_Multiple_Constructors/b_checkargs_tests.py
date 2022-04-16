@@ -1,4 +1,4 @@
-# 02optargs_tests.py
+# b_checkargs_tests.py
 # Tests for b_checkargs, verifies Fract constructors
 #
 # 2022-03-19    PV

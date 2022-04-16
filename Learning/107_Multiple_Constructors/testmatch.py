@@ -1,4 +1,5 @@
 # tests on match operation of Python 3.10
+# Example of matching+deconstruction of a user class using __match_args_
 #
 # 2022-03-19    PV
 
@@ -26,17 +27,19 @@ class Point3D:
         return f'Point3D({self.x}, {self.y}, {self.z})'
 
 
-p1 = Point2D(2,3)
-p2 = Point3D(3,-1,2)
+def test_match(p):
+    match p:
+        case Point2D(x, y):
+            print(f"Match Point2D: x={x}, y={y}")
+        case Point3D(x, y, z):
+            print(f"Match Point3D: x={x}, y={y}, z={z}")
+        case _:
+            print('No match')
 
+p1 = Point2D(2, 3)
 print(p1)
+test_match(p1)
+
+p2 = Point3D(3, -1, 2)
 print(p2)
-
-
-match p2:
-    case Point2D(x, y):
-        print(f"Match Point2D: x={x}, y={y}")
-    case Point3D(x, y, z):
-        print(f"Match Point3D: x={x}, y={y}, z={z}")
-    case _:
-        print('No match')
+test_match(p2)
