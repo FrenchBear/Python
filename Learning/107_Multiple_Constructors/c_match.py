@@ -169,3 +169,13 @@ match f3:
 
 print('__match_args__' in Fract.__dict__)
 print('__match_args__' in fractions.Fraction.__dict__)
+
+
+# Actually, use of a pseudo-constructor syntax with 'membername=' works with Python Fractions
+# We only need to define __match_args__ to use the pseudo-constructor without 'membername='
+f = fractions.Fraction(2, 3)
+match f:
+    case fractions.Fraction(numerator=n, denominator=d):
+        print(f'Python Fraction {n}/{d}')
+    case _:
+        print('Other')
