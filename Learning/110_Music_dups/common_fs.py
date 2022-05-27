@@ -48,7 +48,7 @@ def filepart(fullpath: str) -> str:
     return file
 
 def basename(filewithext: str) -> str:
-    '''Retourne le nom de fichier sans extension'''
+    '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel)'''
     base, _ = os.path.splitext(filewithext)
     return base
 

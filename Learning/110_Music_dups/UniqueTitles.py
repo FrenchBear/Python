@@ -25,6 +25,15 @@ destination = r'C:\Temp\UniqueTitles\Johnny Hallyday'
 source = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Tino Rossi'
 destination = r'C:\Temp\UniqueTitles\Tino Rossi'
 
+source = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\ABBA - 1973-1981'
+destination = r'C:\Temp\UniqueTitles\ABBA'
+
+source = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Queen - 1973-2007'
+destination = r'C:\Temp\UniqueTitles\Queen'
+
+source = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Rika Zaraï'
+destination = r'C:\Temp\UniqueTitles\Rika Zaraï'
+
 
 def cleanprefix(f: str) -> str:
     f = f[:-4]  # Remove .mp3
@@ -43,7 +52,7 @@ dic: dict[str, list[str]] = {}
 for file in files_fp:
     key = cleanprefix(filepart(file)).lower()
     dic.setdefault(key, []).append(file)
-print(len(dic), ' unique titles')
+print(len(dic), 'unique titles')
 
 # c = Counter()
 # for k, v in dic.items():
