@@ -27,9 +27,15 @@ def check_tag(file: str):
     logging.basicConfig(stream=log_stream, level=logging.INFO)
 
     af = eyed3.core.load(file, eyed3.id3.ID3_V2)
-    artist = af.tag.artist
-    title = af.tag.title.replace("’", "'")
-    track = af.tag.track_num[0]
+    artist:str = af.tag.artist
+    album:str = af.tag.album
+    title:str = af.tag.title.replace("’", "'")
+    track:str = af.tag.track_num[0]
+
+    # Just test if title starts with a without accent (it's Ok en English, probably not in French)
+    # if title.lower().startswith('a '):
+    #     print(file)
+    # return
 
     file_basename = basename(filepart(file))
 
@@ -41,6 +47,12 @@ def check_tag(file: str):
         tag_basename = f'{track:0>2} - {artist} - {title}'
         if file_basename == tag_basename:
             return
+        tag_basename = f'{track:0>2} - {artist} - {album} - {title}'
+        if file_basename == tag_basename:
+            return
+        tag_basename = f'{track:0>2} - {album} - {title}'
+        if file_basename == tag_basename:
+            return
 
     # Artist - Title
     tag_basename = f'{artist} - {title}'
@@ -49,6 +61,7 @@ def check_tag(file: str):
 
     print('Tag diff for', file)
     print('Artist', artist)
+    print('Album ', album)
     print('Title ', title)
     print('Track ', track)
     print()
@@ -59,6 +72,7 @@ def check_tag(file: str):
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Dave'
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Michel Sardou - 1967-2010'
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé'
+root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\Music Extra\Claude Bolling'
 
 n = 0
 for file in get_all_files(root):
