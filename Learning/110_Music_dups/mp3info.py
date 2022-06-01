@@ -29,7 +29,7 @@ def check_tag(file: str):
     af = eyed3.core.load(file, eyed3.id3.ID3_V2)
     artist:str = af.tag.artist
     album:str = af.tag.album
-    title:str = af.tag.title.replace("’", "'")
+    title:str = af.tag.title.replace("’", "'").replace('?','¿')
     track:str = af.tag.track_num[0]
 
     # Just test if title starts with a without accent (it's Ok en English, probably not in French)
@@ -53,6 +53,9 @@ def check_tag(file: str):
         tag_basename = f'{track:0>2} - {album} - {title}'
         if file_basename == tag_basename:
             return
+        tag_basename = f'{artist} - {album} - {track:0>2} - {title}'        # Les charlots
+        if file_basename == tag_basename:
+            return
 
     # Artist - Title
     tag_basename = f'{artist} - {title}'
@@ -73,6 +76,7 @@ root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Dave'
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Michel Sardou - 1967-2010'
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé'
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\Music Extra\Claude Bolling'
+root = r'C:\Users\Pierr\OneDrive\MusicOD\MP3P\Chansons France'
 
 n = 0
 for file in get_all_files(root):
