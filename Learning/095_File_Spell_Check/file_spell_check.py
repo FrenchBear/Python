@@ -3,6 +3,7 @@
 #
 # 2021-12-16    PV
 # 2022-01-03    PV      Fusionne les mots de mots_fr.txt avec ceux de mots_fr2.txt (typiquement les nom propres); Mots en anglais
+# 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
 
 from collections import defaultdict
 from collections import Counter
@@ -10,8 +11,10 @@ from os import replace
 from typing import DefaultDict, Tuple, Counter
 from common_fs import *
 import unicodedata
+import re
 
 source = r'W:\Livres\A_Trier'
+source = r'W:\eBooks\1600 epub français\tc'
 doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
@@ -49,7 +52,6 @@ for mot in to_delete:
     del mfsa[mot]
 
 
-
 casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
            'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
            'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
@@ -70,7 +72,10 @@ def fixcase(before: str, after: str) -> str:
     '''Si le mot d'origine commence par une majuscule, alors on force le remplacement à commencer par une majuscule'''
     return after[0].upper()+after[1:] if before[0] == before[0].upper() else after
 
+
 uw: Counter[str] = Counter()
+
+
 def fixwordbase(word: str) -> str:
     if word.casefold() in dmf:
         return fixcase(word, dmf[word.casefold()])      # fix case if needed
@@ -94,11 +99,12 @@ def fixwordbase(word: str) -> str:
         if word2.casefold() in mfsa:
             return prefix+mfsa[word2.casefold()][0]     # fix accent and case
 
-    if len(word)>1 and not word.casefold() in dic_casefix:
+    if len(word) > 1 and not word.casefold() in dic_casefix:
         uw.update([word])
     return word
 
-def break_word(word:str) -> Tuple[str, str, str]:
+
+def break_word(word: str) -> Tuple[str, str, str]:
     i = 0
     prefix = ''
     w = ''
@@ -127,7 +133,7 @@ def fixword(word: str) -> str:
     '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
     if word in ['The', 'the', 'Dart']:
         return word
-    if word in ['2e','3e','4e']:
+    if word in ['2e', '3e', '4e']:
         return word[0]+'è'
 
     prefix, w, suffix = break_word(word)
@@ -150,7 +156,11 @@ def ireplace(text: str, old: str, new: str) -> str:
         idx = index_l + len(new)
     return text
 
+
 def guess_language(words: str) -> Tuple[str, int, int]:
+    # # For just French files
+    # return('fr',1,0)
+
     fr = en = 0
     for word in words.split(' '):
         _, w, _ = break_word(word)
@@ -164,25 +174,27 @@ def guess_language(words: str) -> Tuple[str, int, int]:
                 if wc in dmf:
                     fr += 1
     l = sorted([(fr, 'fr'), (en, 'en')], reverse=True)
-    if l[0][0]>=3 and l[0][0]-l[1][0]>=2:
+    if l[0][0] >= 3 and l[0][0]-l[1][0] >= 2:
         return (l[0][1], fr, en)
     return ('??', fr, en)
 
-def process_name(name: str) -> str:
+
+def process_name_Test(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
-    lng,fr,en = guess_language(s1)
+    lng, fr, en = guess_language(s1)
     print(f'{lng}\t{fr}\t{en}\t{s1}')
     return name
 
 # process_name("Toutes les maths, PSI")
 # breakpoint()
 
-def process_name0(name: str) -> str:
+
+def process_name(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
     l = []
-    for word in s1.split(' \''):
+    for word in re.split(' |\'', s1):    # s1.split(' \'')
         if len(word) > 0:
             nw = fixword(word)
             nwcf = nw.casefold()
@@ -191,19 +203,19 @@ def process_name0(name: str) -> str:
             l.append(nw)
     ts[0] = ' '.join(l)
     nn = ' - '.join(ts)
-    for w in avectirets:
-        nn = ireplace(nn, w.replace('-', ' '), w)
-    nn = ireplace(nn, 'node js', 'node.js')
+    # for w in avectirets:
+    #     nn = ireplace(nn, w.replace('-', ' '), w)
+    # nn = ireplace(nn, 'node js', 'node.js')
 
-    p1 = nn.find('[')
-    p2 = nn.find(']', p1+1)
-    if p1 >= 0 and p2 > p1+1:   # p1+1 avoids [] causing problem with editor[0]
-        editor = nn[p1+1:p2]
-        editor = ireplace(editor, 'oreilly', "O'Reilly")
-        editor = editor[0].upper()+editor[1:]
-        nn = nn[:p1+1]+editor+nn[p2:]
+    # p1 = nn.find('[')
+    # p2 = nn.find(']', p1+1)
+    # if p1 >= 0 and p2 > p1+1:   # p1+1 avoids [] causing problem with editor[0]
+    #     editor = nn[p1+1:p2]
+    #     editor = ireplace(editor, 'oreilly', "O'Reilly")
+    #     editor = editor[0].upper()+editor[1:]
+    #     nn = nn[:p1+1]+editor+nn[p2:]
 
-    nn = (nn[0].upper()+nn[1:]).replace('  ', ' ')
+    # nn = (nn[0].upper()+nn[1:]).replace('  ', ' ')
     return nn
 
 
@@ -217,17 +229,17 @@ for filefp in get_all_files(source):
     bname, ext = os.path.splitext(file)
 
     newname = process_name(bname)
-#     if basename != newname:
-#         nd += 1
-#         print(f'{basename}{ext} -> {newname}{ext}')
+    if bname != newname:
+        nd += 1
+        print(f'{bname}{ext} -> {newname}{ext}')
 
-#         if doit:
-#             f1 = os.path.join(folder, basename+ext)
-#             f2 = os.path.join(folder, newname+ext)
-#             os.rename(f1, f2)
+        if doit:
+            f1 = os.path.join(folder, bname+ext)
+            f2 = os.path.join(folder, newname+ext)
+            os.rename(f1, f2)
 
-# print()
-# print(nd, 'fichier(s) à renommer')
+print()
+print(nd, 'fichier(s) à renommer')
 
 # for w,c in uw.items():
 #     print(w,c)
