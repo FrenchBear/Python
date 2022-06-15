@@ -2,14 +2,14 @@
 # Eliminates duplicated books
 # 2021-01-09    PV
 
-from vlib import *
+from common_fs import *
 from typing import Dict
 
 def isSameName1(file1: str, file2: str) -> bool:
-    return filenamepart(file1).lower()==filenamepart(file2).lower()
+    return filepart(file1).lower()==filepart(file2).lower()
 
 def isSameName2(file1: str, file2: str) -> bool:
-    (file1, file2) = (filenamepart(file1).lower(), filenamepart(file2).lower())
+    (file1, file2) = (filepart(file1).lower(), filepart(file2).lower())
     if len(file1)>len(file2): (file1, file2) = (file2, file1)
     return file1 == file2[len(file2)-len(file1):]
 

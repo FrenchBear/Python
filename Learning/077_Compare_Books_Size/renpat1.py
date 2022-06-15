@@ -4,7 +4,7 @@
 # 2021-01-14    PV
 # 2021-05-13    PV      Filtre .pdf
 
-from vlib import *
+from common_fs import *
 from typing import Dict
 import os, shutil
 import re
