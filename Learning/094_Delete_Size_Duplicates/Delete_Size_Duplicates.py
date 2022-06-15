@@ -9,7 +9,7 @@ from typing import Iterable, List
 from common_fs import *
 
 source = r'W:\Livres'
-doit = False
+doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
@@ -35,7 +35,7 @@ for lst in dups:
             d.remove(file)
             if len(d)==1: break
 
-    # Thene delete extra copies in a_trier, keep at least 1
+    # Then delete extra copies in a_trier, keep at least 1
     if len(d)>1:
         for file in lst:
             if 'a_trier' in file.casefold():
