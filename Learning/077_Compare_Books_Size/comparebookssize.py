@@ -6,10 +6,10 @@ from common_fs import *
 from typing import Dict
 
 def isSameName1(file1: str, file2: str) -> bool:
-    return filepart(file1).lower()==filepart(file2).lower()
+    return file_part(file1).lower()==file_part(file2).lower()
 
 def isSameName2(file1: str, file2: str) -> bool:
-    (file1, file2) = (filepart(file1).lower(), filepart(file2).lower())
+    (file1, file2) = (file_part(file1).lower(), file_part(file2).lower())
     if len(file1)>len(file2): (file1, file2) = (file2, file1)
     return file1 == file2[len(file2)-len(file1):]
 

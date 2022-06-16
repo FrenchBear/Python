@@ -17,7 +17,7 @@ def cleanprefix(f: str) -> str:
     return f
 
 def process(source: str, destination: str):
-    print('\nProcessing', filepart(destination))
+    print('\nProcessing', file_part(destination))
     if not folder_exists(destination):
         os.mkdir(destination)
 
@@ -26,7 +26,7 @@ def process(source: str, destination: str):
 
     dic: dict[str, list[str]] = {}
     for file in files_fp:
-        key = cleanprefix(filepart(file)).lower()
+        key = cleanprefix(file_part(file)).lower()
         dic.setdefault(key, []).append(file)
     print(len(dic), 'unique titles')
 
@@ -39,7 +39,7 @@ def process(source: str, destination: str):
         vs = [(file_size(file), file) for file in v]
         sf = sorted(vs, reverse=True)[0]
         f = sf[1]
-        tf = os.path.join(destination, f'{len(v)} - '+cleanprefix(filepart(f))+'.mp3')
+        tf = os.path.join(destination, f'{len(v)} - '+cleanprefix(file_part(f))+'.mp3')
         #print(f, '->', tf)
         shutil.copy(f, tf)
 

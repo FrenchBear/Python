@@ -21,7 +21,7 @@ def cleanprefix(f: str) -> str:
 
 files_fp = [f for f in get_all_files(root) if f.lower().endswith('.mp3')]
 print(len(files_fp),'files found')
-files = [cleanprefix(filepart(f)) for f in files_fp]
+files = [cleanprefix(file_part(f)) for f in files_fp]
 print('Start searching for almost duplicates')
 for i in range(len(files)):
     fi = files[i]

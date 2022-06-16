@@ -37,7 +37,7 @@ def check_tag(file: str):
     #     print(file)
     # return
 
-    file_basename = basename(filepart(file))
+    file_basename = basename(file_part(file))
 
     # nn - Title
     if track:

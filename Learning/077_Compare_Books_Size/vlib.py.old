@@ -1,7 +1,7 @@
 # vlib.py
 # Ma bibliothèque de fonctions Python
 # 2020-03-05    PV      Première version dans Rename TempBD
-# 2021-01-01    PV      Version commune. filepart.
+# 2021-01-01    PV      Version commune. file_part.
 
 
 import os

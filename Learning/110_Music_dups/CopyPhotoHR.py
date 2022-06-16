@@ -10,7 +10,7 @@ root = r'C:\Users\Pierr\OneDrive\PicturesODPerso\2022\2022'
 root_hr = r'\\teraz\photo\Pierre\PicturesSkull\2022\2022-05 Pyrénées PV HR'
 l = list(get_all_files(root))
 for file_fp in l:
-    file = filepart(file_fp)
+    file = file_part(file_fp)
     file_hr_fp = os.path.join(root_hr, file)
     if file_exists(file_hr_fp):
         print("Copy HR ", file)
