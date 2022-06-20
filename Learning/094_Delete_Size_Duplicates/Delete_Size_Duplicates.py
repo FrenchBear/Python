@@ -20,7 +20,8 @@ for filefp in get_all_files(source):
         s = os.path.getsize(filefp)
         dic[s].append(filefp)
 
-dups = [v for v in dic.values() if len(v)>1]
+ndel = 0
+dups = [v for v in dic.values() if len(v) > 1]
 print(f'{len(dups)} size duplicates group(s) found.')
 for lst in dups:
     print()
@@ -33,23 +34,30 @@ for lst in dups:
                 os.remove(file)
             print(f'del1 "{file}"')
             d.remove(file)
-            if len(d)==1: break
+            ndel += 1
+            if len(d) == 1:
+                break
 
     # Then delete extra copies in a_trier, keep at least 1
-    if len(d)>1:
+    if len(d) > 1:
         for file in lst:
             if 'a_trier' in file.casefold():
                 if doit:
                     os.remove(file)
                 print(f'del2 "{file}"')
                 d.remove(file)
-            if len(d)==1: break
+                ndel += 1
+            if len(d) == 1:
+                break
 
     # Then delete any extra remaining copies, keep at least 1
-    while len(d)>1:
+    while len(d) > 1:
         if doit:
             os.remove(d[0])
         print(f'del3 "{d[0]}"')
         d.remove(d[0])
+        ndel += 1
 
     print(f'keep {d[0]}')
+
+print(ndel,'fichier(s) effacé(s)')

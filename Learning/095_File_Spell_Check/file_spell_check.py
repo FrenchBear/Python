@@ -14,8 +14,7 @@ import unicodedata
 import re
 
 source = r'W:\Livres\A_Trier'
-source = r'W:\eBooks\1600 epub français\tc'
-doit = False
+doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:

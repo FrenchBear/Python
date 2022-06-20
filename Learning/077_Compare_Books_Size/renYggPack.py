@@ -10,15 +10,20 @@
 
 from common_fs import *
 from typing import Dict
-import os, shutil
+import os
+import shutil
 import re
 
-source = r'C:\Downloads\A_Trier\!A_Trier_Livres\pack collectif 20220614'
+source = r'W:\Livres\A_Trier'
 ED = re.compile(r'^(\w+) (.+?)( (\d+)ed)?\.pdf$')
+doit = True
+
 
 def FirstUpper(s: str) -> str:
     return s[0].upper() + s[1:]
 
+
+rencount = 0
 for file in list(get_files(source)):
     if file.lower().endswith('.pdf'):
         basename, ext = os.path.splitext(file)
@@ -28,14 +33,18 @@ for file in list(get_files(source)):
             nn = FirstUpper(ma.group(2))
             if ma.group(4):
                 match ma.group(4):
-                    case '1': sed='1st'
-                    case '2': sed='2nd'
-                    case '3': sed='3rd'
-                    case _:   sed=ma.group(4) + 'th'
+                    case '1': sed = '1st'
+                    case '2': sed = '2nd'
+                    case '3': sed = '3rd'
+                    case _:   sed = ma.group(4) + 'th'
                 nn += f" ({sed} ed, X)"
             nn += f" - [{FirstUpper(ma.group(1))}] - X.pdf"
             print(file, ' -> ', nn)
-            os.rename(os.path.join(source, file), os.path.join(source, nn))
+            rencount += 1
+            if doit:
+                os.rename(os.path.join(source, file), os.path.join(source, nn))
         else:
             breakpoint()
             pass
+
+print(rencount, ' fichier(s) renommé(s)')
