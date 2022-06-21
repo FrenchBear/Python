@@ -33,10 +33,10 @@ for filefp in get_all_files(source):
     if ext.casefold() == '.pdf':                               # Process .epub separately to avoid removing a file that both exist as a .pdf and a .epub
         s = lowercase_no_diacritic(filtername(bname))       # Get only the 1st segment (before ' - '), no accent, lowercase, stripped
         if not 'petit fute' in s:
-            # Do not ignore part between parentheses, since many files exist in 2nd edition, 3rd edition...
-            # if p := s.find('('):
-            #     p2 = s.find(')', p)
-            #     s = (s[:p]+s[p2+1:]).replace('  ', ' ').strip()
+            # Do not ignore part between parentheses, since many files exist in 2nd edition, 3rd
+            if p := s.find('('):
+                p2 = s.find(')', p)
+                s = (s[:p]+s[p2+1:]).replace('  ', ' ').strip()
             dic[filtername(s)].append(filefp)
 
 dups = [v for v in dic.values() if len(v) > 1]
@@ -69,13 +69,13 @@ for lst in dups:
             if len(d) == 1:
                 break
 
-    # Then delete any extra remaining copies, keep at least 1
-    while len(d) > 1:
-        if doit:
-            os.remove(d[0])
-        print(f'del3 "{d[0]}"')
-        d.remove(d[0])
-        ndel += 1
+    # # Then delete any extra remaining copies, keep at least 1
+    # while len(d) > 1:
+    #     if doit:
+    #         os.remove(d[0])
+    #     print(f'del3 "{d[0]}"')
+    #     d.remove(d[0])
+    #     ndel += 1
 
     print(f'keep "{d[0]}"')
 
