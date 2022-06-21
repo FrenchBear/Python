@@ -1,0 +1,35 @@
+# Remame_Elektor.py
+# Vérifie que la numérotation des Elektor est continue
+#
+# 2022-06-21    PV
+
+import re
+from common_fs import *
+
+source = r'W:\Revues\Électronique\Elektor'
+
+# Elektor n°37-38 - 1981-07..08
+NAME = re.compile(r"Elektor n°(\d+)(-(\d+))? - (.*)\.pdf", re.IGNORECASE)
+
+ns = 0
+nums = set()
+for file in get_files(source):
+    ma = NAME.fullmatch(file)
+    if ma:
+        n1 = int(ma.group(1))
+        nums.add(n1)
+        if ma.group(3):
+            n2 = int(ma.group(3))
+            nums.add(n2)
+        ns += 1
+#print(nums)
+
+print(ns, 'matches')
+mi = min(nums)
+ma = max(nums)
+print('N°s found from', mi, 'to', ma)
+print('Missing: ', end='')
+for i in range(mi,ma+1):
+    if not i in nums:
+        print(i, end=' ')
+print()

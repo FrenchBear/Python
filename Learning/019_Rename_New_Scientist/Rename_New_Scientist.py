@@ -1,8 +1,8 @@
 ﻿# NS - Rename New Scientist Files
+#
 # 2015-07-21    PV
 
 import os
-from os.path import isfile, join
 import re
 
 monthsDic = {'January': '01', 'February': '02', 'March': '03', 'April': '04', 'May': '05', 'June': '06',
