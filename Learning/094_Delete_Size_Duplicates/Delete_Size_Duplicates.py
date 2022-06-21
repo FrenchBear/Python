@@ -3,6 +3,7 @@
 #
 # 2021-12-26    PV
 # 2021-12-28    PV      Keep at least 1 version
+# 2022-06-20    PV      Print delete count
 
 from collections import defaultdict
 from typing import Iterable, List
