@@ -2,6 +2,9 @@
 # 2021-10-23    PV      First version with dictionary and string, O(d) memory and O(d) time
 # 2021-11-05    PV      Fixed bug 679/550 1.23[45]; Sign; /0; tests
 
+import time
+
+
 def develop(n: int, d: int) -> str:
     if d == 0:
         return '/0 error' if n != 0 else '0/0 undefined'
@@ -63,3 +66,9 @@ test(679, 550, "1.23[45]")
 test(0, 5, "0")
 test(5, 0, "/0 error")
 test(0, 0, "0/0 undefined")
+
+t: float = time.perf_counter_ns()
+for i in range(100000):
+    _ = develop(100, 23)
+t = (time.perf_counter_ns()-t)/1_000_000_000
+print(f'\nElapsed #1: {int(t)}.{int(1000*t)%1000:0>3} s')
