@@ -7,6 +7,7 @@
 # In regex, .+? is the non-greedy form of .+
 #
 # 2022-06-15    PV
+# 2022-06-30    PV      Accept any char but space in editor name; replace _ by space in editor name
 
 from common_fs import *
 from typing import Dict
@@ -15,7 +16,7 @@ import shutil
 import re
 
 source = r'W:\Livres\A_Trier'
-ED = re.compile(r'^(\w+) (.+?)( (\d+)ed)?\.pdf$')
+ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
 doit = True
 
 
@@ -38,7 +39,7 @@ for file in list(get_files(source)):
                     case '3': sed = '3rd'
                     case _:   sed = ma.group(4) + 'th'
                 nn += f" ({sed} ed, X)"
-            nn += f" - [{FirstUpper(ma.group(1))}] - X.pdf"
+            nn += f" - [{FirstUpper(ma.group(1)).replace('_',' ')}] - X.pdf"
             print(file, ' -> ', nn)
             rencount += 1
             if doit:

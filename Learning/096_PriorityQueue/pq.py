@@ -6,6 +6,7 @@
 # L'élément [i] a (au max) deux fils, [2*i] et [2*i+1], et un père [i//2]
 #
 # 2021-12-28    PV      De 'Programmation efficace'
+# 2022-06-27    PV      __str__
 
 from typing import Any, Iterable
 
@@ -20,6 +21,9 @@ class PriorityQueue:
 
     def __len__(self):
         return len(self.heap)-1         # Element 0 doesn't count
+
+    def __str__(self) -> str:
+        return __class__.__name__ + ' '+str(self.heap[1:])
 
     def push(self, item: Any):
         assert not item in self.rank
@@ -81,12 +85,25 @@ class PriorityQueue:
             self._up(ix)
 
 
-pq = PriorityQueue([10, 4, 11, 9, 5, 2, 3])
-while pq:
-    print(pq.pop())
-print()
+if __name__ == "__main__":
+    pq = PriorityQueue()
+    pq.push(14)
+    pq.push(2)
+    pq.push(7)
+    pq.push(17)
+    pq.push(-3)
+    print(pq, len(pq))
+    while len(pq) > 0:
+        print(pq.pop())
+    print()
 
-pq = PriorityQueue([10, 4, 11, 9, 5, 2, 3])
-pq.update(2, 6)
-while pq:
-    print(pq.pop())
+    pq = PriorityQueue([10, 4, 11, 9, 5, 2, 3])
+    print(pq, len(pq))
+    while pq:
+        print(pq.pop())
+    print()
+
+    pq = PriorityQueue([10, 4, 11, 9, 5, 2, 3])
+    pq.update(2, 6)
+    while pq:
+        print(pq.pop())

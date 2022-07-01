@@ -13,8 +13,8 @@ from common_fs import *
 import unicodedata
 import re
 
-source = r'W:\Livres\A_Trier'
-doit = True
+source = r'W:\Livres\A_Trier_En'
+doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
