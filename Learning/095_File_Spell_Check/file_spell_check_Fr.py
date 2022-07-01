@@ -1,4 +1,4 @@
-# file_spell_check.py
+# file_spell_check_Fr.py
 # Tentative de correction automatique de fautes d'accents sur des noms de fichiers en français
 #
 # 2021-12-16    PV
@@ -55,7 +55,7 @@ casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP
            'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
            'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
            'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', 'TSI', 'C++', 'InDesign', 'Photoshop',
-           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans' 'Java', 'JavaScript',
+           'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans', 'Java', 'JavaScript',
            'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'EE', 'Maya', 'MCSA', 'QCM', 'Web', 'XSLT',
            'CAPES', 'API', 'PowerShell', 'Core', 'Power', 'BI', 'Desktop', 'Big', 'Data', 'Science', 'JSF', 'Server',
            'Scientist', 'Visual', 'Studio', 'Django', 'Raspberry', 'Pi', 'Kids', 'Arduino', 'ECT', 'Tage',
@@ -182,10 +182,13 @@ def process_name_Test(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
     lng, fr, en = guess_language(s1)
-    print(f'{lng}\t{fr}\t{en}\t{s1}')
+    print(f'{lng}\t{fr}\t{en}\t{s1}\t{name}')
     return name
 
-# process_name("Toutes les maths, PSI")
+# for filefp in get_all_files(source):
+#     folder, file = os.path.split(filefp)
+#     bname, ext = os.path.splitext(file)
+#     process_name_Test(bname)
 # breakpoint()
 
 
@@ -202,25 +205,8 @@ def process_name(name: str) -> str:
             l.append(nw)
     ts[0] = ' '.join(l)
     nn = ' - '.join(ts)
-    # for w in avectirets:
-    #     nn = ireplace(nn, w.replace('-', ' '), w)
-    # nn = ireplace(nn, 'node js', 'node.js')
-
-    # p1 = nn.find('[')
-    # p2 = nn.find(']', p1+1)
-    # if p1 >= 0 and p2 > p1+1:   # p1+1 avoids [] causing problem with editor[0]
-    #     editor = nn[p1+1:p2]
-    #     editor = ireplace(editor, 'oreilly', "O'Reilly")
-    #     editor = editor[0].upper()+editor[1:]
-    #     nn = nn[:p1+1]+editor+nn[p2:]
-
-    # nn = (nn[0].upper()+nn[1:]).replace('  ', ' ')
     return nn
 
-
-# Tests
-# print(process_name("la france"))
-# breakpoint()
 
 nd = 0
 for filefp in get_all_files(source):
