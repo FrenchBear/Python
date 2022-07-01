@@ -13,7 +13,7 @@ from common_fs import *
 import unicodedata
 import re
 
-source = r'W:\Livres\A_Trier_En'
+source = r'W:\Livres\A_Trier_2'
 doit = True
 
 casefix = ['PHP', 'MySQL', 'UML', 'C', 'WCF', 'VBA', 'XML', 'HTML', 'InDesign', 'NetBeans', 'JavaScript', 'MFC', 'UI', 'UX', 'XSLT', 'API', 'PowerShell', 'BI', 'AutoCAD']

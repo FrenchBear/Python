@@ -61,4 +61,4 @@ for lst in dups:
 
     print(f'keep {d[0]}')
 
-print(ndel,'fichier(s) effacé(s)')
+print(ndel, 'fichier(s) effacé(s)')

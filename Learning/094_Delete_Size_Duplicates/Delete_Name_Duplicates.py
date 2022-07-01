@@ -3,12 +3,17 @@
 # 2021-12-28    PV      First version
 # 2022-06-20    PV      Ignore accents and bloc between parentheses
 
+# DO NOT USE THIS MODULE, WAY TOO RISKY !!!!!!!!!!!
+
 from collections import defaultdict
 from typing import Iterable, List
 import unicodedata
 from common_fs import *
 
 source = r'W:\Livres'
+doit = False                            # DO NOT USE THIS MODULE, WAY TOO RISKY !!!!!!!!!!!
+doit = False
+doit = False
 doit = False
 
 dic: defaultdict[str, list[str]] = defaultdict(list)
@@ -80,3 +85,4 @@ for lst in dups:
     print(f'keep "{d[0]}"')
 
 print(ndel, 'fichier(s) effacé(s)')
+# DO NOT USE THIS MODULE, WAY TOO RISKY !!!!!!!!!!!

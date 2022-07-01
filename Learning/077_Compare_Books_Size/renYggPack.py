@@ -15,7 +15,7 @@ import os
 import shutil
 import re
 
-source = r'W:\Livres\A_Trier'
+source = r'W:\Livres\A_Trier_2'
 ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
 doit = True
 
