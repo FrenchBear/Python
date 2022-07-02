@@ -4,25 +4,34 @@
 # 2022-07-01    PV
 
 import json
-from typing import Any
+import shutil
+from typing import Any, Optional
 import requests
 import urllib
 import urllib.parse
 from common_fs import *
 
-# https://www.googleapis.com/books/v1/volumes?q=+intitle:3D+Game+Design+with+Unreal+Engine+4+and+Blender+inpublisher:Packt&key=AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8
+doit = True
 
+# https://www.googleapis.com/books/v1/volumes?q=+intitle:3D+Game+Design+with+Unreal+Engine+4+and+Blender+inpublisher:Packt&key=AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8
 KEY = "AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8"
 BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=+intitle:{title}+inpublisher:{publisher}&key={KEY}"
 
 
-def GetJsonBookInfo(title: str, publisher: str, qpublisher:str) -> Any:
-    cache = ("JsonCache/" + title + " - [" + qpublisher + "].json").replace('"','_')
+def GetJsonBookInfo(title: str, publisher: str, qpublisher: str) -> Any:
+    cache = ("JsonCache/" + title + " - [" + qpublisher + "].json").replace('"', '_')
 
     if file_exists(cache):
         with open(cache, "r", encoding="utf-8") as f:
             data = json.load(f)
-        return data
+            # Service error?
+            err = ''
+            try:
+                err = data['error']['message']
+            except:
+                pass
+            if err == '':
+                return data
 
     title = title.replace("-", " ").replace(",", " ").replace("  ", " ")
 
@@ -48,7 +57,7 @@ class Book:
         return f"Book({repr(self.title)}, {repr(self.publisher)},{repr(self.authors)}, {repr(self.year)})"
 
 
-def GetBookInfo(title: str, qpublisher: str) -> list[Book]:
+def GetBookInfo(title: str, qpublisher: str) -> Optional[list[Book]]:
     match qpublisher.lower():
         case "packt":
             publisher = 'Packt Publishing Ltd'
@@ -61,36 +70,103 @@ def GetBookInfo(title: str, qpublisher: str) -> list[Book]:
 
     data = GetJsonBookInfo(title, publisher, qpublisher)
     answer: list[Book] = []
-    for i in range(data['totalItems']):
-        bookinfo = data['items'][i]
-        dtitle: str = bookinfo['volumeInfo']['title']
-        dpublisher: str = bookinfo['volumeInfo']['publisher']
-        if dtitle.casefold() == title.casefold() and dpublisher.casefold() == publisher.casefold():
-            dauthors: str = ', '.join(bookinfo['volumeInfo']['authors'])
-            dpublishedDate: str = bookinfo['volumeInfo']['publishedDate']
-            year: int = int(dpublishedDate[:4])
-            assert 1950 <= year <= 2023
-            if not any([True for b in answer if b.title == dtitle and b.publisher == dpublisher and b.authors == dauthors and b.year == year]):
-                b = Book(title, qpublisher, dauthors, year)
-                answer.append(b)
+
+    # Service error?
+    err = ''
+    try:
+        err = data['error']['message']
+    except:
+        pass
+    if err != '':
+        print("Error: "+err)
+        return None
+
+    # Found nothing?
+    if data['totalItems'] == 0:
+        return answer
+
+    for bookinfo in data['items']:
+        try:
+            dtitle: str = bookinfo['volumeInfo']['title']
+            dpublisher: str = bookinfo['volumeInfo']['publisher']
+            if dtitle.casefold() == title.casefold() and dpublisher.casefold() == publisher.casefold():
+                dauthors: str = ', '.join(bookinfo['volumeInfo']['authors']).replace('"', "'")
+                dpublishedDate: str = bookinfo['volumeInfo']['publishedDate']
+                year: int = int(dpublishedDate[:4])
+                assert 1950 <= year <= 2023
+                if not any([True for b in answer if b.title.casefold() == dtitle.casefold() and b.publisher.casefold() == qpublisher.casefold() and b.authors.casefold() == dauthors.casefold() and b.year == year]):
+                    b = Book(title, qpublisher, dauthors, year)
+                    answer.append(b)
+        except:
+            pass
     return answer
 
 
-def ProcessFile(title: str, publisher: str):
-    l = GetBookInfo(title, publisher)
-    if len(l) == 0:
-        print(f'Not found title="{title}" publisher="{publisher}"')
-    elif len(l) > 1:
-        print(f'{len(l)} answers for title="{title}" publisher="{publisher}":')
-        for b in l:
-            print(f'  authors="{b.authors}" year={b.year}')
-    else:
-        authors = l[0].authors
-        year = l[0].year
-        print(f'One match for title="{title}" publisher="{publisher}": authors="{authors}" year={year}')
+source = r'W:\Livres\A_Trier\Packt'
+clean = os.path.join(source, "Clean")
+if not folder_exists(clean):
+    os.mkdir(clean)
+zero = os.path.join(source, "Zero")
+if not folder_exists(zero):
+    os.mkdir(zero)
+trop = os.path.join(source, "Trop")
+if not folder_exists(trop):
+    os.mkdir(trop)
 
+nf = 0
+nr = 0
+for file in get_files(source):
+    nf += 1
+    base, ext = os.path.splitext(file)
+    segments = base.split(' - ')
+    if len(segments) == 3 and segments[2] == "X":
+        print(file, ' -> ', end='')
+        title = segments[0]
+        bp = ''
+        try:
+            pp = title.index('(')
+            bp = title[pp:]
+            title = title[:pp].strip()
+        except:
+            pass
 
-ProcessFile("3D Game Design with Unreal Engine 4 and Blender", "Packt")
-ProcessFile("Advanced Algorithms and Data Structures", "Manning")
-ProcessFile("A Complete Guide to Docker for Operations and Development", "Apress")
-ProcessFile("Practical Simulations for Machine Learning", "O'Reilly")
+        publisher = segments[1][1:-1]
+        lb = GetBookInfo(title, publisher)
+        if lb == None:
+            # Error message has already been printed
+            breakpoint()
+            continue
+
+        if len(lb) == 1:
+            b = lb[0]
+            nr += 1
+            segments[0] = title + f" ({b.year})"
+            segments[2] = b.authors
+            newfile = ' - '.join(segments)+ext
+            print(newfile)
+            if doit:
+                shutil.move(os.path.join(source, file), os.path.join(clean, newfile))
+        elif len(lb) == 0:
+            print('Not found')
+            if doit:
+                shutil.move(os.path.join(source, file), os.path.join(zero, file))
+        else:
+            print(len(lb), 'answers\n\nDefault:do not rename, move to Trop subfolder')
+            newfiles: list[str] = []
+            for b in lb:
+                segments[0] = title + f" ({b.year})"
+                segments[2] = b.authors
+                newfile = ' - '.join(segments)+ext
+                newfiles.append(newfile)
+                print(f"  {len(newfiles)}: {newfile}")
+            ch = int(input("Choice: "))
+            if doit:
+                if 1 <= ch <= len(newfiles):
+                    print(f'Renamed "{newfiles[ch-1]}" and moved to Clean subfolder')
+                    shutil.move(os.path.join(source, file), os.path.join(clean, newfiles[ch-1]))
+                else:
+                    print("Moved to Trop subfolder")
+                    shutil.move(os.path.join(source, file), os.path.join(trop, file))
+
+print()
+print(nf, 'files, ', nr, 'renamed')
