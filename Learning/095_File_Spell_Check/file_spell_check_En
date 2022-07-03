@@ -16,7 +16,7 @@ import re
 source = r'W:\Livres\A_Trier_2'
 doit = True
 
-casefix = ['PHP', 'MySQL', 'UML', 'C', 'WCF', 'VBA', 'XML', 'HTML', 'InDesign', 'NetBeans', 'JavaScript', 'MFC', 'UI', 'UX', 'XSLT', 'API', 'PowerShell', 'BI', 'AutoCAD']
+casefix = ['2D', '3D', 'PHP', 'SQL', 'MySQL', 'UML', 'C', 'WCF', 'VBA', 'XML', 'HTML', 'InDesign', 'NetBeans', 'JavaScript', 'MFC', 'UI', 'UX', 'XSLT', 'API', 'PowerShell', 'BI', 'AutoCAD', 'jQuery']
 dic_casefix = dict([(mot.casefold(), mot) for mot in casefix])
 
 
