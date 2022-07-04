@@ -13,13 +13,13 @@ from common_fs import *
 import unicodedata
 import re
 
-source = r'W:\Livres\A_Trier_En'
+source = r'W:\Livres\A_Trier'
 doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
     dmf = dict((mot.casefold(), mot) for mot in f.read().splitlines())
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
+with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
 with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
@@ -59,7 +59,7 @@ casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP
            'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'EE', 'Maya', 'MCSA', 'QCM', 'Web', 'XSLT',
            'CAPES', 'API', 'PowerShell', 'Core', 'Power', 'BI', 'Desktop', 'Big', 'Data', 'Science', 'JSF', 'Server',
            'Scientist', 'Visual', 'Studio', 'Django', 'Raspberry', 'Pi', 'Kids', 'Arduino', 'ECT', 'Tage',
-           'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC']
+           'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC', 'GraphQL']
 
 avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
 
