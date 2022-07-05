@@ -205,7 +205,7 @@ ML
 GPU
 IPython
 JupyterLab
-psSense
+pfSense
 OMNeT
 TCP⧸IP
 ZeroMQ

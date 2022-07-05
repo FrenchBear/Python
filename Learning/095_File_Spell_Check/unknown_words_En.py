@@ -3,20 +3,16 @@
 #
 # 2022-07-04 PV
 
-from collections import defaultdict
 from collections import Counter
-from os import replace
-from typing import DefaultDict, Tuple, Counter
+from typing import Counter
 from common_fs import *
-import unicodedata
-import re
 from casefix_En import *
 
 
 source = r'W:\Livres\A_Trier'
 doit = True
 
-unknowns = Counter()
+unknowns: Counter[str] = Counter()
 
 # dme est l'ensemble des mots anglais
 with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
@@ -68,7 +64,7 @@ def process_segment(s):
     return res
 
 
-def process_name(name: str) -> str:
+def process_name(name: str):
     ts = name.split(' - ')
     s1 = ts[0]
 

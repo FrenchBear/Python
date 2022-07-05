@@ -4,8 +4,7 @@
 # 2022-01-10    PV      D'après 'Programmation efficace'
 
 from collections import defaultdict
-from collections import Counter
-from typing import DefaultDict, Tuple, Counter
+from typing import DefaultDict
 from common_fs import *
 
 class Trie:

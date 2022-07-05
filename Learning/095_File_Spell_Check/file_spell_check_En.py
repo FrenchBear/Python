@@ -4,18 +4,13 @@
 # 2021-12-16    PV
 # 2022-01-03    PV      Fusionne les mots de mots_fr.txt avec ceux de mots_fr2.txt (typiquement les nom propres); Mots en anglais
 # 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
+# 2022-07-01    PV      Version en anglais, réécriture quasi complète
 
-from collections import defaultdict
-from collections import Counter
-from os import replace
-from typing import DefaultDict, Tuple, Counter
 from common_fs import *
-import unicodedata
-import re
 from casefix_En import *
 
 source = r'W:\Livres\A_Trier'
-doit = True
+doit = False
 
 # Note that word processing should be contextual, some expressions such as 'Best Of', 'A to Z' , 'A Major', ... keep an uppercase
 # But for book titles, this shouldn't be critical

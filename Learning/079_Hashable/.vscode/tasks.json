@@ -4,6 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Run Python on current file",
+            "type": "shell",
+            "command": "python \"${file}\"",
+            "problemMatcher": []
+        },
+        {
             "label": "mypy Python type anotations check (current file)",
             "type": "shell",
             "command": "mypy \"${file}\"",
@@ -13,6 +19,12 @@
             "label": "mypy Python type anotations check (folder)",
             "type": "shell",
             "command": "mypy .",
+            "problemMatcher": []
+        },
+        {
+            "label": "pyflakes current file",
+            "type": "shell",
+            "command": "python3 -m pyflakes \"${file}\"",
             "problemMatcher": []
         }
     ]

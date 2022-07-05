@@ -7,32 +7,34 @@
 
 from collections import defaultdict
 from collections import Counter
-from os import replace
-from typing import DefaultDict, Tuple, Counter
+from posixpath import split
+from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
 import re
 
 source = r'W:\Livres\A_Trier'
+source = r'W:\eBooks\Littérature francaise'
 doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf = dict((mot.casefold(), mot) for mot in f.read().splitlines())
+dmf: dict[str, str] = {}
+# with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
+#     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
 with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
 with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
 
-# dme est l'ensemble des mots anglais
-with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
-    dme = dict((mot.casefold(), mot) for mot in f.read().splitlines())
-with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
-    dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
+# # dme est l'ensemble des mots anglais
+# with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
+#     dme = dict((mot.casefold(), mot) for mot in f.read().splitlines())
+# with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
+#     dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
 
-# dmx est l'ensemble des mots ni français ni anglais
-with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
-    dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
+# # dmx est l'ensemble des mots ni français ni anglais
+# with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
+#     dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent
@@ -50,7 +52,7 @@ for key, lst in mfsa.items():
 for mot in to_delete:
     del mfsa[mot]
 
-
+# ToDo: A reprendre
 casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
            'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
            'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
@@ -67,19 +69,23 @@ dic_casefix = dict([(mot.casefold(), mot) for mot in casefix])
 dic_avectirets = dict([(mot.casefold(), mot) for mot in avectirets])
 
 
-def fixcase(before: str, after: str) -> str:
+def fixcase(before: str, after: str, first: bool) -> str:
     '''Si le mot d'origine commence par une majuscule, alors on force le remplacement à commencer par une majuscule'''
-    return after[0].upper()+after[1:] if before[0] == before[0].upper() else after
-
+    #beforemaj = before[0] == before[0].upper()
+    aftermaj = after[0] == after[0].upper()
+    if first or aftermaj:
+        return after[0].upper()+after[1:]
+    else:    
+        return after
 
 uw: Counter[str] = Counter()
 
 
-def fixwordbase(word: str) -> str:
+def fixwordbase(word: str, first: bool) -> str:
     if word.casefold() in dmf:
-        return fixcase(word, dmf[word.casefold()])      # fix case if needed
+        return fixcase(word, dmf[word.casefold()], first)      # fix case if needed
     if word.casefold() in mfsa:
-        return fixcase(word, mfsa[word.casefold()][0])  # fix accent and case
+        return fixcase(word, mfsa[word.casefold()][0], first)  # fix accent and case
 
     if "'" in word:
         p = word.find("'")
@@ -128,62 +134,68 @@ def break_word(word: str) -> Tuple[str, str, str]:
     return (prefix, w, word[i:])
 
 
-def fixword(word: str) -> str:
+def fixwordinner(word: str, first: bool) -> str:
     '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
     if word in ['The', 'the', 'Dart']:
         return word
     if word in ['2e', '3e', '4e']:
         return word[0]+'è'
-
     prefix, w, suffix = break_word(word)
-    return prefix+fixwordbase(w)+suffix
+    return prefix+fixwordbase(w, first)+suffix
 
+def fixword(word: str, first: bool) -> str:
+    ts = word.split("'")
+    tsout: list[str] = []
+    for w in ts:
+        tsout.append(fixwordinner(w, first))
+        first = False
+    return "'".join(tsout)
 
 # for w in ['pomme', 'ecs2', '3arbres', '123abc456', '1234']:
 #     print(w, '->', fixword(w))
 # breakpoint()
 
 
-def ireplace(text: str, old: str, new: str) -> str:
-    '''Case insensitive replacement of old by new in text'''
-    idx = 0
-    while idx < len(text):
-        index_l = text.lower().find(old.lower(), idx)
-        if index_l == -1:
-            return text
-        text = text[:index_l] + new + text[index_l + len(old):]
-        idx = index_l + len(new)
-    return text
+# def ireplace(text: str, old: str, new: str) -> str:
+#     '''Case insensitive replacement of old by new in text'''
+#     idx = 0
+#     while idx < len(text):
+#         index_l = text.lower().find(old.lower(), idx)
+#         if index_l == -1:
+#             return text
+#         text = text[:index_l] + new + text[index_l + len(old):]
+#         idx = index_l + len(new)
+#     return text
 
 
-def guess_language(words: str) -> Tuple[str, int, int]:
-    # # For just French files
-    # return('fr',1,0)
+# def guess_language(words: str) -> Tuple[str, int, int]:
+#     # # For just French files
+#     # return('fr',1,0)
 
-    fr = en = 0
-    for word in words.split(' '):
-        _, w, _ = break_word(word)
-        if any(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) == 'Mn'):
-            fr += 1
-        else:
-            wc = w.casefold()
-            if not wc in dmx:
-                if wc in dme:
-                    en += 1
-                if wc in dmf:
-                    fr += 1
-    l = sorted([(fr, 'fr'), (en, 'en')], reverse=True)
-    if l[0][0] >= 3 and l[0][0]-l[1][0] >= 2:
-        return (l[0][1], fr, en)
-    return ('??', fr, en)
+#     fr = en = 0
+#     for word in words.split(' '):
+#         _, w, _ = break_word(word)
+#         if any(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) == 'Mn'):
+#             fr += 1
+#         else:
+#             wc = w.casefold()
+#             if not wc in dmx:
+#                 if wc in dme:
+#                     en += 1
+#                 if wc in dmf:
+#                     fr += 1
+#     l = sorted([(fr, 'fr'), (en, 'en')], reverse=True)
+#     if l[0][0] >= 3 and l[0][0]-l[1][0] >= 2:
+#         return (l[0][1], fr, en)
+#     return ('??', fr, en)
 
 
-def process_name_Test(name: str) -> str:
-    ts = name.split(' - ')
-    s1 = ts[0]
-    lng, fr, en = guess_language(s1)
-    print(f'{lng}\t{fr}\t{en}\t{s1}\t{name}')
-    return name
+# def process_name_Test(name: str) -> str:
+#     ts = name.split(' - ')
+#     s1 = ts[0]
+#     lng, fr, en = guess_language(s1)
+#     print(f'{lng}\t{fr}\t{en}\t{s1}\t{name}')
+#     return name
 
 # for filefp in get_all_files(source):
 #     folder, file = os.path.split(filefp)
@@ -196,9 +208,11 @@ def process_name(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
     l = []
-    for word in re.split(' |\'', s1):    # s1.split(' \'')
+    first = True
+    for word in s1.split(' '):
         if len(word) > 0:
-            nw = fixword(word)
+            nw = fixword(word, first)
+            first = False
             nwcf = nw.casefold()
             if nwcf in dic_casefix:
                 nw = dic_casefix[nwcf]
@@ -207,6 +221,7 @@ def process_name(name: str) -> str:
     nn = ' - '.join(ts)
     return nn
 
+#print(process_name("L'Ecole du Moulin de Paris - Zola, Emile.epub"))
 
 nd = 0
 for filefp in get_all_files(source):

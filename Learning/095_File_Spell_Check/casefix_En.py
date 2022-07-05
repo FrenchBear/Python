@@ -18,4 +18,4 @@ dic_casefix = dict([(mot.casefold(), mot) for mot in set_casefix])
 def process_exceptions_En(s):
     return s.replace('Hands-On', 'Hands-on').replace('.Js', '.js').replace('Add-In', 'Add-in') \
         .replace('Step-By-Step', 'Step-by-Step').replace('.X ', '.x ').replace('Start-Up', 'Start-up') \
-        .replace(' T SQL', ' T-SQL').replace('End-To-End', 'End-to-End')
+        .replace(' T SQL', ' T-SQL').replace('End-To-End', 'End-to-End').replace('How-to', 'How-To')

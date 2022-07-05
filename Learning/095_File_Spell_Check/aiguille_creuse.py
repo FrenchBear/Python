@@ -3,13 +3,8 @@
 #
 # 2022-07-04 PV
 
-from collections import defaultdict
-from collections import Counter
-from os import replace
-from typing import DefaultDict, Tuple, Counter
 from common_fs import *
 import unicodedata
-import re
 from casefix_En import *
 
 
