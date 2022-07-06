@@ -12,8 +12,11 @@ import requests
 import urllib
 import urllib.parse
 from common_fs import *
+from termcolor import colored
+
 
 doit = True
+movetotrop = False
 
 # https://www.googleapis.com/books/v1/volumes?q=+intitle:3D+Game+Design+with+Unreal+Engine+4+and+Blender+inpublisher:Packt&key=AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8
 KEY = "AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8"
@@ -117,12 +120,12 @@ def shutil_move(src: str, dst: str):
     while file_exists(dst):
         n = n+1
         dst = base + f' FILECOPY{n}' + ext
-    if n>1:
+    if n > 1:
         print('Target already exists, renamed '+dst)
     shutil.move(src, dst)
 
 
-source = r'W:\Livres\A_Trier\Apress'
+source = r"W:\Livres\A_Trier\O'Reilly"
 clean = os.path.join(source, "Clean")
 if not folder_exists(clean):
     os.mkdir(clean)
@@ -136,14 +139,14 @@ if not folder_exists(trop):
 nf = 0
 nr = 0
 listfiles = [f for f in get_files(source) if f.casefold().endswith('.pdf')]
-listfiles.sort()
-print(len(listfiles),' file(s) to process\n')
+listfiles.sort(key = str.lower)
+print(len(listfiles), ' file(s) to process\n')
 for file in listfiles:
     nf += 1
     base, ext = os.path.splitext(file)
     segments = base.split(' - ')
     if len(segments) == 3 and segments[2] == "X":
-        print(file, ' -> ', end='')
+        print(colored(file, 'yellow'), ' -> ', end='')
         title = segments[0]
         bp = ''
         ed = 0
@@ -152,10 +155,10 @@ for file in listfiles:
             pp = title.index('(')
             bp = title[pp:]
             title = title[:pp].strip()
-            if ma:=re.match("\((\d+)\)", bp):
+            if ma := re.match("\((\d+)\)", bp):
                 ed = 1
                 #edyear = int(ma.groups[1])
-            elif ma:=re.match("\((\d+)(1st|nd|rd|th) ed, (\d+|X)\)", bp):
+            elif ma := re.match("\((\d+)(1st|nd|rd|th) ed, (\d+|X)\)", bp):
                 ed = int(ma.group(1))
                 #edyear = int(ma.groups[3])
             else:
@@ -175,58 +178,90 @@ for file in listfiles:
         if len(lb) == 1:
             b = lb[0]
             nr += 1
-            if ed==0 or ed==1:
-                nbp =f" ({b.year})"
-            elif ed==2:
-                nbp =f" (2nd ed, {b.year})"
-            elif ed==3:
-                nbp =f" (3rd ed, {b.year})"
+            if ed == 0 or ed == 1:
+                nbp = f" ({b.year})"
+            elif ed == 2:
+                nbp = f" (2nd ed, {b.year})"
+            elif ed == 3:
+                nbp = f" (3rd ed, {b.year})"
             else:
-                nbp =f" ({ed}th ed, {b.year})"
+                nbp = f" ({ed}th ed, {b.year})"
 
             segments[0] = title + nbp
             segments[2] = b.authors
             newfile = ' - '.join(segments)+ext
-            print(newfile)
+            print(colored(newfile, 'green'))
             if doit:
                 shutil_move(os.path.join(source, file), os.path.join(clean, newfile))
         elif len(lb) == 0:
-            print('Not found')
+            print(colored('Not found', 'red'))
             if doit:
                 shutil_move(os.path.join(source, file), os.path.join(zero, file))
         else:
             print(len(lb), 'answers\n')
             newfiles: list[str] = []
-            
-            ch = 0
-            # for b in lb:
-            #     segments[0] = title + f" ({b.year})"
-            #     segments[2] = b.authors
-            #     newfile = ' - '.join(segments)+ext
-            #     newfiles.append(newfile)
-            #     print(f"  {len(newfiles)}: {newfile}")
 
-            # tch = input("Choice: ").split()
-            # ch = int(tch[0])
-            # if 1 <= ch <= len(newfiles):
-            #     newfile = newfiles[ch-1]
-            #     if len(tch) > 1:
-            #         ed = int(tch[1])
-            #         pp = newfile.index('(')+1
-            #         if ed == 2:
-            #             newfile = newfile[:pp] + "2nd ed, " + newfile[pp:]
-            #         elif ed == 3:
-            #             newfile = newfile[:pp] + "3rd ed, " + newfile[pp:]
-            #         elif ed > 3:
-            #             newfile = newfile[:pp] + f"{ed}th ed, " + newfile[pp:]
+            if movetotrop:
+                ch = 0
+                newfile = ''
+            else:
+                for b in lb:
+                    segments[0] = title + f" ({b.year})"
+                    segments[2] = b.authors
+                    newfile = ' - '.join(segments)+ext
+                    newfiles.append(newfile)
+                    print(f"  {len(newfiles)}: {newfile}")
+
+                if ma := re.search("\(([^ ]*) ed, (\d\d\d\d|X)\)", file):
+                    match ma.group(1):
+                        case '1st':
+                            originaled = 1
+                        case '2nd':
+                            originaled = 2
+                        case '3rd':
+                            originaled = 3
+                        case _:
+                            ma = re.match("(\d+)th", ma.group(1))
+                            if not ma:
+                                breakpoint()
+                            originaled = int(ma.group(1))
+                else:
+                    originaled = 1
+                newed = 1
+                tch = input("Choice: ").split()
+                ch = int(tch[0])
+
+            if 1 <= ch <= len(newfiles):
+                newfile = newfiles[ch-1]
+                if len(tch) > 1:
+                    newed = int(tch[1])
+                    pp = newfile.index('(')
+                    pq = newfile.index(')', pp)
+                    if ma := re.match("\((.* ed, )?(\d\d\d\d)\)", newfile[pp:pq+1]):
+                        year = int(ma.group(2))
+                    if len(tch) > 2:
+                        year = int(tch[2])
+                    if newed == 1:
+                        nbp = f"({year})"
+                    elif newed == 2:
+                        nbp = f"(2nd ed, {year})"
+                    elif newed == 3:
+                        nbp = f"(3rd ed, {year})"
+                    elif newed > 3:
+                        nbp = f"({newed}th ed, {year})"
+                    newfile = newfile[:pp] + nbp + newfile[pq+1:]
 
             if doit:
+                if newfile!='':
+                    print(colored(newfile, 'cyan'))
+                    if originaled > 1 and newed == 1:
+                        print(colored(f'Attention, edition changing from {originaled} to {newed}', 'red'))
+                    _ = input('(Enter to rename, Ctrl+c to stop) ')
                 if 1 <= ch <= len(newfiles):
-                    print(f'Renamed "{newfile}" and moved to Clean subfolder\n')
+                    print(colored('Renamed and moved to Clean subfolder\n', 'green'))
                     shutil_move(os.path.join(source, file), os.path.join(clean, newfile))
                 else:
-                    print("Moved to Trop subfolder\n")
+                    print(colored('Moved to Trop subfolder\n', 'green'))
                     shutil_move(os.path.join(source, file), os.path.join(trop, file))
 
-print()
 print(nf, 'files, ', nr, 'renamed')

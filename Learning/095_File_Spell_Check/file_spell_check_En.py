@@ -10,7 +10,7 @@ from common_fs import *
 from casefix_En import *
 
 source = r'W:\Livres\A_Trier'
-doit = False
+doit = True
 
 # Note that word processing should be contextual, some expressions such as 'Best Of', 'A to Z' , 'A Major', ... keep an uppercase
 # But for book titles, this shouldn't be critical

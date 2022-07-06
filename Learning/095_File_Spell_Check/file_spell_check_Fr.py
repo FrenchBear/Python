@@ -11,11 +11,10 @@ from posixpath import split
 from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
-import re
 
 source = r'W:\Livres\A_Trier'
-source = r'W:\eBooks\Littérature francaise'
-doit = False
+source = r'D:\Littérature francaise'
+doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 dmf: dict[str, str] = {}
@@ -86,6 +85,14 @@ def fixwordbase(word: str, first: bool) -> str:
         return fixcase(word, dmf[word.casefold()], first)      # fix case if needed
     if word.casefold() in mfsa:
         return fixcase(word, mfsa[word.casefold()][0], first)  # fix accent and case
+
+    # print('«'+word+"»", first)
+
+    # Fix full UPPERCASE words
+    if word==word.upper():
+        word = word.lower()
+    if first:
+        word=word[0].upper()+word[1:]
 
     if "'" in word:
         p = word.find("'")
@@ -221,6 +228,7 @@ def process_name(name: str) -> str:
     nn = ' - '.join(ts)
     return nn
 
+#print(process_name("à conquête de Plassans.epub"))
 #print(process_name("L'Ecole du Moulin de Paris - Zola, Emile.epub"))
 
 nd = 0
@@ -240,6 +248,3 @@ for filefp in get_all_files(source):
 
 print()
 print(nd, 'fichier(s) à renommer')
-
-# for w,c in uw.items():
-#     print(w,c)
