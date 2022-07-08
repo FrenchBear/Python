@@ -12,8 +12,7 @@ from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
 
-source = r'W:\Livres\A_Trier'
-source = r'D:\Littérature francaise'
+source = r'W:\Livres\A_Trier_Fr'
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
