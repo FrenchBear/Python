@@ -1,5 +1,6 @@
 # CountBooksPerEditor.py
 # Just count files per editor
+# For a more cmplete code, see project 047_Check_Books_Editors
 #
 # 2022-07-14    PV
 
