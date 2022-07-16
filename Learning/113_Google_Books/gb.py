@@ -7,6 +7,7 @@ import json
 import re
 import shutil
 import time
+from turtle import pu
 from typing import Any, Optional
 import requests
 import urllib
@@ -61,11 +62,11 @@ class Book:
         self.year = year
 
     def __repr__(self) -> str:
-        return f"Book({repr(self.title)}, {repr(self.publisher)},{repr(self.authors)}, {repr(self.year)})"
+        return f"Book({repr(self.title)}, {repr(self.publisher)}, {repr(self.authors)}, {repr(self.year)})"
 
 
 def clean_title(t: str) -> str:
-    return t.replace('-', ' ').replace(':', ' ').replace('.', ' ').replace('\u2013', ' ').replace('  ', ' ').strip().casefold()
+    return t.replace('-', ' ').replace(':', ' ').replace('.', ' ').replace(',', ' ').replace('\u2013', ' ').replace('  ', ' ').replace('  ', ' ').strip().casefold()
 
 
 def GetBookInfo(title: str, qpublisher: str) -> Optional[list[Book]]:
@@ -75,7 +76,30 @@ def GetBookInfo(title: str, qpublisher: str) -> Optional[list[Book]]:
         case "manning":
             publishers = ['Simon and Schuster']
         case "o'reilly":
-            publishers = ['"O\'Reilly Media, Inc."']
+            publishers = ['"O\'Reilly Media, Inc."', "O'Reilly Media"]
+        case "addison-wesley":
+            publishers = ['Addison-Wesley', 'Addison-Wesley Microsoft Techn', 'Addison-Wesley Longman', 'Addison-Wesley Professional',
+                          'Pearson Education', 'Sams Publishing', 'Prentice Hall']
+        case "crc":
+            publishers = ['CRC', 'CRC Press']
+        case "mercury":
+            publishers = ['Mercury', 'Mercury Learning and Information', 'Stylus Publishing, LLC', 'Pocket Primer']
+        case "pragmatic":
+            publishers = ['Pragmatic', 'Pragmatic Bookshelf']
+        case "springer":
+            publishers = ['Springer', 'Springer Nature', 'Springer Science & Business Media']
+        case "pearson":
+            publishers = ['Pearson', 'Pearson Education India', 'Macromedia Press', 'Prentice Hall']
+        case "starch":
+            publishers = ['Starch', 'No Starch Press']
+        case "wiley":
+            publishers = ['Wiley', 'John Wiley & Sons']
+        case "mcgraw-hill":
+            publishers = ['McGraw-Hill', 'McGraw-Hill Education', 'McGraw Hill Professional']
+        case "cengage":
+            publishers = ['Cengage', 'Cengage Learning', 'South Western Educational Publishing', 'Cengage Learning Ptr', 'Course Technology']
+        case "cambridge":
+            publishers = ['Cambridge', 'Cambridge University Press']
         case _:
             publishers = [qpublisher]
 
@@ -100,12 +124,32 @@ def GetBookInfo(title: str, qpublisher: str) -> Optional[list[Book]]:
     for bookinfo in data['items']:
         try:
             dtitle: str = clean_title(bookinfo['volumeInfo']['title'])
-            dpublisher: str = bookinfo['volumeInfo']['publisher']
-            if dtitle == title and dpublisher in publishers:
+            dsubtitle: str
+            try:
+                dsubtitle = clean_title(bookinfo['volumeInfo']['subtitle'])
+            except:
+                dsubtitle = ''
+            dpublisher: str
+            try:
+                dpublisher = bookinfo['volumeInfo']['publisher']
+            except:
+                dpublisher = ''
+            if (dtitle == title or dtitle+' '+dsubtitle == title) and (dpublisher in publishers or dpublisher == ''):
+                if dtitle+' '+dsubtitle == title:
+                    title += ' '+dsubtitle
                 dauthors: str = ', '.join(bookinfo['volumeInfo']['authors']).replace('"', "'")
                 dpublishedDate: str = bookinfo['volumeInfo']['publishedDate']
                 year: int = int(dpublishedDate[:4])
                 assert 1950 <= year <= 2023
+
+                # for b in answer:
+                #     print(b.title == dtitle and b.publisher == qpublisher and b.authors.casefold() == dauthors.casefold() and b.year == year)
+                #     print(b.title, dtitle, b.title == dtitle)
+                #     print(b.publisher, qpublisher, b.publisher == qpublisher)
+                #     print(b.authors.casefold(), dauthors.casefold(), b.authors.casefold() == dauthors.casefold())
+                #     print(b.year, year, b.year == year)
+                #     print()
+
                 if not any([True for b in answer if b.title == dtitle and b.publisher == qpublisher and b.authors.casefold() == dauthors.casefold() and b.year == year]):
                     b = Book(title, qpublisher, dauthors, year)
                     answer.append(b)
@@ -125,7 +169,7 @@ def shutil_move(src: str, dst: str):
     shutil.move(src, dst)
 
 
-source = r"W:\Livres\A_Trier\O'Reilly"
+source = r"W:\Livres\A_Trier\Cambridge"
 clean = os.path.join(source, "Clean")
 if not folder_exists(clean):
     os.mkdir(clean)
@@ -139,7 +183,7 @@ if not folder_exists(trop):
 nf = 0
 nr = 0
 listfiles = [f for f in get_files(source) if f.casefold().endswith('.pdf')]
-listfiles.sort(key = str.lower)
+listfiles.sort(key=str.lower)
 print(len(listfiles), ' file(s) to process\n')
 for file in listfiles:
     nf += 1
@@ -175,6 +219,9 @@ for file in listfiles:
             continue
 
         lb: list[Book] = zlb    # type: ignore
+        if len(lb) == 0:
+            print('No potential matches')
+            pass
         if len(lb) == 1:
             b = lb[0]
             nr += 1
@@ -252,7 +299,7 @@ for file in listfiles:
                     newfile = newfile[:pp] + nbp + newfile[pq+1:]
 
             if doit:
-                if newfile!='':
+                if newfile != '':
                     print(colored(newfile, 'cyan'))
                     if originaled > 1 and newed == 1:
                         print(colored(f'Attention, edition changing from {originaled} to {newed}', 'red'))

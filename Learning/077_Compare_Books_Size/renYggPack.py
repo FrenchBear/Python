@@ -1,4 +1,4 @@
-# renYgg.py
+# renYggPack.py
 # Reformat book names of ygg packs where editor is put first
 # deboeck Biochimie 3ed.pdf
 # ->
