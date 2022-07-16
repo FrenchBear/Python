@@ -22,7 +22,6 @@
     "spellright.language": [
         "fr"
     ],
-    "python.pythonPath": "C:\\Program Files\\Python310\\python.exe",
     "spellright.documentTypes": [
         "markdown",
         "latex"
