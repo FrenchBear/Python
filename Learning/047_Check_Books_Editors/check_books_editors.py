@@ -2,17 +2,15 @@
 # Example with regex, Levenshtein distance, collection.Counter, os.walk...
 #
 # 2018-09-01    PV
+# 2022-07-17    PV      More tests
 
-
+from email.policy import default
 import os
 import re
-import collections
+from collections import defaultdict, Counter
 from typing import Counter
 
 EDITOR_RE = re.compile(r'\[([^]]+)\]')
-
-
-# Version case-sensitive
 
 diffMax = 2
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
@@ -67,32 +65,52 @@ def tld(a, b, d):
         print(a + ", "+b+", "+str(d)+", "+str(dc))
 
 
-"""
-# Some tests
-tld("Pomme","Pome",1)
-tld("Il était un petit navire", "Il était un petit navire", 0)
-tld("Il était une petit navire", "Il était un petit navire", 1)
-tld("Il était un petit navire", "Il était une petit navire", 1)
-tld("Il étai un petit naavire", "Il était un petit navire", 2)
-tld("Il était un petit navire", "Il était u petit naavire", 2)
-"""
+variants = defaultdict(set)
+alled = set()
 
-
-cc: Counter[str] = collections.Counter()
-for dirpath, dirname, filenames in os.walk(r'W:\Livres'):  # \informatique'):
+cc: Counter[str] = Counter()
+for dirpath, dirname, filenames in os.walk(r'W:\Livres'):
     for filename in filenames:
         ma = EDITOR_RE.search(filename)
         if ma:
-            cc.update([ma.group(1)])
+            ed = ma.group(1)
+            cc.update([ed])
+            variants[ed.casefold()].add(ed)
+            alled.add(ed)
 
 l = list(cc.most_common())
 for ed, f in l:
-    print(f"{f};{ed}")
+    print(f"{f}\t", end='')
+    for v in variants[ed.casefold()]:
+        print(v+'\t', end='')
+    print()
 print()
 
-for i in range(len(l)):
-    for j in range(i+1, len(l)):
-        e1: str = l[i][0]
-        e2: str = l[j][0]
-        if LevenshteinDistance(e1, e2) == 1:
-            print(e1, e2)
+
+def testsuffix(e1: str, e2: str, suffix: str):
+    return e1+suffix == e2 or e1+' '+suffix == e2 or e1 == e2+suffix or e1 == e2+' '+suffix
+
+
+al = list(alled)
+for i in range(len(al)):
+    for j in range(i+1, len(al)):
+        e1: str = al[i]
+        e2: str = al[j]
+        e1c = e1.casefold()
+        e2c = e2.casefold()
+        if LevenshteinDistance(e1, e2) <= 1 or e1c == e2c:
+            print(f'{e1} ({cc[e1]})\t{e2} ({cc[e2]})')
+            continue
+
+        if e1c.replace('&',' and ').replace(' ','')==e2c.replace('&',' and ').replace(' ',''):
+            print(f'{e1} ({cc[e1]})\t{e2} ({cc[e2]})')
+            continue
+
+        if testsuffix(e1c, e2c, 'press'):
+            print(f'{e1} ({cc[e1]})\t{e2} ({cc[e2]})')
+            continue
+
+        if testsuffix(e1c, e2c, 'learning'):
+            print(f'{e1} ({cc[e1]})\t{e2} ({cc[e2]})')
+            continue
+
