@@ -9,7 +9,7 @@
 from common_fs import *
 from casefix_En import *
 
-source = r'W:\Livres\A_Trier\new'
+source = r'W:\Livres\A_Trier'
 doit = True
 
 # Note that word processing should be contextual, some expressions such as 'Best Of', 'A to Z' , 'A Major', ... keep an uppercase
@@ -57,7 +57,7 @@ def process_name(name: str) -> str:
         pass
 
     ts[0] = process_segment(s1)+bp
-    return ' - '.join(ts)
+    return ' - '.join(ts).replace("[Oreilly]", "[O'Reilly]")
 
 # s = 'A beginner's the best, the follow-up And Up (2nd ed, 2003)'
 # print(process_name(s))
