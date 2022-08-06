@@ -12,10 +12,9 @@
 from common_fs import *
 from typing import Dict
 import os
-import shutil
 import re
 
-source = r'W:\Livres\A_Trier'
+source = r'W:\Livres\A_Trier_Fr'
 ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
 doit = True
 

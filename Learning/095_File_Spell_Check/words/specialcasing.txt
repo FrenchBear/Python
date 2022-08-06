@@ -109,6 +109,7 @@ MySQL
 NET
 NetBeans
 NumPy
+Office
 OGRE
 OpenCV
 OpenGL
@@ -223,3 +224,5 @@ CFD
 HDL
 RTOS
 JMeter
+X
+GWT

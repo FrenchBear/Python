@@ -10,7 +10,7 @@ from typing import Iterable, List
 from common_fs import *
 
 source = r'W:\Livres'
-doit = False
+doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
