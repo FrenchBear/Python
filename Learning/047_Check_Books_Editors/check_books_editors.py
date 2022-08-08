@@ -69,7 +69,7 @@ variants = defaultdict(set)
 alled = set()
 
 cc: Counter[str] = Counter()
-for dirpath, dirname, filenames in os.walk(r'W:\Livres'):
+for dirpath, dirname, filenames in os.walk(r'\\teraz\books\Livres'):
     for filename in filenames:
         ma = EDITOR_RE.search(filename)
         if ma:
