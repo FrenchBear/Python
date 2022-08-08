@@ -57,7 +57,7 @@ def process_name(name: str) -> str:
         pass
 
     ts[0] = process_segment(s1)+bp
-    return ' - '.join(ts).replace("[Oreilly]", "[O'Reilly]")
+    return ' - '.join(ts).replace('cplusplus', 'C++').replace('Cplusplus', 'C++').replace('csharp', 'C#').replace('Csharp', 'C#').replace("[Oreilly]", "[O'Reilly]")
 
 # s = 'A beginner's the best, the follow-up And Up (2nd ed, 2003)'
 # print(process_name(s))

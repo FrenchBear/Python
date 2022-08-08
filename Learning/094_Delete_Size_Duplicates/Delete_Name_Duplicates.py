@@ -39,7 +39,7 @@ for filefp in get_all_files(source):
         s = lowercase_no_diacritic(filtername(bname))       # Get only the 1st segment (before ' - '), no accent, lowercase, stripped
         if not 'petit fute' in s:
             # Do not ignore part between parentheses, since many files exist in 2nd edition, 3rd
-            if p := s.find('('):
+            if (p := s.find('('))>=0:
                 p2 = s.find(')', p)
                 s = (s[:p]+s[p2+1:]).replace('  ', ' ').strip()
             dic[filtername(s)].append(filefp)
