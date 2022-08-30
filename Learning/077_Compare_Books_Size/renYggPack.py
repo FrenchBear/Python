@@ -22,6 +22,16 @@ doit = True
 def FirstUpper(s: str) -> str:
     return s[0].upper() + s[1:]
 
+def ireplace(text: str, old: str, new: str) -> str:
+    '''Case insensitive replacement of old by new in text'''
+    idx = 0
+    while idx < len(text):
+        index_l = text.lower().find(old.lower(), idx)
+        if index_l == -1:
+            return text
+        text = text[:index_l] + new + text[index_l + len(old):]
+        idx = index_l + len(new)
+    return text
 
 rencount = 0
 for file in list(get_files(source)):
@@ -30,7 +40,7 @@ for file in list(get_files(source)):
         ma = ED.match(file)
         if ma:
             #print(f'«{ma.group(1)}» «{ma.group(2)}» «{ma.group(3)}» «{ma.group(4)}»')
-            nn = FirstUpper(ma.group(2))
+            nn: str = FirstUpper(ma.group(2))
             if ma.group(4):
                 match ma.group(4):
                     case '1': sed = '1st'
@@ -38,7 +48,8 @@ for file in list(get_files(source)):
                     case '3': sed = '3rd'
                     case _:   sed = ma.group(4) + 'th'
                 nn += f" ({sed} ed, X)"
-            nn += f" - [{FirstUpper(ma.group(1)).replace('_',' ')}] - X.pdf"
+            nn += ' - [' + ireplace(FirstUpper(ma.group(1)).replace('_',' '), 'oreilly', "O'Reilly") + '] - X.pdf'
+            nn = ireplace(ireplace(nn, "csharp", "C#"), "cplusplus", "C++")
             print(file, ' -> ', nn)
             rencount += 1
             if doit:
