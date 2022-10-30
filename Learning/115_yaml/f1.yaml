@@ -1,0 +1,99 @@
+# Arrays/Lists
+
+# In-line/json format, use brackets for lists
+numbers1: [ 1, 2, 3, 4, 5 ]
+names1: [ "one", "two", "three", "four" ]
+
+# Using multiple lines
+numbers2:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+names2:
+  - "one"
+  - "two"
+  - "three"
+  - "four"
+
+
+# Dictionaries
+
+# In-line use braces
+d1: { thing1: huey, thing2: louie, thing3: dewey }
+
+# Using multiple lines
+d2:
+  thing1: huey
+  thing2: louie
+  thing3: dewey
+
+
+# A list of 2 dictionaries
+# Index 0 is a dictionary with 1 element, key 'things', value is a 3-element dictionary
+# Index 2 is a dictionary with 1 element, key 'other things', value is a 1-element dictionary
+
+items:
+  - things:
+      thing1: huey
+      things2: dewey
+      thing3: louie
+  - other things:
+      key: value
+
+# A dictionary with two elements (both dictionaries) with keys things and 'other things'
+items2:
+  things:
+      thing1: huey
+      things2: dewey
+      thing3: louie
+  other things:
+      key: value
+
+# foo is a dict, 1 element key bar, value is a list of 3 elements 
+foo:
+  bar:
+    - bar
+    - rab
+    - plop
+
+# To save the last character, add a plus to the fold or block operators.
+bar_preserve: >+
+  this is not a normal string it
+  spans more than
+  one line
+  see?
+
+# if the value ends with whitespace, like a newline, YAML will preserve it. To strip the character, use the strip operator.
+bar_chomp: |-
+  this is not a normal string it
+  spans more than
+  one line
+  see?
+
+template:
+  - sensor:
+      - name: "Température intérieure moyenne"
+        unit_of_measurement: "°C"
+        state: >
+          {% set t1 = states('sensor.th_1_ch_b_temperature') | float %}
+          {% set t2 = states('sensor.th_2_bureau_temperature') | float %}
+          {% set t3 = states('sensor.th_3_salon_temperature') | float %}
+          {% set t4 = states('sensor.th_4_sdb_temperature') | float %}
+          {% set t5 = states('sensor.th_5_ch_h_temperature') | float %}
+          {% set t6 = states('sensor.th_6_douche_temperature') | float %}
+          {% set t7 = states('sensor.th_7_escalier_temperature') | float %}
+          {{ ((t1+t2+t3+t4+t5+t6+t7)/7) | round(1, default=0) }}
+  - trigger:
+      - platform: state
+        entity_id:
+        - binary_sensor.ouverture_1_salon_contact
+        - binary_sensor.ouverture_2_cuisine_contact
+        - binary_sensor.ouverture_3_ch_b_contact
+        - binary_sensor.ouverture_4_porte_fenetre_bureau_contact
+        - binary_sensor.ouverture_5_fenetre_bureau_contact
+    sensor:
+      - name: "Fenouv1"
+        state: >
+          {{ expand('binary_sensor.ouvertures_fenetres') | selectattr('state', 'eq', 'on') | list | count }}
