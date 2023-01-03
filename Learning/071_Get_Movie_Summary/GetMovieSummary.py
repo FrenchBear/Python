@@ -1,6 +1,9 @@
 # GetMovieSummary.py
 # Simple app using TheMovieDb.org to retrieve movie information
+# pip install tmdbsimple
+#
 # 2020-07-15    PV
+# 2023-01-03    PV      Added .mp4 suffix
 
 import os
 
@@ -23,7 +26,7 @@ source = r'V:\Films\# A_Trier'
 for fullpath in get_all_files(source):
     path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
-    if ext.lower() in ['.mkv', '.avi']:
+    if ext.lower() in ['.mkv', '.avi', '.mp4']:
         segments = basename.split(' - ')
         title = segments[0]
         s2 = title.split(' (')
