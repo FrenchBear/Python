@@ -12,15 +12,17 @@ from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
 
-source = r'W:\Livres\A_Trier_Fr'
+source = r'C:\Users\Pierr\Downloads\A_Trier\!A_Trier_Livres\133 Atlas'
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 dmf: dict[str, str] = {}
-# with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-#     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
-with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
+
+# words1.fr.txt est un dico complet mais plus long à charger, words2.fr.txt est plus simple
+with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
+    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
+#with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
+#    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
 with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
 
