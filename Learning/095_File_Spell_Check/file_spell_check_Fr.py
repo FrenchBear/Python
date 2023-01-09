@@ -18,7 +18,7 @@ doit = True
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 dmf: dict[str, str] = {}
 
-# words1.fr.txt est un dico complet mais plus long à charger, words2.fr.txt est plus simple
+# words1.fr.txt est un dico complet plus long à charger, words2.fr.txt est plus simple.  Pas de majuscules (ex: japon)
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
 #with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
