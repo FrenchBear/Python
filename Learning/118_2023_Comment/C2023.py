@@ -1,7 +1,6 @@
 # Add 2023 Net7 comment to Visual Studio Projects
 #
 # 2023-01-10    PV
-#
 
 from common_fs import *
 import codecs
