@@ -1,11 +1,13 @@
 # Add 2023 Net7 comment to Visual Studio Projects
+# Don't forgate to change the date!!!
 #
 # 2023-01-10    PV
 
 from common_fs import *
 import codecs
 
-root = r'C:\Development\GitHub\Visual-Studio-Projects\Net7'
+DATE = '2023-01-15'
+root = r'C:\Development\GitVSTS\WPF\Net7\Learning'
 files = [f for f in get_all_files(root) if extension(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower()
          and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
 
@@ -35,7 +37,7 @@ def ProcessFile(filefp: str, commenttoken: str, commentline: str):
         lnum += 1
 
     # If commentline is already present, don't insert it again
-    if lines[lnum-1]==commentline:
+    if lines[lnum-1] == commentline:
         return
 
     with open(filefp, 'w', encoding='utf_8_sig') as fout:
@@ -47,20 +49,23 @@ def ProcessFile(filefp: str, commenttoken: str, commentline: str):
 
     print(filefp)
 
+
 def ProcessCXFile(fn: str):
-    ProcessFile(fn, '//', '// 2023-01-10\tPV\t\tNet7')
+    ProcessFile(fn, '//', '// '+DATE+'\tPV\t\tNet7')
+
 
 def ProcessVBFile(fn: str):
-    ProcessFile(fn, "'", "' 2023-01-10\tPV\t\tNet7")
+    ProcessFile(fn, "'", "' "+DATE+"\tPV\t\tNet7")
+
 
 for file in files:
     match extension(file.lower()):
         case '.cs':
-            #ProcessCXFile(file)
+            ProcessCXFile(file)
             pass
         case '.vb':
-            #ProcessVBFile(file)
+            # ProcessVBFile(file)
             pass
         case '.cpp':
-            ProcessCXFile(file)
+            # ProcessCXFile(file)
             pass
