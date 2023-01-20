@@ -1,0 +1,64 @@
+# Find book files with duplicate names
+#
+# 2023-01-20    PV      First version
+
+from collections import defaultdict
+from typing import Iterable, List
+from common_fs import *
+import re
+import shutil
+
+source1 = r'W:\Livres\Informatique'         # Reference
+source2 = r'C:\Temp\A_Trier\Wiley Fr'  # Books to check
+trash = r'C:\temp\trash\Wiley Fr'
+
+doit = True
+
+sourcelist = []
+bookname = re.compile(r"([^)]*)( \([^)]+\))? - \[([^]]+)\] - (.*)")
+
+if doit:
+    if not folder_exists(trash):
+        os.mkdir(trash)
+
+def clean(name: str) -> str:
+    return name.replace(',', ' ').replace(',', ' ').replace('  ', ' ').casefold()
+
+print('Indexing source books from', source1)
+for filefp in get_all_files(source1):
+    folder, file = os.path.split(filefp)
+    bname, ext = os.path.splitext(file)
+    if ext.casefold() == '.pdf':
+        ma: re.Match = bookname.fullmatch(bname)
+        if ma:
+            # if ma.group(1)=='Movement, Light and Sound with Arduino and Raspberry Pi': breakpoint()
+            ed = ma.group(2)
+            if ed: ed=ed.strip()
+            b = (clean(ma.group(1)), ed, ma.group(3).casefold(), ma.group(4).casefold(), folder, file)
+            sourcelist.append(b)
+
+print('Checking folder', source2)
+l2 = list(get_all_files(source2))
+for filefp in l2:
+    folder, file = os.path.split(filefp)
+    bname, ext = os.path.splitext(file)
+    if ext.casefold() == '.pdf':
+        ma: re.Match = bookname.fullmatch(bname)
+        if ma:
+            # if ma.group(1)=='Movement, Light and Sound with Arduino and Raspberry Pi': breakpoint()
+            title = clean(ma.group(1))
+            ed = ma.group(2)
+            if ed: ed=ed.strip()
+            editor = ma.group(3).casefold()
+            authors = ma.group(4).casefold()
+
+            for b in sourcelist:
+                if b[0]==title and (ed==None or ed==b[1]) and b[2]==editor:
+                    print(b[5])
+                    print(file)
+                    print()
+                    if doit:
+                        try:
+                            shutil.move(filefp, os.path.join(trash, file))
+                        except:
+                            pass

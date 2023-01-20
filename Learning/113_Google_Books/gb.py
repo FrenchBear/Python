@@ -15,7 +15,7 @@ import urllib.parse
 from common_fs import *
 from termcolor import colored
 
-
+source = r"C:\Temp\A_Trier\OReilly"
 doit = True
 movetotrop = False
 
@@ -169,7 +169,7 @@ def shutil_move(src: str, dst: str):
     shutil.move(src, dst)
 
 
-source = r"W:\Livres\A_Trier\Cambridge"
+#### Start
 clean = os.path.join(source, "Clean")
 if not folder_exists(clean):
     os.mkdir(clean)
@@ -275,7 +275,7 @@ for file in listfiles:
                 else:
                     originaled = 1
                 newed = 1
-                tch = input("Choice: ").split()
+                tch = input("Choice: [choice ed year] ").split()
                 ch = int(tch[0])
 
             if 1 <= ch <= len(newfiles):

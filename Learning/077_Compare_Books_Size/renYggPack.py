@@ -1,8 +1,6 @@
 # renYggPack.py
 # Reformat book names of ygg packs where editor is put first
-# deboeck Biochimie 3ed.pdf
-# ->
-# Biochimie (4ed, X) - [Deboeck] - X.pdf
+# "deboeck Biochimie 3ed.pdf" -> "Biochimie (3rd ed, X) - [Deboeck] - X.pdf"
 #
 # In regex, .+? is the non-greedy form of .+
 #
@@ -14,7 +12,7 @@ from typing import Dict
 import os
 import re
 
-source = r'W:\Livres\A_Trier'
+source = r'W:\Livres\A_Trier\2023'
 ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
 doit = True
 

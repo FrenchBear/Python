@@ -12,7 +12,7 @@ from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
 
-source = r'C:\Users\Pierr\Downloads\A_Trier\!A_Trier_Livres\133 Atlas'
+source = r'W:\Livres\A_Trier\Dunod'
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
