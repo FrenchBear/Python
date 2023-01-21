@@ -12,6 +12,13 @@ headers = {
     "content-type": "application/json",
 }
 
+def beautify_num(value: Tuple[str | None, str | None, str], fmt: str) -> str:
+    try:
+        val = float(value[0])
+        return format(val, fmt) + (' '+value[1] if value[1] and len(value[1])>0 else '')
+    except ValueError:
+        return value[0]
+
 
 def get_state(entity: str) -> Tuple[str | None, str | None, str]:
     url = "http://on2ha:8123/api/states/" + entity
@@ -27,11 +34,19 @@ def get_state(entity: str) -> Tuple[str | None, str | None, str]:
         return (None, None, msg)
 
     data = json.loads(response.text)
-    return (data['state'], data['attributes']['unit_of_measurement'], data['attributes']['friendly_name'])
-
+    attributes = data['attributes']
+    unit = attributes['unit_of_measurement'] if 'unit_of_measurement' in attributes else '' 
+    return (data['state'], unit, attributes['friendly_name'])
 
 temp = get_state('sensor.th_1_ch_b_temperature')
-print(temp)
+print('Temp ch Pierre:', beautify_num(temp, '.1f'))
+
+VA = get_state('sensor.linky_PAPP')
+print('Puissance Linky:', beautify_num(VA, '.0f'))
+
+lp = get_state('light.amp_ikea_ws_1056lm_1_plafond_bureau_pierre')
+print('Lampe Plafond bureau Pierre:', lp[0])
+
 
 
 # Toggle plafond bureau pierre
@@ -51,5 +66,5 @@ def call_service(domain: str, service: str, entity_id: str) -> bool:
     return True
 
 
-res = call_service('light', 'toggle', 'light.amp_ikea_ws_1056lm_1_plafond_bureau_pierre')
-print(res)
+# res = call_service('light', 'toggle', 'light.amp_ikea_ws_1056lm_1_plafond_bureau_pierre')
+# print(res)
