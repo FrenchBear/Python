@@ -6,16 +6,18 @@
 #
 # 2022-06-15    PV
 # 2022-06-30    PV      Accept any char but space in editor name; replace _ by space in editor name
+# 2023-01-22    PV      lang variable
 
 from common_fs import *
 from typing import Dict
 import os
 import re
 
-source = r'W:\Livres\A_Trier\2023'
-ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
+source = r'C:\Temp\A_Trier'
+lang = 'Fr'     # Fr or En
 doit = True
 
+ED = re.compile(r'^([^ ]+) (.+?)( (\d+)ed)?\.pdf$')
 
 def FirstUpper(s: str) -> str:
     return s[0].upper() + s[1:]
@@ -40,11 +42,18 @@ for file in list(get_files(source)):
             #print(f'«{ma.group(1)}» «{ma.group(2)}» «{ma.group(3)}» «{ma.group(4)}»')
             nn: str = FirstUpper(ma.group(2))
             if ma.group(4):
-                match ma.group(4):
-                    case '1': sed = '1st'
-                    case '2': sed = '2nd'
-                    case '3': sed = '3rd'
-                    case _:   sed = ma.group(4) + 'th'
+                if lang=='En':
+                    match ma.group(4):
+                        case '1': sed = '1st'
+                        case '2': sed = '2nd'
+                        case '3': sed = '3rd'
+                        case _:   sed = ma.group(4) + 'th'
+                elif lang=='Fr':
+                    match ma.group(4):
+                        case '1': sed = '1ère'
+                        case _:   sed = ma.group(4) + 'è'
+                else:
+                    breakpoint()
                 nn += f" ({sed} ed, X)"
             nn += ' - [' + ireplace(FirstUpper(ma.group(1)).replace('_',' '), 'oreilly', "O'Reilly") + '] - X.pdf'
             nn = ireplace(ireplace(nn, "csharp", "C#"), "cplusplus", "C++")

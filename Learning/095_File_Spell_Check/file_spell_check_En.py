@@ -9,7 +9,7 @@
 from common_fs import *
 from casefix_En import *
 
-source = r'C:\Temp\A_Trier\Wiley En'
+source = r'C:\Temp\A_Trier'
 doit = True
 
 # Note that word processing should be contextual, some expressions such as 'Best Of', 'A to Z' , 'A Major', ... keep an uppercase

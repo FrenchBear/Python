@@ -9,10 +9,10 @@ import re
 import shutil
 
 source1 = r'W:\Livres\Informatique'         # Reference
-source2 = r'C:\Temp\A_Trier\Wiley En\Clean'  # Books to check
-trash = r'C:\temp\trash\Wiley En'
+source2 = r'C:\Temp\A_Trier'  # Books to check
+trash = r'C:\temp\trash\Misc'
 
-doit = False
+doit = True
 
 sourcelist = []
 bookname = re.compile(r"([^)]*)( \([^)]+\))? - \[([^]]+)\] - (.*)")
@@ -31,11 +31,13 @@ for filefp in get_all_files(source1):
     if ext.casefold() == '.pdf':
         ma: re.Match = bookname.fullmatch(bname)
         if ma:
-            # if ma.group(1)=='Movement, Light and Sound with Arduino and Raspberry Pi': breakpoint()
             ed = ma.group(2)
             if ed: ed=ed.strip()
             b = (clean(ma.group(1)), ed, ma.group(3).casefold(), ma.group(4).casefold(), folder, file)
             sourcelist.append(b)
+            # auth:str = ma.group(4)
+            # if ' and ' in auth.lower():
+            #     print(filefp)
 
 print('Checking folder', source2)
 l2 = list(get_all_files(source2))
@@ -45,7 +47,6 @@ for filefp in l2:
     if ext.casefold() == '.pdf':
         ma: re.Match = bookname.fullmatch(bname)
         if ma:
-            # if ma.group(1)=='Movement, Light and Sound with Arduino and Raspberry Pi': breakpoint()
             title = clean(ma.group(1))
             ed = ma.group(2)
             if ed: ed=ed.strip()
