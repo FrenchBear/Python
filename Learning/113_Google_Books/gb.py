@@ -15,7 +15,7 @@ import urllib.parse
 from common_fs import *
 from termcolor import colored
 
-source = r"C:\Temp\A_Trier\OReilly"
+source = r"C:\Temp\A_Trier\Wiley En"
 doit = True
 movetotrop = False
 

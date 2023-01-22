@@ -9,10 +9,10 @@ import re
 import shutil
 
 source1 = r'W:\Livres\Informatique'         # Reference
-source2 = r'C:\Temp\A_Trier\Wiley Fr'  # Books to check
-trash = r'C:\temp\trash\Wiley Fr'
+source2 = r'C:\Temp\A_Trier\Wiley En\Clean'  # Books to check
+trash = r'C:\temp\trash\Wiley En'
 
-doit = True
+doit = False
 
 sourcelist = []
 bookname = re.compile(r"([^)]*)( \([^)]+\))? - \[([^]]+)\] - (.*)")
