@@ -9,12 +9,13 @@ from collections import defaultdict
 from typing import Iterable, List
 from common_fs import *
 
-source = r'W:\Livres'
+source1 = r'W:\Livres'
+source2 = r'C:\Temp\A_Trier'
 doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
-for filefp in get_all_files(source):
+for filefp in get_all_files(source1):
     folder, file = os.path.split(filefp)
     _, ext = os.path.splitext(file)
     if ext.casefold() in ['.pdf', '.epub']:
