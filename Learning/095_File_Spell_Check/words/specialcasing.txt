@@ -3,6 +3,7 @@
 ABAP
 ADO
 AI
+Angular
 AngularJS
 AP
 API
@@ -57,6 +58,7 @@ EPUB
 ES
 ESP
 ESP32
+Excel
 FAQ
 FAQs
 fastai
@@ -64,6 +66,7 @@ FPS
 GameMaker
 GitHub
 GitLab
+Google
 GraphQL
 GRPC
 GTK
@@ -81,6 +84,7 @@ IoT
 IP
 IT
 iText
+Java
 JavaFX
 JavaScript
 jQuery
@@ -148,6 +152,7 @@ SC
 SDK
 SE
 sed
+Server
 ServiceNow
 SharePoint
 SketchUp

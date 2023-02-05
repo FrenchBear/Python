@@ -33,8 +33,8 @@ with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
 #     dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
 
 # # dmx est l'ensemble des mots ni français ni anglais
-# with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
-#     dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
+with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
+    dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent
@@ -52,16 +52,6 @@ for key, lst in mfsa.items():
 for mot in to_delete:
     del mfsa[mot]
 
-# ToDo: A reprendre
-# casefix = ['Excel', 'Python', 'PHP', 'MySQL', 'UML', 'Matlab', 'MP', 'MPSI', 'MP2I', 'PCSI', 'PTSI', 'CPGE', 'CSS', '3D', 'SQL', 'Android', 'Windows',
-#            'CSharp', 'Symphony', 'WCF', 'Google', 'Maps', 'Access', 'DUT', 'GEA', 'BTS', 'SVT', 'BCPST', 'POO', 'TD', 'PSI',
-#            'Unity', 'MPI', 'C', 'VBA', 'ISN', 'SII', 'CRPE', 'BCSPT', 'ECE', 'SIO', 'ECS', 'XML', 'HTML', 'DSI',
-#            'PAO', 'ECG', 'NSI', 'PC', 'PT', 'CPST', 'ENS', 'IUT', 'TSI', 'C++', 'InDesign', 'Photoshop',
-#            'BCPST1', 'BCPST2', 'ECE1', 'ECS1', 'ECS2', 'ITMax', 'IP', 'Eclipse', 'NetBeans', 'Java', 'JavaScript',
-#            'Angular', 'UI', 'UX', 'Kotlin', 'Dax', 'Ionic', 'EE', 'Maya', 'MCSA', 'QCM', 'Web', 'XSLT',
-#            'CAPES', 'API', 'PowerShell', 'Core', 'Power', 'BI', 'Desktop', 'Big', 'Data', 'Science', 'JSF', 'Server',
-#            'Scientist', 'Visual', 'Studio', 'Django', 'Raspberry', 'Pi', 'Kids', 'Arduino', 'ECT', 'Tage',
-#            'AutoCAD', 'Ajax', 'SEO', 'Scilab', 'React', 'EDHEC', 'GraphQL']
 with open(r'words\specialcasing.txt', 'r', encoding='UTF-8') as f:
     set_casefix = set(mot for mot in f.read().splitlines())
 dic_casefix = dict([(mot.casefold(), mot) for mot in set_casefix])

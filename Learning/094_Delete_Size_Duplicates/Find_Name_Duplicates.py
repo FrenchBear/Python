@@ -12,7 +12,7 @@ source1 = r'W:\Livres\Informatique'         # Reference
 source2 = r'C:\Temp\A_Trier'  # Books to check
 trash = r'C:\temp\trash'
 
-doit = True
+doit = False
 
 sourcelist = []
 bookname = re.compile(r"([^)]*)( \([^)]+\))? - \[([^]]+)\] - (.*)")
