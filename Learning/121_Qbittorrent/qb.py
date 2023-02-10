@@ -2,6 +2,7 @@
 # 2023-01-28    PV
 #
 # https://qbittorrent-api.readthedocs.io/en/latest/index.html
+# pip install qbittorrent-api
 
 import qbittorrentapi
 import pprint
@@ -14,11 +15,12 @@ qbt_client = qbittorrentapi.Client(
     host='thor',
     port=8080,
     username='admin',
-    password='chQB38!p_v'
+    password=file_readalltext(r'C:\Local\qbittorrent.txt')
  )
 
-# the Client will automatically acquire/maintain a logged in state in line with any request.
-# therefore, this is not necessary; however, you many want to test the provided login credentials.
+
+# The Client will automatically acquire/maintain a logged in state in line with any request.
+# Therefore, this is not necessary; however, you many want to test the provided login credentials.
 try:
     qbt_client.auth_log_in()
 except qbittorrentapi.LoginFailed as e:
@@ -45,7 +47,7 @@ for torrent in qbt_client.torrents_info():
     #         torrent.set_location(location=r'\\teraz\torrents\downloads\!MyUploadsPDF')
 
     if torrent["save_path"]==r'D:\Ygg\Seeding\Livres info':
-        tfcandidate = os.path.join(r'\\thor\ygg\Torrents Seeding', torrent["name"]+'.torrent')
+        tfcandidate = os.path.join(r'\\thor\ygg\Torrents Seeding', torrent["name"]+'.torrent')      # type: ignore
         if file_exists(tfcandidate):
             print(torrent["name"])
             shutil.copy(tfcandidate, r'C:\Users\Pierr\Desktop\MyTorrents')

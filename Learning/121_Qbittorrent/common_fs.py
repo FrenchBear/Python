@@ -6,6 +6,7 @@
 # 2022-01-08    PV      basename
 # 2022-05-26    PV      file_exists et folder_exists
 # 2022-06-17    PV      folder_part; file_part renamed file_part; extension
+# 2023-02-10    PV      file_readalltext
 
 '''
 Function 	        Copies      Copies          Uses file       Destination
@@ -46,8 +47,6 @@ def get_all_folders(path: str) -> Iterable[str]:
             yield os.path.join(root, folder)
 
 # Simple helpers
-
-
 def file_part(fullpath: str) -> str:
     '''Retourne un nom de fichier sans son chemin'''
     _, file = os.path.split(fullpath)
@@ -85,6 +84,11 @@ def folder_exists(fullpath: str) -> bool:
 def file_size(fullpath: str) -> int:
     '''Retourne la taille d'un fichier en octets'''
     return os.stat(fullpath).st_size
+
+def file_readalltext(filepath: str, encoding:str = 'utf_8') -> str:
+    '''Lit tout le texte d'un fichier'''
+    with open(filepath, encoding=encoding) as f:
+            return f.read()
 
 '''
 if __name__ == '__main__':

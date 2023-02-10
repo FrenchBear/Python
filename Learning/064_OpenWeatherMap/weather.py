@@ -8,8 +8,11 @@ import time
 import requests
 from pprint import pprint
 
+with open(r'C:\Local\openweathermap.txt', encoding='utf_8') as f:
+    api_key = f.read()
+
 settings = {
-    'api_key':'d6fe0dfaaef53a5830225c427f626465',
+    'api_key':api_key,
     'zip_code':'38000',
     'country_code':'fr',
     'temp_unit':'metric'} #unit can be metric, imperial, or kelvin

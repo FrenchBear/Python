@@ -7,12 +7,17 @@ import requests
 import json
 from typing import Tuple
 
+with open(r'C:\Local\homeassistant.txt', encoding='utf_8') as f:
+    api_token = f.read()
+
 headers = {
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhMDc5NDA4YWMwY2M0MjllOTkyYTkwOWUxOTVkNjRlNyIsImlhdCI6MTY3MjQzMTMxNCwiZXhwIjoxOTg3NzkxMzE0fQ.l8LxNUfnZzCzTIfjO1gxsFULAqurQJ-UzjMi6FjMdPE",
+    "Authorization": "Bearer "+api_token,
     "content-type": "application/json",
 }
 
 def beautify_num(value: Tuple[str | None, str | None, str], fmt: str) -> str:
+    if value[0]==None:
+        return ''
     try:
         val = float(value[0])
         return format(val, fmt) + (' '+value[1] if value[1] and len(value[1])>0 else '')
