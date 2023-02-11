@@ -20,7 +20,7 @@ source = r"C:\Temp\A_Trier\Mercury"
 doit = True
 movetotrop = False
 
-with open(r'C:\Local\googlebooks.txt', encoding='utf_8') as f:
+with open(r'C:\Utils\Local\googlebooks.txt', encoding='utf_8') as f:
     KEY = f.read()
 
 BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=+intitle:{title}+inpublisher:{publisher}&key={KEY}"
