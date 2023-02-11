@@ -8,7 +8,7 @@ import time
 import requests
 from pprint import pprint
 
-with open(r'C:\Local\openweathermap.txt', encoding='utf_8') as f:
+with open(r'C:\Utils\Local\openweathermap.txt', encoding='utf_8') as f:
     api_key = f.read()
 
 settings = {

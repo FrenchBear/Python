@@ -7,7 +7,7 @@ import requests
 import json
 from typing import Tuple
 
-with open(r'C:\Local\homeassistant.txt', encoding='utf_8') as f:
+with open(r'C:\Utils\Local\homeassistant.txt', encoding='utf_8') as f:
     api_token = f.read()
 
 headers = {

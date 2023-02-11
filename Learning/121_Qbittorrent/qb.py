@@ -15,7 +15,7 @@ qbt_client = qbittorrentapi.Client(
     host='thor',
     port=8080,
     username='admin',
-    password=file_readalltext(r'C:\Local\qbittorrent.txt')
+    password=file_readalltext(r'C:\Utils\Local\qbittorrent.txt')
  )
 
 
