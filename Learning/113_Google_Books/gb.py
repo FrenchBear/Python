@@ -2,6 +2,7 @@
 # Learning Python - Google Books API calls
 #
 # 2022-07-01    PV
+# 2023-02-10    PV      Code cleanup
 
 import json
 import re
@@ -19,8 +20,9 @@ source = r"C:\Temp\A_Trier\Mercury"
 doit = True
 movetotrop = False
 
-# https://www.googleapis.com/books/v1/volumes?q=+intitle:3D+Game+Design+with+Unreal+Engine+4+and+Blender+inpublisher:Packt&key=AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8
-KEY = "AIzaSyB26jpPFxSNh45t-b-rMdLB2teMzlQpFZ8"
+with open(r'C:\Local\googlebooks.txt', encoding='utf_8') as f:
+    KEY = f.read()
+
 BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=+intitle:{title}+inpublisher:{publisher}&key={KEY}"
 
 
@@ -199,12 +201,11 @@ for file in listfiles:
             pp = title.index('(')
             bp = title[pp:]
             title = title[:pp].strip()
-            if ma := re.match("\((\d+)\)", bp):
+            if ma := re.match(r"\((\d+)\)", bp):
                 ed = 1
                 #edyear = int(ma.groups[1])
-            elif ma := re.match("\((\d+)(1st|nd|rd|th) ed, (\d+|X)\)", bp):
+            elif ma := re.match(r"\((\d+)(1st|nd|rd|th) ed, (\d+|X)\)", bp):
                 ed = int(ma.group(1))
-                #edyear = int(ma.groups[3])
             else:
                 breakpoint()
                 pass
@@ -219,6 +220,9 @@ for file in listfiles:
             continue
 
         lb: list[Book] = zlb    # type: ignore
+        newfile = ''
+        originaled = newed = 1
+
         if len(lb) == 0:
             print('No potential matches')
             pass
@@ -246,7 +250,9 @@ for file in listfiles:
                 shutil_move(os.path.join(source, file), os.path.join(zero, file))
         else:
             print(len(lb), 'answers\n')
+            
             newfiles: list[str] = []
+            tch: list[str] = []
 
             if movetotrop:
                 ch = 0
@@ -259,7 +265,7 @@ for file in listfiles:
                     newfiles.append(newfile)
                     print(f"  {len(newfiles)}: {newfile}")
 
-                if ma := re.search("\(([^ ]*) ed, (\d\d\d\d|X)\)", file):
+                if ma := re.search(r"\(([^ ]*) ed, (\d\d\d\d|X)\)", file):
                     match ma.group(1):
                         case '1st':
                             originaled = 1
@@ -268,10 +274,11 @@ for file in listfiles:
                         case '3rd':
                             originaled = 3
                         case _:
-                            ma = re.match("(\d+)th", ma.group(1))
+                            ma = re.match(r"(\d+)th", ma.group(1))
                             if not ma:
                                 breakpoint()
-                            originaled = int(ma.group(1))
+                            else:
+                                originaled = int(ma.group(1))
                 else:
                     originaled = 1
                 newed = 1
@@ -284,10 +291,12 @@ for file in listfiles:
                     newed = int(tch[1])
                     pp = newfile.index('(')
                     pq = newfile.index(')', pp)
-                    if ma := re.match("\((.* ed, )?(\d\d\d\d)\)", newfile[pp:pq+1]):
+                    if ma := re.match(r"\((.* ed, )?(\d\d\d\d)\)", newfile[pp:pq+1]):
                         year = int(ma.group(2))
                     if len(tch) > 2:
                         year = int(tch[2])
+                    else:
+                        year = 9999
                     if newed == 1:
                         nbp = f"({year})"
                     elif newed == 2:
@@ -296,6 +305,8 @@ for file in listfiles:
                         nbp = f"(3rd ed, {year})"
                     elif newed > 3:
                         nbp = f"({newed}th ed, {year})"
+                    else:
+                        nbp = ''
                     newfile = newfile[:pp] + nbp + newfile[pq+1:]
 
             if doit:
