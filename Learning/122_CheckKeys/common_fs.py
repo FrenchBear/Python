@@ -106,7 +106,7 @@ def file_readalltext(filepath: str) -> str:
     '''Lit tout le texte d'un fichier en détectant le type de fichier automatiquement'''
     return file_readalltext_encoding(filepath)[0]
 
-'''
+r'''
 if __name__ == '__main__':
     def test(f: Callable, arg: str, res: str):
         rc = f(arg)

@@ -20,13 +20,5 @@
         "commandCenter.border": "#15202b99"
     },
     "peacock.color": "#a09010",
-    "spellright.language": [
-        "en",
-        "fr"
-    ],
-    "spellright.documentTypes": [
-        "markdown",
-        "latex",
-        "plaintext"
-    ]
+    "python.analysis.typeCheckingMode": "basic"
 }
