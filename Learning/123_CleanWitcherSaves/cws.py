@@ -1,4 +1,4 @@
-# CleanWitherSaves
+# CleanWitcherSaves
 # Keep a limited number of saves
 #
 # 2023-02-18    PV
