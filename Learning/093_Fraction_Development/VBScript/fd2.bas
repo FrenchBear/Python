@@ -10,6 +10,7 @@ Option Compare Text
 ' 2021-11-03    PV      Second version using O(1) memory (sint does not really count) but O(d²) time
 ' 2021-11-05    PV      Sign; /0; tests
 ' 2022-06-26    PV      VB6/VBScript version
+' 2023-03-07    PV      Fix test (keep original n in n0)
 
 Function Develop(n, d)
     If d = 0 Then
@@ -94,12 +95,13 @@ End Function
 ' 0.[000102030405060708091011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969799]
 
 Sub test(n, d, r)
-    Dim x
+    Dim x, n0
+    n0 = n
     x = Develop(n, d)
     If x = r Then
-        Debug.Print "Ok: "; n; "/"; d; " = "; r
+        Debug.Print "Ok: "; n0; "/"; d; " = "; r
     Else
-        Debug.Print "KO: "; n; "/"; d; " found "; x; " expected "; r
+        Debug.Print "KO: "; n0; "/"; d; " found "; x; " expected "; r
     End If
 End Sub
 
