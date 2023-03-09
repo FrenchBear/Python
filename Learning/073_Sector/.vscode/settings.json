@@ -13,7 +13,11 @@
         "titleBar.activeBackground": "#a09010",
         "titleBar.activeForeground": "#15202b",
         "titleBar.inactiveBackground": "#a0901099",
-        "titleBar.inactiveForeground": "#15202b99"
+        "titleBar.inactiveForeground": "#15202b99",
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#ceba15",
+        "statusBarItem.remoteBackground": "#a09010",
+        "statusBarItem.remoteForeground": "#15202b"
     },
     "peacock.color": "#a09010",
     "python.linting.enabled": true
