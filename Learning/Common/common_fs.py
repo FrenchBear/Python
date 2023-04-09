@@ -7,6 +7,7 @@
 # 2022-05-26    PV      file_exists et folder_exists
 # 2022-06-17    PV      folder_part; file_part renamed file_part; extension
 # 2023-02-10    PV      file_readalltext_encoding, file_readalltext
+# 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> basename_part
 
 '''
 Function 	        Copies      Copies          Uses file       Destination
@@ -60,14 +61,28 @@ def folder_part(fullpath: str) -> str:
     return folder
 
 
+# Official @depredated should arrive in Python 3.12 (PEP 702)
 def basename(filewithext: str) -> str:
+    '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel). DEPRECIÉ - Utiliser basename_part'''
+    base, _ = os.path.splitext(filewithext)
+    return base
+
+
+def basename_part(filewithext: str) -> str:
     '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel)'''
     base, _ = os.path.splitext(filewithext)
     return base
 
 
+# Official @depredated should arrive in Python 3.12 (PEP 702)
 def extension(filewithext: str) -> str:
-    '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel)'''
+    '''Retourne l'extension du fichier, point inclus. DEPRECIÉ - Utiliser extension_part'''
+    _, ext = os.path.splitext(filewithext)
+    return ext
+
+
+def extension_part(filewithext: str) -> str:
+    '''Retourne l'extension du fichier, point inclus'''
     _, ext = os.path.splitext(filewithext)
     return ext
 
