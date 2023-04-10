@@ -22,7 +22,7 @@ class Decision:
 
 class StatesData:
     def __init__(self) -> None:
-        self.DecisionsDic = dict()
+        self.DecisionsDic: dict[int, Decision] = dict()
 
 
 class ListAndRollback:
