@@ -1,0 +1,1 @@
+python3 tcpcheck.py scanfile
