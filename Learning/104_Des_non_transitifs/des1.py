@@ -2,8 +2,10 @@
 # Exemple de 3 dés où A>B, B>C, C>A
 #
 # 2022-02-26    PV
+# 2023-05-09    PV      Simulation
 
 import math
+import random
 
 A = [2, 2, 4, 4, 9, 9]
 B = [1, 1, 6, 6, 8, 8]
@@ -34,3 +36,19 @@ def fight(d1: list[int], d2: list[int], n1: str, n2: str) -> str:
 print(fight(A, B, 'A', 'B'))
 print(fight(B, C, 'B', 'C'))
 print(fight(C, A, 'C', 'A'))
+
+def simul(d1: list[int], d2: list[int], n: int) -> float:
+    w1 = 0
+    for i in range(n):
+        if random.choice(d1)>random.choice(d2): w1+=1
+    return w1/float(n)
+
+n = 1000
+print(f'\nSimulation {n} lancers')
+rAB = simul(A, B, n)
+rBC = simul(B, C, n)
+rCA = simul(C, A, n)
+
+print(f'A>B: {rAB:.1%}')
+print(f'B>C: {rBC:.1%}')
+print(f'C>A: {rCA:.1%}')
