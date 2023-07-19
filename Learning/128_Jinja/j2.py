@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 max_score = 100
 test_name = "Python Challenge"
 students = [
-    {"name": "Sandrine",  "score": 100},
+    {"name": "Sandrine", "score": 100},
     {"name": "George", "score": 87},
     {"name": "Frieda", "score": 92},
     {"name": "Fritz", "score": 40},

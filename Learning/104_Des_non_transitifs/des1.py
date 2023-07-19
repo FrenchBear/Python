@@ -37,11 +37,14 @@ print(fight(A, B, 'A', 'B'))
 print(fight(B, C, 'B', 'C'))
 print(fight(C, A, 'C', 'A'))
 
+
 def simul(d1: list[int], d2: list[int], n: int) -> float:
     w1 = 0
     for i in range(n):
-        if random.choice(d1)>random.choice(d2): w1+=1
+        if random.choice(d1) > random.choice(d2):
+            w1 += 1
     return w1/float(n)
+
 
 n = 1000
 print(f'\nSimulation {n} lancers')
