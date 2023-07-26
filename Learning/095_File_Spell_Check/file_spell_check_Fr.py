@@ -11,6 +11,7 @@ from posixpath import split
 from typing import Tuple, Counter
 from common_fs import *
 import unicodedata
+import os
 
 source = r'C:\Temp\A_Trier'
 doit = True

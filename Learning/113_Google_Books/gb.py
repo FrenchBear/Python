@@ -15,6 +15,7 @@ import urllib
 import urllib.parse
 from common_fs import *
 from termcolor import colored
+import os
 
 source = r"C:\Temp\A_Trier\Mercury"
 doit = True

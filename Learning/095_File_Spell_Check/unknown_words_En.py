@@ -7,7 +7,7 @@ from collections import Counter
 from typing import Counter
 from common_fs import *
 from casefix_En import *
-
+import os
 
 source = r'W:\Livres\A_Trier'
 doit = True

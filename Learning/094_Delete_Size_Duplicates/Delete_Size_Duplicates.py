@@ -6,16 +6,15 @@
 # 2022-06-20    PV      Print delete count
 
 from collections import defaultdict
-from typing import Iterable, List
 from common_fs import *
+import os
 
-source1 = r'W:\Livres'
-source2 = r'C:\Temp\A_Trier'
-doit = True
+source = r'W:\Livres'
+doit = False
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
-for filefp in get_all_files(source1):
+for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
     _, ext = os.path.splitext(file)
     if ext.casefold() in ['.pdf', '.epub']:

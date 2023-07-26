@@ -7,6 +7,7 @@ from typing import Iterable, List
 from common_fs import *
 import re
 import shutil
+import os
 
 source1 = r'W:\Livres\Informatique'         # Reference
 source2 = r'C:\Temp\A_Trier'  # Books to check

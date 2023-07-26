@@ -9,6 +9,7 @@ import shutil
 import sys
 from common_fs import *
 from lev import *
+import os
 
 def cleanprefix(f: str) -> str:
     f = f[:-4]  # Remove .mp3

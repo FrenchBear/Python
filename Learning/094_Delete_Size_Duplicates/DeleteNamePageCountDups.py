@@ -8,7 +8,7 @@ import unicodedata
 from common_fs import *
 import json
 import subprocess
-
+import os
 
 source = r'W:\Livres\Informatique'
 source_a_trier = r'W:\Livres\A_Trier_Packt'

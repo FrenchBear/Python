@@ -8,6 +8,7 @@ import shutil
 from collections import Counter
 from os import path
 from common_fs import *
+import os
 
 source = r'D:\A_Trier_Raw'
 dest = r'D:\Sorted'

@@ -8,8 +8,9 @@
 # 2023-01-24    PV      Version 2_Sources
 
 from collections import defaultdict
-from typing import Iterable, List
+#from typing import Iterable, List
 from common_fs import *
+import os
 
 source1 = r'W:\Livres'
 source2 = r'C:\Temp\A_Trier'
@@ -18,7 +19,7 @@ doit = True
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
 # First index source1
-# No attempt is made to delete suplicates in source1
+# No attempt is made to delete duplicates in source1
 print('Indexing', source1)
 for filefp in get_all_files(source1):
     folder, file = os.path.split(filefp)

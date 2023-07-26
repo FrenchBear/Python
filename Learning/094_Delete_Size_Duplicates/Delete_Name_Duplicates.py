@@ -9,6 +9,7 @@ from collections import defaultdict
 from typing import Iterable, List
 import unicodedata
 from common_fs import *
+import os
 
 source = r'W:\Livres'
 doit = False                            # DO NOT USE THIS MODULE, WAY TOO RISKY !!!!!!!!!!!

@@ -164,7 +164,7 @@ def add_globals(self):
      'list':lambda *x:list(x), 'list?': lambda x:isa(x,list),
      'null?':lambda x:x==[], 'symbol?':lambda x: isa(x, Symbol),
      'boolean?':lambda x: isa(x, bool), 'pair?':is_pair,
-     'port?': lambda x:isa(x,file), 'apply':lambda proc,l: proc(*l),
+     'port?': lambda x:isa(x, file), 'apply':lambda proc,l: proc(*l),
      'eval':lambda x: eval(expand(x)), 'load':lambda fn: load(fn), 'call/cc':callcc,
      'open-input-file':open,'close-input-port':lambda p: p.file.close(),
      'open-output-file':lambda f:open(f,'w'), 'close-output-port':lambda p: p.close(),

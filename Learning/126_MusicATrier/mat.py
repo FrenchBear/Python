@@ -5,6 +5,7 @@
 from collections import Counter
 import shutil
 from common_fs import *
+import os
 
 source = r'\\terazalt\books\Autres\Livres Large avant nettoyage'
 doit = False

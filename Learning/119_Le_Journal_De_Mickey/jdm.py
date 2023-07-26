@@ -5,6 +5,7 @@
 
 from common_fs import *
 import re
+import os
 
 source = r'W:\BD\Revues\Le Journal de Mickey'
 ED = re.compile(r"Le Journal de Mickey n°(\d+)(-(\d+))? - .*\.pdf")

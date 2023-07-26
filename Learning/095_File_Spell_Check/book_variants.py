@@ -7,6 +7,7 @@ from collections import defaultdict, namedtuple
 import re
 from common_fs import *
 from casefix_En import *
+import os
 
 source = 'W:\Livres\Informatique'
 
