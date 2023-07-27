@@ -1,15 +1,13 @@
 import os
-from typing import List
 
-from common import *
+from common import merge_folders
 
-
-source = r'W:\TempBD\archives'
-target = r'W:\TempBD\Qfinal'
+source = r"W:\TempBD\archives"
+target = r"W:\TempBD\Qfinal"
 DO_IT = True
 
 
-folders: List[str]
+folders: list[str]
 _1, folders, _2 = next(os.walk(source))
 
 nf = 0
@@ -21,15 +19,15 @@ for sourcefolder in folders:
     nf += 1
     sourcefolderfp = os.path.join(source, sourcefolder)
     targetfolderfp = os.path.join(target, sourcefolder)
-    print(f'{sourcefolder} ', end='')
+    print(f"{sourcefolder} ", end="")
     if not os.path.exists(targetfolderfp):
         nmove += 1
-        print('Move')
+        print("Move")
         if DO_IT:
             os.rename(sourcefolderfp, targetfolderfp)
     else:
         nmerge += 1
-        print('Merge')
+        print("Merge")
         nfm, ndn, nds = merge_folders(sourcefolderfp, targetfolderfp, DO_IT)
         tfm += nfm
         tfdn += ndn
@@ -42,5 +40,5 @@ tfdn += ndn
 tfds += nds
 
 
-print(f'{nf} dossiers, {nmove} déplacés, {nmerge} fusionnés')
-print(f'{tfm} fichiers déplacés, {tfdn} renommés, {tfds} doublons ignorés')
+print(f"{nf} dossiers, {nmove} déplacés, {nmerge} fusionnés")
+print(f"{tfm} fichiers déplacés, {tfdn} renommés, {tfds} doublons ignorés")

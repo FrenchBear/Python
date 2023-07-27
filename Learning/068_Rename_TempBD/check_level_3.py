@@ -2,7 +2,7 @@
 import os
 import shutil
 
-from common import *
+from common_fs import get_files, get_folders
 
 
 source = r'W:\TempBD\!!cbrn.Adult'

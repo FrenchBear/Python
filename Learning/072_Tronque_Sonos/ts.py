@@ -24,8 +24,8 @@ def compte_len():
 
     for fullpath in get_all_files(source):
         path, file = os.path.split(fullpath)
-        l = len(file)
-        co[l] += 1
+        li = len(file)
+        co[li] += 1
 
     ks = sorted(co.keys(), reverse=True)
     for k in ks:
@@ -37,8 +37,8 @@ def truncate():
     nr = 0
     for fullpath in list(get_all_files(source)):
         path, file = os.path.split(fullpath)
-        l = len(file)
-        if l > lmax:
+        li = len(file)
+        if li > lmax:
             basename, ext = os.path.splitext(file)
             newname = (basename[:lmax-len(ext)]).strip()+ext
             newfullpath = os.path.join(path, newname)

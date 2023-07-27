@@ -4,7 +4,7 @@
 # 2022-03-19    PV
 # 2022-04-16    PV      Added test cases using math.nan, math.inf and sequences of 2 int
 
-from c_match import *
+from c_match import Fract, math
 import unittest
 import fractions
 
@@ -43,17 +43,17 @@ class TestOptargs(unittest.TestCase):
 
         # Check invalid cases
         with self.assertRaises(TypeError):
-            f = Fract(1, 2, 3)
+            _ = Fract(1, 2, 3)
         with self.assertRaises(ZeroDivisionError):
-            f = Fract(1, 0)
+            _ = Fract(1, 0)
         with self.assertRaises(ValueError):
-            f = Fract(0.5, 2)
+            _ = Fract(0.5, 2)
         with self.assertRaises(TypeError):
-            f = Fract('hello')
+            _ = Fract('hello')
         with self.assertRaises(ValueError):
-            f = Fract(math.nan)
+            _ = Fract(math.nan)
         with self.assertRaises(OverflowError):
-            f = Fract(math.inf)
+            _ = Fract(math.inf)
 
 if __name__ == '__main__':
     unittest.main()

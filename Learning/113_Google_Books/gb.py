@@ -5,17 +5,17 @@
 # 2023-02-10    PV      Code cleanup
 
 import json
+import os
 import re
 import shutil
 import time
-from turtle import pu
-from typing import Any, Optional
-import requests
 import urllib
 import urllib.parse
-from common_fs import *
+from typing import Any, Optional
+
+import requests
+from common_fs import file_exists, folder_exists, get_files
 from termcolor import colored
-import os
 
 source = r"C:\Temp\A_Trier\Mercury"
 doit = True
@@ -215,7 +215,7 @@ for file in listfiles:
 
         publisher = segments[1][1:-1]
         zlb = GetBookInfo(title, publisher)
-        if zlb == None:
+        if zlb is None:
             # Error message has already been printed
             breakpoint()
             continue

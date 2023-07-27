@@ -5,7 +5,7 @@
 #
 # 2008-08-24    PV
 
-from typing import Dict, List, Union
+from typing import Union
 
 
 class Dog:
@@ -63,7 +63,7 @@ def get_first_name(full_name: str) -> str:
     return full_name.split(" ")[0]
 
 
-fallback_name: Dict[str, str] = {
+fallback_name: dict[str, str] = {
     "first_name": "UserFirstName",
     "last_name": "UserLastName"
 }
@@ -74,20 +74,20 @@ first_name: str = get_first_name(raw_name)
 # If the user didn't type anything in, use the fallback name
 if not first_name:
     first_name = get_first_name(fallback_name)      # Error since fallbackname is a dictionary!
-# mypy: ano.py:73: error: Argument 1 to "get_first_name" has incompatible type "Dict[str, str]"; expected "str"
+# mypy: ano.py:73: error: Argument 1 to "get_first_name" has incompatible type "dict[str, str]"; expected "str"
 
 print(f"Hi, {first_name}!")
 
 i: int = 0
-l: List[int] = [1, 2, 3]
+l: list[int] = [1, 2, 3]
 
 
-def myfunc() -> List[int]:
+def myfunc() -> list[int]:
     return [1, 2, 3]
 
 
 class myclass:
-    def myfunc(self, s: str) -> List[int]:
+    def myfunc(self, s: str) -> list[int]:
         return [1, 2, 3]
 
 

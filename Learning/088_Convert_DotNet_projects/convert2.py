@@ -2,8 +2,9 @@
 # prepare conversion of .Net 4.8 projects to .Net core
 # 2021-07-21    PV
 
-from common_fs import *
-import os.path, os
+from common_fs import get_folders
+import os
+import os.path
 
 def convert_folder(solution_folder: str):
     lf = [folder for folder in get_folders(solution_folder) if folder.lower()=='properties']

@@ -6,7 +6,7 @@
 # 2022-06-20    PV      Print delete count
 
 from collections import defaultdict
-from common_fs import *
+from common_fs import get_all_files
 import os
 
 source = r'W:\Livres'

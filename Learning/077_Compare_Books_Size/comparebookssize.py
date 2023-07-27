@@ -2,25 +2,28 @@
 # Eliminates duplicated books
 # 2021-01-09    PV
 
-from common_fs import *
-from typing import Dict
+from common_fs import file_part, get_all_files
 import os
 
 doit = False
 
+
 def isSameName1(file1: str, file2: str) -> bool:
-    return file_part(file1).lower()==file_part(file2).lower()
+    return file_part(file1).lower() == file_part(file2).lower()
+
 
 def isSameName2(file1: str, file2: str) -> bool:
     (file1, file2) = (file_part(file1).lower(), file_part(file2).lower())
-    if len(file1)>len(file2): (file1, file2) = (file2, file1)
+    if len(file1) > len(file2):
+        (file1, file2) = (file2, file1)
     return file1 == file2[len(file2)-len(file1):]
+
 
 source = r'W:\Livres\Informatique'
 allfiles = list(get_all_files(source))
-lref: Dict[int, list[str]] = {}
+lref: dict[int, list[str]] = {}
 for file in allfiles:
-    if not '!a_trier' in file.lower() and not 'Thumbs.db' in file:
+    if '!a_trier' not in file.lower() and 'Thumbs.db' not in file:
         size = os.stat(file).st_size
         if size in lref:
             print(f'dup size {size}:\n  {lref[size][0]}\n  {file}\n')

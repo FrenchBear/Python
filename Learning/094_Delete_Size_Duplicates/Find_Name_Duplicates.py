@@ -2,9 +2,7 @@
 #
 # 2023-01-20    PV      First version
 
-from collections import defaultdict
-from typing import Iterable, List
-from common_fs import *
+from common_fs import folder_exists, get_all_files
 import re
 import shutil
 import os
@@ -22,8 +20,10 @@ if doit:
     if not folder_exists(trash):
         os.mkdir(trash)
 
+
 def clean(name: str) -> str:
     return name.replace(',', ' ').replace(',', ' ').replace('  ', ' ').casefold()
+
 
 print('Indexing source books from', source1)
 for filefp in get_all_files(source1):
@@ -33,7 +33,8 @@ for filefp in get_all_files(source1):
         ma: re.Match = bookname.fullmatch(bname)
         if ma:
             ed = ma.group(2)
-            if ed: ed=ed.strip()
+            if ed:
+                ed = ed.strip()
             b = (clean(ma.group(1)), ed, ma.group(3).casefold(), ma.group(4).casefold(), folder, file)
             sourcelist.append(b)
             # auth:str = ma.group(4)
@@ -50,12 +51,13 @@ for filefp in l2:
         if ma:
             title = clean(ma.group(1))
             ed = ma.group(2)
-            if ed: ed=ed.strip()
+            if ed:
+                ed = ed.strip()
             editor = ma.group(3).casefold()
             authors = ma.group(4).casefold()
 
             for b in sourcelist:
-                if b[0]==title and (ed==None or ed==b[1]) and b[2]==editor:
+                if b[0] == title and (ed is None or ed == b[1]) and b[2] == editor:
                     print(b[5])
                     print(file)
                     print()

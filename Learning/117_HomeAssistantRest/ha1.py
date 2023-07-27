@@ -5,7 +5,6 @@
 
 import requests
 import json
-from typing import Tuple
 
 with open(r'C:\Utils\Local\homeassistant.txt', encoding='utf_8') as f:
     api_token = f.read()
@@ -15,17 +14,18 @@ headers = {
     "content-type": "application/json",
 }
 
-def beautify_num(value: Tuple[str | None, str | None, str], fmt: str) -> str:
-    if value[0]==None:
+
+def beautify_num(value: tuple[str | None, str | None, str], fmt: str) -> str:
+    if value[0] is None:
         return ''
     try:
         val = float(value[0])
-        return format(val, fmt) + (' '+value[1] if value[1] and len(value[1])>0 else '')
+        return format(val, fmt) + (' '+value[1] if value[1] and len(value[1]) > 0 else '')
     except ValueError:
         return value[0]
 
 
-def get_state(entity: str) -> Tuple[str | None, str | None, str]:
+def get_state(entity: str) -> tuple[str | None, str | None, str]:
     url = "http://on2ha:8123/api/states/" + entity
     try:
         response = requests.get(url, headers=headers)
@@ -40,8 +40,9 @@ def get_state(entity: str) -> Tuple[str | None, str | None, str]:
 
     data = json.loads(response.text)
     attributes = data['attributes']
-    unit = attributes['unit_of_measurement'] if 'unit_of_measurement' in attributes else '' 
+    unit = attributes['unit_of_measurement'] if 'unit_of_measurement' in attributes else ''
     return (data['state'], unit, attributes['friendly_name'])
+
 
 temp = get_state('sensor.th_1_ch_b_temperature')
 print('Temp ch Pierre:', beautify_num(temp, '.1f'))
@@ -51,7 +52,6 @@ print('Puissance Linky:', beautify_num(VA, '.0f'))
 
 lp = get_state('light.amp_ikea_ws_1056lm_1_plafond_bureau_pierre')
 print('Lampe Plafond bureau Pierre:', lp[0])
-
 
 
 # Toggle plafond bureau pierre

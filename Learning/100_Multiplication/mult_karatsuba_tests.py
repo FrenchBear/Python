@@ -3,7 +3,7 @@
 #
 # 2022-02-13    PV
 
-from mult_karatsuba import *
+from mult_karatsuba import mult_karatsuba, ns_add, ns_compare, ns_split
 import unittest
 
 class TestMultKaratsuba(unittest.TestCase):

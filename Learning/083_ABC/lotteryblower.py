@@ -3,7 +3,7 @@
 
 import random
 from tombola import Tombola
-from typing import Any, Iterable, Tuple
+from typing import Any, Iterable
 
 class LotteryBlower(Tombola):
     def __init__(self, items: Iterable) -> None:
@@ -20,7 +20,7 @@ class LotteryBlower(Tombola):
     def loaded(self) -> bool:
         return bool(self._balls)
     
-    def inspect(self) -> Tuple:
+    def inspect(self) -> tuple:
         return tuple(sorted(self._balls))
 
 

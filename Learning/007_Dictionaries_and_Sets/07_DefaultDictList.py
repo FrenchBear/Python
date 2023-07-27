@@ -1,9 +1,8 @@
-import os, sys
+import os
 import re
-from typing import List
 
 # Juste les fichiers d'un dossier, noms sans chemins
-def get_files(source: str) -> List[str]:
+def get_files(source: str) -> list[str]:
     #return list([f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))])
     _1, _2, files = next(os.walk(source))
     return files
@@ -163,7 +162,7 @@ for file in get_files(source):
         folder = f'Zara la vampire - {n:>02}'
         if n in z:
             folder += ' - '+z[n]
-        if not n in created:
+        if n not in created:
             created.add(n)
             print(folder)
             os.mkdir(os.path.join(source, folder))

@@ -6,9 +6,8 @@
 # DO NOT USE THIS MODULE, WAY TOO RISKY !!!!!!!!!!!
 
 from collections import defaultdict
-from typing import Iterable, List
 import unicodedata
-from common_fs import *
+from common_fs import get_all_files
 import os
 
 source = r'W:\Livres'
@@ -38,7 +37,7 @@ for filefp in get_all_files(source):
     bname, ext = os.path.splitext(file)
     if ext.casefold() == '.pdf':                               # Process .epub separately to avoid removing a file that both exist as a .pdf and a .epub
         s = lowercase_no_diacritic(filtername(bname))       # Get only the 1st segment (before ' - '), no accent, lowercase, stripped
-        if not 'petit fute' in s:
+        if 'petit fute' not in s:
             # Do not ignore part between parentheses, since many files exist in 2nd edition, 3rd
             if (p := s.find('('))>=0:
                 p2 = s.find(')', p)

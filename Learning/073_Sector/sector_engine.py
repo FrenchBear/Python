@@ -4,7 +4,6 @@
 
 import math
 from random import randint
-from typing import Tuple
 
 
 class sector_engine:
@@ -32,7 +31,7 @@ class sector_engine:
         return (a+8) % 8
 
     # Conversion helper dir->(dir_N, dir_E)
-    def dir_NE(self, dir: int) -> Tuple[int, int]:
+    def dir_NE(self, dir: int) -> tuple[int, int]:
         a = dir*math.pi/4
         dir_N = int(round(math.sin(a), 0))
         dir_E = int(round(math.cos(a), 0))
@@ -66,7 +65,7 @@ class sector_engine:
         self.sub_evasive = True
 
     # Returns distance of current boat to sub, and a boolean True if in firing range
-    def get_range(self) -> Tuple[int, bool]:
+    def get_range(self) -> tuple[int, bool]:
         dN = abs(self.sub_N-self.boat_N[self.b])
         dE = abs(self.sub_E-self.boat_E[self.b])
         d = max(dN, dE)
@@ -110,7 +109,7 @@ class sector_engine:
             return True
         return False
 
-    def move(self) -> Tuple[str, bool]:
+    def move(self) -> tuple[str, bool]:
         if self.moved:
             return ('Already moved', False)     # Can only move once per turn
 
@@ -145,7 +144,7 @@ class sector_engine:
         return False
 
     # Returns a string status, and False if there is a problem or True if Ok
-    def fire(self, depth: int) -> Tuple[str, bool]:
+    def fire(self, depth: int) -> tuple[str, bool]:
         if self.fired:
             return ('Already fired', False)
         if isinstance(depth, int):

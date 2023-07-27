@@ -4,7 +4,7 @@
 # 2022-03-16    PV
 
 import argparse
-from common_argparse import *
+from common_argparse import int_range
 
 parser = argparse.ArgumentParser(description='Generation of a random labyrinth, and optionally show solution path (Python version)')
 parser.add_argument('-a', '--ascii', help='Simple print (ASCII only)', action='store_true')

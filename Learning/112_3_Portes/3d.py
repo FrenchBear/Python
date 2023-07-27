@@ -7,11 +7,10 @@
 # 2022-06-21    PV
 
 from random import shuffle, randint
-from secrets import choice
-from typing import Tuple
+# from secrets import choice
 
 
-def game(verbose: bool) -> Tuple[str, str]:
+def game(verbose: bool) -> tuple[str, str]:
     g = ['C', 'C', 'V']
     shuffle(g)
 
@@ -27,7 +26,7 @@ def game(verbose: bool) -> Tuple[str, str]:
         # print('Anim shows door', anim, '->', g[anim])
         # print('Change my mind ', newchoice, '->', g[newchoice])
         # print()
-    assert(g[anim]) == 'C'
+    assert (g[anim]) == 'C'
 
     return g[firstchoice], g[changemymind]
 

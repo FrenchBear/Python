@@ -1,13 +1,13 @@
 # Compte les mos les plus fréquents dans les noms de BD
 # 2020-05-04    PV
 
-import os, sys
+import os
 import re
 import json
 from collections import Counter
 from typing import Counter as TCounter
 
-from common import *
+from common_fs import get_all_files
 
 
 source = r'W:\TempBD'

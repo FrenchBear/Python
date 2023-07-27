@@ -3,7 +3,7 @@
 #
 # 2023-01-24    PV
 
-from common_fs import *
+from common_fs import get_files
 import re
 import os
 

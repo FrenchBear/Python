@@ -3,7 +3,7 @@
 #
 # 2022-03-19    PV
 
-from b_checkargs import *
+from b_checkargs import Fract
 import unittest
 import fractions
 
@@ -30,14 +30,14 @@ class TestOptargs(unittest.TestCase):
         self.assertEqual(str(Fract(3.1415926535)), '355/113')
 
         with self.assertRaises(TypeError):
-            f = Fract(1, 2, 3)
+            _ = Fract(1, 2, 3)
         with self.assertRaises(ZeroDivisionError):
-            f = Fract(1, 0)
+            _ = Fract(1, 0)
         with self.assertRaises(ValueError):
-            f = Fract(0.5, 2)
+            _ = Fract(0.5, 2)
 
         with self.assertRaises(TypeError):
-            f = Fract('hello')
+            _ = Fract('hello')
 
 
 if __name__ == '__main__':

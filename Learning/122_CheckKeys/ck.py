@@ -5,7 +5,7 @@
 
 from collections import defaultdict
 import os
-from common_fs import *
+from common_fs import get_files, extension_part, get_all_files, file_readalltext, file_readalltext_encoding
 
 source = r'C:\Development'
 
@@ -23,7 +23,7 @@ for file in get_files(r'C:\Utils\Local'):
     keys[file.casefold()] = file_readalltext(os.path.join(r'C:\Utils\Local', file))
 
 def is_source(filefp: str) -> bool:
-    ext =  extension(filefp).lower()
+    ext =  extension_part(filefp).lower()
     return ext in ['.py', '.cs', '.go', '.c', '.cpp', '.java', '.js', '.json', '.ini', '.yaml', '.html', '.xaml']
 
 for filefp in get_all_files(source):

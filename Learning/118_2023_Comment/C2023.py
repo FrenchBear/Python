@@ -3,13 +3,13 @@
 #
 # 2023-01-10    PV
 
-from common_fs import *
+from common_fs import get_all_files, extension_part
 import codecs
 import os
 
 DATE = '2023-01-15'
 root = r'C:\Development\GitVSTS\WPF\Net7\Learning'
-files = [f for f in get_all_files(root) if extension(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower()
+files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower()
          and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
 
 
@@ -60,7 +60,7 @@ def ProcessVBFile(fn: str):
 
 
 for file in files:
-    match extension(file.lower()):
+    match extension_part(file.lower()):
         case '.cs':
             ProcessCXFile(file)
             pass

@@ -4,9 +4,9 @@
 # 2022-07-04 PV
 
 from collections import Counter
-from typing import Counter
-from common_fs import *
-from casefix_En import *
+# from typing import Counter
+from common_fs import get_all_files
+from casefix_En import set_casefix, process_exceptions_En
 import os
 
 source = r'W:\Livres\A_Trier'
@@ -30,10 +30,10 @@ def process_word(w: str, first: bool):
         w = w[1:]
     while w and str.isdigit(w[-1]):
         w = w[:-1]
-    if len(w)==0:   # Only digits
+    if len(w) == 0:   # Only digits
         return w0
 
-    w=w0
+    w = w0
 
     if w in sme or w in set_casefix or ('A' <= w[0] <= 'Z' and w not in set_casefix and w[0].lower()+w[1:] in sme) or w == 'js':
         return w0
@@ -68,12 +68,12 @@ def process_name(name: str):
     ts = name.split(' - ')
     s1 = ts[0]
 
-    bp = ''
+    #bp = ''
     try:
         pp = s1.index('(')
-        bp = s1[pp:]
+        #bp = s1[pp:]
         s1 = s1[:pp]
-    except:
+    except Exception:
         pass
     process_segment(s1)
 
@@ -91,6 +91,7 @@ print(nt, 'file(s) processed')
 
 with open(r'c:\temp\newwords.txt', 'w', encoding='utf-8') as out:
     for w, c in unknowns.most_common():
-        if c==1: break
+        if c == 1:
+            break
         print(w, c)
         out.write(w+'\n')

@@ -4,7 +4,7 @@
 # 2022-06-21    PV
 
 import re
-from common_fs import *
+from common_fs import get_files
 
 source = r'W:\Revues\Électronique\Elektor'
 
@@ -30,6 +30,6 @@ ma = max(nums)
 print('N°s found from', mi, 'to', ma)
 print('Missing: ', end='')
 for i in range(mi,ma+1):
-    if not i in nums:
+    if i not in nums:
         print(i, end=' ')
 print()

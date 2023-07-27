@@ -5,7 +5,7 @@
 #
 # 2022-03-03    PV
 
-from common_fs import *
+from common_fs import get_folders
 import os
 import shutil
 

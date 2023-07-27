@@ -1,5 +1,5 @@
 import tkinter as tk
-import tkinter.ttk as ttk
+# import tkinter.ttk as ttk
 from tkinter.scrolledtext import ScrolledText  # type: ignore
 from TkToolTip import TkToolTip
 

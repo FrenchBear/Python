@@ -7,7 +7,6 @@
 # 2022-02-12    PV
 
 import math
-from typing import Tuple
 
 DIRECT_LEN = 4
 
@@ -126,7 +125,7 @@ def ns_neg(n: str) -> str:
     return '-'+n
 
 
-def ns_split(n: str, k: int) -> Tuple[str, str]:
+def ns_split(n: str, k: int) -> tuple[str, str]:
     '''Split a number in string, returning (high remaining digits, k lower digits)'''
     if len(n) > k:
         return n[:-k], n[-k:]

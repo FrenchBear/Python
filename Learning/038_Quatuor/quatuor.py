@@ -21,7 +21,6 @@ c’est à dire au plus 17 minutes après ?
 
 # itertools.combinations(l, r) retourne la liste des combinaisons de r éléments pris dans l
 import itertools
-from typing import Tuple
 
 
 # 2è partie de move, indépendante du sens du déplacement.
@@ -59,7 +58,7 @@ def move(left, right, leftToRight, totalTime, seq):
 
 # Données du problème et état initial
 speed = {'A': 1, 'B': 2, 'C': 5, 'D': 10}
-solutions:list[Tuple[int, list]] = []
+solutions: list[tuple[int, list]] = []
 
 # Résolution
 move(['A', 'B', 'C', 'D'], [], True, 0, [])

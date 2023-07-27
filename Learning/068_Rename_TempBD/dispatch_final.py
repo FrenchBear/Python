@@ -1,11 +1,10 @@
-import os, sys, shutil
+import os
 from collections import defaultdict
-from typing import List
 
-from common import *
+from common import normalize_serie
 
 
-source = r'W:\TempBD\final'
+source = r"W:\TempBD\final"
 DO_IT = True
 
 
@@ -19,7 +18,7 @@ for folder in folders:
 
 # Folders to merge
 for k in series.keys():
-    if len(series[k])>1:
+    if len(series[k]) > 1:
         print(series[k])
 
 # Move files
@@ -28,11 +27,11 @@ for k in series.keys():
 dicsf = defaultdict(list)
 for file in files:
     basename, ext = os.path.splitext(file)
-    segments = basename.split(' - ')
+    segments = basename.split(" - ")
     serie = normalize_serie(segments[0])
     dicsf[serie].append(file)
 
-print(f'Fichiers groupés en {len(dicsf)} séries')
+print(f"Fichiers groupés en {len(dicsf)} séries")
 
 existing = 0
 newserie = 0
@@ -42,7 +41,7 @@ for serie in dicsf.keys():
     if serie in series.keys():
         existing += 1
         targetfolderfp = os.path.join(source, series[serie].pop())
-        print(f'Merge into {targetfolderfp}')
+        print(f"Merge into {targetfolderfp}")
         for file in files:
             sourcefilefp = os.path.join(source, file)
             targetfilefp = os.path.join(targetfolderfp, file)
@@ -53,24 +52,26 @@ for serie in dicsf.keys():
                     os.remove(sourcefilefp)
                 else:
                     basename, ext = os.path.splitext(file)
-                    for suffix in ['Bis', 'Ter', 'Quater', '5', '6']:
-                        targetfilefp = os.path.join(targetfolderfp, basename+' - '+suffix+ext)
+                    for suffix in ["Bis", "Ter", "Quater", "5", "6"]:
+                        targetfilefp = os.path.join(
+                            targetfolderfp, basename + " - " + suffix + ext
+                        )
                         if not os.path.exists(targetfilefp):
                             break
             if to_move:
-                print(f'  {sourcefilefp}  ->  {targetfilefp}')
+                print(f"  {sourcefilefp}  ->  {targetfilefp}")
                 if DO_IT:
                     try:
                         os.rename(sourcefilefp, targetfilefp)
-                    except:
+                    except Exception:
                         print(f"*** Err renaming {sourcefilefp} into {targetfilefp}")
 
     else:
         newserie += 1
-        if len(files)>=3:
+        if len(files) >= 3:
             to_create += 1
             basename, ext = os.path.splitext(files[0])
-            segments = basename.split(' - ')
+            segments = basename.split(" - ")
             newfolder = segments[0]
             newfolderfp = os.path.join(source, newfolder)
             print(f'mkdir "{newfolderfp}"')
@@ -83,4 +84,6 @@ for serie in dicsf.keys():
                 if DO_IT:
                     os.rename(sourcefilefp, targetfilefp)
 
-print(f'{existing} séries existantes, {newserie} nouvelles séries dont {to_create} à créer')
+print(
+    f"{existing} séries existantes, {newserie} nouvelles séries dont {to_create} à créer"
+)

@@ -5,8 +5,7 @@
 # pip install qbittorrent-api
 
 import qbittorrentapi
-import pprint
-from common_fs import *
+from common_fs import file_exists, file_readalltext
 import os
 import shutil
 

@@ -9,7 +9,7 @@
 
 from collections import defaultdict
 #from typing import Iterable, List
-from common_fs import *
+from common_fs import get_all_files
 import os
 
 source1 = r'W:\Livres'

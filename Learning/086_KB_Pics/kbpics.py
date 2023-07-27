@@ -3,7 +3,7 @@
 # 2021-06-18    PV
 
 from collections import Counter
-from common_fs import *
+from common_fs import get_all_files
 import os
 
 def process_folder(root: str):

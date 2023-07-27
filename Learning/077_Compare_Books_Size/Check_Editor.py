@@ -7,7 +7,7 @@
 import shutil
 from collections import Counter
 from os import path
-from common_fs import *
+from common_fs import get_all_files, folder_exists
 import os
 
 source = r'D:\A_Trier_Raw'
@@ -126,10 +126,11 @@ for filefp in list(get_all_files(source)):
         tit = tit.replace(',', ' ').replace('-', ' ').replace('⧸', ' ').casefold()
         lk = []
         for w in tit.split(' '):
-            if w=='ed,': breakpoint()
+            if w == 'ed,':
+                breakpoint()
             if (len(w) >= 2 or w == 'C'):
                 d.update([w])
-                if w in keywords and not w in lk:
+                if w in keywords and w not in lk:
                     lk.append(w)
         if lk:
             lk.sort()
@@ -142,14 +143,14 @@ for filefp in list(get_all_files(source)):
             pass
         else:
             pass
-            #print(tit)
+            # print(tit)
 
 
-l = list(d.most_common())
+li = list(d.most_common())
 with open("wordsfreq.txt", "w", encoding='utf-8') as out:
-    for w, f in l:
-        if not w in keywords:
+    for w, f in li:
+        if w not in keywords:
             out.write(f"{f}\t{w}\n")
 
-print(len(l), 'words')
-print(nb, 'books, ', nbk,'with keywords')
+print(len(li), 'words')
+print(nb, 'books, ', nbk, 'with keywords')

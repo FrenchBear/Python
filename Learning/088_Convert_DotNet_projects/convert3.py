@@ -2,7 +2,7 @@
 # prepare conversion of .Net 4.8 projects to .Net core
 # 2021-07-21    PV
 
-from common_fs import *
+from common_fs import get_folders
 import os.path
 import shutil
 

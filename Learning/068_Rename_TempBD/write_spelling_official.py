@@ -4,7 +4,7 @@ import json
 from collections import defaultdict, Counter
 from typing import DefaultDict, Counter as CounterType
 
-from common import *
+from common import normalize_serie
 
 sources = [r'W:\BD\Classique', r'W:\BD\Adulte', r'W:\BD\Ancien', r'W:\BD\Extra', r'W:\BD\Comics', r'W:\TempBD\final']
 output = r'spellings_officiel_temp.json'

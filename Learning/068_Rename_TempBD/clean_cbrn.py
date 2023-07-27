@@ -1,7 +1,7 @@
 import os
 import re
 from collections import Counter
-from common import *
+from common_fs import get_all_files
 
 source = r'W:\TempBD\archives'
 DO_IT = True

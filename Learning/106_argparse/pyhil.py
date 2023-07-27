@@ -4,7 +4,7 @@
 # 2022-03-16    PV
 
 import argparse
-from common_argparse import *
+from common_argparse import int_range
 
 parser = argparse.ArgumentParser(description='Generation and text drawing of a Hilbert curve (Python version)', 
     formatter_class=argparse.RawDescriptionHelpFormatter, epilog='''

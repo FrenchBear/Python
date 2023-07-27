@@ -1,1 +1,6 @@
-line-length = 140
+line-length = 200
+# E722 = Do not use bare except
+# E501 = Line too long
+# E741: Ambiguous variable name: `l`
+# E713: Test for membership should be `not in`
+ignore = ["E722", "E501", "E741", "E713"]

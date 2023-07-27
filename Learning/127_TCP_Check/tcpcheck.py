@@ -8,16 +8,15 @@ https://www.redhat.com/sysadmin/test-tcp-python-scapy?utm_source=pocket_saves
 
 import socket
 from pathlib import Path
-from typing import Dict, List
 from argparse import ArgumentParser
 
 
-def load_machines_port(the_data_file: Path) -> Dict[str, List[int]]:
+def load_machines_port(the_data_file: Path) -> dict[str, list[int]]:
     port_data = {}
-    with open(the_data_file, 'r') as d_scan:
+    with open(the_data_file, "r") as d_scan:
         for line in d_scan:
             host, ports = line.split()
-            port_data[host] = [int(p) for p in ports.split(',')]
+            port_data[host] = [int(p) for p in ports.split(",")]
     return port_data
 
 
@@ -33,7 +32,9 @@ def test_port(address: str, dest_port: int) -> bool:
 
 if __name__ == "__main__":
     PARSER = ArgumentParser(description=__doc__)
-    PARSER.add_argument("scan_file", type=Path, help="Scan file with list of hosts and ports")
+    PARSER.add_argument(
+        "scan_file", type=Path, help="Scan file with list of hosts and ports"
+    )
     ARGS = PARSER.parse_args()
     data = load_machines_port(ARGS.scan_file)
     for machine in data:

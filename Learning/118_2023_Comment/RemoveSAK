@@ -3,9 +3,10 @@
 #
 # 2023-01-15    PV
 
-from common_fs import *
+from common_fs import get_all_files, extension
 import codecs
 import re
+import os
 
 root = r'C:\Development\GitVSTS\WPF\Net7\Learning'
 files = [f for f in get_all_files(root) if extension(f.lower()) in ['.csproj']]
@@ -29,7 +30,7 @@ def ProcessFile(filefp: str):
         # Since UTF-8 is strict on encoding, try it first, it it fails, then assume it's ANSI
         try:
             lines = codecs.decode(data, encoding='utf_8', errors='strict').split('\r\n')
-        except:
+        except Exception:
             lines = codecs.decode(data, encoding='mbcs', errors='strict').split('\r\n')
 
     found = False
@@ -53,7 +54,8 @@ def ProcessFile(filefp: str):
     if found:        
         with open(filefp, 'w', encoding='utf_8_sig') as fout:
             for line in lines:
-                if not L1.fullmatch(line) and not L2.fullmatch(line) and not L3.fullmatch(line) and not L4.fullmatch(line) and not L5.fullmatch(line):
+                if not L1.fullmatch(line) and not L2.fullmatch(line) and not L3.fullmatch(line) and \
+                   not L4.fullmatch(line) and not L5.fullmatch(line):
                     fout.write(line+'\n')
 
     print("Cleaned\n")

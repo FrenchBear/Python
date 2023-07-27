@@ -6,7 +6,7 @@
 # 2021-09-28    PV
 
 import os
-from common_fs import *
+from common_fs import get_all_files
 
 root = r'X:\Archives\Disquettes'
 

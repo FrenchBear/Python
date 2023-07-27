@@ -1,7 +1,7 @@
-import os, shutil
-from typing import Tuple, Iterable
-from common import *
-
+from typing import Iterable
+from common_fs import get_safe_name
+import os
+import shutil
 
 source = r'W:\TempBD\archives'
 DO_IT = True

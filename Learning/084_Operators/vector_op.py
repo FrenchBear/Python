@@ -24,7 +24,7 @@ class Vector:
             self._coords = array(self.typecode, values)
         else:
             try:
-                it = iter(values[0])    # test if it's iterable since array contructor need an iterable
+                _ = iter(values[0])    # test if it's iterable since array contructor need an iterable
                 # Vector([1, 2])
                 self._coords = array(self.typecode, values[0])
             except TypeError:
@@ -74,7 +74,7 @@ class Vector:
     # - hyperspherical corrdinates
     # See Fluent Python Chap 10 p. 300
     def __format__(self, format_spec: str) -> str:
-        if format_spec == None:
+        if format_spec is None:
             return str(self._coords)
         if format_spec.endswith('r'):
             if len(self._coords) == 2:

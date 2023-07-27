@@ -2,14 +2,13 @@ import numpy as np
 from skimage.feature import canny                               # type: ignore
 from skimage.transform import hough_line, hough_line_peaks      # type: ignore
 from skimage import io                                          # type: ignore
-from skimage.transform import rotate                            # type: ignore
 from skimage.color import rgb2gray                              # type: ignore
 
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Optional
 
 
-def _get_max_freq_elem(peaks: List[int]) -> List[float]:
-    freqs: Dict[float, int] = {}
+def _get_max_freq_elem(peaks: list[int]) -> list[float]:
+    freqs: dict[float, int] = {}
     for peak in peaks:
         if peak in freqs:
             freqs[peak] += 1
@@ -38,7 +37,7 @@ def _calculate_deviation(angle: float) -> float:
 
 def determine_skew_dev(  # pylint: disable=too-many-locals
         image: np.ndarray, sigma: float = 3.0, num_peaks: int = 20
-) -> Tuple[Optional[float], Any, Any, Optional[Tuple[Any, Any, Any]]]:
+) -> tuple[Optional[float], Any, Any, Optional[tuple[Any, Any, Any]]]:
     img = image
     edges = canny(img, sigma=sigma)
     out, angles, distances = hough_line(edges)

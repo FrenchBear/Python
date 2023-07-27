@@ -4,7 +4,6 @@
 # 2022-03-16    PV
 
 import argparse
-from common_argparse import *
 
 parser = argparse.ArgumentParser(description='Normalizes BD names, add folder name as a prefix for files staring with \'01.\'')
 parser.add_argument('-y', '--yes', help='Skip initial confirmation', action='store_true')

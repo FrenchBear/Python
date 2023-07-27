@@ -1,8 +1,9 @@
 import os
 from collections import defaultdict
-from typing import Any, DefaultDict, Iterable, List
-from pprint import pprint
-from common import *
+from typing import DefaultDict
+
+from common_fs import get_folders
+from common import normalize_serie
 
 
 #sources = [r'W:\BD\Classique', r'W:\BD\Adulte', r'W:\BD\Ancien', r'W:\BD\Extra', r'W:\BD\Comics', r'W:\TempBD\final']

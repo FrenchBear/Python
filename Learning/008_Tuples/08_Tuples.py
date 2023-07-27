@@ -35,11 +35,11 @@ def min_max(list):
     return list[0], list[-1]    # Negative index start from end
 
 
-l = [5, 1, 2, 4, 7, 5, 9, 6, 2, 3, 5, 4, 6, 2, 4]
-print(l)
-min, max = min_max(l)
+li = [5, 1, 2, 4, 7, 5, 9, 6, 2, 3, 5, 4, 6, 2, 4]
+print(li)
+min, max = min_max(li)
 print(min, max)
-print(l)                # l has been globally sorted
+print(li)                # l has been globally sorted
 
 
 # Python old school, Immutable namedtuple

@@ -3,9 +3,7 @@
 #
 # 2022-07-04 PV
 
-from common_fs import *
 import unicodedata
-from casefix_En import *
 
 
 def sans_accent(mot: str) -> str:
@@ -37,8 +35,8 @@ def findmatch(w: str):
     f = eval(sfilter)
 
     print(w+':')
-    l = len(w)
-    for m in [mot for mot in smf if len(mot)==l and f(mot)]:
+    li = len(w)
+    for m in [mot for mot in smf if len(mot)==li and f(mot)]:
         print('  '+m)
     print()
 

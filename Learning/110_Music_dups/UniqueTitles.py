@@ -3,12 +3,8 @@
 #
 # 2022-05-26    PV      First version
 
-from collections import Counter
-from json import tool
 import shutil
-import sys
-from common_fs import *
-from lev import *
+from common_fs import get_all_files, file_part, folder_exists, file_size
 import os
 
 def cleanprefix(f: str) -> str:

@@ -104,11 +104,11 @@ print(unicodedata.name(s3))     # SOFT HYPHEN
 print(u'ß'.upper())     #  SS
 
 
-l = ['déjà', 'Meme', 'deja', 'même', 'dejà', 'bpef', 'bœg', 'Boef', 'Mémé', 'bœf', 'boef', 'bnef', 'pêche', 'pèché', 'pêché', 'pêche', 'pêché', 'boeh']
+li = ['déjà', 'Meme', 'deja', 'même', 'dejà', 'bpef', 'bœg', 'Boef', 'Mémé', 'bœf', 'boef', 'bnef', 'pêche', 'pèché', 'pêché', 'pêche', 'pêché', 'boeh']
 
-print(l)
-print(sorted(l))
-print(sorted(l, key=str.upper))
-print(sorted(l, key=lambda s: unicodedata.normalize("NFKD", s)))
-print(sorted(l, key=lambda s: unicodedata.normalize("NFKD", s.lower())))
+print(li)
+print(sorted(li))
+print(sorted(li, key=str.upper))
+print(sorted(li, key=lambda s: unicodedata.normalize("NFKD", s)))
+print(sorted(li, key=lambda s: unicodedata.normalize("NFKD", s.lower())))
 

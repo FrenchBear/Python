@@ -5,7 +5,7 @@
 # Simple array
 myList = []
 for i in range(10):
-    # myList[i]=1           # IndexError: list assignment index out of range
+    # mylist[i]=1           # IndexError: list assignment index out of range
     myList.append(1)
 
 myList = [i*i for i in range(10)]  # Array of squares [0, ..., 81]

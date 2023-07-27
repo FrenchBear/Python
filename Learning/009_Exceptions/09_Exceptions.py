@@ -27,12 +27,12 @@ finally:
 
 print()
 print('Enter words, Ctrl+C [Return] to stop')
-l = []
+li = []
 try:
     while True:
         n = input('Enter a word: ')
-        l.append(n)
+        li.append(n)
 except KeyboardInterrupt:
     print("Done.")
 
-print("List:", l)
+print("List:", li)

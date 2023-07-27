@@ -4,10 +4,7 @@
 #
 # 2022-02-17    PV
 
-
 # define weights of paths
-from typing import Tuple
-
 
 w: dict[str, int] = {}
 w['00->01'] = 3
@@ -66,7 +63,7 @@ for r in range(rows):
 
 
 # calculate absolute distance to cells
-ad: dict[str, Tuple[int, str]] = {}
+ad: dict[str, tuple[int, str]] = {}
 for r in range(rows):
     for c in range(cols):
         ck = f'{r}{c}'                  # (current) cell key
@@ -101,7 +98,7 @@ sp = []
 r = rows-1
 c = cols-1
 ck = f'{r}{c}'                  # start from end cell and get back to cell 00 with predecessor __
-l = ad[ck][0]
+li = ad[ck][0]
 while ck != '__':
     sp.append(ad[ck])
     ck = ad[ck][1]
@@ -109,4 +106,4 @@ sp.reverse()
 # print(sp)
 for (_, ck) in sp[1:]:
     print(f'{ck} -> ', end='')
-print(f'{r}{c},  l={l}')
+print(f'{r}{c},  l={li}')

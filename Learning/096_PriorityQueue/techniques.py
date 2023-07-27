@@ -2,13 +2,13 @@
 # 2021-12-29    PV
 
 import math
-from typing import Any, DefaultDict, Dict, Iterable, Tuple
+from typing import Any, DefaultDict, Iterable
 from collections import defaultdict, Counter
 
 
-def majority1(l: Iterable) -> Any:
-    count:Dict[Any, int] = {}
-    for item in l:
+def majority1(it: Iterable) -> Any:
+    count:dict[Any, int] = {}
+    for item in it:
         if item in count:
             count[item] += 1
         else:
@@ -17,16 +17,16 @@ def majority1(l: Iterable) -> Any:
     return itemmax
 
 
-def majority2(l: Iterable) -> Any:
+def majority2(it: Iterable) -> Any:
     count:DefaultDict[Any, int] = defaultdict(int)
-    for item in l:
+    for item in it:
         count[item] += 1
     return max((count[item], item) for item in count)[1]
 
 
-def majority3(l: Iterable) -> Any:
+def majority3(it: Iterable) -> Any:
     count:Counter = Counter()
-    count.update(l)
+    count.update(it)
     return count.most_common(1)[0][0]
 
 
@@ -37,19 +37,19 @@ print(majority3(m))
 
 
 # Find closest values in a list
-def closest(l: list) -> Tuple[Any, Any]:
-    assert len(l) >= 2
-    l.sort()
-    valmin, ixmin = min((l[i]-l[i-1], i) for i in range(1, len(l)))
-    return l[ixmin-1], l[ixmin]
+def closest(li: list) -> tuple[Any, Any]:
+    assert len(li) >= 2
+    li.sort()
+    valmin, ixmin = min((li[i]-li[i-1], i) for i in range(1, len(li)))
+    return li[ixmin-1], li[ixmin]
 
 
-l = [61, 69, 51, 27, 82, 25, 10, 2, 89, 70, 42, 24, 65, 91, 83, 97, 19, 59, 79, 11]
-print(closest(l))
+li = [61, 69, 51, 27, 82, 25, 10, 2, 89, 70, 42, 24, 65, 91, 83, 97, 19, 59, 79, 11]
+print(closest(li))
 
 
-def max_interval_intersect(s: list[Tuple[Any, Any]]) -> Any:
-    b: list[Tuple[Any, int]] = [(left, +1) for left, _ in s]+[(right, -1) for _, right in s]
+def max_interval_intersect(s: list[tuple[Any, Any]]) -> Any:
+    b: list[tuple[Any, int]] = [(left, +1) for left, _ in s]+[(right, -1) for _, right in s]
     b.sort()
     c = 0
     best = (c, None)

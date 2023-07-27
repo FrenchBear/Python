@@ -1,4 +1,6 @@
-import os, shutil, re
+import os
+import shutil
+import re
 
 
 source = r'U:\A_Trier Music\France Gall\Après 1970'
@@ -9,7 +11,7 @@ for root, subs, files in os.walk(source):
         if match:
             fullpath = os.path.join(root, file)
             song = str(match.groups(0)[2])
-            if not song in sourcefiles: 
+            if song not in sourcefiles: 
                 sourcefiles.append(song)
                 shutil.copy(fullpath, os.path.join(r'c:\Temp\FG\!All', song+'.mp3'))
             else:

@@ -2,9 +2,8 @@
 #
 # 2023-04-07    PV
 
-from collections import Counter
-import shutil
-from common_fs import *
+# from collections import Counter
+from common_fs import get_all_files, file_exists
 import os
 
 source = r'\\terazalt\books\Autres\Livres Large avant nettoyage'

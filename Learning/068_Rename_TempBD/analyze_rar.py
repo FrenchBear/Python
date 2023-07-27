@@ -3,20 +3,18 @@
 
 import os
 import rarfile       # type: ignore
-from typing import Tuple, TextIO
+from typing import TextIO
 
-from common import *
+from common_fs import get_all_files, get_safe_name
 
 
 source = r'W:\TempBD\archives'
-
 DO_IT = True
-
 
 rarfile.UNRAR_TOOL = r"c:\Program Files\WinRAR\rar.exe"
 
 
-def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str]:
+def analyze_one_archive(archive: str) -> tuple[int, int, int, int, int, int, str]:
     folders = set()
     other = set()
     n_image = 0
@@ -34,20 +32,20 @@ def analyze_one_archive(archive: str) -> Tuple[int, int, int, int, int, int, str
                 basename, ext = os.path.splitext(filename)
                 ext = ext.lower()
                 folders.add(folder)
-                #type = ''
+                # type = ''
                 if ext in ['.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.png', '.tif', '.tiff']:
-                    #type = 'image'
+                    # type = 'image'
                     n_image += 1
                 else:
                     if ext == '.pdf':
-                        #type = 'pdf'
+                        # type = 'pdf'
                         n_pdf += 1
                     else:
                         if ext in ['.cbr', '.rar', '.cbz', '.zip']:
-                            #type = 'archive'
+                            # type = 'archive'
                             n_archive += 1
                         else:
-                            #type = 'other'
+                            # type = 'other'
                             n_other += 1
                             other.add(ext)
     rf.close()
@@ -87,7 +85,7 @@ def analyse_archives(out: TextIO):
             try:
                 status = 'Ok'
                 nf, ni, np, na, no, nm, so = analyze_one_archive(fullpath)
-            except:
+            except Exception:
                 status = 'Error'
                 nf, ni, np, na, no, nm, so = (0, 0, 0, 0, 0, 0, '')
             print(status, nf, ni, np, na, no, nm, so, end='')

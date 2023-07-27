@@ -2,17 +2,17 @@
 # 2021-02-28    PV
 
 import itertools
-from typing import Iterator, Tuple
+from typing import Iterator
 
 
-def sublists(l: list) -> Iterator[Tuple]:
+def sublists(li: list) -> Iterator[tuple]:
     """Iterator, returns all (2ⁿ) sublists of a list"""
-    for i in range(len(l) + 1):
-        for s in itertools.combinations(l, i):
+    for i in range(len(li) + 1):
+        for s in itertools.combinations(li, i):
             yield s
 
-l = [27, 33, 38, 40, 15, 24, 29]
-for s in sublists(l):
+li = [27, 33, 38, 40, 15, 24, 29]
+for s in sublists(li):
 #    print(s)
     if sum(s) == 99:
         print(s)

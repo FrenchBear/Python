@@ -3,13 +3,7 @@
 #
 # 2022-07-05    PV
 
-from collections import defaultdict
-from collections import Counter
-from ntpath import join
-from posixpath import split
-from typing import Tuple, Counter
-from common_fs import *
-import unicodedata
+from common_fs import get_folders, get_all_files, file_exists
 import shutil
 import os
 
@@ -17,7 +11,7 @@ doit = False
 
 # rename folders from "lastname, firstname" into "firstname lastname"
 def reorder_folders():
-    root = f'D:\Littérature francaise'
+    root = 'D:\Littérature francaise'
     for folder in list(get_folders(root)):
         ts = folder.split(', ')
         if len(ts) == 2:
@@ -29,7 +23,7 @@ def reorder_folders():
 #reorder_folders()
 
 def reorder_files():
-    root = f'D:\Littérature francaise'
+    root = 'D:\Littérature francaise'
     np=0
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
@@ -59,7 +53,7 @@ def reorder_files():
 
 def find_dups():
     d: dict[str, str] = {}
-    root = f'D:\Littérature francaise'
+    root = 'D:\Littérature francaise'
     nd = 0
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
@@ -91,7 +85,7 @@ def find_dups():
 #find_dups()
 
 def first_maj():
-    root = f'D:\Littérature francaise'
+    root = 'D:\Littérature francaise'
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
         base, ext = os.path.splitext(file)

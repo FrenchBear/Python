@@ -5,7 +5,7 @@
 
 from io import TextIOWrapper
 from typing import TextIO
-from common_fs import *
+from common_fs import get_all_folders, get_files
 import os.path
 
 def convert_folder(folder: str, script: TextIO|TextIOWrapper):

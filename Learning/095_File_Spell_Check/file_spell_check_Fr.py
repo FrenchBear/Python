@@ -7,9 +7,8 @@
 
 from collections import defaultdict
 from collections import Counter
-from posixpath import split
-from typing import Tuple, Counter
-from common_fs import *
+# from posixpath import split
+from common_fs import get_all_files
 import unicodedata
 import os
 
@@ -96,7 +95,7 @@ def fixwordbase(word: str, first: bool) -> str:
         if word2.casefold() in mfsa:
             return prefix+mfsa[word2.casefold()][0]     # fix accent and case
 
-    if word[0] in 'lLdD' and (not "'" in word) and word.casefold() != 'lte':
+    if word[0] in 'lLdD' and ("'" not in word) and word.casefold() != 'lte':
         prefix = word[0]+"'"
         word2 = word[1:]
         if word2.casefold() in dmf:
@@ -104,17 +103,16 @@ def fixwordbase(word: str, first: bool) -> str:
         if word2.casefold() in mfsa:
             return prefix+mfsa[word2.casefold()][0]     # fix accent and case
 
-    if len(word) > 1 and not word.casefold() in dic_casefix:
+    if len(word) > 1 and word.casefold() not in dic_casefix:
         uw.update([word])
     return word
 
 
-def break_word(word: str) -> Tuple[str, str, str]:
+def break_word(word: str) -> tuple[str, str, str]:
     i = 0
     prefix = ''
     w = ''
-    suffix = ''
-
+    
     while i < len(word):
         c = word[i]
         if unicodedata.category(c) in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
@@ -168,7 +166,7 @@ def fixword(word: str, first: bool) -> str:
 #     return text
 
 
-# def guess_language(words: str) -> Tuple[str, int, int]:
+# def guess_language(words: str) -> tuple[str, int, int]:
 #     # # For just French files
 #     # return('fr',1,0)
 
@@ -207,7 +205,7 @@ def fixword(word: str, first: bool) -> str:
 def process_name(name: str) -> str:
     ts = name.split(' - ')
     s1 = ts[0]
-    l = []
+    li = []
     first = True
     for word in s1.split(' '):
         if len(word) > 0:
@@ -216,8 +214,8 @@ def process_name(name: str) -> str:
             nwcf = nw.casefold()
             if nwcf in dic_casefix:
                 nw = dic_casefix[nwcf]
-            l.append(nw)
-    ts[0] = ' '.join(l)
+            li.append(nw)
+    ts[0] = ' '.join(li)
     nn = ' - '.join(ts)
     # Special cases
     nn = nn.replace('cplusplus', 'C++').replace('Cplusplus', 'C++').replace("[Oreilly]", "[O'Reilly]")

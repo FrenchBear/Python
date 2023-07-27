@@ -5,7 +5,6 @@
 
 from collections import defaultdict
 from typing import DefaultDict
-from common_fs import *
 
 class Trie:
     def __init__(self) -> None:
@@ -21,7 +20,7 @@ class Trie:
     def find_word(self, word: str) -> bool:
         if len(word)==0:
             return self.is_word
-        if not word[0] in self.s:
+        if word[0] not in self.s:
             return False
         return self.s[word[0]].find_word(word[1:])
 

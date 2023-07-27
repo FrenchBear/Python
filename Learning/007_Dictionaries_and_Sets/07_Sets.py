@@ -5,10 +5,8 @@
 #
 # 2018-09-11    PV
 
-from typing import Set
-
 # Just for fun
-Ø:Set = set()
+Ø:set = set()
 
 s1 = set("précautionneusement")
 s2 = set("applaudissements")

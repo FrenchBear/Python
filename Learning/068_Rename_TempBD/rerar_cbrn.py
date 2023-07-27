@@ -3,7 +3,7 @@ import os
 import subprocess
 from typing import TextIO
 
-from common import *
+from common_fs import get_folders
 
 
 source = r'W:\TempBD\archives\cbrn'

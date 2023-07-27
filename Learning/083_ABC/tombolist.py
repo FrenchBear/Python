@@ -3,7 +3,6 @@
 
 from random import randrange
 from tombola import Tombola
-from typing import Any, Iterable
 
 @Tombola.register               # class registered as a virtual subclass of Tombola
 class TomboList(list):

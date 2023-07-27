@@ -3,9 +3,9 @@
 #
 # 2023-02-18    PV
 
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import os
-from common_fs import *
+from common_fs import get_files
 
 source = r'C:\Users\Pierr\Documents\The Witcher 3\gamesaves'
 spacemin = timedelta(hours=1)

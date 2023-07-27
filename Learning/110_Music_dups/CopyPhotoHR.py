@@ -4,7 +4,7 @@
 
 import os
 import shutil
-from common_fs import *
+from common_fs import get_all_files, file_part, file_exists
 
 root = r'C:\Users\Pierr\OneDrive\PicturesODPerso\2022\2022'
 root_hr = r'\\teraz\photo\Pierre\PicturesSkull\2022\2022-05 Pyrénées PV HR'

@@ -20,7 +20,7 @@ def test_seq(Sentence, name: str):
     print('  isIterable:', is_iterable(s))
     try:
         it: Iterator[str] = iter(s)
-    except:
+    except Exception:
         print(name, 'is not iterable')
         print()
         return
@@ -30,7 +30,7 @@ def test_seq(Sentence, name: str):
         assert next(it) == 'upon'
         assert next(it) == 'a'
         assert next(it) == 'time'
-    except:
+    except Exception:
         print(name, 'did not iterate over correct sequence')
         return
 

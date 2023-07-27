@@ -6,16 +6,15 @@
 # paths is a series of tuples 'inout' where in and out are a letter and a number, letter in nesw, number 0 if there is
 # just 1 connector on this side, otherwise 1 or 2 to indicate first and second connectors on the sie (clock orientation)
 
-from typing import Tuple
 import itertools
 
-T: list[list[Tuple[str, ...]]]
+T: list[list[tuple[str, ...]]]
 T = [
     [('0110', 'e0s0'), ('0101', 'e0w0'), ('0121', 'e0w0', 's1s2'), ('0101', 'e0w0'), ('2011', 'n1s0', 'n2w0')],
-    [('1210', 'n0e2', 'e1s0'), ('0222', 'e1w1', 'e2s2', 's1w2'), ('2112', 'n1s0',
-                                                                  'n2w1', 'e0w2'), ('0121', 'e0s2', 's1w0'), ('1021', 'n0s2', 's1w0')],
-    [('1210', 'n0e2', 'e1s0'), ('2112', 'n1w1', 'n2e0', 's0w2'), ('1221', 'n0w0',
-                                                                  'e1s2', 'e2s1'), ('2112', 'n1s0', 'n2w2', 'e0w1'), ('2011', 'n1n2', 's0w0')],
+    [('1210', 'n0e2', 'e1s0'), ('0222', 'e1w1', 'e2s2', 's1w2'), ('2112', 'n1s0', 'n2w1', 'e0w2'),
+            ('0121', 'e0s2', 's1w0'), ('1021', 'n0s2', 's1w0')],
+    [('1210', 'n0e2', 'e1s0'), ('2112', 'n1w1', 'n2e0', 's0w2'), ('1221', 'n0w0', 'e1s2', 'e2s1'), 
+            ('2112', 'n1s0', 'n2w2', 'e0w1'), ('2011', 'n1n2', 's0w0')],
     [('1210', 'n0e2', 'e1s0'), ('1212', 'n0e1', 'e2w2', 's0w1'),
      ('2002', 'n1w1', 'n2w2'), ('1210', 'n0e1', 'e2s0'), ('1012', 'n0s0', 'w1w2')],
     [('1120', 'n0s1', 'e0s2'), ('1201', 'n0e2', 'e1w0'), ('0202', 'e1w1', 'e2w2'),
@@ -53,13 +52,13 @@ for i in range(5):
         assert plugsdic == verif
 
 
-def check_connexions(t: list[list[Tuple[str, ...]]]) -> str:
+def check_connexions(t: list[list[tuple[str, ...]]]) -> str:
     startcell = t[0][4]
     startplugs = startcell[0]
     if startplugs[0] != '2':
         return 'Invalid start cell'
 
-    def find_connex(paths: Tuple[str, ...], input: str) -> str:
+    def find_connex(paths: tuple[str, ...], input: str) -> str:
         for path in paths:
             if path[0:2] == input:
                 return path[2:]
@@ -111,8 +110,8 @@ def check_connexions(t: list[list[Tuple[str, ...]]]) -> str:
 #print(check_connexions(T))
 
 
-def exchange_cells(cc1: Tuple[int, int], cc2: Tuple[int, int]) -> list[list[Tuple[str, ...]]]:
-    newt: list[list[Tuple[str, ...]]] = []
+def exchange_cells(cc1: tuple[int, int], cc2: tuple[int, int]) -> list[list[tuple[str, ...]]]:
+    newt: list[list[tuple[str, ...]]] = []
     for r in range(5):
         newt.append(T[r].copy())
     r1 = cc1[0]
@@ -124,7 +123,7 @@ def exchange_cells(cc1: Tuple[int, int], cc2: Tuple[int, int]) -> list[list[Tupl
 
 
 # Build a dict of potentially interchangeable cells (same plugs)
-celltypedic: dict[str, list[Tuple[int, int]]] = {}
+celltypedic: dict[str, list[tuple[int, int]]] = {}
 for i in range(5):
     for j in range(5):
         cell = T[i][j]

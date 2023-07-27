@@ -6,8 +6,9 @@
 # 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
 # 2022-07-01    PV      Version en anglais, réécriture quasi complète
 
-from common_fs import *
-from casefix_En import *
+from common_fs import get_all_files
+from casefix_En import dic_casefix, process_exceptions_En
+import os
 
 source = r'C:\Temp\A_Trier'
 doit = True

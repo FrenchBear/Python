@@ -12,12 +12,11 @@ https://stackoverflow.com/questions/8948/accessing-mp3-metadata-with-python
 
 '''
 
-from cmath import pi
 import eyed3
 import eyed3.id3
 import logging
 import io
-from common_fs import *
+from common_fs import get_all_files, file_part, basename_part
 
 
 def check_tag(file: str):
@@ -37,7 +36,7 @@ def check_tag(file: str):
     #     print(file)
     # return
 
-    file_basename = basename(file_part(file))
+    file_basename = basename_part(file_part(file))
 
     # nn - Title
     if track:

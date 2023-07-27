@@ -9,45 +9,48 @@
 from types import MappingProxyType
 from typing import DefaultDict
 import collections
-dic = {'Pierre': 50, 'Claude': 59, 'Jacques': 46}
+
+dic = {"Pierre": 50, "Claude": 59, "Jacques": 46}
 
 print(dic)
-print(dic.values())             # View, wrap into list() to make a list
-print(dic.keys())               # Idem
-print(list(dic))                # ['Claude', 'Pierre', 'Jacques'] = keys
+print(dic.values())  # View, wrap into list() to make a list
+print(dic.keys())  # Idem
+print(list(dic))  # ['Claude', 'Pierre', 'Jacques'] = keys
 
 # Access by index
 # print(dic[0])                 # Invalid
-print(list(dic.values())[0])    # Working, but since dictionaries don't keep order, element 0 is Claude!
+print(
+    list(dic.values())[0]
+)  # Working, but since dictionaries don't keep order, element 0 is Claude!
 
-dic['Pierre'] += 1                # Dictionaries are mutable
-print(dic['Pierre'])
+dic["Pierre"] += 1  # Dictionaries are mutable
+print(dic["Pierre"])
 
 # print(dic['pierre'])          # Err, case-sensitive
 
-print(len(dic))                 # 3
+print(len(dic))  # 3
 
-del(dic['Jacques'])
-print(dic)                      # {'Claude': 59, 'Pierre': 51}
+del dic["Jacques"]
+print(dic)  # {'Claude': 59, 'Pierre': 51}
 
-print('Pierre' in dic)          # True
-print('Jacques' in dic)         # False
+print("Pierre" in dic)  # True
+print("Jacques" in dic)  # False
 
-print(dic.get('Pierre', 20))    # 51
-print(dic.get('Jacques', 20))   # 20
+print(dic.get("Pierre", 20))  # 51
+print(dic.get("Jacques", 20))  # 20
 try:
     print(dic["jacques"])
-except Exception as ex:
+except Exception:
     print("exception: 20")
 
 dic.clear()
-print(len(dic))                 # 0
+print(len(dic))  # 0
 
 # Use a dictionary as a sparse matrix, key is a tuple
 Matrix = {}
 Matrix[1, 2] = 15
 print(Matrix[1, 2])
-print(Matrix)                   # {(1, 2): 15}
+print(Matrix)  # {(1, 2): 15}
 
 """
 Interfaces d=dict, dd=defaultdict, od=OrderedDict
@@ -87,7 +90,7 @@ dd["color"] += ", Blue"
 dd["size"] += ", Big"
 print(dd)
 
-dd2 = collections.defaultdict(list)     # use list constructor as default_factory
+dd2 = collections.defaultdict(list)  # use list constructor as default_factory
 dd2[1].append("Un")
 dd2[1].append("One")
 dd2[1].append("Eins")
@@ -98,23 +101,23 @@ print(dd2)
 print("\nOrderedDict")
 od = collections.OrderedDict(one=1, two=2, three=3)
 print(od)
-od['four'] = 4
+od["four"] = 4
 print(od.keys())
-od.popitem(True)        # Remove last inserted
+od.popitem(True)  # Remove last inserted
 print(od.keys())
 
 # collections.ChainMap; serch multiple dictionaries
 print("\nChainMap")
-dict1 = {'one': 1, 'two': 2}
-dict2 = {'three': 3, 'four': 4}
+dict1 = {"one": 1, "two": 2}
+dict2 = {"three": 3, "four": 4}
 chain = collections.ChainMap(dict1, dict2)
-print("'one' in chain:", 'one' in chain)
-print("'three' in chain:", 'three' in chain)
-print("'five' in chain:", 'five' in chain)
+print("'one' in chain:", "one" in chain)
+print("'three' in chain:", "three" in chain)
+print("'five' in chain:", "five" in chain)
 
 # types.MappingProxyType – A wrapper for making read-only dictionaries
-writable = {'one': 1, 'two': 2}
+writable = {"one": 1, "two": 2}
 read_only = MappingProxyType(writable)
-writable['one'] = 42
+writable["one"] = 42
 print(read_only)
 # read_only['two'] = 4          # Error: 'mappingproxy' object does not support item assignment

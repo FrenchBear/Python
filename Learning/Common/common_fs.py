@@ -20,16 +20,16 @@ shutil.copyfileobj 	No          No              Yes             No
 
 import os
 import codecs
-from typing import Tuple, List, Iterable
+from typing import Iterable
 
 
-def get_files(source: str) -> List[str]:
+def get_files(source: str) -> list[str]:
     '''Retourne juste les fichiers d'un dossier, noms.ext sans chemins'''
     _1, _2, files = next(os.walk(source))
     return files
 
 
-def get_folders(source: str) -> List[str]:
+def get_folders(source: str) -> list[str]:
     '''Retourne juste les sous-dossiers d'un dossier, noms sans chemins'''
     _1, folders, _2 = next(os.walk(source))
     return folders
@@ -101,7 +101,7 @@ def file_size(fullpath: str) -> int:
     '''Retourne la taille d'un fichier en octets'''
     return os.stat(fullpath).st_size
 
-def file_readalltext_encoding(filepath: str) -> Tuple[str,str]:
+def file_readalltext_encoding(filepath: str) -> tuple[str,str]:
     '''Lit tout le texte d'un fichier en détectant le type de fichier automatiquement
        Retourne (texte, encodage)
        Encodage est 'utf_8_sig', 'utf_8' ou 'mbcs' (ANSI)
@@ -114,7 +114,7 @@ def file_readalltext_encoding(filepath: str) -> Tuple[str,str]:
     # Since UTF-8 is strict on encoding, try it first, it it fails, then assume it's ANSI
     try:
         return (codecs.decode(data, encoding='utf_8', errors='strict'), 'utf_8')
-    except:
+    except Exception:
         return (codecs.decode(data, encoding='mbcs', errors='strict'), 'mbcs')
 
 def file_readalltext(filepath: str) -> str:

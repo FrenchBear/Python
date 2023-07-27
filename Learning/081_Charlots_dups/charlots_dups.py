@@ -3,8 +3,7 @@
 #
 # 2021-04-10    PV
 
-from common_fs import *
-import os
+from common_fs import get_files, file_part, get_all_files
 
 first_root = r'U:\Pierre\Albums\Les Charlots'
 full_root = r'U:\Pierre\A_Trier\A_Trier Brut\Les Charlots - Discographie Intégrale'

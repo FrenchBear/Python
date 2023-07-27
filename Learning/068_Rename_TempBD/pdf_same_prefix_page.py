@@ -1,8 +1,8 @@
 import os
 import re
 from collections import defaultdict
-from common import *
-from common_pdf import *
+from common_fs import get_files, file_size
+from common_pdf import pdf_numpages
 
 source = r'W:\TempBD\final\Astérix'
 
@@ -20,8 +20,8 @@ for file in get_files(source):
                 dicsp[prefix].add(filefp)
 for k, v in dicsp.items():
     if len(v) > 1:
-        l = list(v)
-        l.sort(key=lambda file: file_length(file))
+        li = list(v)
+        li.sort(key=lambda file: file_size(file))
         print(k)
-        for f in l:
-            print(f'  {file_length(f):>6} {f}')
+        for f in li:
+            print(f'  {file_size(f):>6} {f}')

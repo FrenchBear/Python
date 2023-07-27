@@ -3,7 +3,7 @@
 # 2021-04-27    PV
 
 import abc
-from typing import Iterable, Tuple
+from typing import Iterable
 
 class Tombola(abc.ABC):
 
@@ -20,7 +20,7 @@ class Tombola(abc.ABC):
         """Returns True it there is at least one item."""
         return bool(self.inspect())
 
-    def inspect(self) -> Tuple:
+    def inspect(self) -> tuple:
         """Returns a sorted tuple of the current items."""
         items = []
         while True:

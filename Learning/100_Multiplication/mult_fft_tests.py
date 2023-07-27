@@ -3,7 +3,7 @@
 #
 # 2022-02-14    PV
 
-from mult_fft import *
+from mult_fft import mult_fft
 import unittest
 
 class TestMulFFT(unittest.TestCase):

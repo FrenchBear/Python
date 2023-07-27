@@ -6,15 +6,12 @@
 # 2022-01-08    PV      Multiple values for num_backcolor
 # 2022-03-21    PV      TangenteHS version simplified for Dilbert, just cropping, with BW support and crop optimizations.  Use PIL.Image for BW save in a grayscale jpg
 
-from ast import If
 import os
-import sys
 from dataclasses import dataclass
-from typing import List
 import numpy as np
-import matplotlib.image as mpimg    # type: ignore
+import matplotlib.image as mpimg  # type: ignore
 import cropimage
-from common_fs import *
+from common_fs import get_all_files
 import PIL.Image as Image
 
 
@@ -27,13 +24,13 @@ def crop_white_borders_bw(img: np.ndarray) -> np.ndarray:
     while True:
         # Crop top and bottom
         blackrows = np.sum(img < BLACK_THRESHOLD, axis=1)
-        for top in range(MAX_BORDER):          # range(img.shape[0]//2):
+        for top in range(MAX_BORDER):  # range(img.shape[0]//2):
             if blackrows[top] > BLACK_COUNT:
                 break
         else:
             top = 0
         for bottom in range(MAX_BORDER):
-            if blackrows[-1-bottom] > BLACK_COUNT:
+            if blackrows[-1 - bottom] > BLACK_COUNT:
                 break
         else:
             bottom = 0
@@ -44,7 +41,7 @@ def crop_white_borders_bw(img: np.ndarray) -> np.ndarray:
         else:
             emptypass = 0
             if bottom > 0:
-                img = img[:-1-bottom+1, :]
+                img = img[: -1 - bottom + 1, :]
             if top > 0:
                 img = img[top:, :]
 
@@ -56,7 +53,7 @@ def crop_white_borders_bw(img: np.ndarray) -> np.ndarray:
         else:
             left = 0
         for right in range(MAX_BORDER):
-            if blackcols[-1-right] > BLACK_COUNT:
+            if blackcols[-1 - right] > BLACK_COUNT:
                 break
         else:
             right = 0
@@ -67,11 +64,12 @@ def crop_white_borders_bw(img: np.ndarray) -> np.ndarray:
         else:
             emptypass = 0
             if right > 0:
-                img = img[:, :-1-right]
+                img = img[:, : -1 - right]
             if left > 0:
                 img = img[:, left:]
 
     return img
+
 
 """
 source = r'D:\Scans\Images\Dilbert3\1\Scan0017.jpg'
@@ -132,7 +130,7 @@ Pages = []
 
 
 def process(file: str, numfile: int):
-    print(file, '\t', sep='', end='')
+    print(file, "\t", sep="", end="")
 
     global Pages
     color: bool
@@ -146,7 +144,7 @@ def process(file: str, numfile: int):
 
     width: int = img.shape[1]
     height: int = img.shape[0]
-    print(width, 'x', height, '\t', 'Color' if color else 'BW', '\t', sep='', end='')
+    print(width, "x", height, "\t", "Color" if color else "BW", "\t", sep="", end="")
 
     newpage = ScannedPage(file, numfile, width, height, color)
     Pages.append(newpage)
@@ -198,15 +196,15 @@ def process_root(root: str):
     width_m = 2460
     height_m = 3530
 
-    source = os.path.join(root, '1')
-    dest = os.path.join(root, '2')
+    source = os.path.join(root, "1")
+    dest = os.path.join(root, "2")
     if not os.path.isdir(dest):
         os.mkdir(dest)
 
     for ix, filefp in enumerate(get_all_files(source)):
         path, filename = os.path.split(filefp)
         base, ext = os.path.splitext(filename)
-        if ext.lower() == '.jpg':
+        if ext.lower() == ".jpg":
             print(filename)
             target = os.path.join(dest, filename)
 
@@ -222,23 +220,25 @@ def process_root(root: str):
             else:
                 img = buffer[:, :]
                 color = False
-            
+
             pmax = 91
-            pmax = 83   # For # 7
-            if 0<ix<pmax and color:
-                img = (np.dot(img[...,:3], [0.2989, 0.5870, 0.1140])+0.5).astype(np.uint8)
+            pmax = 83  # For # 7
+            if 0 < ix < pmax and color:
+                img = (np.dot(img[..., :3], [0.2989, 0.5870, 0.1140]) + 0.5).astype(
+                    np.uint8
+                )
                 color = False
 
-            if (not color):
+            if not color:
                 img = crop_white_borders_bw(img)
 
             width: int = img.shape[1]
             height: int = img.shape[0]
 
-            tins = (height_m-height)//2
-            bins = height_m-height-tins
-            lins = (width_m-width)//2
-            rins = width_m-width-lins
+            tins = (height_m - height) // 2
+            bins = height_m - height - tins
+            lins = (width_m - width) // 2
+            rins = width_m - width - lins
 
             if color:
                 img = cropimage.crop_color_image(img, tins, bins, lins, rins)
@@ -246,7 +246,7 @@ def process_root(root: str):
                 img = cropimage.crop_bw_image_white_borders(img, tins, bins, lins, rins)
 
             if color:
-                mpimg.imsave(target, img, format='jpg', dpi=300)
+                mpimg.imsave(target, img, format="jpg", dpi=300)
             else:
                 # use PIL.image to save a real grayscale jpg, since mpimg.save always create a 24-bit depth jpg
                 pimg = Image.fromarray(img)

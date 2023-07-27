@@ -3,7 +3,7 @@
 #
 # 2022-01-04    PV
 
-from common_fs import *
+from common_fs import get_all_files
 import os
 
 source = r'W:\Livres\A_Trier'

@@ -3,9 +3,8 @@
 #
 # 2022-05-25    PV      First version
 
-from json import tool
-from common_fs import *
-from lev import *
+from common_fs import get_all_files, file_part
+from lev import levenshtein
 
 root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Queen - 1973-2007'
 

@@ -3,10 +3,9 @@
 
 import math
 import itertools
-from typing import List, Tuple
 
 
-def find_isoceles(sommets: List[Tuple[int, int]]):
+def find_isoceles(sommets: list[tuple[int, int]]):
     for tri in itertools.combinations(sommets, 3):
         s0 = tri[0]
         s1 = tri[1]

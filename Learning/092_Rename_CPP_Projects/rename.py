@@ -2,7 +2,7 @@
 # Rename CPP projects
 # 2021-09-14    PV
 
-from common_fs import *
+from common_fs import get_files, get_folders
 import os
 
 def read_all_text(file:str, encoding:str='utf-8') -> str:

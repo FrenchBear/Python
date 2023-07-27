@@ -1,6 +1,4 @@
-import os
-import sys
-from common import *
+from common_fs import get_folders
 
 source = r'W:\TempBD\final'
 
