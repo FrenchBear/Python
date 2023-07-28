@@ -1,38 +1,13 @@
-# --follow-imports=skip
+# Doctest of a string
 
 import os
 import doctest
 
 
 s = """
->>> from dataclasses import dataclass
->>> @dataclass
-... class DemoDataClass:
-...     a: int
-...     b: float = 1.1
-...     c = 'spam'
-...
->>> DemoDataClass.__annotations__
-{'a': <class 'int'>, 'b': <class 'float'>}
->>> DemoDataClass.__doc__
-'DemoDataClass(a: int, b: float = 1.1)'
->>> DemoDataClass.a
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-AttributeError: type object 'DemoDataClass' has no attribute 'a'
->>> DemoDataClass.b
-1.1
->>> DemoDataClass.c
-'spam'
->>> dc = DemoDataClass(9)
->>> dc.a
-9
->>> dc.b
-1.1
->>> dc.c
-'spam'
->>> dc.a = 10
->>> dc.b = 'oops'
+>>> fruits = ['strawberry', 'fig', 'apple', 'cherry', 'raspberry', 'banana']
+>>> sorted(fruits, key=lambda word: word[::-1])
+['banana', 'apple', 'fig', 'raspberry', 'strawberry', 'cherry']
 
 """
 
@@ -41,14 +16,8 @@ with open(filename, "w", encoding="UTF-8") as fi:
     fi.write(s)
 res = doctest.testfile(filename, report=False)
 
-if res.failed == 0:
-    print("OK!")
-
+print("OK!" if res.failed == 0 else "**** ERRORS!")
 os._exit(0)
-
-
-# filename = r'C:\Temp\fp2\BlocInteractive-u8\Example 4-15.py'
-# res = doctest.testfile(filename, report=False)
 
 
 def get_files(source: str) -> list[str]:

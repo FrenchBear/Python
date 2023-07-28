@@ -1,13 +1,47 @@
+from dataclasses import dataclass, field, fields
+from typing import Optional
+from enum import Enum, auto
+from datetime import date as dt
+
+class ResourceType(Enum):
+    BOOK = auto()
+    EBOOK = auto()
+    VIDEO = auto()
+
+@dataclass
+class Resource:
+    """Media resource description."""
+    identifier: str
+    title: str = '<untitled>'
+    creators: list[str] = field(default_factory=list)
+    date: Optional[dt] = None
+    type: ResourceType = ResourceType.BOOK
+    description: str = ''
+    language: str = ''
+    subjects: list[str] = field(default_factory=list)
+
+    def __repr__(self):
+        cls = self.__class__
+        cls_name = cls.__name__
+        indent = ' ' * 4
+        res = [f'{cls_name}(']
+        for f in fields(cls):
+            value = getattr(self, f.name)
+            res.append(f'{indent}{f.name} = {value!r},')
+
+        res.append(')')
+        return '\n'.join(res)
+
 """
->>> true, false, null = True, False, None
->>> fruit = {
-...     "type": "banana",
-...     "avg_weight": 123.2,
-...     "edible_peel": false,
-...     "species": ["acuminata", "balbisiana", "paradisiaca"],
-...     "issues": null,
-... }
-...
->>> fruit
-{'type': 'banana', 'avg_weight': 123.2, 'edible_peel': False, 'species': ['acuminata', 'balbisiana', 'paradisiaca'], 'issues': None}
+>>> book  # doctest: +NORMALIZE_WHITESPACE
+Resource(
+    identifier = '978-0-13-475759-9',
+    title = 'Refactoring, 2nd Edition',
+    creators = ['Martin Fowler', 'Kent Beck'],
+    date = datetime.date(2018, 11, 19),
+    type = <ResourceType.BOOK: 1>,
+    description = 'Improving the design of existing code',
+    language = 'EN',
+    subjects = ['computer programming', 'OOP'],
+)
 """
