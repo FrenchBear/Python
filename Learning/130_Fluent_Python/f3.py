@@ -1,43 +1,36 @@
-from collections.abc import Sequence, Iterable
-from typing import Any, Iterator, overload
+from collections.abc import Iterable
+from collections import Counter
+from collections.abc import Sequence
+from typing import TypeVar
 
-s1 = set(dir(Iterable))     # Base: iter()  = IEnumerable
-s2 = set(dir(Sequence))     # Add reversed(), len(), in, count, getitem/[]
+ST = TypeVar('ST', int, float, str)
+#ST = TypeVar('ST')
 
-# print(s1)
-# print(s2-s1)
+def somme(data: Sequence[ST], init: ST) -> ST:
+    s: ST = init
+    item: ST
+    for item in data:
+        s += item
+    return s
 
-# print(Iterable.__abstractmethods__)
+T = TypeVar('T')
 
-
-class It1(Iterable):
-    def __init__(self, e: Iterable) -> None:
-        super().__init__()
-        self.li = list(e)
-
-    def __iter__(self) -> Iterator:
-        return iter(self.li)
-
-
-i1 = It1([1, 2, 3])
-for i in i1:
-    print(i)
-
-# print(Sequence.__abstractmethods__)
+def pareil(a: T, b: T) -> bool:
+    return a == b
 
 
-class It2(It1, Sequence):
-    def __init__(self, e: Iterable) -> None:
-        super().__init__(e)
+s = somme(range(1, 101), 0)
+print(s)
 
-    def __len__(self):
-        return len(self.li)
-
-    def __getitem__(self, index: slice | int) -> Any:
-        return self.li[index]
+t = somme(["bon", "jour", "!"], '')
+print(t)
 
 
-i2 = It2('abcde')
-print(len(i2))
-print(''.join(reversed(i2)))
-print(i2[::-1])
+def mode(data: Iterable[T]) -> T:
+    pairs = Counter(data).most_common(1)
+    if len(pairs) == 0:
+        raise ValueError('no mode for empty data')
+    return pairs[0][0]
+
+
+print(mode('anticonstitutionnellement'))
