@@ -5,8 +5,8 @@
 
 import re
 import reprlib              # reprlib.repr shortens representations of very large objects
-import collections.abc
-from typing import Iterable, Iterator, Sequence
+from collections.abc import Sequence, Iterable
+from typing import Iterator
 
 from isiterable import is_iterable
 
@@ -48,6 +48,6 @@ if __name__ == '__main__':
     s = Sentence('"The time has come," the Walrus said')
     for word in s:
         print(word)
-    print('Iterable from collections.abc: ', issubclass(Sentence, collections.abc.Iterable))   # True
+    print('Iterable from collections.abc: ', issubclass(Sentence, Iterable))   # True
     print('issubclass(Iterable):', issubclass(Sentence, Iterable))   # True, same thing
     print('isIterable:', is_iterable(s))

@@ -5,7 +5,6 @@
 # Permutations already implemented in itertools, ready to use
 import itertools
 from collections import deque
-from typing import Deque
 
 p0 = deque([1, 0, 0, 0, 1, 1, 0, 0])
 p1 = deque([1, 0, 0, 1, 0, 0, 0, 0])
@@ -31,7 +30,7 @@ allp = [p0, p1, p2, p3, p4, p5, p6, p7, p8]
 ip = 0
 
 
-def getband8(p: Deque[Deque[int]]) -> bool:
+def getband8(p: deque[deque[int]]) -> bool:
     res = deque(p.popleft())
     while True:
         off = 0

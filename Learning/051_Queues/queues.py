@@ -6,7 +6,6 @@
 
 from queue import Queue, LifoQueue
 from collections import deque
-from typing import Deque
 
 
 # Stacks
@@ -23,7 +22,7 @@ except IndexError:
     print("---")
 
 print("Stack using deque")
-s2: Deque[str] = deque()
+s2: deque[str] = deque()
 s2.append("apple")
 s2.append("pear")
 s2.append("ananas")
@@ -45,12 +44,12 @@ s3.put("kiwi")
 try:
     while True:
         print(s3.get_nowait())
-except Exception as ex:
+except Exception:
     print("---")
 
 
 print("Queue using deque")
-q1: Deque[str] = deque()
+q1: deque[str] = deque()
 q1.append("apple")
 q1.append("pear")
 q1.append("ananas")
@@ -73,7 +72,7 @@ q2.put("kiwi")
 try:
     while True:
         print(q2.get_nowait())
-except Exception as ex:
+except Exception:
     print("---")
 
 # Also multiprocessing.Queue

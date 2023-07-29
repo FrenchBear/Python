@@ -4,21 +4,28 @@
 #
 # 2019-01-15	PV
 
-
 # -------------------------------------------------
 # Synchronous version
 
-import requests     # type: ignore
+import aiohttp
+import multiprocessing
+import asyncio
+import threading
+import requests
+import concurrent.futures
 import time
+
 
 def download_site_synchronous(url, session):
     with session.get(url) as response:
         print(f"Read {len(response.content)} from {url}")
 
-def download_all_sites_synchronous(sites):
+
+def download_all_sites_synchronous(sites: list[str]):
     with requests.Session() as session:
         for url in sites:
             download_site_synchronous(url, session)
+
 
 def test_synchronous():
     sites = [
@@ -34,27 +41,26 @@ def test_synchronous():
 # -------------------------------------------------
 # threading version
 
-import concurrent.futures
-import requests
-import threading
-import time
-
 
 thread_local = threading.local()
+
 
 def get_session_for_thread():
     if not getattr(thread_local, "session", None):
         thread_local.session = requests.Session()
     return thread_local.session
 
+
 def download_site_threading(url):
     session = get_session_for_thread()
     with session.get(url) as response:
         print(f"Read {len(response.content)} from {url}")
 
+
 def download_all_sites_threading(sites):
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         executor.map(download_site_threading, sites)
+
 
 def test_threading():
     sites = [
@@ -70,14 +76,11 @@ def test_threading():
 # -------------------------------------------------
 # asyncio version
 
-import asyncio
-import time
-import aiohttp  
-
 
 async def download_site_asyncio(session, url):
     async with session.get(url) as response:
         print("Read {0} from {1}".format(response.content_length, url))
+
 
 async def download_all_sites_asyncio(sites):
     async with aiohttp.ClientSession() as session:
@@ -86,6 +89,7 @@ async def download_all_sites_asyncio(sites):
             task = asyncio.ensure_future(download_site_asyncio(session, url))
             tasks.append(task)
         await asyncio.gather(*tasks, return_exceptions=True)
+
 
 def test_asyncio():
     sites = [
@@ -100,13 +104,11 @@ def test_asyncio():
 
 
 # -------------------------------------------------
-# multiprocessing 
+# multiprocessing
 
-import requests
-import multiprocessing
-import time
 
 session = None
+
 
 def set_global_session():
     global session
@@ -136,13 +138,11 @@ def test_multiprocessing():
     print(f"multiprocessing: Downloaded {len(sites)} in {duration} seconds")
 
 
-
 # -------------------------------------------------
 # Main
-
 if __name__ == '__main__':
-    #multiprocessing.freeze_support()
-    #test_synchronous()
-    #test_threading()
-    #test_asyncio()
+    # multiprocessing.freeze_support()
+    # test_synchronous()
+    # test_threading()
+    # test_asyncio()
     test_multiprocessing()

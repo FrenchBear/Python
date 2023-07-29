@@ -1,42 +1,58 @@
 # Collections ABCs
+#
 # 2021-04-30    PV
+# 2023-07-29    PV      Better output, SplitName, specific imports
 
-from collections.abc import *
-from collections import *
-from typing import Type, Union, Any
+from collections.abc import MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, KeysView, \
+    Sequence, Mapping, Set, MappingView, Iterator, Iterable, Container, Sized, Callable, Hashable
+from collections import UserList, deque, defaultdict, OrderedDict, ChainMap, Counter, UserDict, UserString
+from typing import Any
 from types import MappingProxyType
 import math
 from array import array
 
 # Any beacuse of Hashable
-lb: list[Union[Type,Any]] = [MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, KeysView, Sequence, Mapping, Set, MappingView, Iterator, Iterable, Container, Sized, Callable, Hashable]
+lb: list = [MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, KeysView,
+            Sequence, Mapping, Set, MappingView, Iterator, Iterable, Container, Sized, Callable, Hashable]
 
-def test(x) -> None:
-    print("{:<15.15} {:<11.11}".format(str(x), type(x).__name__), end='')
+
+def test(x: Any) -> None:
+    print("{:<15.15} {:<11.11}|".format(str(x), type(x).__name__), end='')
     for abc in lb:
-        print("{:^8} ".format('X' if isinstance(x, abc) else ' '), end='')
+        print("{:^8}|".format('X' if isinstance(x, abc) else ' '), end='')
     print()
 
 
-print('Value           Class      ', end='')
+def SplitName(s) -> (str, str):
+    if len(s) < 0:
+        return (s, '')
+    for i in range(3, len(s)-2):
+        if 'A' <= s[i] <= 'Z':
+            return (s[:i], s[i:])
+    return (s[:8], s[8:])
+
+
+print('Value           Class      |', end='')
 for abc in lb:
-    print("{:^8.8} ".format(abc.__name__), end='')
+    s = SplitName(abc.__name__)
+    print("{:^8.8}|".format(s[0]), end='')
 print()
-print('                           ', end='')
+print('                           |', end='')
 for abc in lb:
-    print("{:^8.8} ".format(abc.__name__[8:]), end='')
+    s = SplitName(abc.__name__)
+    print("{:^8.8}|".format(s[1]), end='')
 print()
 
 # Collections
-d = {1:'one', 2:'two'}
+d = {1: 'one', 2: 'two'}
 test(d)
 test(d.items())
 test(d.keys())
 test(d.values())
 test(set(range(3)))
-test([1,2,3])
+test([1, 2, 3])
 test(UserList(range(3)))
-test((1,2,3))
+test((1, 2, 3))
 test(deque())
 test(range(3))
 test(array('i', range(3)))

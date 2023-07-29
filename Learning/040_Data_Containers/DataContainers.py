@@ -5,7 +5,6 @@
 
 # List: mutable, any type
 from collections import deque
-from typing import Deque
 import numpy as np
 from array import array
 from collections import namedtuple
@@ -53,7 +52,7 @@ print(np.max(an, axis=0))
 print(np.sum(an, axis=1))
 
 # dequeue
-dq:Deque[float] = deque(range(5))
+dq: deque[float] = deque(range(5))
 dq.rotate(3)
 dq.extend([11, 22])
 dq.extendleft([100, 200])

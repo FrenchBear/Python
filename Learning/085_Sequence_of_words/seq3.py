@@ -6,7 +6,7 @@
 import re
 import reprlib              # reprlib.repr shortens representations of very large objects
 import collections.abc
-from typing import Iterable, Iterator, Sequence
+from typing import Iterable, Iterator
 
 from isiterable import is_iterable
 
