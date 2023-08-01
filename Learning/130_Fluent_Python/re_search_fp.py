@@ -6,7 +6,8 @@
 import re
 
 # IMPORT_RE = re.compile(r'^>>> *import +[^ ,]+')
-BINARY_RE = re.compile(r'[\x01-\x1f]')
+# BINARY_RE = re.compile(r'[\x01-\x1f]')
+IMPORT_RE = re.compile('^(from |imoort )')
 
 def print_special(line: str) -> None:
     for c in line:
@@ -24,6 +25,5 @@ with open(source, 'rt', encoding='utf-8') as sr:
     for line in sr.readlines():
         ln += 1
         l = line[:-1]
-        if BINARY_RE.match(l):
-            print(f'{ln:>6} ', end='')
-            print_special(l)
+        if IMPORT_RE.match(l):
+            print(f'{ln:>6} {l}')
