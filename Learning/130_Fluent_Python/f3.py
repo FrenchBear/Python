@@ -1,101 +1,57 @@
-from collections.abc import Sequence
+from typing import NamedTuple, ClassVar
 from dataclasses import dataclass
-from decimal import Decimal
-from typing import Optional, Callable, NamedTuple
-
-class Customer(NamedTuple):
-    name: str
-    fidelity: int
-
-class LineItem(NamedTuple):
-    product: str
-    quantity: int
-    price: Decimal
-
-    def total(self):
-        return self.price * self.quantity
+from array import array
 
 @dataclass(frozen=True)
-class Order:  # the Context
-    """
->>> joe = Customer('John Doe', 0)
->>> ann = Customer('Ann Smith', 1100)
->>> cart = [LineItem('banana', 4, Decimal('.5')),
-...         LineItem('apple', 10, Decimal('1.5')),
-...         LineItem('watermelon', 5, Decimal(5))]
->>> Order(joe, cart, fidelity_promo)
-<Order total: 42.00 due: 42.00>
->>> Order(ann, cart, fidelity_promo)
-<Order total: 42.00 due: 39.90>
->>> banana_cart = [LineItem('banana', 30, Decimal('.5')),
-...                 LineItem('apple', 10, Decimal('1.5'))]
->>> Order(joe, banana_cart, bulk_item_promo)
-<Order total: 30.00 due: 28.50>
->>> long_cart = [LineItem(str(item_code), 1, Decimal(1))
-...              for item_code in range(10)]
->>> Order(joe, long_cart, large_order_promo)
-<Order total: 10.00 due: 9.30>
->>> Order(joe, cart, large_order_promo)
-<Order total: 42.00 due: 42.00>
+class CoordinateDC:
+    lat: float
+    lon: float
+    typecode: ClassVar[str] = 'd'
 
->>> Order(joe, long_cart, best_promo)
-<Order total: 10.00 due: 9.30>
->>> Order(joe, banana_cart, best_promo)
-<Order total: 30.00 due: 28.50>
->>> Order(ann, cart, best_promo)
-<Order total: 42.00 due: 39.90>
-    
-    """
-    customer: Customer
-    cart: Sequence[LineItem]
-    promotion: Optional[Callable[['Order'], Decimal]] = None
+    def __str__(self):
+        ns = 'N' if self.lat >= 0 else 'S'
+        we = 'E' if self.lon >= 0 else 'W'
+        return f'CDC: {abs(self.lat):.1f}°{ns}, {abs(self.lon):.1f}° {we}'
 
-    def total(self) -> Decimal:
-        totals = (item.total() for item in self.cart)
-        return sum(totals, start=Decimal(0))
+    def __add__(self, other) -> 'CoordinateDC':
+        if isinstance(other, CoordinateDC):
+            return CoordinateDC(self.lat + other.lat, self.lon + other.lon)
+        raise TypeError('Can only add a CoorinateDC to a CoorinateDC')
 
-    def due(self) -> Decimal:
-        if self.promotion is None:
-            discount = Decimal(0)
-        else:
-            discount = self.promotion(self)
-        return self.total() - discount
+    def __iter__(self):
+        return (f for f in (self.lat, self.lon))
 
-    def __repr__(self):
-        return f'<Order total: {self.total():.2f} due: {self.due():.2f}>'
+    # def __getitem__(self, index):
+    #     if index == 0:
+    #         return self.lat
+    #     if index == 1:
+    #         return self.lon
+    #     raise IndexError
 
-Promotion = Callable[[Order], Decimal]
+    def __bytes__(self):
+        b = (bytes([ord(self.typecode)]) + bytes(array(self.typecode, self)))
+        return b
 
-promos: list[Promotion] = []
+class CoordinateNT(NamedTuple):
+    lat: float
+    lon: float
 
-def promotion(promo: Promotion) -> Promotion:
-    promos.append(promo)
-    return promo
+    def __str__(self):
+        ns = 'N' if self.lat >= 0 else 'S'
+        we = 'E' if self.lon >= 0 else 'W'
+        return f'CNT: {abs(self.lat):.1f}°{ns}, {abs(self.lon):.1f}° {we}'
 
-def best_promo(order: Order) -> Decimal:
-    """Compute the best discount available"""
-    return max(pro(order) for pro in promos)
 
-@promotion
-def fidelity_promo(order: Order) -> Decimal:
-    """5% discount for customers with 1000 or more fidelity points"""
-    if order.customer.fidelity >= 1000:
-        return order.total() * Decimal('0.05')
-    return Decimal(0)
+print(set(dir(CoordinateNT)) - set(dir(CoordinateDC)))
 
-@promotion
-def bulk_item_promo(order: Order) -> Decimal:
-    """10% discount for each LineItem with 20 or more units"""
-    discount = Decimal(0)
-    for item in order.cart:
-        if item.quantity >= 20:
-            discount += item.total() * Decimal('0.1')
-    return discount
+cdc1 = CoordinateDC(1.0, 2.0)
+cdc2 = CoordinateDC(3.0, 4.0)
+cdc3 = cdc1 + cdc2
+print(cdc3)
+print(bytes(cdc3))
 
-@promotion
-def large_order_promo(order: Order) -> Decimal:
-    """7% discount for orders with 10 or more distinct items"""
-    distinct_items = {item.product for item in order.cart}
-    if len(distinct_items) >= 10:
-        return order.total() * Decimal('0.07')
-    return Decimal(0)
+cnt1 = CoordinateNT(1.0, 2.0)
+cnt2 = CoordinateNT(3.0, 4.0)
+cnt3 = cnt1 * 2
+print(cnt3)
+print(cnt1[1])
