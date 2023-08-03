@@ -1,3 +1,8 @@
+# testnumpy.py
+# Tests using numpy to understand the basics of neural network calculations
+#
+# 2023-08-03    PV
+
 import numpy as np
 from pprint import pprint
 

@@ -1,3 +1,8 @@
+# test1.py
+# First test of neural network learning
+#
+# 2023-08-02    PV
+
 import network
 import mnist_loader
 from pprint import pprint
