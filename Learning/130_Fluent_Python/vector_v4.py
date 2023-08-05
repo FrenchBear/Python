@@ -1,5 +1,5 @@
-# vector_v2.py
-# Variation on chapter 12, Vector Take #2+3
+# vector_v4.py
+# Variation on chapter 12, Vector Take #4
 #
 # 2023-08-05    PV
 
@@ -9,6 +9,7 @@ from collections.abc import Iterable
 import operator
 import reprlib
 import math
+import functools
 
 class Vector:
     typecode = 'd'
@@ -34,9 +35,6 @@ class Vector:
 
     def __bytes__(self) -> bytes:
         return (bytes([ord(self.typecode)]) + bytes(self._components))
-
-    def __eq__(self, other):
-        return tuple(self) == tuple(other)
 
     def __abs__(self):
         return math.hypot(*self)
@@ -85,6 +83,13 @@ class Vector:
                 msg = error.format(cls_name=cls.__name__, attr_name=name)
                 raise AttributeError(msg)
         super().__setattr__(name, value)
+
+    def __eq__(self, other):
+        return len(self) == len(other) and all(a == b for a, b in zip(self, other))
+
+    def __hash__(self):
+        hashes = (hash(x) for x in self._components)
+        return functools.reduce(operator.xor, hashes, 0)
 
 v7 = Vector(range(7))
 print(v7[-1])
