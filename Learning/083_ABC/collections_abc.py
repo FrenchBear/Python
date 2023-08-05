@@ -23,7 +23,7 @@ def test(x: Any) -> None:
     print()
 
 
-def SplitName(s) -> (str, str):
+def SplitName(s) -> tuple[str, str]:
     if len(s) < 0:
         return (s, '')
     for i in range(3, len(s)-2):

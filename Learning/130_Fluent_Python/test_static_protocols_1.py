@@ -1,5 +1,7 @@
-# test_static_protocols.py
+# test_static_protocols_1.py
 # fluent python example 8-22
+#
+# 2023-08-01    PV
 
 from collections.abc import Iterator
 from collections.abc import Iterable
@@ -21,7 +23,7 @@ def test_top_tuples() -> None:
     # series = ((len(s), s) for s in fruit)
     length = 3
     expected = [(6, 'banana'), (5, 'mango'), (5, 'apple')]
-    result = top(series, length)
+    result = top(series, length)    # type: ignore
     if TYPE_CHECKING:
         reveal_type(series)     # noqa
         reveal_type(expected)   # noqa
@@ -34,7 +36,7 @@ def test_top_objects_error() -> None:
     if TYPE_CHECKING:
         reveal_type(series)     # noqa
     with pytest.raises(TypeError) as excinfo:
-        top(series, 3)
+        top(series, 3)          # type: ignore
     assert "'<' not supported" in str(excinfo.value)
 
 test_top_tuples()
