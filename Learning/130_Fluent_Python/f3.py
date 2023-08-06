@@ -1,23 +1,15 @@
-from array import array
-from collections import UserList
+from typing import Iterator
+class Test():
+    def __init__(self, iterable):
+        _ = len(iterable)
+        self._balls = list(iterable)
 
-a = array('i', range(24))
-print(a)
+def generator() -> Iterator[int]:
+    i = 0
+    while True:
+        yield i
+        i += 1
 
-mv1 = memoryview(a)
-print(mv1.tolist())
-mv2 = mv1.cast('b').cast('i', [4, 6])
-print(mv2.tolist())
-mv3 = mv1.cast('b').cast('i', [2, 3, 4])
-print(mv3.tolist())
 
-l3 = mv3.tolist()
-print(l3[1][2][3])
-
-class MyList(UserList):
-    def __getitem__(self, ix):
-        print('my_index', ix)
-        return list.__getitem__(self, ix)
-
-ml3 = MyList(l3)
-print(ml3[1][2][3])
+t = Test([1, 2, 3])
+u = Test(generator())
