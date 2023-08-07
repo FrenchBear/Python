@@ -25,13 +25,15 @@ print('\nList:')
 print(set(dir(list)) - set(dir(MutableSequence)))
 """
 
+# Automatic recognition of ABC base classes only works for the simplest of them, see
+# detailed info in L3_Sequence below
+
 class Base:
     mylist = ['red', 'green', 'blue']
 
 class L1_Iterable(Base):
     def __iter__(self):
         return iter(self.mylist)
-
 
 print('issubclass(L1_Iterable, abc.Iterable):', issubclass(L1_Iterable, abc.Iterable))
 
@@ -68,7 +70,14 @@ print('issubclass(L2_Collection, abc.Collection):', issubclass(L2_Collection, ab
 print()
 
 # From here, doesn't work anymore
-# abc implementations doesn't contain _is_subclasshook that check for specific methods
+# abc implementations doesn't contain _is_subclasshook that check for specific methods.
+# Actuelly, this is explained in https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes
+# in Footnote 1.
+#
+# Also in Fluent Python, after example 13-12:
+# For example, mappings implement __len__, __getitem__, and __iter__, but they are rightly not considered
+# subtypes of Sequence, because you can’t retrieve items using integer offsets or slices.
+# That’s why the abc.Sequence class does not implement __subclasshook__.
 #
 # Solution 1:
 # Use abc.<Class>.register(MyClass), but then it's not automatic anymore, and MyClass
@@ -82,6 +91,10 @@ print()
 # Solution 3:
 # Check if required methods of XXX are present, either in the class itself, or in one of its
 # parent classes
+#
+# Solution 4:
+# Class inherits from abc.XXX, this will ensure that isinstance(MyClass, XXX) will return true.
+# If any virtual method is not implemented when an instance is created (at run-time), Pythin will raise an error.
 
 class L3_Sequence(L2_Reversible, L2_Collection):
     def __getitem__(self, index):
@@ -98,6 +111,10 @@ class L3_Sequence(L2_Reversible, L2_Collection):
 print('issubclass(L3_Sequence, abc.Sequence):', issubclass(L3_Sequence, abc.Sequence))
 # issubclass is False, even though L3_Sequence implements all that is required for abc.Sequence
 print(set(dir(L3_Sequence)) - set(dir(EmptyBase)))
+
+# Solution 1:
+abc.Sequence.register(L3_Sequence)
+print('issubclass(L3_Sequence, abc.Sequence):', issubclass(L3_Sequence, abc.Sequence))
 
 # Solution 2:
 @runtime_checkable
@@ -124,12 +141,11 @@ class SupportsSequence(Protocol):
     def index(self, value, start=0, stop=None):
         pass
 
-
-print(issubclass(L3_Sequence, SupportsSequence))
+print('issubclass(L3_Sequence, SupportsSequence):', issubclass(L3_Sequence, SupportsSequence))
 
 TSequence = TypeVar('TSequence', bound=SupportsSequence)
 def test_L3_Sequence(x: TSequence):
-    print('len:', len(x))
+    print('len(x):', len(x))
 
 
 # Here is the static checking version, but for some reason, mypy doesn't see or accept methods
@@ -152,24 +168,26 @@ def _check_methods(C, methods: abc.Iterable):
         # Ok, method is implemented in a BC, continue checking next method in methods
     return True
 
+# A one-liner
+def _check_methodsV2(C, methods: abc.Iterable):
+    return True if all(any(method in B.__dict__ and B.__dict__[method] is not None for B in C.__mro__) for method in methods) else NotImplemented
+
 def issequence(x) -> bool:
-    return _check_methods(x if inspect.isclass(x) else x.__class__, ('__getitem__', '__len__'))
+    return _check_methodsV2(x if inspect.isclass(x) else x.__class__, ('__getitem__', '__len__'))
 
 print('issequence(L3_Sequence):', issequence(L3_Sequence))
 
 
-# class L3_Mapping(L1_Iterable, L1_Container, L1_Sized):
-#     # def __getitem__(self, key):
-#     #     return self.mylist[key]
-#     # def get(self, key, default=None):
-#     #     pass
-#     # def __contains__(self, key):
-#     #     return super().__contains__(key)
-#     # def keys(self):
-#     #     pass
-#     # def items(self):
-#     #     pass
-#     # def values(self):
-#          pass
-# abc.Mapping.register(L3_Mapping)
-# print('issubclass(L3_Mapping, abc.Mapping):', issubclass(L3_Mapping, abc.Mapping))
+# Solution 4:
+class L3_SequenceV2(L2_Reversible, L2_Collection, abc.Sequence):
+    def __getitem__(self, index):
+        return self.mylist[index]
+
+    def count(self, value):
+        return self.mylist.count(value)
+
+    def index(self, value, start=0, stop=None):
+        return self.mylist.index(value)
+
+_ = L3_SequenceV2()     # Be sure that all virtual methors are implemented
+print('issubclass(L3_SequenceV2, abc.Sequence):', issubclass(L3_SequenceV2, abc.Sequence))
