@@ -1,47 +1,29 @@
-from dataclasses import dataclass, field, fields
-from typing import Optional
-from enum import Enum, auto
-from datetime import date as dt
 
-class ResourceType(Enum):
-    BOOK = auto()
-    EBOOK = auto()
-    VIDEO = auto()
+>>> import collections
+>>> class DoppelDict2(collections.UserDict):
+...     def __setitem__(self, key, value):
+...         super().__setitem__(key, [value] * 2)
+...
+>>> dd = DoppelDict2(one=1)
+>>> dd
+{'one': [1, 1]}
+>>> dd['two'] = 2
+>>> dd
+{'two': [2, 2], 'one': [1, 1]}
+>>> dd.update(three=3)
+>>> dd
+{'two': [2, 2], 'three': [3, 3], 'one': [1, 1]}
+>>> class AnswerDict2(collections.UserDict):
+...     def __getitem__(self, key):
+...         return 42
+...
+>>> ad = AnswerDict2(a='foo')
+>>> ad['a']
+42
+>>> d = {}
+>>> d.update(ad)
+>>> d['a']
+42
+>>> d
+{'a': 42}
 
-@dataclass
-class Resource:
-    """Media resource description."""
-    identifier: str
-    title: str = '<untitled>'
-    creators: list[str] = field(default_factory=list)
-    date: Optional[dt] = None
-    type: ResourceType = ResourceType.BOOK
-    description: str = ''
-    language: str = ''
-    subjects: list[str] = field(default_factory=list)
-
-    def __repr__(self):
-        cls = self.__class__
-        cls_name = cls.__name__
-        indent = ' ' * 4
-        res = [f'{cls_name}(']
-        for f in fields(cls):
-            value = getattr(self, f.name)
-            res.append(f'{indent}{f.name} = {value!r},')
-
-        res.append(')')
-        return '\n'.join(res)
-
-"""
->>> book  # doctest: +NORMALIZE_WHITESPACE
-Resource(
-    identifier = '978-0-13-475759-9',
-    title = 'Refactoring, 2nd Edition',
-    creators = ['Martin Fowler', 'Kent Beck'],
-    date = datetime.date(2018, 11, 19),
-    type = <ResourceType.BOOK: 1>,
-    description = 'Improving the design of existing code',
-    language = 'EN',
-    subjects = ['computer programming', 'OOP'],
-)
-"""
