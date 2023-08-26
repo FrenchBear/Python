@@ -3,24 +3,27 @@
 #
 # 2018-08-30    PV
 # 2018-09-01    PV      Use itertools.islice instead of top
+# 2023-08-26    PV      Added some type hints; skip from islice
 
-#from itertools import *
 import itertools
-from typing import Iterable, Any
+from typing import Any, Callable, ItemsView, Iterable, List, TypeVar
 import collections
 import functools
 import operator
 import math
 import random
 
+T = TypeVar('T')
+U = TypeVar('U')
+
 # Helper to limit the size of an interable to the first n elements
-# use islice instead
-# def top(seq: Iterable, n: int):
-#     for item in seq:
-#         if n <= 0:
-#             return
-#         n -= 1
-#         yield item
+# Actually use islice(seq, n) instead
+def top(seq: Iterable[T], n: int) -> Iterable[T]:
+    for item in seq:
+        if n <= 0:
+            return
+        n -= 1
+        yield item
 
 
 # Infinite iterators
@@ -33,12 +36,11 @@ print(list(itertools.accumulate([1, 2, 3, 4, 5, 6])))  # Default: func=operator.
 # Same thing but returns last element
 print(functools.reduce(operator.add, ([1, 2, 3, 4, 5, 6])))
 print(list(itertools.accumulate([1, 2, 3, 4, 5, 6], lambda a, b: a + b**2)))
+print(list(itertools.accumulate(range(1, 11), operator.mul)))
 # Same thing but returns last element
 print(functools.reduce(lambda a, b: a + b**2, ([1, 2, 3, 4, 5, 6])))
 print(list(itertools.chain("ABC", [1, 2, 3], (False, True))))
-print(
-    list(itertools.chain.from_iterable(["ABC", [1, 2, 3], (False, True)]))
-)  # mypy expects a parameter Iterable[Iterable[<nothing>]]
+print(list(itertools.chain.from_iterable(["ABC", [1, 2, 3], (False, True)])))
 print(list(itertools.compress("ABCDEFG", [1, 0, 1, 0, 0, 1, 1, 0])))
 print(list(itertools.dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1])))
 print(list(itertools.filterfalse(lambda x: x % 2, range(10))))
@@ -50,9 +52,7 @@ print(list(filter(lambda x: x % 2, range(10))))
 # Advantage of groupby: limited memory use since there is no storage at all, just
 # iterators progressing sequentilly on input data.  Can be used with infinite iterators.
 lf = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-gi = itertools.groupby(
-    sorted([(v % 3, v) for v in lf], key=lambda tup: tup[0]), lambda tup: tup[0]
-)
+gi = itertools.groupby(sorted([(v % 3, v) for v in lf], key=lambda tup: tup[0]), lambda tup: tup[0])
 for key, group in gi:
     print("Fib %3=", key, ": ", end="")
     for i in group:
@@ -60,10 +60,8 @@ for key, group in gi:
     print()
 
 # My version, uses more memory (builds lists) but easier to use
-
-
-def mygroupby(list: Iterable, key):
-    dic: dict[Any, Any] = {}
+def mygroupby(list: Iterable[T], key: Callable[[T], U]) -> ItemsView[U, list[T]]:
+    dic: dict[U, List[T]] = {}      # For some reason, Mypy rejects list[T]: Variable "list" is not valid as a type
     for item in list:
         k = key(item)
         if k in dic:
@@ -73,10 +71,10 @@ def mygroupby(list: Iterable, key):
     return dic.items()
 
 
-for key, group in mygroupby(lf, lambda v: v % 3):
-    print("Fib %3=", key, ": ", end="")
-    for i in group:
-        print(i, end=" ")
+for key2, group2 in mygroupby(lf, lambda v: v % 3):
+    print("Fib %3=", key2, ": ", end="")
+    for i2 in group2:
+        print(i2, end=" ")
     print()
 
 print(list(itertools.islice("ABCDEFG", 2, None, 2)))
@@ -133,12 +131,12 @@ overhead.
 """
 
 
-def take(n, iterable):
+def take(n: int, iterable: Iterable[T]) -> List[T]:
     "Return first n items of the iterable as a list"
-    return list(itertools.islice(iterable, n))
+    return list(itertools.islice(iterable, n))              # List[] is not needed, the islice object is iterable
 
 
-def prepend(value, iterator):
+def prepend(value: Any, iterator: Iterable) -> Iterable:
     "Prepend a single value in front of an iterator"
     # prepend(1, [2, 3, 4]) -> 1 2 3 4
     return itertools.chain([value], iterator)
@@ -366,3 +364,10 @@ def nth_combination(iterable, r, index):
 
 print(take(10, repeatfunc(random.random)))
 print(random_product("ABC", "xyz", "123"))
+
+# Skip n first elements of an iterable
+def skip(n: int, iterable: Iterable[T]) -> Iterable[T]:
+    "Skip first n items of the iterable"
+    return itertools.islice(iterable, n, None)
+
+print(list(skip(10, range(21))))
