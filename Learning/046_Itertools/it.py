@@ -25,6 +25,9 @@ def top(seq: Iterable[T], n: int) -> Iterable[T]:
         n -= 1
         yield item
 
+print(list(itertools.islice(range(10), 5)))
+print(list(top(range(10), 5)))
+print()
 
 # Infinite iterators
 print(list(itertools.islice(itertools.count(10, 3), 20)))

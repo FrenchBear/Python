@@ -1,8 +1,7 @@
-from functools import partial
+import itertools
 
-def process_block(b): ...
+sample = [5, 4, 2, 8, 7, 6, 3, 0, 9, 1]
 
-with open('mydata.db', 'rb') as f:
-    read64 = partial(f.read, 64)
-    for block in iter(read64, b''):
-        process_block(block)
+print(list(itertools.accumulate(sample)))
+print(list(enumerate(itertools.accumulate(sample), 1)))
+print(list(itertools.starmap(lambda a, b: b / a, enumerate(itertools.accumulate(sample), 1))))

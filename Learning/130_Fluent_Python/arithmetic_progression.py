@@ -1,5 +1,9 @@
 # Example 17-12. The ArithmeticProgression class
 
+from decimal import Decimal
+from fractions import Fraction
+import itertools
+
 class ArithmeticProgression:
     def __init__(self, begin, step, end=None):
         self.begin = begin
@@ -17,21 +21,20 @@ class ArithmeticProgression:
             index += 1
             result = self.begin + self.step * index
 
+
 ap = ArithmeticProgression(0, 1, 3)
 print(list(ap))
 ap = ArithmeticProgression(1, .5, 3)
 print(list(ap))
-ap = ArithmeticProgression(0, 1/3, 1)
+ap = ArithmeticProgression(0, 1 / 3, 1)
 print(list(ap))
-from fractions import Fraction
 ap = ArithmeticProgression(0, Fraction(1, 3), 1)
 print(list(ap))
-from decimal import Decimal
 ap = ArithmeticProgression(0, Decimal('.1'), .3)
 print(list(ap))
 ap = ArithmeticProgression('', 'A', 'AAAA')     # Ok, not arithmetic, but works...
 print(list(ap))
-
+print()
 
 # Simpler:
 def aritprog_gen(begin, step, end=None):
@@ -43,3 +46,18 @@ def aritprog_gen(begin, step, end=None):
         index += 1
         result = begin + step * index
 
+# v3
+# Not a generator function (doesn't contain yield keyword), but returns a generator nonetheless
+# Note that itertools.cound adds step repeteadly, so oit's not as precise as previous versions
+# and doesn't work with strings
+def aritprog_gen3(begin, step, end=None):
+    first = type(begin + step)(begin)
+    ap_gen = itertools.count(first, step)
+    return ap_gen if end is None else itertools.takewhile(lambda n: n < end, ap_gen)
+
+
+print(list(aritprog_gen3(0, 1, 3)))
+print(list(aritprog_gen3(1, .5, 3)))
+print(list(aritprog_gen3(0, 1 / 3, 1)))
+print(list(aritprog_gen3(0, Fraction(1, 3), 1)))
+print(list(aritprog_gen3(0, Decimal('.1'), .3)))
