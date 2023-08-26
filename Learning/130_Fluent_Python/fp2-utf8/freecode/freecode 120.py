@@ -1,0 +1,3 @@
+@overload
+def max(__iterable: Iterable[T], *, key: Callable[[T], LT], default: DT) -> Union[T, DT]:
+    ...

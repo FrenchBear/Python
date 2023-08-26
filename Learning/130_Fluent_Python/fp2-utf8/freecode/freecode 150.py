@@ -1,0 +1,1 @@
+Generator[YieldType, SendType, ReturnType]

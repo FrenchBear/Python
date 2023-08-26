@@ -21,6 +21,8 @@ class Sentence:
 
 s = Sentence('"The time has come," the Walrus said,')
 print(s)
-for word in s:
+for word in s:                  # type: ignore
     print(word, end=' ')
-print(list(s))
+print()
+print(list(s))                  # type: ignore
+

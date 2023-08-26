@@ -1,0 +1,1 @@
+isinstance(c, (complex, SupportsComplex))

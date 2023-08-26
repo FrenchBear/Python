@@ -1,0 +1,3 @@
+someInstance.widgetCounter += 1
+# rather than...
+someInstance.setWidgetCounter(someInstance.getWidgetCounter() + 1)

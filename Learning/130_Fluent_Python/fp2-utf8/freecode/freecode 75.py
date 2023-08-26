@@ -1,0 +1,1 @@
+Callable[[Any], str]

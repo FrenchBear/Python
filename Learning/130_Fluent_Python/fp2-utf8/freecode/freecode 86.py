@@ -1,0 +1,3 @@
+@lru_cache()
+def costly_function(a, b):
+    ...

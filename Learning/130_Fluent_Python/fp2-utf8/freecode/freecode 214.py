@@ -1,0 +1,1 @@
+RESULT = yield from EXPR

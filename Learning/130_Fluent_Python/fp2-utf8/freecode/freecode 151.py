@@ -1,0 +1,1 @@
+Coroutine[YieldType, SendType, ReturnType]

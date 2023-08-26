@@ -1,0 +1,1 @@
+c = complex(o)

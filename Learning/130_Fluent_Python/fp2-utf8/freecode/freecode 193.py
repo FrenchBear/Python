@@ -1,0 +1,1 @@
+speakers = property(cache(speakers))
