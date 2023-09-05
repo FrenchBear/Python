@@ -3,14 +3,14 @@
 #
 # 2018-08-30    PV
 # 2018-09-01    PV      Use itertools.islice instead of top
-# 2023-08-26    PV      Added some type hints; skip from islice
+# 2023-08-26    PV      Added some type hints; skip from islice; pairwise (python 3.10) example, deep_flatten
 
 import itertools
-from typing import Any, Callable, ItemsView, Iterable, List, TypeVar
+from typing import Any, TypeVar, List
+from collections.abc import Callable, Iterable, Iterator, ItemsView
 import collections
 import functools
 import operator
-import math
 import random
 
 T = TypeVar('T')
@@ -30,7 +30,8 @@ print(list(top(range(10), 5)))
 print()
 
 # Infinite iterators
-print(list(itertools.islice(itertools.count(10, 3), 20)))
+print(list(itertools.islice(itertools.count(10, 3), 20)))  # count is endless, islice limit number of items
+print(list(itertools.takewhile(lambda x: x < 18, itertools.count(10, 3))))  # or takewhile only returns while lambra predicate is true
 print(list(itertools.islice(itertools.cycle("ABCD"), 20)))
 print(list(itertools.repeat(3.14, 20)))
 
@@ -63,7 +64,7 @@ for key, group in gi:
     print()
 
 # My version, uses more memory (builds lists) but easier to use
-def mygroupby(list: Iterable[T], key: Callable[[T], U]) -> ItemsView[U, list[T]]:
+def my_groupby(list: Iterable[T], key: Callable[[T], U]) -> ItemsView[U, list[T]]:
     dic: dict[U, List[T]] = {}      # For some reason, Mypy rejects list[T]: Variable "list" is not valid as a type
     for item in list:
         k = key(item)
@@ -74,7 +75,7 @@ def mygroupby(list: Iterable[T], key: Callable[[T], U]) -> ItemsView[U, list[T]]
     return dic.items()
 
 
-for key2, group2 in mygroupby(lf, lambda v: v % 3):
+for key2, group2 in my_groupby(lf, lambda v: v % 3):
     print("Fib %3=", key2, ": ", end="")
     for i2 in group2:
         print(i2, end=" ")
@@ -83,6 +84,8 @@ for key2, group2 in mygroupby(lf, lambda v: v % 3):
 print(list(itertools.islice("ABCDEFG", 2, None, 2)))
 print(list(itertools.starmap(pow, [(2, 5), (3, 2), (10, 3)])))
 print(list(itertools.takewhile(lambda x: x < 5, [1, 4, 6, 4, 1])))
+
+print(list(itertools.pairwise("ABCD")))  # [('A', 'B'), ('B', 'C'), ('C', 'D')]
 
 # tee is actually powerful, since it returns multiple copies of an iterator, which can all be iterated over independently.
 # After calling tee, the iterator used as an argument shouldn't be used.
@@ -93,30 +96,21 @@ print(list(itertools.takewhile(lambda x: x < 5, [1, 4, 6, 4, 1])))
 w1, w2, w3 = itertools.tee("ABC", 3)
 print(list(w1), list(w2), list(w3))
 
-print(list(itertools.zip_longest("ABCD", "xy", fillvalue="-")))
+print(list(itertools.zip_longest("ABCD", "xy", fillvalue="-")))  # [('A', 'x'), ('B', 'y'), ('C', '-'), ('D', '-')]
+print()
 
+# Combinatorics generators
 for x in itertools.product("AB", [1, 2], (False, True)):
-    print(x)
+    print(x)    # ('A', 1, False) ('A', 1, True) ('A', 2, False) ('A', 2, True) ('B', 1, False) ('B', 1, True) ('B', 2, False) ('B', 2, True)
+print()
+for y in itertools.product(['rond', 'carré', 'triangle'], repeat=3):
+    print(y)    # ('rond', 'rond', 'rond') ('rond', 'rond', 'carré') ('rond', 'rond', 'triangle') ('rond', 'carré', 'rond') ...
+print()
 
-print(list(itertools.permutations("ABCD", 3)))
-print(list(itertools.combinations("ABCD", 3)))
+print(list(itertools.permutations("ABCD", 3)))  # [('A', 'B', 'C'), ('A', 'B', 'D'), ('A', 'C', 'B'), ('A', 'C', 'D'), ('A', 'D', 'B'), ...
+print(list(itertools.combinations("ABCD", 3)))  # [('A', 'B', 'C'), ('A', 'B', 'D'), ('A', 'C', 'D'), ('B', 'C', 'D')]
+# [('A', 'A', 'A'), ('A', 'A', 'B'), ('A', 'A', 'C'), ('A', 'A', 'D'), ('A', 'B', 'B'), ('A', 'B', 'C'), ...
 print(list(itertools.combinations_with_replacement("ABCD", 3)))
-
-# Pipeline in Python
-# Equivalent of C#
-# var l = Enumerable.Range(0, 50).Select(x => x*x).Where(x => x%2==1).OrderBy(x => Math.Sin(x));
-l1 = range(50)
-l2 = map(lambda x: x * x, l1)
-l3 = filter(lambda x: x % 2 == 1, l2)
-l4 = sorted(l3, key=math.sin)
-print(l4)
-
-# Using generator expressions
-l1b = range(50)
-l2b = (i * i for i in l1b)
-l3b = (i for i in l2b if i % 2 == 1)
-l4b = sorted(l3b, key=math.sin)
-print(l4b)
 
 
 # Recipes from Python doc
@@ -134,29 +128,36 @@ overhead.
 """
 
 
-def take(n: int, iterable: Iterable[T]) -> List[T]:
+def take(n: int, iterable: Iterable[T]) -> list[T]:
     "Return first n items of the iterable as a list"
     return list(itertools.islice(iterable, n))              # List[] is not needed, the islice object is iterable
 
+print(take(5, itertools.count(0.2, 0.2)))   # [0.2, 0.4, 0.6000000000000001, 0.8, 1.0]
 
-def prepend(value: Any, iterator: Iterable) -> Iterable:
-    "Prepend a single value in front of an iterator"
+
+def prepend(value: Any, iterable: Iterable) -> Iterable:
+    "Prepend a single value in front of an iterable"
     # prepend(1, [2, 3, 4]) -> 1 2 3 4
-    return itertools.chain([value], iterator)
+    return itertools.chain([value], iterable)
+
+print(list(prepend(0, [1, 2, 3])))    # [0, 1, 2, 3]
 
 
-def tabulate(function, start=0):
+def tabulate(function: Callable[[int], T], start=0) -> Iterable[T]:
     "Return function(0), function(1), ..."
     return map(function, itertools.count(start))
 
+print(list(take(10, tabulate(lambda x: x * 7, 1))))    # [7, 14, 21, 28, 35, 42, 49, 56, 63, 70]
 
-def tail(n, iterable):
+
+def tail(n: int, iterable: Iterable[T]) -> Iterable[T]:
     "Return an iterator over the last n items"
-    # tail(3, 'ABCDEFG') --> E F G
     return iter(collections.deque(iterable, maxlen=n))
 
+print(list(tail(3, 'ABCDEFG')))     # ['E', 'F', 'G']
 
-def consume(iterator, n=None):
+
+def consume(iterator: Iterable[T], n=None) -> None:
     "Advance the iterator n-steps ahead. If n is None, consume entirely."
     # Use functions that consume iterators at C speed.
     if n is None:
@@ -167,44 +168,59 @@ def consume(iterator, n=None):
         next(itertools.islice(iterator, n, n), None)
 
 
-def nth(iterable, n, default=None):
-    "Returns the nth item or a default value"
+def nth(iterable: Iterable[T], n: int, default: U | None = None) -> T | U | None:
+    "Returns the nth (starts at 0) item or a default value: returns iterable[n] even though iterable doesn't support indexing"
     return next(itertools.islice(iterable, n, None), default)
 
+print(nth(range(20), 7))     # 7
 
-def all_equal(iterable):
+
+def all_equal(iterable: Iterable) -> bool:
     "Returns True if all the elements are equal to each other"
-    g = itertools.groupby(iterable)
+    g: Iterator = itertools.groupby(iterable)
     return next(g, True) and not next(g, False)
 
+print(all_equal([42,42,40+2,44-2]))     # True
 
-def quantify(iterable, pred=bool):
+
+def quantify(iterable: Iterable[T], pred: Callable[[T], bool]=bool) -> int:
     "Count how many times the predicate is true"
     return sum(map(pred, iterable))
 
+print(quantify([1,1,2,3,5,8,13], lambda x:x%2==0))    # 2
 
-def padnone(iterable):
+
+def padnone(iterable: Iterable) -> Iterable:
     """Returns the sequence elements and then returns None indefinitely.
     Useful for emulating the behavior of the built-in map() function.
     """
     return itertools.chain(iterable, itertools.repeat(None))
 
 
-def ncycles(iterable, n):
+def ncycles(iterable: Iterable, n: int) -> Iterable:
     "Returns the sequence elements n times"
     return itertools.chain.from_iterable(itertools.repeat(tuple(iterable), n))
 
+print(list(ncycles(['Pomme', 3.14, True], 4)))    # ['Pomme', 3.14, True, 'Pomme', 3.14, True, 'Pomme', 3.14, True, 'Pomme', 3.14, True]
 
-def dotproduct(vec1, vec2):
+
+N=TypeVar('N', complex, float)  # Doesn't work with numpy tupes, but if we use numpy, we don't need this function!
+def dotproduct(vec1: Iterable['N'], vec2: Iterable['N']) -> N:
     return sum(map(operator.mul, vec1, vec2))
 
+v1 = (1.2, -3.1, 5.0)
+v2 = (0.5, 0, -1)
+print(dotproduct(v1,v2))    # -4.4
 
-def flatten(listOfLists):
+# See also deep_platten at the end
+def flatten(listOfLists: Iterable[Iterable]) -> Iterable:
     "Flatten one level of nesting"
     return itertools.chain.from_iterable(listOfLists)
 
+print(list(flatten([(1,2),[3,4,5], (6,)])))     # [1, 2, 3, 4, 5, 6]
 
-def repeatfunc(func, times=None, *args):
+
+def repeatfunc(func: Callable, times:int|None=None, *args) -> Any:
     """Repeat calls to func with specified arguments.
     Example:  repeatfunc(random.random)
     """
@@ -212,19 +228,24 @@ def repeatfunc(func, times=None, *args):
         return itertools.starmap(func, itertools.repeat(args))
     return itertools.starmap(func, itertools.repeat(args, times))
 
+print(list(take(5, repeatfunc(random.random))))    # [0.3397989174275057, 0.49333666028669054, 0.7170501884654843, 0.5892154468459484, 0.7140313769040765]
 
-def my_pairwise(iterable):
+
+def my_pairwise(iterable: Iterable) -> Iterable[tuple[Any, Any]]:
     "s -> (s0,s1), (s1,s2), (s2,s3), ..."
     a, b = itertools.tee(iterable)
     next(b, None)
     return zip(a, b)
 
+print(list(my_pairwise((1,2,'A', True))))    # [(1, 2), (2, 'A'), ('A', True)]
 
-def grouper(iterable, n, fillvalue=None):
+
+def grouper(iterable: Iterable, n: int, fillvalue=None) -> Iterable[tuple]:
     "Collect data into fixed-length chunks or blocks"
-    # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx"
-    args = [iter(iterable)] * n
+    args = [iter(iterable)] * n    # nx the same iterator object
     return itertools.zip_longest(*args, fillvalue=fillvalue)
+
+print(list(grouper('ABCDEFG', 3, 'x')))    # [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', 'x', 'x')]
 
 
 def roundrobin(*iterables):
@@ -373,4 +394,16 @@ def skip(n: int, iterable: Iterable[T]) -> Iterable[T]:
     "Skip first n items of the iterable"
     return itertools.islice(iterable, n, None)
 
+
 print(list(skip(10, range(21))))
+
+# Multi-level flattening (recursive)
+def deep_flatten(*args) -> Iterable:
+    for l in args:
+        try:
+            it = iter(l)
+            yield from deep_flatten(*it)
+        except TypeError:
+            yield l
+
+print(list(deep_flatten([1], 2, (3,4), [[5, [6,7]], (8, (9, (10,)))])))

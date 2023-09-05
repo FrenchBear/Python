@@ -9,12 +9,20 @@ from typing import Any, Callable, Iterable, TypeVar, Protocol
 
 # Pipeline in Python
 # Equivalent of C#
-# var l = Enumerable.Range(0, 50).Select(x => x*x).Where(x => x%2==1).OrderBy(ToString);
+# var l = Enumerable.Range(0, 50).Select(x => x*x).Where(x => x%2==1).OrderBy(x => Math.Sin(x));
 l1 = range(50)
 l2 = map(lambda x: x * x, l1)
 l3 = filter(lambda x: x % 2 == 1, l2)
 l4 = sorted(l3, key=str)
 print(l4)
+
+# Using generator expressions
+l1b = range(50)
+l2b = (i * i for i in l1b)
+l3b = (i for i in l2b if i % 2 == 1)
+l4b = sorted(l3b, key=str)
+print(l4b)
+
 
 # According to https://stackoverflow.com/questions/73504314/type-hint-for-can-be-compared-objects
 # for sorting with the builtin sorted() function, __eq__ and __lt__ suffice.
