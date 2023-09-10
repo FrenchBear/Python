@@ -122,7 +122,7 @@ def repl(prompt: str = 'lis.py> ') -> NoReturn:
         val = evaluate(ast, global_env)
         if val is not None:
             print(lispstr(val))
-12
+
 def lispstr(exp: object) -> str:
     "Convert a Python object back into a Lisp-readable string."
     if isinstance(exp, list):
