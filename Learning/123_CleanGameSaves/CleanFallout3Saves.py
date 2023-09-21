@@ -1,23 +1,25 @@
-# CleanWitcherSaves
-# Keep a limited number of saves
+# CleanFallout3Saves.py
+# Keep a limited number of saves for Fallout 3
 #
-# 2023-02-18    PV
+# 2023-09-21    PV
 
 from datetime import datetime, timedelta
 import os
 from common_fs import get_files
 
-source = r'C:\Users\Pierr\Documents\The Witcher 3\gamesaves'
-spacemin = timedelta(hours=1)
+source = r'C:\DocumentsOD\Doc WOTAN\My Games\Fallout3\Saves'
+spacemin = timedelta(hours=1)       # Keep one save per spacemin
 doit = True
 
 # Build dic of files indexed by datetime of last modification
 dicTimeFile: dict[datetime, str] = {}
 for file in get_files(source):
-    if file.startswith('ManualSave') and file.endswith('.sav'):
+    if file.startswith('Save') and file.endswith('.fos'):
         filefp = os.path.join(source, file)
         mt = datetime.fromtimestamp(os.stat(filefp).st_mtime)  # , tz=timezone.utc)
         dicTimeFile[mt] = filefp
+
+print(len(dicTimeFile))
 
 nskip = 0
 nkeep = 0
@@ -38,7 +40,6 @@ for t in sortedTime:
         ndel += 1
         if doit:
             os.remove(dicTimeFile[t])
-            os.remove(dicTimeFile[t].replace('.sav', '.png'))
     print(f'{t:%Y-%m-%d %H:%M:%S}  {dicTimeFile[t]}  {status}')
 
 if not doit:
