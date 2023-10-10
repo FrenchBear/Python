@@ -5,16 +5,17 @@
 
 from datetime import datetime, timedelta
 import os
-from common_fs import get_files
+from common_fs import get_files, file_exists
 
 source = r'C:\DocumentsOD\Doc WOTAN\My Games\Starfield\Saves'
+source2 = r'C:\Users\Public\Documents\Steam\RUNE\1716740\remote\saves'
 spacemin = timedelta(hours=1)       # Keep one save per spacemin
 doit = True
 
 # Build dic of files indexed by datetime of last modification
 dicTimeFile: dict[datetime, str] = {}
 for file in get_files(source):
-    if file.startswith('Save') and file.endswith('.sfs'):
+    if file.lower().startswith('save') and file.endswith('.sfs'):
         filefp = os.path.join(source, file)
         mt = datetime.fromtimestamp(os.stat(filefp).st_mtime)  # , tz=timezone.utc)
         dicTimeFile[mt] = filefp
@@ -40,6 +41,10 @@ for t in sortedTime:
         ndel += 1
         if doit:
             os.remove(dicTimeFile[t])
+            file2 = dicTimeFile[t].replace(source, source2)
+            if file_exists(file2):
+                os.remove(file2)
+                status = 'Delete+2'
     print(f'{t:%Y-%m-%d %H:%M:%S}  {dicTimeFile[t]}  {status}')
 
 if not doit:
