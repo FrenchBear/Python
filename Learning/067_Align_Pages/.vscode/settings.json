@@ -20,11 +20,4 @@
         "commandCenter.border": "#15202b99"
     },
     "peacock.color": "#a09010",
-    "spellright.language": [
-        "en"
-    ],
-    "spellright.documentTypes": [
-        "markdown",
-        "latex"
-    ]
 }

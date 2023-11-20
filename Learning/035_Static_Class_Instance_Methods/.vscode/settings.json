@@ -1,13 +1,4 @@
 {
-    "python.linting.pylintEnabled": true,
-    "spellright.language": [
-        "en"
-    ],
-    "spellright.documentTypes": [
-        "markdown",
-        "latex",
-        "plaintext"
-    ],
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#ceba15",
         "activityBar.activeBorder": "#0c7468",
@@ -29,5 +20,4 @@
         "statusBarItem.remoteForeground": "#15202b"
     },
     "peacock.color": "#a09010",
-    "python.linting.enabled": false
-}
+ 

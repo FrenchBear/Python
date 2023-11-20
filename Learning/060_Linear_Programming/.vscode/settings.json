@@ -1,5 +1,4 @@
 {
-    "python.linting.pylintEnabled": true,
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#ceba15",
         "activityBar.activeBorder": "#0c7468",
