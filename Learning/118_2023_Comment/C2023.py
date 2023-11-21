@@ -16,6 +16,7 @@ root = r'C:\Development\GitVSTS\WPF\Net8\FontApps'
 root = r'C:\Development\GitVSTS\CSMisc\Net8'
 root = r'C:\Development\GitVSTS\BookApps\Net8'
 root = r'C:\Development\GitVSTS\UIApps\Net8'
+root = r'c:\development\github\visual-studio-projects\net8'
 
 files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower()
          and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
