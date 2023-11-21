@@ -33,7 +33,7 @@ def isDatedComment(commenttoken: str, line: str) -> bool:
 # print(isDatedComment('//', '// 2012-04-23   PV'))
 # print(isDatedComment('//', '// 2018-04-30   PV      .Net Framework 4.6.2/Windows 10 Creators Update/dpi scaling per monitor awareness'))
 # print(isDatedComment('//', '// Play with FormattedText and DrawingVisuals'))
-#print(isDatedComment('//', '// 2021-09-09   PV      3.1.1 Make a BookApps projet, to fix bug in WidePath() when length==1'))
+# print(isDatedComment('//', '// 2021-09-09   PV      3.1.1 Make a BookApps projet, to fix bug in WidePath() when length==1'))
 
 def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline: str):
     path, file = os.path.split(filefp)
@@ -115,7 +115,7 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
         return
 
     # If commentline is already present, don't insert it again
-    #if lines[lnum - 1] == commentline:
+    # if lines[lnum - 1] == commentline:
     if 'Net8' in lines[lnum - 1]:
         if Verbose:
             flog.write('\n' + filefp + '\n')
@@ -132,7 +132,7 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
             fout.write(commentline + '\n')
             for i in range(lnum, len(lines)):
                 fout.write(lines[i])
-                if i!=len(lines)-1:
+                if i != len(lines) - 1:
                     fout.write('\n')
         if Verbose:
             flog.write('Updated\n')
