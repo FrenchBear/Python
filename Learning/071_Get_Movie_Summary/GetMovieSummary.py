@@ -4,19 +4,11 @@
 #
 # 2020-07-15    PV
 # 2023-01-03    PV      Added .mp4 suffix
+# 2023-12-17    PV      use common_fs version of get_all_files
 
 import os
-
 import tmdbsimple as tmdb       # type: ignore
-
-from typing import Iterable
-
-# Chemin complet de tous les fichiers à partir d'une racine
-def get_all_files(path: str) -> Iterable[str]:
-    for root, subs, files in os.walk(path):
-        for file in files:
-            yield os.path.join(root, file)
-
+from common_fs import get_all_files
 
 tmdb.API_KEY = 'ecdd67089c844d17e9f72a053609ed9f'
 search = tmdb.Search()
