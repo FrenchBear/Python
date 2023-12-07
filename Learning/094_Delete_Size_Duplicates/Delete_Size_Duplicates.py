@@ -10,6 +10,11 @@ from common_fs import get_all_files
 import os
 
 source = r'W:\Livres'
+extensions = ['.pdf', '.epub']
+
+# source = r'C:\Users\kafor\OneDrive\PicturesODKB'
+# extensions = ['.gif', '*.webp']
+
 doit = False
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
@@ -17,7 +22,7 @@ dic: defaultdict[int, list[str]] = defaultdict(list)
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
     _, ext = os.path.splitext(file)
-    if ext.casefold() in ['.pdf', '.epub']:
+    if ext.casefold() in extensions:
         s = os.path.getsize(filefp)
         dic[s].append(filefp)
 
