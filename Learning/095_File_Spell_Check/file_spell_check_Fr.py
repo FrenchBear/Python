@@ -4,6 +4,7 @@
 # 2021-12-16    PV
 # 2022-01-03    PV      Fusionne les mots de mots_fr.txt avec ceux de mots_fr2.txt (typiquement les nom propres); Mots en anglais
 # 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
+# 2023-12-19    PV      Modifie le 3è segment d'un fichier
 
 from collections import defaultdict
 from collections import Counter
@@ -12,7 +13,7 @@ from common_fs import get_all_files
 import unicodedata
 import os
 
-source = r'C:\Temp\A_Trier'
+source = r"C:\Temp\A_Trier\mp3-128\Tanguy Pastureau maltraite l'info"
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
@@ -204,10 +205,10 @@ def fixword(word: str, first: bool) -> str:
 
 def process_name(name: str) -> str:
     ts = name.split(' - ')
-    s1 = ts[0]
+    s2 = ts[2]
     li = []
     first = True
-    for word in s1.split(' '):
+    for word in s2.split(' '):
         if len(word) > 0:
             nw = fixword(word, first)
             first = False
@@ -215,7 +216,7 @@ def process_name(name: str) -> str:
             if nwcf in dic_casefix:
                 nw = dic_casefix[nwcf]
             li.append(nw)
-    ts[0] = ' '.join(li)
+    ts[2] = ' '.join(li)
     nn = ' - '.join(ts)
     # Special cases
     nn = nn.replace('cplusplus', 'C++').replace('Cplusplus', 'C++').replace("[Oreilly]", "[O'Reilly]")
