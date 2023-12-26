@@ -10,25 +10,28 @@ from common_fs import get_files, basename_part, extension_part
 # FILE = re.compile(r'Tanguy_Pastureau_maltraite_l_info_(\d\d\d\d-\d\d-\d\d)_(.*)')
 
 doit = True
+useReferenceSeries = True
 
-reference = r'W:\BD\Classique\Papyrus'
-arenommer = r'C:\Downloads\A_Trier\!A_Trier_BD\Papyrus Intégrale'
+reference = r'W:\BD\Extra\Thorgal\Kriss de Valnor'
+arenommer = r'C:\Users\Pierr\Downloads\A_Trier\!A_Trier_BD\Thorgal Collection\Kriss de Valnor'
 
-refDic: dict[str, str] = {}
+refTitles: dict[str, str] = {}
+refSeries: dict[str, str] = {}
 
 for file in list(get_files(reference)):
     bn = basename_part(file)
     ts = bn.split(' - ')
     if len(ts) >= 3:
-        refDic[ts[1]] = ' - '.join(ts[2:])
+        refTitles[ts[1]] = ' - '.join(ts[2:])
+        refSeries[ts[1]] = ts[0]
 
 for file in list(get_files(arenommer)):
     bn = basename_part(file)
     ext = extension_part(file)
     ts = bn.split(' - ')
     if len(ts) >= 2:
-        if ts[1] in refDic:
-            nn = ts[0] + ' - ' + ts[1] + ' - ' + refDic[ts[1]]
+        if ts[1] in refTitles:
+            nn = (refSeries[ts[1]] if useReferenceSeries else ts[0]) + ' - ' + ts[1] + ' - ' + refTitles[ts[1]]
             print(repr(file) + ' -> ' + repr(nn + ext))
             if doit:
                 os.rename(os.path.join(arenommer, file), os.path.join(arenommer, nn + ext))

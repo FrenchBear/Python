@@ -1,5 +1,5 @@
-# amp3.py
-# Analyse mp3
+# analyse_mp3.py
+# Analyse mp3, sorting files using bitrate
 #
 # 2023-12-19    PV
 
@@ -9,7 +9,7 @@ import logging
 import io
 import os
 import shutil
-from common_fs import get_all_files, file_part, folder_part, extension_part
+from common_fs import get_all_files, folder_part, extension_part
 
 root = r'C:\Temp\A_Trier Brut'
 
@@ -20,7 +20,7 @@ co = Counter()
 
 def get_bit_rate(file: str) -> int:
     af = eyed3.core.load(file)
-    br = af.info.bit_rate[1]
+    br = af.info.bit_rate[1]        # type: ignore
     if br == 160:
         print(file)
     return br
