@@ -12,8 +12,8 @@ from common_fs import get_files, basename_part, extension_part
 doit = True
 useReferenceSeries = True
 
-reference = r'W:\BD\Extra\Thorgal\Kriss de Valnor'
-arenommer = r'C:\Users\Pierr\Downloads\A_Trier\!A_Trier_BD\Thorgal Collection\Kriss de Valnor'
+reference = r"W:\BD\Extra\Le sang des Porphyre"
+arenommer = r"C:\Downloads\A_Trier\!A_Trier_BD\Le sang des Porphyre Intégrale"
 
 refTitles: dict[str, str] = {}
 refSeries: dict[str, str] = {}
