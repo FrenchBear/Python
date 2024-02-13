@@ -8,7 +8,7 @@
 # 2022-06-17    PV      folder_part; file_part renamed file_part; extension
 # 2023-02-10    PV      file_readalltext_encoding, file_readalltext
 # 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> basename_part
-
+# 2024-02-12    PV      Argument optionnel fullpath for get_files and get_folders
 '''
 Function 	        Copies      Copies          Uses file       Destination
                     metadata 	permissions 	object 	        may be directory
@@ -23,16 +23,23 @@ import codecs
 from typing import Iterable
 
 
-def get_files(source: str) -> list[str]:
-    '''Retourne juste les fichiers d'un dossier, noms.ext sans chemins'''
+def get_files(source: str, fullpath: bool = False) -> list[str]:
+    '''Retourne juste les fichiers d'un dossier, noms.ext sans chemins sauf si fullpath est True'''
     _1, _2, files = next(os.walk(source))
-    return files
+    if fullpath:
+        return [os.path.join(source, file) for file in files]
+    else:
+        return files
 
 
-def get_folders(source: str) -> list[str]:
-    '''Retourne juste les sous-dossiers d'un dossier, noms sans chemins'''
+def get_folders(source: str, fullpath: bool = False) -> list[str]:
+    '''Retourne juste les sous-dossiers d'un dossier, noms sans chemins sauf si fullpath est True'''
     _1, folders, _2 = next(os.walk(source))
-    return folders
+    
+    if fullpath:
+        return [os.path.join(source, folder) for folder in folders]
+    else:
+        return folders
 
 
 def get_all_files(path: str) -> Iterable[str]:
@@ -101,7 +108,7 @@ def file_size(fullpath: str) -> int:
     '''Retourne la taille d'un fichier en octets'''
     return os.stat(fullpath).st_size
 
-def file_readalltext_encoding(filepath: str) -> tuple[str,str]:
+def file_readalltext_encoding(filepath: str) -> tuple[str, str]:
     '''Lit tout le texte d'un fichier en détectant le type de fichier automatiquement
        Retourne (texte, encodage)
        Encodage est 'utf_8_sig', 'utf_8' ou 'mbcs' (ANSI)
@@ -120,6 +127,7 @@ def file_readalltext_encoding(filepath: str) -> tuple[str,str]:
 def file_readalltext(filepath: str) -> str:
     '''Lit tout le texte d'un fichier en détectant le type de fichier automatiquement'''
     return file_readalltext_encoding(filepath)[0]
+
 
 r'''
 if __name__ == '__main__':

@@ -14,13 +14,15 @@ from syncrename import sync_rename
 
 NUMBER = re.compile(r'\D+(\d{2,3}[ABCDTabcdt]?)( |\.).*')
 
-serie = "Sept"
-type = "Extra"
+serie = "Le Scrameustache"
+type = "Classique"
 
 sources = [
-    r"W:\BD2\Qfinal.New" + '\\' + serie,
+    r"W:\BD2\Qfinal" + '\\' + serie,
     r"W:\BD" + '\\' + type + '\\' + serie,
 ]
+
+# sources[0] = r"C:\Users\Pierr\Downloads\A_Trier\!A_Trier_BD\Elfes"
 
 target = sources[-1] + '\\' + serie[0]  
 series = serie
