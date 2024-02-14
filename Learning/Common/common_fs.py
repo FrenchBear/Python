@@ -9,14 +9,18 @@
 # 2023-02-10    PV      file_readalltext_encoding, file_readalltext
 # 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> basename_part
 # 2024-02-12    PV      Argument optionnel fullpath for get_files and get_folders
-'''
-Function 	        Copies      Copies          Uses file       Destination
-                    metadata 	permissions 	object 	        may be directory
-shutil.copy 	    No          Yes             No              Yes
-shutil.copyfile 	No          No              No              No
-shutil.copy2 	    Yes         Yes             No              Yes
-shutil.copyfileobj 	No          No              Yes             No
-'''
+
+# Function 	        Copies      Copies          Uses file       Destination
+#                   metadata 	permissions 	object 	        may be directory
+# shutil.copy 	    No          Yes             No              Yes
+# shutil.copyfile 	No          No              No              No
+# shutil.copy2 	    Yes         Yes             No              Yes
+# shutil.copyfileobjNo          No              Yes             No
+
+# os.rmdir() does not remove non-empty directories, use shutil.rmtree(path) instead
+# os.makedirs(folder) creates all parent directories if needed
+
+'''Sous-programmes communs relatif au filesystem'''
 
 import os
 import codecs
