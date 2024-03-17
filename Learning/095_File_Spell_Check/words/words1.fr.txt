@@ -51218,7 +51218,7 @@ chinât
 chinâtes
 chinchilla
 chinchillas
-chine
+Chine
 chiné
 chinée
 chinées
@@ -117408,7 +117408,7 @@ ecclésiaux
 écossassions
 écossât
 écossâtes
-écosse
+Écosse
 écossé
 écossée
 écossées
@@ -306432,7 +306432,7 @@ suints
 suions
 suis
 suis-je
-suisse
+Suisse
 suisses
 suissesse
 suissesses
@@ -332166,7 +332166,7 @@ vicésimale
 vicésimales
 vicésimaux
 vice-versa
-vichy
+Vichy
 vichys
 vichyssois
 vichyssoise

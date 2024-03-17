@@ -9,6 +9,7 @@
 # 2023-02-10    PV      file_readalltext_encoding, file_readalltext
 # 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> basename_part
 # 2024-02-12    PV      Argument optionnel fullpath for get_files and get_folders
+# 2024-02-28    PV      @deprecated
 
 # Function 	        Copies      Copies          Uses file       Destination
 #                   metadata 	permissions 	object 	        may be directory
@@ -25,6 +26,7 @@
 import os
 import codecs
 from typing import Iterable
+from typing_extensions import deprecated
 
 
 def get_files(source: str, fullpath: bool = False) -> list[str]:
@@ -72,7 +74,7 @@ def folder_part(fullpath: str) -> str:
     return folder
 
 
-# Official @depredated should arrive in Python 3.12 (PEP 702)
+@deprecated("Utiliser basename_part")
 def basename(filewithext: str) -> str:
     '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel). DEPRECIÉ - Utiliser basename_part'''
     base, _ = os.path.splitext(filewithext)
@@ -85,7 +87,7 @@ def basename_part(filewithext: str) -> str:
     return base
 
 
-# Official @depredated should arrive in Python 3.12 (PEP 702)
+@deprecated("Utiliser extension_part")
 def extension(filewithext: str) -> str:
     '''Retourne l'extension du fichier, point inclus. DEPRECIÉ - Utiliser extension_part'''
     _, ext = os.path.splitext(filewithext)

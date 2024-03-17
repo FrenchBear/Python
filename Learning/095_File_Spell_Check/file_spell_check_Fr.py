@@ -5,6 +5,7 @@
 # 2022-01-03    PV      Fusionne les mots de mots_fr.txt avec ceux de mots_fr2.txt (typiquement les nom propres); Mots en anglais
 # 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
 # 2023-12-19    PV      Modifie le 3è segment d'un fichier
+# 2024-03-17    PV      Break_words ne coupe plus sur -; expressions.fr.txt
 
 from collections import defaultdict
 from collections import Counter
@@ -13,30 +14,35 @@ from common_fs import get_all_files
 import unicodedata
 import os
 
-source = r"C:\Temp\A_Trier\mp3-128\Tanguy Pastureau maltraite l'info"
-doit = True
+source = r"W:\eBooks\Que sais-je"
+doit = False
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 dmf: dict[str, str] = {}
 
+print("Chargement des mots Fr")
+
 # words1.fr.txt est un dico complet plus long à charger, words2.fr.txt est plus simple.  Pas de majuscules (ex: japon)
 with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
-#with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
-#    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
+with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
+    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
 with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
     dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
 
-# # dme est l'ensemble des mots anglais
+# dme est l'ensemble des mots anglais
 # with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
 #     dme = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 # with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
 #     dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
 
-# # dmx est l'ensemble des mots ni français ni anglais
+# dmx est l'ensemble des mots ni français ni anglais
 with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
     dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
 
+# Certaines expressions ont une casse spécifique différente des mots qui la composent (ex: Nouveau Testament ou Alexandre le Grand)
+with open(r'words\expressions.fr.txt', 'r', encoding='UTF-8') as f:
+    dic_expressions = dict((expression.casefold(), expression) for expression in f.read().splitlines())
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent
 for mot in dmf.values():
@@ -60,6 +66,7 @@ dic_casefix = dict([(mot.casefold(), mot) for mot in set_casefix])
 avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
 dic_avectirets = dict([(mot.casefold(), mot) for mot in avectirets])
 
+print("Traitement des fichiers")
 
 def fixcase(before: str, after: str, first: bool) -> str:
     '''Si le mot d'origine commence par une majuscule, alors on force le remplacement à commencer par une majuscule'''
@@ -116,7 +123,7 @@ def break_word(word: str) -> tuple[str, str, str]:
     
     while i < len(word):
         c = word[i]
-        if unicodedata.category(c) in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
+        if unicodedata.category(c) in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu'] or c in ['-']:
             break
         prefix += c
         i += 1
@@ -124,14 +131,13 @@ def break_word(word: str) -> tuple[str, str, str]:
         return ('', word, '')       # For numeric-only words for instance
     while i < len(word):
         c = word[i]
-        if unicodedata.category(c) not in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu']:
+        if unicodedata.category(c) not in ['Ll', 'Lm', 'Lo', 'Lt', 'Lu'] and c not in ['-']:
             break
         w += c
         i += 1
     if w == '':
         return (prefix, word, '')
     return (prefix, w, word[i:])
-
 
 def fixwordinner(word: str, first: bool) -> str:
     '''Si le mot n'existe pas mais il existe un mot accentué unique correspondant, retourne celui-ci'''
@@ -205,7 +211,7 @@ def fixword(word: str, first: bool) -> str:
 
 def process_name(name: str) -> str:
     ts = name.split(' - ')
-    s2 = ts[2]
+    s2 = ts[0]          # A adapter
     li = []
     first = True
     for word in s2.split(' '):
@@ -216,15 +222,20 @@ def process_name(name: str) -> str:
             if nwcf in dic_casefix:
                 nw = dic_casefix[nwcf]
             li.append(nw)
-    ts[2] = ' '.join(li)
+    ts[0] = ' '.join(li)    # A adapter
     nn = ' - '.join(ts)
     # Special cases
     nn = nn.replace('cplusplus', 'C++').replace('Cplusplus', 'C++').replace("[Oreilly]", "[O'Reilly]")
-
+    nncf = nn.casefold()
+    for expression in dic_expressions.keys():
+        if expression in nncf:
+            p = nncf.index(expression)
+            nn = nn[:p] + dic_expressions[expression] + nn[p+len(expression):]
     return nn
 
-#print(process_name("à conquête de Plassans.epub"))
-#print(process_name("L'Ecole du Moulin de Paris - Zola, Emile.epub"))
+#print(process_name("La convention européenne des droits de l'homme - Sudre Frédéric.epub"))
+# print(process_name("Histoire de la grande-Bretagne - Que-sais-je.epub"))
+# print(process_name("L'alsace-Lorraine pendant la guerre 1939-1945 - Que-sais-je"))
 
 nd = 0
 for filefp in get_all_files(source):

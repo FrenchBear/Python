@@ -886,7 +886,8 @@ Alphonse
 alpin
 alpinisme
 alpiniste
-alsace
+Alsace
+Alsace-Lorraine
 alsaciens
 altération
 altercation
@@ -3740,6 +3741,7 @@ cep
 cependant
 céramique
 céramiques
+Cévennes
 cerceau
 cercle
 cercles
@@ -4080,7 +4082,7 @@ chimie
 chimique
 chimiques
 chimiste
-chine
+Chine
 chinois
 chinoise
 chinoises
@@ -7630,9 +7632,8 @@ ecclésiastique
 écorce
 écorcer
 écossais
-Ecossaise
-Ecosse
-écosse
+écossaise
+Écosse
 écosser
 écot
 écoulée
@@ -8639,7 +8640,7 @@ Etat
 étatiques
 état-major
 états
-Etats-Unis
+États-Unis
 étau
 étayé
 étayer
@@ -10472,6 +10473,7 @@ grammes
 gramophone
 grand
 grande
+Grande-Bretagne
 grandement
 grandes
 grandeur
@@ -13086,7 +13088,7 @@ Lorenzo
 lorgner 
 Lorient
 loriot
-lorraine
+Lorraine
 lors
 lorsque
 lot
@@ -20674,7 +20676,6 @@ suicide
 suie
 suinter
 suis
-suisse
 Suisse
 suisses
 suit
@@ -22314,7 +22315,7 @@ viande
 vibrer
 vicaire
 vice
-vichy
+Vichy
 vicier
 vicieux
 victime
