@@ -8,11 +8,10 @@
 # 2023-01-24    PV      Version 2_Sources
 
 from collections import defaultdict
-#from typing import Iterable, List
 from common_fs import get_all_files
 import os
 
-source1 = r'W:\Livres'
+source1 = r'W:\Livres\Informatique'
 source2 = r'C:\Temp\A_Trier'
 doit = True
 

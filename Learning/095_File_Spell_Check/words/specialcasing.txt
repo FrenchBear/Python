@@ -55,7 +55,6 @@ eBook
 eCommerce
 EE
 EPUB
-ES
 ESP
 ESP32
 Excel
@@ -236,3 +235,7 @@ URSS
 CGT
 PMA
 GPA
+ChatGPT
+L1
+L2
+Python

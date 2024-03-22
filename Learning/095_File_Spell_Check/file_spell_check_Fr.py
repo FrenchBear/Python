@@ -14,8 +14,8 @@ from common_fs import get_all_files
 import unicodedata
 import os
 
-source = r"W:\eBooks\Que sais-je"
-doit = False
+source = r"C:\Temp\A_Trier"
+doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 dmf: dict[str, str] = {}
