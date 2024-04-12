@@ -14,8 +14,8 @@ from syncrename import sync_rename
 
 NUMBER = re.compile(r'\D*(\d{2,3}[ABCDTabcdt]?)( |\.).*')
 
-serie = "Le guide junior"
-type = "Classique"
+serie = "Bernard Prince"
+type = "Ancien"
 
 sources = [
     # r"W:\BD2\Qfinal" + '\\' + serie,
