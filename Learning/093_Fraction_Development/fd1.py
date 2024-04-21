@@ -1,6 +1,8 @@
 # Fraction Development 1
+#
 # 2021-10-23    PV      First version with dictionary and string, O(d) memory and O(d) time
 # 2021-11-05    PV      Fixed bug 679/550 1.23[45]; Sign; /0; tests
+# 2024-04-21    PV      Copied to DevForFun project #21; moved QBasic et VBScript versions too
 
 import time
 
@@ -68,7 +70,7 @@ test(5, 0, "/0 error")
 test(0, 0, "0/0 undefined")
 
 t: float = time.perf_counter_ns()
-for i in range(100000):
+for i in range(100_000):
     _ = develop(100, 23)
 t = (time.perf_counter_ns()-t)/1_000_000_000
-print(f'\nElapsed #1: {int(t)}.{int(1000*t)%1000:0>3} s')
+print(f'\nElapsed #1: {int(t)}.{int(1000*t)%1000:0>3}s')
