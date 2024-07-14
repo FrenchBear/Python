@@ -13,7 +13,7 @@ import os
 
 source1 = r'W:\Livres\Informatique'
 source2 = r'C:\Temp\A_Trier'
-doit = True
+doit = False
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 

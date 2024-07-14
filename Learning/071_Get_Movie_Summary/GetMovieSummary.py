@@ -10,11 +10,13 @@ import os
 import tmdbsimple as tmdb       # type: ignore
 from common_fs import get_all_files
 
+#source = r'V:\Films\# A_Trier'
+source = r'V:\Animations\# A_Trier'
+
 tmdb.API_KEY = 'ecdd67089c844d17e9f72a053609ed9f'
 search = tmdb.Search()
 
 processed = []
-source = r'V:\Films\# A_Trier'
 for fullpath in get_all_files(source):
     path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
