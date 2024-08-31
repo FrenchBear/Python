@@ -4,6 +4,26 @@
 #
 # 2024-08-29    PV
 
+import librosa
+
+def simple_test():
+    # Load audio file
+    y, sr = librosa.load(r'C:\MusicOD\Lists\Marche rapide\Chips - Having a Party.mp3')
+
+    # Beat tracking
+    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+
+    # Convert beat frames to time in seconds
+    beat_times = librosa.frames_to_time(beat_frames, sr=sr)
+
+    print('Estimated Tempo (BPM):', tempo)
+    print('Beat Times (seconds):', beat_times)
+
+def get_beat(file):
+    y, sr = librosa.load(file)
+    tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
+    return tempo
+
 """
 I would like some help to write a python AI project
 
@@ -296,19 +316,6 @@ Feel free to ask if you have any specific questions or would like to explore any
 
 """
 
-import librosa
-
-# Load audio file
-y, sr = librosa.load(r'C:\MusicOD\Lists\Marche rapide\Chips - Having a Party.mp3')
-
-# Beat tracking
-tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
-
-# Convert beat frames to time in seconds
-beat_times = librosa.frames_to_time(beat_frames, sr=sr)
-
-print('Estimated Tempo (BPM):', tempo)
-print('Beat Times (seconds):', beat_times)
 
 """
 [C:\vcpkg\buildtrees\mpg123\src\0d8db63f9b-3db975bc05.clean\src\libmpg123\id3.c:process_comment():584] error: No comment text / valid description?
