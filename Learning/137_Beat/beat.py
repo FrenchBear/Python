@@ -8,7 +8,10 @@ import librosa
 
 def simple_test():
     # Load audio file
-    y, sr = librosa.load(r'C:\MusicOD\Lists\Marche rapide\Chips - Having a Party.mp3')
+    #y, sr = librosa.load(r'C:\MusicOD\Lists\Marche rapide\Chips - Having a Party.mp3')
+
+    # Estimated tempo: 184.6, which is ridiculous...
+    y, sr = librosa.load(r'C:\MusicOD\MP3P\Divers\_Divers Misc\Billy Holliday - What a Difference a Day Made Ella Fitzgerald.mp3')
 
     # Beat tracking
     tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
@@ -19,10 +22,13 @@ def simple_test():
     print('Estimated Tempo (BPM):', tempo)
     print('Beat Times (seconds):', beat_times)
 
-def get_beat(file):
+def get_beat(file: str) -> float:
     y, sr = librosa.load(file)
     tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
-    return tempo
+    return round(float(tempo[0]),1)      # type: ignore
+
+if __name__ == '__main__':
+    simple_test()
 
 """
 I would like some help to write a python AI project
@@ -318,7 +324,6 @@ Feel free to ask if you have any specific questions or would like to explore any
 
 
 """
-[C:\vcpkg\buildtrees\mpg123\src\0d8db63f9b-3db975bc05.clean\src\libmpg123\id3.c:process_comment():584] error: No comment text / valid description?
 Estimated Tempo (BPM): [129.19921875]
 
 Beat Times (seconds): [6.96598639e-02 5.57278912e-01 1.02167800e+00 1.53251701e+00
