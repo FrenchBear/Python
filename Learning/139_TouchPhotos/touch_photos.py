@@ -104,23 +104,25 @@ def touch(source:str, dest:str):
   os.utime(dest, (source_mtime, source_mtime))
 
 
-extract_YM_re = re.compile(r'^(\d{4})-(\d\d)(-(\d\d))? ')
+Extract_YM_re = re.compile(r'^(\d{4})-(\d\d)(-(\d\d))? ')
+DateFromFile_re = re.compile(r'(?:IMG|Screenshot)_(\d\d\d\d)(\d\d)(\d\d)_(\d\d)(\d\d)(\d\d)[^\.]*.jpg', re.IGNORECASE)
 
-#source = r'C:\PicturesODPerso\2011'
-source = r'C:\PicturesPersoHR\2011'
-doit = True
+#source = r'C:\PicturesODPerso\2018'
+source = r'C:\PicturesPersoHR\2020'
+doit = False
 
 for root, subs, files in os.walk(source):
     if '\\A_Trier' in root:
         continue
 
     folder = file_part(root)
-    if folder in ['2005-12 Pics famille 4x6', '2006-06 Jeff', '2006-08-25 Pics CR', '2006-09-10 Pics CR', '2019-11 Nantes', '2021-06-12 Gaufrier+RPi', '2023-03-15 Compteur gaz', '2024-01-04 Pics appartement pour PhG']:
+    if folder in ['2005-12 Pics famille 4x6', '2006-06 Jeff', '2006-08-25 Pics CR', '2006-09-10 Pics CR', '2019-11 Nantes', '2021-06-12 Gaufrier+RPi',
+                  '2023-03-15 Compteur gaz', '2024-01-04 Pics appartement pour PhG', '2016-06-23 Backup Nexus 6', '2018-06 Photos Mate 10 Pro']:
         continue
 
     # print('root=', root)
     # print('folder=', folder)
-    ma = extract_YM_re.match(folder)
+    ma = Extract_YM_re.match(folder)
     if ma:
         y = int(ma.group(1))
         m = int(ma.group(2))
@@ -155,7 +157,20 @@ for root, subs, files in os.walk(source):
                     else:
                         lastdate = d
                 else:
-                    lastdate += timedelta(seconds=1)
+                    if file.lower().startswith('img_') or file.lower().startswith('screenshot_'):
+                        ma2 = DateFromFile_re.fullmatch(file)
+                        if ma2:
+                            year = int(ma2.group(1))
+                            month = int(ma2.group(2))
+                            day = int(ma2.group(3))
+                            hour = int(ma2.group(4))
+                            min = int(ma2.group(5))
+                            sec = int(ma2.group(6))
+                            lastdate = datetime(year, month, day, hour, min, sec)
+                        else:
+                            breakpoint()
+                    else:
+                        lastdate += timedelta(seconds=1)
                     print("No date:", filefp, '->', lastdate)
                     if doit:
                         update_date_taken(filefp, lastdate)

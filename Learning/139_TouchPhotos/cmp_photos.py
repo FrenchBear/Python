@@ -7,7 +7,7 @@ from common_fs import get_folders, file_exists, extension_part
 import os
 import shutil
 
-folder = '2012'
+folder = '2020'
 source = os.path.join(r'C:\PicturesODPerso', folder)
 dest = os.path.join(r'C:\PicturesPersoHR', folder)
 
@@ -44,18 +44,18 @@ def compareTwoFolders(folderSource: str, folderDest: str):
                 filefpDest = filefpSource.replace(source, dest)
                 if not file_exists(filefpDest):
                     print(f"{RED}*** Source file {filefpSource} not found on dest{RESET}")
-                    if "PANO" in filefpSource or "MOTION" in filefpSource or extension_part(filefpSource).lower() in ['.avi', '.mov', '.mpg']:
+                    if "PANO" in filefpSource or "MOTION" in filefpSource or extension_part(filefpSource).lower() in ['.avi', '.mov', '.mpg', '.mp4']:
                         shutil.copyfile(filefpSource, filefpDest)
                         print("  -> copied")
 
     for rootDest, subsDest, filesDest in os.walk(folderDest):
         for fileDest in filesDest:
-            if fileDest != 'Thumbs.db' and fileDest != 'desktop.ini':
+            if fileDest != 'Thumbs.db' and fileDest != 'desktop.ini' and extension_part(fileDest).lower()!='.raf':
                 filefpDest = os.path.join(rootDest, fileDest)
                 filefpSource = filefpDest.replace(dest, source)
                 if not file_exists(filefpSource):
                     print(f"{RED}*** Dest file {filefpDest} not found on source{RESET}")
-                    if "PANO" in filefpDest or "MOTION" in filefpDest or extension_part(filefpDest).lower() in ['.avi', '.mov', '.mpg']:
+                    if "PANO" in filefpDest or "MOTION" in filefpDest or extension_part(filefpDest).lower() in ['.avi', '.mov', '.mpg', '.mp4']:
                         shutil.copyfile(filefpDest, filefpSource)
                         print("  -> copied")
 
