@@ -7,7 +7,7 @@ from common_fs import get_folders, file_exists, extension_part
 import os
 import shutil
 
-folder = '2020'
+folder = '2023'
 source = os.path.join(r'C:\PicturesODPerso', folder)
 dest = os.path.join(r'C:\PicturesPersoHR', folder)
 

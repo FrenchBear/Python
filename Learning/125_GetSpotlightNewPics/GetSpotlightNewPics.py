@@ -5,6 +5,7 @@
 # 2023-04-12    PV      Logfile
 # 2023-07-19    PV      Added missing 
 # 2023-12-31    PV      Also look for Kaforas spotlight pictures
+# 2024-09-12    PV      Also look for FrenchBear38 spotlight pictures
 
 import datetime
 import shutil
@@ -13,6 +14,7 @@ from common_fs import get_files, extension_part
 
 source1 = r'C:\Users\Pierr\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets'
 source2 = r'C:\Users\Kafor\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets'
+source3 = r'C:\Users\Frenc\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets'
 dest = r'C:\Users\Pierr\OneDrive\PicturesODMisc\Papiers peints\Spotlight'
 logfile = r'C:\temp\GetSpotlightNewPics-' + datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S.log')
 doit = True
@@ -22,7 +24,7 @@ dest_files = set(file.lower() for file in get_files(dest) if extension_part(file
 print("GetSpotlightNewPics started")
 with open(logfile, 'w') as log:
     copied = 0
-    for source in [source1, source2]:
+    for source in [source1, source2, source3]:
         for filebase in get_files(source):
             file = filebase.lower()+'.jpg'
             if file not in dest_files:

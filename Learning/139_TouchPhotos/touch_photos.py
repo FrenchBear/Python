@@ -105,10 +105,10 @@ def touch(source:str, dest:str):
 
 
 Extract_YM_re = re.compile(r'^(\d{4})-(\d\d)(-(\d\d))? ')
-DateFromFile_re = re.compile(r'(?:IMG|Screenshot)_(\d\d\d\d)(\d\d)(\d\d)_(\d\d)(\d\d)(\d\d)[^\.]*.jpg', re.IGNORECASE)
+DateFromFile_re = re.compile(r'(?:IMG|Screenshot|GNN)_(\d\d\d\d)(\d\d)(\d\d)_(\d\d)(\d\d)(\d\d)[^\.]*.jpg', re.IGNORECASE)
 
 #source = r'C:\PicturesODPerso\2018'
-source = r'C:\PicturesPersoHR\2020'
+source = r'C:\PicturesPersoHR\2023'
 doit = False
 
 for root, subs, files in os.walk(source):
@@ -157,7 +157,7 @@ for root, subs, files in os.walk(source):
                     else:
                         lastdate = d
                 else:
-                    if file.lower().startswith('img_') or file.lower().startswith('screenshot_'):
+                    if file.lower().startswith('img_') or file.lower().startswith('screenshot_') or file.lower().startswith('gnn_'):
                         ma2 = DateFromFile_re.fullmatch(file)
                         if ma2:
                             year = int(ma2.group(1))
