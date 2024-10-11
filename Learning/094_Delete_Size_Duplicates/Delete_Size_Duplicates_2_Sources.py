@@ -11,9 +11,9 @@ from collections import defaultdict
 from common_fs import get_all_files
 import os
 
-source1 = r'W:\Livres\Informatique'
-source2 = r'C:\Temp\A_Trier'
-doit = False
+source1 = r'W:\Livres'
+source2 = r'C:\Temp\A_Trier_Livres'
+doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 

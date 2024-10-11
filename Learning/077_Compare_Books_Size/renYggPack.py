@@ -12,7 +12,7 @@ from common_fs import get_files
 import os
 import re
 
-source = r"C:\Temp\A_Trier"
+source = r"C:\Downloads\A_Trier\!A_Trier_Livres"
 lang = "Fr"  # Fr or En
 doit = True
 

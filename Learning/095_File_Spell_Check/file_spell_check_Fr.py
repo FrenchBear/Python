@@ -6,15 +6,17 @@
 # 2022-06-04    PV      Nettoyage et correction d'erreurs pour renommer des ebooks
 # 2023-12-19    PV      Modifie le 3è segment d'un fichier
 # 2024-03-17    PV      Break_words ne coupe plus sur -; expressions.fr.txt
+# 2024-09-18    PV      Constante SEGMENT
 
 from collections import defaultdict
 from collections import Counter
-# from posixpath import split
 from common_fs import get_all_files
 import unicodedata
 import os
 
-source = r"C:\Temp\A_Trier"
+SEGMENT = 0     # index du segment séparé par " - " sur lequel porte la correction
+source = r"C:\Downloads\A_Trier\!A_Trier_Livres"
+#source = r"U:\Pierre\A_Trier\A_Trier Brut\Tanguy Pastureau maltraite l'info 2023"          # Use segment=2
 doit = True
 
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
@@ -211,7 +213,7 @@ def fixword(word: str, first: bool) -> str:
 
 def process_name(name: str) -> str:
     ts = name.split(' - ')
-    s2 = ts[0]          # A adapter
+    s2 = ts[SEGMENT]
     li = []
     first = True
     for word in s2.split(' '):
@@ -222,7 +224,7 @@ def process_name(name: str) -> str:
             if nwcf in dic_casefix:
                 nw = dic_casefix[nwcf]
             li.append(nw)
-    ts[0] = ' '.join(li)    # A adapter
+    ts[SEGMENT] = ' '.join(li)
     nn = ' - '.join(ts)
     # Special cases
     nn = nn.replace('cplusplus', 'C++').replace('Cplusplus', 'C++').replace("[Oreilly]", "[O'Reilly]")
@@ -240,17 +242,18 @@ def process_name(name: str) -> str:
 nd = 0
 for filefp in get_all_files(source):
     folder, file = os.path.split(filefp)
-    bname, ext = os.path.splitext(file)
+    if file.lower()!='thumbs.db':
+        bname, ext = os.path.splitext(file)
 
-    newname = process_name(bname)
-    if bname != newname:
-        nd += 1
-        print(f'{bname}{ext} -> {newname}{ext}')
+        newname = process_name(bname)
+        if bname != newname:
+            nd += 1
+            print(f'{bname}{ext} -> {newname}{ext}')
 
-        if doit:
-            f1 = os.path.join(folder, bname+ext)
-            f2 = os.path.join(folder, newname+ext)
-            os.rename(f1, f2)
+            if doit:
+                f1 = os.path.join(folder, bname+ext)
+                f2 = os.path.join(folder, newname+ext)
+                os.rename(f1, f2)
 
 print()
 print(nd, 'fichier(s) à renommer')
