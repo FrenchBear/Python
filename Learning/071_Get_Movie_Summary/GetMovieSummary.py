@@ -10,8 +10,8 @@ import os
 import tmdbsimple as tmdb       # type: ignore
 from common_fs import get_all_files
 
-#source = r'V:\Films\# A_Trier'
-source = r'V:\Animations\# A_Trier'
+source = r'V:\Films\# A_Trier'
+#"source = r'V:\Animations\# A_Trier'
 
 tmdb.API_KEY = 'ecdd67089c844d17e9f72a053609ed9f'
 search = tmdb.Search()
@@ -20,7 +20,7 @@ processed = []
 for fullpath in get_all_files(source):
     path, file = os.path.split(fullpath)
     basename, ext = os.path.splitext(file)
-    if ext.lower() in ['.mkv', '.avi', '.mp4']:
+    if ext.lower() in ['.mkv', '.avi', '.mp4', '.iso']:
         segments = basename.split(' - ')
         title = segments[0]
         s2 = title.split(' (')

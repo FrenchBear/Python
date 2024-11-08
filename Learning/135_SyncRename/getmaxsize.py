@@ -14,20 +14,21 @@ from syncrename import sync_rename
 
 NUMBER = re.compile(r'\D*(\d{2,3}[ABCDTabcdt]?)( |\.).*')
 
-serie = "Vasco"
-type = "Ancien"
+serie = "dBD"
+type = "Revues"
 
 sources = [
-    # r"C:\Downloads\A_Trier\!A_Trier_BD\Battler Britton",
-    # r"W:\BD\Revues\Battler Britton",
-    r"C:\Downloads\A_Trier\!A_Trier_BD" + '\\' + serie,
-    r"\\terazalt\books\BD" + '\\' + type + '\\' + serie,
+    r'C:\Downloads\A_Trier\!A_Trier_BD\dBD',
+    r'W:\BD\Revues\dBD',
+    # r"C:\Downloads\A_Trier\!A_Trier_BD" + '\\' + serie,
+    # r"\\terazalt\books\BD" + '\\' + type + '\\' + serie,
 ]
 
 target = sources[-1] + '\\' + serie[0]  
+target = r'C:\Temp\dBD'
 series = serie
 doit = True
-callSyncRename = True
+callSyncRename = False
 
 if doit:
     if (not folder_exists(target)):
