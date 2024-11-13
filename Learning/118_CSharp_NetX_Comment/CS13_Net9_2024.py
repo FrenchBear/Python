@@ -1,8 +1,9 @@
-# Add 2023 Net7 comment to Visual Studio Projects
+# Add 2029 Net9 comment to Visual Studio Projects
 # Don't forget to change the date!!!
 #
 # 2023-01-10    PV
 # 2023-11-18    PV      Also add empty comment line before header and dates block
+# 2024-11-12    PV      Net9 C#13
 
 from io import TextIOWrapper
 from common_fs import get_all_files, extension_part
@@ -10,20 +11,24 @@ import codecs
 import os
 import re
 
-DATE = '2023-11-18'
+DATE = '2024-11-13'
 root = r'C:\Development\GitVSTS\WPF\Net8\Learning'
 root = r'C:\Development\GitVSTS\WPF\Net8\FontApps'
 root = r'C:\Development\GitVSTS\CSMisc\Net8'
-root = r'C:\Development\GitVSTS\BookApps\Net8'
-root = r'C:\Development\GitVSTS\UIApps\Net8'
 root = r'c:\development\github\visual-studio-projects\net8'
 
-files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower()
+root = r'C:\Development\GitVSTS\BookApps\Net9'
+root = r'C:\Development\GitVSTS\UIApps\Net9'
+root = r'C:\Development\GitVSTS\CSMisc\Net9'
+
+logfile = r'C:\Temp\C2024.log'
+
+files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower() and '.g.cs' not in f.lower()
          and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
 DATE_YM_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)[ \t]+.*')
 DATE_YMD_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)-(0[1-9]|[12]\d|30|31)[ \t]+.*')
 DATE_DUP_RE = re.compile(r'[ \t]*""""""""""[ \t]+.*')
-Verbose = False
+Verbose = True
 DoIt = True
 
 
@@ -117,7 +122,7 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
 
     # If commentline is already present, don't insert it again
     # if lines[lnum - 1] == commentline:
-    if 'Net8' in lines[lnum - 1]:
+    if 'Net9' in lines[lnum - 1]:
         if Verbose:
             flog.write('\n' + filefp + '\n')
             flog.write('Already contains new date comment, skipped\n')
@@ -140,14 +145,15 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
 
 
 def ProcessCXFile(flog: TextIOWrapper, fn: str):
-    ProcessFile(flog, fn, '//', '// ' + DATE + '\tPV\t\tNet8 C#12')
+    ProcessFile(flog, fn, '//', '// ' + DATE + '\tPV\t\tNet9 C#13')
 
 
 def ProcessVBFile(flog: TextIOWrapper, fn: str):
-    ProcessFile(flog, fn, "'", "' " + DATE + "\tPV\t\tNet8")
+    ProcessFile(flog, fn, "'", "' " + DATE + "\tPV\t\tNet9")
 
 
-with open(r'C:\Temp\C2023.log', 'w', encoding='utf_8_sig') as flog:
+print('Output ->', logfile)
+with open(logfile, 'w', encoding='utf_8_sig') as flog:
     for file in files:
         match extension_part(file.lower()):
             case '.cs':
