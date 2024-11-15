@@ -4,6 +4,7 @@
 # 2023-01-10    PV
 # 2023-11-18    PV      Also add empty comment line before header and dates block
 # 2024-11-12    PV      Net9 C#13
+# 2024-11-15    PV      Try strict decoding for cp1252
 
 from io import TextIOWrapper
 from common_fs import get_all_files, extension_part
@@ -11,15 +12,13 @@ import codecs
 import os
 import re
 
-DATE = '2024-11-13'
-root = r'C:\Development\GitVSTS\WPF\Net8\Learning'
-root = r'C:\Development\GitVSTS\WPF\Net8\FontApps'
-root = r'C:\Development\GitVSTS\CSMisc\Net8'
-root = r'c:\development\github\visual-studio-projects\net8'
-
+DATE = '2024-11-15'
 root = r'C:\Development\GitVSTS\BookApps\Net9'
 root = r'C:\Development\GitVSTS\UIApps\Net9'
 root = r'C:\Development\GitVSTS\CSMisc\Net9'
+root = r'C:\Development\GitVSTS\WPF\Net9\FontApps'
+root = r'C:\Development\GitVSTS\WPF\Net9\Learning'
+root = r'C:\Development\GitHub\Visual-Studio-Projects\Net9'
 
 logfile = r'C:\Temp\C2024.log'
 
@@ -55,7 +54,10 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
         try:
             lines = codecs.decode(data, encoding='utf_8', errors='strict').split('\r\n')
         except:
-            lines = codecs.decode(data, encoding='mbcs', errors='strict').split('\r\n')
+            try:
+                lines = codecs.decode(data, encoding='cp1252', errors='strict').split('\r\n')
+            except:
+                lines = codecs.decode(data, encoding='mbcs', errors='strict').split('\r\n')
 
     # If first line does not start with a comment, skip it (ex: App.xaml.cs)
     if not lines[0].startswith(commenttoken):
