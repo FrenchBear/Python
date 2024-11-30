@@ -19,6 +19,7 @@ root = r'C:\Development\GitVSTS\CSMisc\Net9'
 root = r'C:\Development\GitVSTS\WPF\Net9\FontApps'
 root = r'C:\Development\GitVSTS\WPF\Net9\Learning'
 root = r'C:\Development\GitHub\Visual-Studio-Projects\Net9'
+root = r'C:\Development\GitHub\Projects\01_Bonza\CS_Net9'
 
 logfile = r'C:\Temp\C2024.log'
 

@@ -9,6 +9,10 @@ from common_fs import get_files
 
 source = r'C:\MusicOD\Humour\Matthieu Noël\Matthieu Noël - France Inter - Le billet de Matthieu Noël'
 dest = r'C:\Temp\MN'
+
+source = r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info 2023"
+dest = source
+
 doit = True
 
 files = [filefp for filefp in get_files(source)]
