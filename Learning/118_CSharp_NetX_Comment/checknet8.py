@@ -11,7 +11,7 @@ for filefp in (f.lower() for f in get_all_files(r'c:\Development')):
 
         src_case = file_readalltext(filefp)
         src = src_case.lower()
-        if '>net8.0' not in src:
+        if '>net8.0' in src or '>net9.0' in src:
             print('Missing >net8.0:', filefp)
         # if 'net7' in src:
         #     print('Found net7', filefp)
@@ -19,13 +19,13 @@ for filefp in (f.lower() for f in get_all_files(r'c:\Development')):
         #     print('Found C#11', filefp)
         # if '<nullable>enable</nullable>' not in src:
         #     print('Missing <Nullable>enable</Nullable>', filefp)
-        if '-2021' in src:
-            src_case = src_case.replace('-2021', '-2023')
-            with open(filefp, 'w', encoding='utf_8_sig') as fout:
-                fout.write(src_case.replace('\r\n', '\n'))
-            src = src_case.lower()
+        # if '-2021' in src:
+        #     src_case = src_case.replace('-2021', '-2023')
+        #     with open(filefp, 'w', encoding='utf_8_sig') as fout:
+        #         fout.write(src_case.replace('\r\n', '\n'))
+        #     src = src_case.lower()
 
-        if '2023' not in src:
-            print('2023 missing', filefp)
+        if '2024' not in src:
+            print('2024 missing:', filefp)
 
-print(nf, 'net8 csproj files found')
+print(nf, 'net8/net9 csproj files found')
