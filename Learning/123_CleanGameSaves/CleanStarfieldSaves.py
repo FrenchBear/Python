@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import os
 from common_fs import get_files, file_exists
 
-source = r'C:\Users\Pierr\OneDrive\DocumentsWOTAN\My Games\Starfield\Saves'
+source = r'D:\Pierre\OneDrive\DocumentsWOTAN\My Games\Starfield\Saves'
 source2 = r'C:\Users\Public\Documents\Steam\RUNE\1716740\remote\saves'
 spacemin = timedelta(hours=1)       # Keep one save per spacemin
 doit = True
