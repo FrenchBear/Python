@@ -7,15 +7,13 @@ import os.path
 import shutil
 from common_fs import get_files
 
-source = r'C:\MusicOD\Humour\Matthieu Noël\Matthieu Noël - France Inter - Le billet de Matthieu Noël'
-dest = r'C:\Temp\MN'
-
-source = r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info 2023"
-dest = source
+source = r"C:\MusicOD\Humour\Matthieu Noël\Le débrief d'Europe midi (Switek Aphatie)"
+source = r"C:\Temp\MP3"
+dest = r'C:\Temp\TP'
 
 doit = True
 
-files = [filefp for filefp in get_files(source)]
+files = [filefp for filefp in get_files(source) if filefp.endswith(".mp3")]
 
 for file in files:
     ts = file.split(" - ")
