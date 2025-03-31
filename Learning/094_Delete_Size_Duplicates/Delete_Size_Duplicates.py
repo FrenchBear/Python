@@ -9,11 +9,11 @@ from collections import defaultdict
 from common_fs import get_all_files
 import os
 
-source = r'W:\Livres'
-extensions = ['.pdf', '.epub']
+# source = r'W:\Livres'
+# extensions = ['.pdf', '.epub']
 
-# source = r'C:\Users\kafor\OneDrive\PicturesODKB'
-# extensions = ['.gif', '*.webp']
+source = r'D:\Kaforas\OneDrive\PicturesODKB'
+extensions = ['.gif', '*.webp', '*.mp4']
 
 doit = False
 
