@@ -95,14 +95,14 @@ keywords = ['python',
             'mathematica',
             'linq', ]
 
-d = Counter()
+d:Counter[str] = Counter()
 nb = 0
 nbk = 0
 for filefp in list(get_all_files(source)):
     if filefp.lower().endswith('.pdf'):
         folder, file = os.path.split(filefp)
-        basename, ext = os.path.splitext(file)
-        ts = basename.split(' - ')
+        stem, ext = os.path.splitext(file)
+        ts = stem.split(' - ')
         nb += 1
         # if len(ts) == 3:
         #     ed = ts[1]

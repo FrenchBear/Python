@@ -11,7 +11,7 @@ doit = False
 
 # rename folders from "lastname, firstname" into "firstname lastname"
 def reorder_folders():
-    root = 'D:\Littérature francaise'
+    root = r'D:\Littérature francaise'
     for folder in list(get_folders(root)):
         ts = folder.split(', ')
         if len(ts) == 2:
@@ -23,7 +23,7 @@ def reorder_folders():
 #reorder_folders()
 
 def reorder_files():
-    root = 'D:\Littérature francaise'
+    root = r'D:\Littérature francaise'
     np=0
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
@@ -51,9 +51,9 @@ def reorder_files():
 
 #reorder_files()
 
-def find_dups():
+def find_dups() -> None:
     d: dict[str, str] = {}
-    root = 'D:\Littérature francaise'
+    root = r'D:\Littérature francaise'
     nd = 0
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
@@ -85,7 +85,7 @@ def find_dups():
 #find_dups()
 
 def first_maj():
-    root = 'D:\Littérature francaise'
+    root = r'D:\Littérature francaise'
     for filefp in get_all_files(root):
         folder, file = os.path.split(filefp)
         base, ext = os.path.splitext(file)

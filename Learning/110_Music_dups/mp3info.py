@@ -12,11 +12,11 @@ https://stackoverflow.com/questions/8948/accessing-mp3-metadata-with-python
 
 '''
 
-import eyed3
-import eyed3.id3
+import eyed3            # type: ignore
+import eyed3.id3        # type: ignore
 import logging
 import io
-from common_fs import get_all_files, file_part, basename_part
+from common_fs import get_all_files, file_part, stem_part
 
 
 def check_tag(file: str):
@@ -36,29 +36,29 @@ def check_tag(file: str):
     #     print(file)
     # return
 
-    file_basename = basename_part(file_part(file))
+    file_stem = stem_part(file_part(file))
 
     # nn - Title
     if track:
-        tag_basename = f'{track:0>2} - {title}'
-        if file_basename == tag_basename:
+        tag_stem = f'{track:0>2} - {title}'
+        if file_stem == tag_stem:
             return
-        tag_basename = f'{track:0>2} - {artist} - {title}'
-        if file_basename == tag_basename:
+        tag_stem = f'{track:0>2} - {artist} - {title}'
+        if file_stem == tag_stem:
             return
-        tag_basename = f'{track:0>2} - {artist} - {album} - {title}'
-        if file_basename == tag_basename:
+        tag_stem = f'{track:0>2} - {artist} - {album} - {title}'
+        if file_stem == tag_stem:
             return
-        tag_basename = f'{track:0>2} - {album} - {title}'
-        if file_basename == tag_basename:
+        tag_stem = f'{track:0>2} - {album} - {title}'
+        if file_stem == tag_stem:
             return
-        tag_basename = f'{artist} - {album} - {track:0>2} - {title}'        # Les charlots
-        if file_basename == tag_basename:
+        tag_stem = f'{artist} - {album} - {track:0>2} - {title}'        # Les charlots
+        if file_stem == tag_stem:
             return
 
     # Artist - Title
-    tag_basename = f'{artist} - {title}'
-    if file_basename == tag_basename:
+    tag_stem = f'{artist} - {title}'
+    if file_stem == tag_stem:
         return
 
     print('Tag diff for', file)

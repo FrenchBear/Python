@@ -7,9 +7,10 @@
 # 2022-05-26    PV      file_exists et folder_exists
 # 2022-06-17    PV      folder_part; file_part renamed file_part; extension
 # 2023-02-10    PV      file_readalltext_encoding, file_readalltext
-# 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> basename_part
+# 2023-04-05    PV      Corrigé le commentaire d'extension; extension -> extension_part, basename -> stem_part
 # 2024-02-12    PV      Argument optionnel fullpath for get_files and get_folders
 # 2024-02-28    PV      @deprecated
+# 2025-04-07    PV      basename renamed stem, it was a mistake, Unix basename command/call returns file+ext without path
 
 # Function 	        Copies      Copies          Uses file       Destination
 #                   metadata 	permissions 	object 	        may be directory
@@ -74,17 +75,17 @@ def folder_part(fullpath: str) -> str:
     return folder
 
 
-@deprecated("Utiliser basename_part")
-def basename(filewithext: str) -> str:
-    '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel). DEPRECIÉ - Utiliser basename_part'''
-    base, _ = os.path.splitext(filewithext)
-    return base
+@deprecated("Utiliser stem_part")
+def stem(filewithext: str) -> str:
+    '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel). DEPRECIÉ - Utiliser stem_part'''
+    stem, _ = os.path.splitext(filewithext)
+    return stem
 
 
-def basename_part(filewithext: str) -> str:
+def stem_part(filewithext: str) -> str:
     '''Retourne le nom de fichier sans extension (n'enlève pas le chemin éventuel)'''
-    base, _ = os.path.splitext(filewithext)
-    return base
+    stem, _ = os.path.splitext(filewithext)
+    return stem
 
 
 @deprecated("Utiliser extension_part")
@@ -137,34 +138,36 @@ def file_readalltext(filepath: str) -> str:
 
 r'''
 if __name__ == '__main__':
+    from typing import Callable
+    
     def test(f: Callable, arg: str, res: str):
         rc = f(arg)
         print(f"{f.__name__}(r\'{arg}\') -> {rc}    {'Ok' if rc==res else 'Problem'}")
 
     test(file_part,   r'c:\temp\f1.txt',                    r'f1.txt')
     test(folder_part, r'c:\temp\f1.txt',                    r'c:\temp')
-    test(basename,    'nom_de_fichier.ext',                 r'nom_de_fichier')
-    test(basename,    'fichier',                            r'fichier')
-    test(basename,    r'c:\p\nom_de_fichier.ext',           r'c:\p\nom_de_fichier')
-    test(basename,    r'c:\p1.p2\file',                     r'c:\p1.p2\file')
-    test(file_part,   'C:AUTOEXEC.BAT',                     r'AUTOEXEC.BAT')
-    test(folder_part, 'C:AUTOEXEC.BAT',                     r'C:')
-    test(basename,    'C:AUTOEXEC.BAT',                     r'C:AUTOEXEC')
-    test(basename,    'C:AUTOEXEC.BAT',                     r'C:AUTOEXEC')
-    test(file_part,   'C:\AUTOEXEC.BAT',                    r'AUTOEXEC.BAT')
-    test(folder_part, 'C:\AUTOEXEC.BAT',                    'C:\\')
-    test(basename,    'C:\AUTOEXEC.BAT',                    r'C:\AUTOEXEC')
-    test(file_part,   'C:\P\AUTOEXEC.BAT',                  r'AUTOEXEC.BAT')
-    test(folder_part, 'C:\P\AUTOEXEC.BAT',                  r'C:\P')
-    test(basename,    'C:\P\AUTOEXEC.BAT',                  r'C:\P\AUTOEXEC')
-    test(file_part,   'AUTOEXEC.BAT',                       r'AUTOEXEC.BAT')
-    test(folder_part, 'AUTOEXEC.BAT',                       r'<empty string>')
-    test(basename,    'AUTOEXEC.BAT',                       r'AUTOEXEC')
-    test(file_part,   r'\AUTOEXEC.BAT',                     r'AUTOEXEC.BAT')
+    test(stem_part,   r'nom_de_fichier.ext',                r'nom_de_fichier')
+    test(stem_part,   r'fichier',                           r'fichier')
+    test(stem_part,   r'c:\p\nom_de_fichier.ext',           r'c:\p\nom_de_fichier')
+    test(stem_part,   r'c:\p1.p2\file',                     r'c:\p1.p2\file')
+    test(file_part,   r'C:AUTOEXEC.BAT',                    r'AUTOEXEC.BAT')
+    test(folder_part, r'C:AUTOEXEC.BAT',                    r'C:')
+    test(stem_part,   r'C:AUTOEXEC.BAT',                    r'C:AUTOEXEC')
+    test(stem_part,   r'C:AUTOEXEC.BAT',                    r'C:AUTOEXEC')
+    test(file_part,   r'C:\AUTOEXEC.BAT',                   r'AUTOEXEC.BAT')
+    test(folder_part, r'C:\AUTOEXEC.BAT',                   'C:\\')
+    test(stem_part,   r'C:\AUTOEXEC.BAT',                   r'C:\AUTOEXEC')
+    test(file_part,   r'C:\P\AUTOEXEC.BAT',                 r'AUTOEXEC.BAT')
+    test(folder_part, r'C:\P\AUTOEXEC.BAT',                 r'C:\P')
+    test(stem_part,   r'C:\P\AUTOEXEC.BAT',                 r'C:\P\AUTOEXEC')
+    test(file_part,   r'AUTOEXEC.BAT',                      r'AUTOEXEC.BAT')
+    test(folder_part, r'AUTOEXEC.BAT',                      r'<empty string>')
+    test(stem_part,   r'AUTOEXEC.BAT',                      r'AUTOEXEC')
+    test(file_part,   r'\AUTOEXEC.BAT',                     'AUTOEXEC.BAT')
     test(folder_part, r'\AUTOEXEC.BAT',                     '\\')
-    test(basename,    r'\AUTOEXEC.BAT',                     r'\AUTOEXEC')
+    test(stem_part,   r'\AUTOEXEC.BAT',                     r'\AUTOEXEC')
     test(file_part,   r'\\Server\Share\Path\File.ext',      r'File.ext')
     test(folder_part, r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path')
-    test(basename,    r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
-    test(basename,    r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
+    test(stem_part,   r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
+    test(stem_part,   r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
 '''

@@ -14,10 +14,10 @@ sources = [r'W:\Livres']
 DO_IT = False
 
 
-def basename(filefp: str) -> str:
+def stem(filefp: str) -> str:
     _, file = os.path.split(filefp)
-    basename, _ = os.path.splitext(file)
-    return basename.lower()
+    stem, _ = os.path.splitext(file)
+    return stem.lower()
 
 
 class DefaultDictList(dict):
@@ -62,7 +62,7 @@ for group, ds in dg.items():
     if dups:
         print(group)
         for dup in dups:
-            dup.sort(key=lambda x: (x[0], basename(x[1])))
+            dup.sort(key=lambda x: (x[0], stem(x[1])))
             print(' ', dup)
             nd += 1
             for ix, file in dup[1:]:

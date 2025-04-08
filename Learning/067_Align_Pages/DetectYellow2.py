@@ -6,8 +6,8 @@ import math
 
 pathfile = r'T:\Scans\THS32\3 BCI\THS32-005.png'
 path, file = os.path.split(pathfile)
-basename, ext = os.path.splitext(file)
-numpage = int(basename[-3:])
+stem, ext = os.path.splitext(file)
+numpage = int(stem[-3:])
 print(numpage)
 
 img = mpimg.imread(pathfile)[:, :, :3]

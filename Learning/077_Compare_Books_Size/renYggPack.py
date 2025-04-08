@@ -38,7 +38,7 @@ def ireplace(text: str, old: str, new: str) -> str:
 rencount = 0
 for file in list(get_files(source)):
     if file.lower().endswith(".pdf"):
-        basename, ext = os.path.splitext(file)
+        stem, ext = os.path.splitext(file)
         ma = ED.match(file)
         if ma:
             # print(f'«{ma.group(1)}» «{ma.group(2)}» «{ma.group(3)}» «{ma.group(4)}»')

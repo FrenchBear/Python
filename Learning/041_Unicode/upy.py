@@ -63,7 +63,7 @@ print("\tNFC\tNFKC\tNFD\tNFKD")
 for s in ["Ⅷ", "œ", "Œ", "æ", "Æ", "ĳ", "Ĳ", "ﬀ", "ﬁ", "ﬂ", "ﬃ", "ﬄ", 'ß', 'é', 'ø', '‼', '‽']:
     print(s, end='\t')
     for form in ["NFC", "NFKC", "NFD", "NFKD"]:
-        print(unicodedata.normalize(form, s), end='\t')
+        print(unicodedata.normalize(form, s), end='\t') + "\n"      # type: ignore
     print()
 
 # All 5 followinf forms are canonical equivalences
@@ -73,7 +73,7 @@ cc3 = "\N{LATIN SMALL LETTER U}\N{COMBINING HORN}\N{COMBINING DOT BELOW}"
 cc4 = "\N{LATIN SMALL LETTER U WITH HORN}\N{COMBINING DOT BELOW}"
 cc5 = "\N{LATIN SMALL LETTER U}\N{COMBINING DOT BELOW}\N{COMBINING HORN}"
 form = "NFD"
-print(unicodedata.normalize(form, cc1) == unicodedata.normalize(form, cc2) == unicodedata.normalize(form, cc3) == unicodedata.normalize(form, cc4) == unicodedata.normalize(form, cc5))
+print(unicodedata.normalize(form, cc1) == unicodedata.normalize(form, cc2) == unicodedata.normalize(form, cc3) == unicodedata.normalize(form, cc4) == unicodedata.normalize(form, cc5))       # type: ignore
 
 """
 # Emoji

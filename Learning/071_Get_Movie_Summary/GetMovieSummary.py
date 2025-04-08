@@ -19,9 +19,9 @@ search = tmdb.Search()
 processed = []
 for fullpath in get_all_files(source):
     path, file = os.path.split(fullpath)
-    basename, ext = os.path.splitext(file)
+    stem, ext = os.path.splitext(file)
     if ext.lower() in ['.mkv', '.avi', '.mp4', '.iso']:
-        segments = basename.split(' - ')
+        segments = stem.split(' - ')
         title = segments[0]
         s2 = title.split(' (')
         title = s2[0]

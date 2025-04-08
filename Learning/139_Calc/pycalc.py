@@ -1,6 +1,7 @@
 # pycalc.py
-# A visual calculator in Python and Qt5
+# A visual calculator in Python and Qt6
 # https://github.com/realpython/materials/blob/master/pyqt-calculator-tutorial/pycalc/pycalc.py
+# Implementation is really basic, mostly a demo
 #
 # 2024-09-04    PV
 

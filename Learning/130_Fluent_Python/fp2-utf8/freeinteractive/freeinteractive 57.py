@@ -1,3 +1,0 @@
->>> u16 = 'El Niño'.encode('utf_16')
->>> u16
-b'\xff\xfeE\x00l\x00 \x00N\x00i\x00\xf1\x00o\x00'

@@ -1,1 +1,0 @@
-isinstance(c, (complex, SupportsComplex))

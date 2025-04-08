@@ -16,7 +16,7 @@ class MultiColumnListbox:
         self._build_tree()
 
     def _setup_widgets(self):
-        s = """\click on header to sort by that column
+        s = """click on header to sort by that column
 to change width of column drag boundary
         """
         msg = ttk.Label(wraplength="4i", justify="left", anchor="n", padding=(10, 2, 10, 6), text=s)

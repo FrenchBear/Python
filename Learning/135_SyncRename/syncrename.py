@@ -5,7 +5,7 @@
 # 2024-01-06    PV      Non-numeric BD number are converted and tested using lowercase form
 
 import os
-from common_fs import get_files, basename_part, extension_part, folder_exists
+from common_fs import get_files, stem_part, extension_part, folder_exists
 
 doit = True
 useReferenceSeries = True
@@ -20,7 +20,7 @@ def sync_rename(reference: str, arenommer: str) -> None:
     for file in list(get_files(reference)):
         if file=='Thumbs.db':
             continue
-        bn = basename_part(file)
+        bn = stem_part(file)
         ts = bn.split(' - ')
         if len(ts) >= 3:
             refTitles[ts[1].lower()] = ' - '.join(ts[2:])
@@ -37,7 +37,7 @@ def sync_rename(reference: str, arenommer: str) -> None:
     for file in list(get_files(arenommer)):
         if file=='Thumbs.db':
             continue
-        bn = basename_part(file)
+        bn = stem_part(file)
         ext = extension_part(file)
         ts = bn.split(' - ')
         if len(ts) >= 2:

@@ -1,5 +1,5 @@
 from typing import Iterable
-from common_fs import get_safe_name
+from common import get_safe_name
 import os
 import shutil
 

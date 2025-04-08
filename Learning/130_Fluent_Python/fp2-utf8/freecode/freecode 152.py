@@ -1,1 +1,0 @@
-SendType: TypeAlias = float | Sentinel

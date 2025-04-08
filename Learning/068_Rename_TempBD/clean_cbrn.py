@@ -16,7 +16,7 @@ with open(r'deleted.txt', mode='w', encoding='utf-8') as out:
             print('.', end='')
         _, ext = os.path.splitext(fullpath)
         ext = ext.lower()
-        if ext in keep or re.fullmatch('\.r\d{2,3}', ext):
+        if ext in keep or re.fullmatch(r'\.r\d{2,3}', ext):
             keepcounter.update([ext])
             if ext == '.epub':
                 print(fullpath)

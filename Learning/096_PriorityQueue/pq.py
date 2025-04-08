@@ -12,7 +12,7 @@ from typing import Any, Iterable
 
 
 class PriorityQueue:
-    def __init__(self, items: Iterable[Any] = None) -> None:
+    def __init__(self, items: Iterable[Any]|None = None) -> None:
         self.heap: list[Any] = [0]      # Element 0 is not used
         self.rank: dict[Any, int] = {}
         if items:
@@ -23,7 +23,8 @@ class PriorityQueue:
         return len(self.heap)-1         # Element 0 doesn't count
 
     def __str__(self) -> str:
-        return __class__.__name__ + ' '+str(self.heap[1:])
+        #return __class__.__name__ + ' '+str(self.heap[1:])             # mypy doesn't like __class__ (https://github.com/python/mypy/issues/4177)
+        return type(self).__name__ + ' '+str(self.heap[1:])
 
     def push(self, item: Any):
         assert not item in self.rank

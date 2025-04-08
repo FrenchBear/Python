@@ -1,7 +1,4 @@
 import os
-import sys
-import numpy as np
-import math
 import matplotlib.image as mpimg        # type: ignore
 
 
@@ -39,8 +36,8 @@ def process(file: str, picout: str, numfile: int):
 
 for pathfile in files1(source):
     path, file = os.path.split(pathfile)
-    basename, ext = os.path.splitext(file)
+    stem, ext = os.path.splitext(file)
     if ext.lower() == '.png':
-        numfile = int(basename[-3:])
+        numfile = int(stem[-3:])
         picout = os.path.join(dest, file)
         process(pathfile, picout, numfile)

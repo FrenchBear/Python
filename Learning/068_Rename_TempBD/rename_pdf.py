@@ -31,42 +31,42 @@ def format_num(num: str) -> str:
 
 
 def rename_file(folderfp: str, serie: str, file: str):
-    basename, ext = os.path.splitext(file)
-    if ma := NUM.fullmatch(basename):
+    stem, ext = os.path.splitext(file)
+    if ma := NUM.fullmatch(stem):
         newname = serie + " - " + format_num(ma.group(1)) + ext
         rename(folderfp, file, newname)
         return
-    if ma := NUM_DOT_TITLE.fullmatch(basename):
+    if ma := NUM_DOT_TITLE.fullmatch(stem):
         newname = serie + " - " + format_num(ma.group(1)) + " - " + ma.group(2) + ext
         rename(folderfp, file, newname)
         return
-    if ma := NUM_DASH_TITLE.fullmatch(basename):
+    if ma := NUM_DASH_TITLE.fullmatch(stem):
         if serie != "666" and serie != "6666":
             newname = (
                 serie + " - " + format_num(ma.group(1)) + " - " + ma.group(2) + ext
             )
             rename(folderfp, file, newname)
             return
-    if ma := HSNUM_DOT_TITLE.fullmatch(basename):
+    if ma := HSNUM_DOT_TITLE.fullmatch(stem):
         newname = serie + " - HS " + format_num(ma.group(1)) + " - " + ma.group(2) + ext
         rename(folderfp, file, newname)
         return
-    if ma := TOME_NUM.fullmatch(basename):
+    if ma := TOME_NUM.fullmatch(stem):
         newname = serie + " - " + format_num(ma.group(1)) + ext
         rename(folderfp, file, newname)
         return
-    if ma := TOME_NUM_DASH_TITLE.fullmatch(basename):
+    if ma := TOME_NUM_DASH_TITLE.fullmatch(stem):
         newname = serie + " - " + format_num(ma.group(1)) + " - " + ma.group(2) + ext
         rename(folderfp, file, newname)
         return
     if ma := re.fullmatch(
-        re.escape(serie) + " (\d+)\. (.+)", basename, flags=re.IGNORECASE
+        re.escape(serie) + r" (\d+)\. (.+)", stem, flags=re.IGNORECASE
     ):
         newname = serie + " - " + format_num(ma.group(1)) + " - " + ma.group(2) + ext
         rename(folderfp, file, newname)
         return
     if ma := re.fullmatch(
-        re.escape(serie) + " (Vol(ume)? )?(\d+)", basename, flags=re.IGNORECASE
+        re.escape(serie) + r" (Vol(ume)? )?(\d+)", stem, flags=re.IGNORECASE
     ):
         newname = serie + " - " + format_num(ma.group(3)) + ext
         rename(folderfp, file, newname)

@@ -65,17 +65,17 @@ def rename_series(out: TextIO):
     for fullpath in files:
         nf += 1
         path, file = os.path.split(fullpath)
-        basename, ext = os.path.splitext(file)
+        stem, ext = os.path.splitext(file)
 
         # First process general substitutions
         to_rename = False
         for before, after in glolbal_rename:
-            newname = re.sub(before, after, basename, flags=re.IGNORECASE)
-            if basename != newname:
-                basename = newname
+            newname = re.sub(before, after, stem, flags=re.IGNORECASE)
+            if stem != newname:
+                stem = newname
                 to_rename = True
 
-        segments = basename.split(" - ")
+        segments = stem.split(" - ")
         serie = segments[0]
         serie_lna = normalize_serie(serie)
 

@@ -126,9 +126,9 @@ prefix = "THS32"
 
 # for pathfile in files1(source):
 #     path, file = os.path.split(pathfile)
-#     basename, ext = os.path.splitext(file)
+#     stem, ext = os.path.splitext(file)
 #     if ext.lower() == '.png':
-#         numfile = int(basename[-3:])
+#         numfile = int(stem[-3:])
 #         process(pathfile, numfile)
 # print()
 # print('rowpmax=', repr(rowpmax))

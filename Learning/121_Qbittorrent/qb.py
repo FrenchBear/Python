@@ -39,7 +39,7 @@ for torrent in qbt_client.torrents_info():
     # if torrent["save_path"]==r'D:\Ygg\Seeding\Mes Uplads PDF':
     #     tfcandidate = os.path.join(r'\\thor\ygg\Torrents Seeding', torrent["name"]+'.torrent')
     #     if not file_exists(tfcandidate):
-    #         tfcandidate = os.path.join(r'\\thor\ygg\Torrents Seeding', basename(torrent["name"])+'.torrent')
+    #         tfcandidate = os.path.join(r'\\thor\ygg\Torrents Seeding', stem_part(torrent["name"])+'.torrent')
     #     if file_exists(tfcandidate):
     #         print(torrent["name"])
     #         shutil.copy(tfcandidate, r'C:\Users\Pierr\Desktop\MyTorrents')

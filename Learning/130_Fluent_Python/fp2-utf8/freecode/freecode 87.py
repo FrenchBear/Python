@@ -1,3 +1,0 @@
-@lru_cache(maxsize=2**20, typed=True)
-def costly_function(a, b):
-    ...

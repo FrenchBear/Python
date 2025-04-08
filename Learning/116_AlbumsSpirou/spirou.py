@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from common_fs import basename_part, get_files
+from common_fs import stem_part, get_files
 
 source = r'\\teraz\torrents\Albums Spirou\Le Journal de Spirou\Albums Du Journal'
 test = r'C:\Temp\Converti\Albums Du Journal'
@@ -12,7 +12,7 @@ lt = list(get_files(test))
 ld = list(get_files(dest))
 
 for f in ls:
-    nn = basename_part(f)+'.pdf'
+    nn = stem_part(f)+'.pdf'
     if nn not in lt and nn not in ld:
         print('copy '+f)
         s = os.path.join(source, f)

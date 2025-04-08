@@ -17,21 +17,22 @@ source = r'C:\Development'
 #     for k,v in sorted(exts.items(), key = lambda x: x[1], reverse=True):
 #         out.write(f'{k}\t{v}\n')
 
-encod = defaultdict(int)
+encod: defaultdict[str, int] = defaultdict(int)
 keys: dict[str, str] = {}
 for file in get_files(r'C:\Utils\Local'):
     keys[file.casefold()] = file_readalltext(os.path.join(r'C:\Utils\Local', file))
 
 def is_source(filefp: str) -> bool:
-    ext =  extension_part(filefp).lower()
+    ext = extension_part(filefp).lower()
     return ext in ['.py', '.cs', '.go', '.c', '.cpp', '.java', '.js', '.json', '.ini', '.yaml', '.html', '.xaml']
+
 
 for filefp in get_all_files(source):
     if is_source(filefp):
         src, enc = file_readalltext_encoding(filefp)
         encod[enc] += 1
-        for f,k in keys.items():
+        for f, k in keys.items():
             if k in src:
-                print('***',f,'found in', filefp)
+                print('***', f, 'found in', filefp)
 print()
 print(encod)

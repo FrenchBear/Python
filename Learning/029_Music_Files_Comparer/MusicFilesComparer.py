@@ -1,10 +1,10 @@
-# MusicFilesCOmparer
+# MusicFilesComparer
 # Detects duplicates in newly downloaded music files
 #
 # 2017-08-17    PV
 
 
-import os, shutil
+import os
 import re
 
 # Simple iterator based on os.walk
@@ -14,7 +14,7 @@ def GetAllFiles(path):
             yield os.path.join(root, file)
 
 
-accent_tabin_str =  u'àâäéèêëîïôöûüùÿç'
+accent_tabin_str = u'àâäéèêëîïôöûüùÿç'
 accent_tabout_str = u'aaaeeeeiioouuuyc'
 accent_tabin = [ord(char) for char in accent_tabin_str]
 accent_table = dict(zip(accent_tabin, accent_tabout_str))
@@ -24,7 +24,7 @@ def LowerNoAccent(s):
 
 newFiles = []
 newDic = {}
-newFolder = "C:\Temp\Work\LP";
+newFolder = "C:\Temp\Work\LP"
 for file in GetAllFiles(newFolder):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
@@ -32,7 +32,7 @@ for file in GetAllFiles(newFolder):
         newFiles.append(name)
         newDic[name] = file
     else:
-        print("No match old: "+file)
+        print("No match old: " + file)
 
 
 oldFiles = []
@@ -46,7 +46,7 @@ for file in GetAllFiles(oldFolder1):
         oldFiles.append(name)
         oldDic[name] = file
     else:
-        print("No match new1: "+file)
+        print("No match new1: " + file)
 for file in GetAllFiles(oldFolder2):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
@@ -54,22 +54,26 @@ for file in GetAllFiles(oldFolder2):
         oldFiles.append(name)
         oldDic[name] = file
     else:
-        print("No match new2: "+file)
+        print("No match new2: " + file)
 
-print("New: "+str(len(newFiles)))
-print("Old: "+str(len(oldFiles)))
+print("New: " + str(len(newFiles)))
+print("Old: " + str(len(oldFiles)))
 
 
 diffMax = 2
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
 def LevenshteinDistance(s, t):
     # Optimisation perso, j'ai pas besoin des distances supérieures à diffMax
-    if abs(len(s) - len(t)) > diffMax: return diffMax + 1
+    if abs(len(s) - len(t)) > diffMax:
+        return diffMax + 1
 
     # degenerate cases
-    if s == t: return 0
-    if len(s) == 0: return t.Length
-    if len(t) == 0: return s.Length
+    if s == t:
+        return 0
+    if len(s) == 0:
+        return t.Length
+    if len(t) == 0:
+        return s.Length
 
     # convert to lowercase, we're doing case insensitive compare here
     s = s.lower()
@@ -79,8 +83,8 @@ def LevenshteinDistance(s, t):
     # initialize v0 (the previous row of distances)
     # this row is A[0][i]: edit distance for an empty s
     # the distance is just the number of characters to delete from t
-    v0 = list(range(len(t)+1))
-    v1 = [0] * (len(t)+1)
+    v0 = list(range(len(t) + 1))
+    v1 = [0] * (len(t) + 1)
 
     for i in range(len(s)):
         # calculate v1 (current row distances) from the previous row v0
@@ -100,17 +104,19 @@ def LevenshteinDistance(s, t):
 
     return v1[len(t)]
 
-def tld(a,b,d):
-    dc = LevenshteinDistance(a,b)
-    if d!=dc: print(a + ", "+b+", "+str(d)+", "+str(dc))
+def tld(a, b, d):
+    dc = LevenshteinDistance(a, b)
+    if d != dc:
+        print(a + ", " + b + ", " + str(d) + ", " + str(dc))
 
 # Some tests
-#tld("Pomme","Pome",1)
-#tld("Il était un petit navire", "Il était un petit navire", 0)
-#tld("Il était une petit navire", "Il était un petit navire", 1)
-#tld("Il était un petit navire", "Il était une petit navire", 1)
-#tld("Il étai un petit naavire", "Il était un petit navire", 2)
-#tld("Il était un petit navire", "Il était u petit naavire", 2)
+# tld("Pomme","Pome",1)
+# tld("Il était un petit navire", "Il était un petit navire", 0)
+# tld("Il était une petit navire", "Il était un petit navire", 1)
+# tld("Il était un petit navire", "Il était une petit navire", 1)
+# tld("Il étai un petit naavire", "Il était un petit navire", 2)
+# tld("Il était un petit navire", "Il était u petit naavire", 2)
+
 
 # Find identical names first
 for nf in newFiles:
@@ -120,9 +126,9 @@ for nf in newFiles:
         print()
         # shutil.move(newDic[nf], oldDic[nf])
 
-        #nn = os.path.join(os.path.dirname(newDic[nf]), "Z - "+os.path.basename(oldDic[nf]))
-        #print(nn)
-        #shutil.move(newDic[nf], nn)
+        # nn = os.path.join(os.path.dirname(newDic[nf]), "Z - "+os.path.basename(oldDic[nf]))
+        # print(nn)
+        # shutil.move(newDic[nf], nn)
 
 """
 # Distance of 1 or 2

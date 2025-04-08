@@ -4,9 +4,10 @@
 #
 # 2015-09-26    PV
 # 2018-08-18    PV      Extension du nombre de méthodes au-delà des deux premières!
+# 2025-04-08    PV      scipy.stats.itemfreq deprecated; numpy count unique is now np.unique_counts
 
 import numpy as np
-from scipy.stats import itemfreq    # type: ignore
+#from scipy.stats import itemfreq    # Deprecated
 import collections
 
 # Avec listcomp
@@ -42,15 +43,14 @@ ki = sum(co[x] for x in range(1, 10, 2))
 print(co)
 print('Pair', kp, '   Impair', ki)
 
-# Avec SciPy
-freq = itemfreq(ld)
-print(freq)
-print(freq[:, 1])    # Table des fréquences
+# # Avec SciPy
+# freq = itemfreq(ld)
+# print(freq)
+# print(freq[:, 1])    # Table des fréquences
 
 # Avec numpy
 print(np.bincount(ld))
-# print(np.unique(ld, return_counts=True))      # np.unique is deprecated, use np.lib.arraysetops.unique instead
-print(np.lib.arraysetops.unique(ld, return_counts=True))
+print(np.unique_counts(ld))
 
 # numpy at reduction: at(a, indices, b=None)
 # Performs unbuffered in place operation on operand 'a' for elements specified by 'indices'.

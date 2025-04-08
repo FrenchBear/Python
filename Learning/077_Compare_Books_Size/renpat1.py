@@ -26,8 +26,8 @@ def added(s: str) -> str:
 
 for file in list(get_files(source)):
     if file.lower().endswith(".pdf"):
-        basename, ext = os.path.splitext(file)
-        ts = basename.split(" ")
+        stem, ext = os.path.splitext(file)
+        ts = stem.split(" ")
         editeur = ts[1]
         newname = added(" ".join(ts[2:])) + " - [" + editeur.title() + "] - X.pdf"
         newname = newname[0].upper() + newname[1:]

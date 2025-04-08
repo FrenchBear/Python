@@ -5,7 +5,8 @@ import os
 import rarfile       # type: ignore
 from typing import TextIO
 
-from common_fs import get_all_files, get_safe_name
+from common_fs import get_all_files
+from common import get_safe_name
 
 
 source = r'W:\TempBD\archives'
@@ -29,7 +30,7 @@ def analyze_one_archive(archive: str) -> tuple[int, int, int, int, int, int, str
                 n_mac += 1
             else:
                 folder, filename = os.path.split(f.filename)
-                basename, ext = os.path.splitext(filename)
+                stem, ext = os.path.splitext(filename)
                 ext = ext.lower()
                 folders.add(folder)
                 # type = ''
@@ -79,7 +80,7 @@ def analyse_archives(out: TextIO):
     for fullpath in get_all_files(source):
         totf += 1
         path, file = os.path.split(fullpath)
-        basename, ext = os.path.splitext(file)
+        stem, ext = os.path.splitext(file)
         if ext.lower() in ['.cbr', '.rar']:
             print(f'{file:<100}', end='')
             try:

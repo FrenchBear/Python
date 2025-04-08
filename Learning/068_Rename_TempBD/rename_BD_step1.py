@@ -30,9 +30,9 @@ def Step1(out: TextIO):
     for fullpath in get_all_files(source):
         nf += 1
         path, file = os.path.split(fullpath)
-        basename, ext = os.path.splitext(file)
+        stem, ext = os.path.splitext(file)
 
-        newname = " " + unicodedata.normalize("NFC", basename).translate(transtab) + " "
+        newname = " " + unicodedata.normalize("NFC", stem).translate(transtab) + " "
         newname = re.sub(r"\.", " ", newname, flags=re.IGNORECASE)
         newname = re.sub(r"_", " ", newname, flags=re.IGNORECASE)
 

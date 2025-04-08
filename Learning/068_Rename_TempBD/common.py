@@ -127,7 +127,7 @@ def merge_folders(
     nfnm = 0  # Number of files not moved
     for file in get_files(sourcefolderfp):
         nfm += 1
-        basename, ext = os.path.splitext(file)
+        stem, ext = os.path.splitext(file)
         if ext.lower() != ".db":
             sourcefilefp = os.path.join(sourcefolderfp, file)
             targetfilefp = os.path.join(targetfolderfp, file)
@@ -141,7 +141,7 @@ def merge_folders(
                     ndn += 1
                     for suffix in ["Bis", "Ter", "Quater", "5", "6"]:
                         targetfilefp = os.path.join(
-                            targetfolderfp, basename + " - " + suffix + ext
+                            targetfolderfp, stem + " - " + suffix + ext
                         )
                         if not os.path.exists(targetfilefp):
                             break
@@ -163,18 +163,18 @@ def merge_folders(
     return nfm, ndn, nds
 
 
-def get_safe_name(namefp: str, original: str = None) -> str:
+def get_safe_name(namefp: str, original: str|None = None) -> str:
     if not os.path.exists(namefp):
         return namefp
     if original and original != namefp and original.lower() == namefp.lower():
         return namefp
     folder, file = os.path.split(namefp)
-    basename, ext = os.path.splitext(file)
+    stem, ext = os.path.splitext(file)
     for suffix in ["Bis", "Ter", "Quater", "5", "6"]:
-        targetfilefp = os.path.join(folder, basename + " - " + suffix + ext)
+        targetfilefp = os.path.join(folder, stem + " - " + suffix + ext)
         if not os.path.exists(targetfilefp):
             return targetfilefp
-    return os.path.join(folder, basename + " - 999" + ext)
+    return os.path.join(folder, stem + " - 999" + ext)
 
 
 def file_length(pathfp: str) -> int:

@@ -14,13 +14,13 @@ print('Analyzing files')
 
 for fullpath in get_all_files(source):
     path, file = os.path.split(fullpath.casefold())
-    basename, ext = os.path.splitext(file)
+    stem, ext = os.path.splitext(file)
     if ext in ['.mkv', '.avi', '.mp4']:
-        basename = basename.split(' - ')[0]
-        basename = basename.split(' (')[0]
-        movies.add(os.path.join(path, basename))
+        stem = stem.split(' - ')[0]
+        stem = stem.split(' (')[0]
+        movies.add(os.path.join(path, stem))
     elif ext=='.txt':
-        summaries.add(os.path.join(path, basename))
+        summaries.add(os.path.join(path, stem))
 
 print(f'{len(movies)} movies, {len(summaries)} summaries')
 

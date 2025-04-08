@@ -19,7 +19,7 @@ def clean_files():
         for fullpath in get_all_files(source):
             nf += 1
             path, file = os.path.split(fullpath)
-            basename, ext = os.path.splitext(file)
+            stem, ext = os.path.splitext(file)
             clean_name = clean_file_name(file)
             if file != clean_name:
                 nr += 1

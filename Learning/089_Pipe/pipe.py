@@ -5,17 +5,14 @@
 # ToDo later: implement group_by (not difficult)
 #
 # 2021-08-01    PV
+# 2025-04-08    PV      Refactoring without TypeVar, it's not needed anymore
 
-from typing import Callable, Iterable, Iterator, Optional, TypeVar, cast, Any
-from numbers import Number
-
-T = TypeVar('T')
-U = TypeVar('U')
+from typing import Callable, Iterable, Iterator, Optional, cast, Any
 
 # A wrapper for iterable structure.  Member methods such as where or sort returns the output as
 # a Pipe, enabling convenient chaining until (optional) final transformation that does not return
 # a Pipe.
-class Pipe:
+class Pipe[T]:
     def __init__(self, source: Iterable[T]) -> None:
         # Will raise a TypeError if source is not iterable
         self.iter = iter(source)
@@ -66,7 +63,7 @@ class Pipe:
                     yield item
         return Pipe(iter_where())
 
-    def select(self, select: Callable[[T], U]) -> 'Pipe':
+    def select[U](self, select: Callable[[T], U]) -> 'Pipe':
         """Trasforms elements of the pipe using function provided."""
         def iter_select():
             for item in self.iter:
@@ -222,7 +219,7 @@ class Pipe:
         else:
             return aggregator(self.iter)
 
-    def sum(self, predicate: Optional[Callable[[float], bool]] = None) -> float:
+    def sum(self, predicate: Optional[Callable[[T], bool]] = None) -> float:
         """Sums all elements of a pipe of numbers, or only elements matching the predicate if it is provided.
         Immediate execution on call."""
         return self.aggregate(sum, predicate)

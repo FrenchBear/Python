@@ -39,8 +39,8 @@ def truncate():
         path, file = os.path.split(fullpath)
         li = len(file)
         if li > lmax:
-            basename, ext = os.path.splitext(file)
-            newname = (basename[:lmax-len(ext)]).strip()+ext
+            stem, ext = os.path.splitext(file)
+            newname = (stem[:lmax-len(ext)]).strip()+ext
             newfullpath = os.path.join(path, newname)
             os.rename(fullpath, newfullpath)
             nr += 1

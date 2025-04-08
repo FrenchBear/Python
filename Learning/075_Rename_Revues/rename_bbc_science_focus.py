@@ -41,7 +41,7 @@ def monthnumstr(ms: str) -> str:
             return ms
         case _: 
             breakpoint()
-            pass
+            return "??"         # To make mypy happy
 
 listfiles = get_all_files(source)
 for filefp in listfiles:

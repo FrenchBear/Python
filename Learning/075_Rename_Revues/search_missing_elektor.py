@@ -25,11 +25,11 @@ for file in get_files(source):
 #print(nums)
 
 print(ns, 'matches')
-mi = min(nums)
-ma = max(nums)
-print('N°s found from', mi, 'to', ma)
+nmi = min(nums)
+nma = max(nums)
+print('N°s found from', nmi, 'to', nma)
 print('Missing: ', end='')
-for i in range(mi,ma+1):
+for i in range(nmi,nma+1):
     if i not in nums:
         print(i, end=' ')
 print()

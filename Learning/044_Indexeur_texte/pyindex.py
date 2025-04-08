@@ -6,8 +6,6 @@
 
 
 import collections
-import functools
-import itertools
 import locale
 import re
 import unicodedata
@@ -109,10 +107,12 @@ DIGITS_ONLY_RE = re.compile(r"\d+")
 
 
 class forms_locations:
+    forms: DefaultDict[str, int]
+    locations: list[tuple[int, int]]
+
     def __init__(self):
-        self.forms: DefaultDict[str, int] = collections.defaultdict(int)
-        # self.forms: collections.Counter() = collections.Counter()
-        self.locations: list[tuple[int, int]] = []
+        self.forms = collections.defaultdict(int)
+        self.locations = []
 
     def __str__(self):
         # return self.forms.most_common(1)[0][0]

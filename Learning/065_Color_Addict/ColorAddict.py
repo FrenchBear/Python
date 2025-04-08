@@ -114,8 +114,8 @@ def PlayOneGame():
 # PlayOneGame()
 
 
-def ComputeStats():
-    c = Counter()
+def ComputeStats() -> None:
+    c:Counter[int] = Counter()
     for i in range(1000):
         (_, Deck0, Deck1) = PlayGame()
 

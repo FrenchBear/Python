@@ -145,12 +145,12 @@ print('issubclass(L3_Sequence, SupportsSequence):', issubclass(L3_Sequence, Supp
 
 TSequence = TypeVar('TSequence', bound=SupportsSequence)
 def test_L3_Sequence(x: TSequence):
-    print('len(x):', len(x))
+    print('len(x):', len(x))        # type: ignore
 
 
 # Here is the static checking version, but for some reason, mypy doesn't see or accept methods
 # from base classes, and reject next line call
-test_L3_Sequence(L3_Sequence())
+test_L3_Sequence(L3_Sequence())     # type: ignore
 
 
 # Solution 3:

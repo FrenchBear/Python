@@ -15,7 +15,7 @@ def _get_max_freq_elem(peaks: list[int]) -> list[float]:
         else:
             freqs[peak] = 1
 
-    sorted_keys = sorted(freqs, key=freqs.get, reverse=True)
+    sorted_keys = sorted(freqs, key=freqs.get, reverse=True)        # type: ignore
     max_freq = freqs[sorted_keys[0]]
 
     max_arr = []
@@ -84,13 +84,12 @@ def determine_skew_dev(  # pylint: disable=too-many-locals
             nb_angles_max = nb_angles
             max_angle_index = angle_index
 
-    a: float
     if nb_angles_max:
         ans_arr = _get_max_freq_elem(angles[max_angle_index])
-        a = np.mean(ans_arr)
+        a = float(np.mean(ans_arr))
     elif angles_peaks_degree:
         ans_arr = _get_max_freq_elem(angles_peaks_degree)
-        a = np.mean(ans_arr)
+        a = float(np.mean(ans_arr))
     else:
         return None, angles, average_deviation, (out, angles, distances)
     

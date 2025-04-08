@@ -31,8 +31,8 @@ else:
 cnt: TCounter[str] = Counter()
 for fullpath in files:
     path, file = os.path.split(fullpath)
-    basename, ext = os.path.splitext(file)
-    s = re.findall(r"[\w']+", basename)
+    stem, ext = os.path.splitext(file)
+    s = re.findall(r"[\w']+", stem)
     cnt.update(s)
 
 word: str

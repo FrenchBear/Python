@@ -8,7 +8,7 @@ import re
 from common_fs import get_all_files
 import os
 
-source = 'W:\Livres\Informatique'
+source = r'W:\Livres\Informatique'
 
 Book = namedtuple('Book', 'Title,Edition,Year,Editor,Author')
 
@@ -24,10 +24,10 @@ for filefp in get_all_files(source):
         title = ts[0]
         year = None
         edition = 1
-        if ma := re.search("\((\d+)\)", title):
+        if ma := re.search(r"\((\d+)\)", title):
             year = int(ma.group(1))
             title = title[:ma.start(0)].strip()
-        elif ma := re.search("\((1st|1ère|2nd|3rd|(\d+)(th|è)) ed, (\d\d\d\d|X)\)", title):
+        elif ma := re.search(r"\((1st|1ère|2nd|3rd|(\d+)(th|è)) ed, (\d\d\d\d|X)\)", title):
             syear = ma.group(4)
             if syear == 'X':
                 year = None

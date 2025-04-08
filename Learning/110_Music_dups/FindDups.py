@@ -6,7 +6,7 @@
 from common_fs import get_all_files, file_part
 from lev import levenshtein
 
-root = r'C:\Users\Pierr\OneDrive\MusicOD\A_Trier\A_Trier Préparé\Queen - 1973-2007'
+root = r'D:\Pierre\OneDrive\MusicOD\MP3P\Chansons Intl'
 
 
 def cleanprefix(f: str) -> str:

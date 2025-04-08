@@ -5,7 +5,7 @@
 
 import re
 import os
-from common_fs import get_all_files, file_part, basename_part, folder_part
+from common_fs import get_all_files, file_part, stem_part, folder_part
 
 FILE = re.compile(r'Tanguy_Pastureau_maltraite_l_info_(\d\d\d\d-\d\d-\d\d)_(.*)')
 

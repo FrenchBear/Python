@@ -23,8 +23,8 @@ series: DefaultDict[str, set] = defaultdict(set)
 nf = 0
 for fullpath in files:
     path, file = os.path.split(fullpath)
-    basename, ext = os.path.splitext(file)
-    segments = basename.split(" - ")
+    stem, ext = os.path.splitext(file)
+    segments = stem.split(" - ")
     serie = segments[0]
     serie_lna = normalize_serie(serie)
     series[serie_lna].add(serie)
@@ -38,7 +38,7 @@ print(f"{nf} fichiers")
 print(f"{len(series)} séries")
 
 
-def find_series_with_multiple_spellings():
+def find_series_with_multiple_spellings() -> None:
     print("Series with multiple spellings")
     exceptions = [
         ("Jojo", "Les aventures de Jojo"),

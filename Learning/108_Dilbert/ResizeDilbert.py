@@ -71,50 +71,48 @@ def crop_white_borders_bw(img: np.ndarray) -> np.ndarray:
     return img
 
 
-"""
-source = r'D:\Scans\Images\Dilbert3\1\Scan0017.jpg'
-target = r'D:\Scans\Images\Dilbert3\2\Scan0017.jpg'
-buffer = mpimg.imread(source)
-if len(buffer.shape) == 3:
-    img = buffer[:, :, :3]
-    color = True
-else:
-    #img = buffer[:, :]
-    img = buffer
-    color = False
+# source = r'D:\Scans\Images\Dilbert3\1\Scan0017.jpg'
+# target = r'D:\Scans\Images\Dilbert3\2\Scan0017.jpg'
+# buffer = mpimg.imread(source)
+# if len(buffer.shape) == 3:
+#     img = buffer[:, :, :3]
+#     color = True
+# else:
+#     #img = buffer[:, :]
+#     img = buffer
+#     color = False
 
-if color:
-    img = (np.dot(img[...,:3], [0.2989, 0.5870, 0.1140])+0.5).astype(int)
-    color = False
-img = crop_white_borders_bw(img)
+# if color:
+#     img = (np.dot(img[...,:3], [0.2989, 0.5870, 0.1140])+0.5).astype(int)
+#     color = False
+# img = crop_white_borders_bw(img)
 
-width: int = img.shape[1]
-height: int = img.shape[0]
+# width: int = img.shape[1]
+# height: int = img.shape[0]
 
-width_m = 2460
-height_m = 3530
+# width_m = 2460
+# height_m = 3530
 
-tins = (height_m-height)//2
-bins = height_m-height-tins
-lins = (width_m-width)//2
-rins = width_m-width-lins
+# tins = (height_m-height)//2
+# bins = height_m-height-tins
+# lins = (width_m-width)//2
+# rins = width_m-width-lins
 
-tins = bins = lins = rins = 0
+# tins = bins = lins = rins = 0
 
-if color:
-    img = cropimage.crop_color_image(img, tins, bins, lins, rins)
-else:
-    img = cropimage.crop_bw_image_white_borders(img, tins, bins, lins, rins)
+# if color:
+#     img = cropimage.crop_color_image(img, tins, bins, lins, rins)
+# else:
+#     img = cropimage.crop_bw_image_white_borders(img, tins, bins, lins, rins)
 
-# Save
-if color:
-    mpimg.imsave(target, img, format='jpg', dpi=300, cmap='gray')
-else:
-    pimg = Image.fromarray(img)
-    pimg.save(r'target', dpi=(300,300), quality=80)
+# # Save
+# if color:
+#     mpimg.imsave(target, img, format='jpg', dpi=300, cmap='gray')
+# else:
+#     pimg = Image.fromarray(img)
+#     pimg.save(r'target', dpi=(300,300), quality=80)
 
-sys.exit(0)
-"""
+# sys.exit(0)
 
 
 @dataclass
@@ -253,4 +251,4 @@ def process_root(root: str):
                 pimg.save(target, dpi=(300, 300), quality=80)
 
 
-process_root("D:\Scans\Images\Dilbert8")
+process_root(r"D:\Scans\Images\Dilbert8")

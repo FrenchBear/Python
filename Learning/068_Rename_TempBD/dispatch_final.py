@@ -26,8 +26,8 @@ for k in series.keys():
 # Group files
 dicsf = defaultdict(list)
 for file in files:
-    basename, ext = os.path.splitext(file)
-    segments = basename.split(" - ")
+    stem, ext = os.path.splitext(file)
+    segments = stem.split(" - ")
     serie = normalize_serie(segments[0])
     dicsf[serie].append(file)
 
@@ -51,10 +51,10 @@ for serie in dicsf.keys():
                     to_move = False
                     os.remove(sourcefilefp)
                 else:
-                    basename, ext = os.path.splitext(file)
+                    stem, ext = os.path.splitext(file)
                     for suffix in ["Bis", "Ter", "Quater", "5", "6"]:
                         targetfilefp = os.path.join(
-                            targetfolderfp, basename + " - " + suffix + ext
+                            targetfolderfp, stem + " - " + suffix + ext
                         )
                         if not os.path.exists(targetfilefp):
                             break
@@ -70,8 +70,8 @@ for serie in dicsf.keys():
         newserie += 1
         if len(files) >= 3:
             to_create += 1
-            basename, ext = os.path.splitext(files[0])
-            segments = basename.split(" - ")
+            stem, ext = os.path.splitext(files[0])
+            segments = stem.split(" - ")
             newfolder = segments[0]
             newfolderfp = os.path.join(source, newfolder)
             print(f'mkdir "{newfolderfp}"')

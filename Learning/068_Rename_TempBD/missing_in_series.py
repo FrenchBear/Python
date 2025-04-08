@@ -28,8 +28,8 @@ def process_folder(folderfp: str):
     global dic_min_num, dic_max_num, dic_nums
     files = get_files(folderfp)
     for file in files:
-        basename, _ = os.path.splitext(file)
-        if basename.lower().startswith("thumbs"):
+        stem, _ = os.path.splitext(file)
+        if stem.lower().startswith("thumbs"):
             # try:
             #     os.remove(os.path.join(folderfp, file))
             # except:
@@ -37,7 +37,7 @@ def process_folder(folderfp: str):
         else:
             if ma := re.fullmatch(
                 r"(.*)? - ((\d{2,3})[A-Z]?|Pub|HS|HS \d+|BO)( - .*)?",
-                basename,
+                stem,
                 re.IGNORECASE,
             ):
                 try:

@@ -6,6 +6,7 @@
 # 2008-08-24    PV
 
 from typing import Union
+import datetime
 
 
 class Dog:
@@ -22,10 +23,6 @@ class Cat:
 
     def miaule(self):
         print(self.nom + ": Miaou!")
-
-
-import datetime
-
 
 class Album:
     def __init__(self, title, artist, release_year, tracks):

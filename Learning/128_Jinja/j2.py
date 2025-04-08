@@ -19,7 +19,7 @@ environment = Environment(loader=FileSystemLoader("templates/"))
 template = environment.get_template("message.txt")
 
 for student in students:
-    filename = f"message_{student['name'].lower()}.txt"
+    filename = f"message_{student['name'].lower()}.txt"         # type: ignore
     content = template.render(
         student,
         max_score=max_score,

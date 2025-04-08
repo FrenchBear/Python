@@ -30,12 +30,12 @@ for filefp in get_all_files(source1):
     folder, file = os.path.split(filefp)
     bname, ext = os.path.splitext(file)
     if ext.casefold() == '.pdf':
-        ma: re.Match = bookname.fullmatch(bname)
-        if ma:
-            ed = ma.group(2)
+        ma1 = bookname.fullmatch(bname)
+        if ma1:
+            ed = ma1.group(2)
             if ed:
                 ed = ed.strip()
-            b = (clean(ma.group(1)), ed, ma.group(3).casefold(), ma.group(4).casefold(), folder, file)
+            b = (clean(ma1.group(1)), ed, ma1.group(3).casefold(), ma1.group(4).casefold(), folder, file)
             sourcelist.append(b)
             # auth:str = ma.group(4)
             # if ' and ' in auth.lower():
@@ -47,14 +47,14 @@ for filefp in l2:
     folder, file = os.path.split(filefp)
     bname, ext = os.path.splitext(file)
     if ext.casefold() == '.pdf':
-        ma: re.Match = bookname.fullmatch(bname)
-        if ma:
-            title = clean(ma.group(1))
-            ed = ma.group(2)
+        ma2: re.Match|None = bookname.fullmatch(bname)
+        if ma2:
+            title = clean(ma2.group(1))
+            ed = ma2.group(2)
             if ed:
                 ed = ed.strip()
-            editor = ma.group(3).casefold()
-            authors = ma.group(4).casefold()
+            editor = ma2.group(3).casefold()
+            authors = ma2.group(4).casefold()
 
             for b in sourcelist:
                 if b[0] == title and (ed is None or ed == b[1]) and b[2] == editor:

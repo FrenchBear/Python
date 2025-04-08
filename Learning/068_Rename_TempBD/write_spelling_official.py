@@ -23,8 +23,8 @@ for source in sources:
         series[serie].update({folder:1})
 
     for file in files:
-        basename, ext = os.path.splitext(file)
-        segments = basename.split(' - ')
+        stem, ext = os.path.splitext(file)
+        segments = stem.split(' - ')
         serie = normalize_serie(segments[0])
         series[serie].update({segments[0]:1})
 
