@@ -7,8 +7,8 @@ import re
 import shutil
 import os
 
-source1 = r'W:\Livres\Informatique'         # Reference
-source2 = r'C:\Temp\A_Trier'  # Books to check
+source1 = r'W:\Livres'         # Reference
+source2 = r'C:\Downloads\A_Trier\!A_Trier_Livres'  # Books to check
 trash = r'C:\temp\trash'
 
 doit = False

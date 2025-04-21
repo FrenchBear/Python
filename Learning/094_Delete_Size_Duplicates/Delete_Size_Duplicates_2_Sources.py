@@ -11,16 +11,16 @@ from collections import defaultdict
 from common_fs import get_all_files
 import os
 
-source1 = r'W:\Livres'
-source2 = r'C:\Temp\A_Trier_Livres'
+source_ref = r'W:\Livres'
+source_cmp = r'C:\Downloads\A_Trier\!A_Trier_Livres'
 doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
 # First index source1
 # No attempt is made to delete duplicates in source1
-print('Indexing', source1)
-for filefp in get_all_files(source1):
+print('Indexing', source_ref)
+for filefp in get_all_files(source_ref):
     folder, file = os.path.split(filefp)
     _, ext = os.path.splitext(file)
     if ext.casefold() in ['.pdf', '.epub']:
@@ -29,8 +29,8 @@ for filefp in get_all_files(source1):
 
 # Then index source2
 ndel = 0
-print('Comparing ', source2)
-allfiles2 = list(get_all_files(source2))
+print('Comparing ', source_cmp)
+allfiles2 = list(get_all_files(source_cmp))
 for filefp in allfiles2:
     folder, file = os.path.split(filefp)
     _, ext = os.path.splitext(file)
