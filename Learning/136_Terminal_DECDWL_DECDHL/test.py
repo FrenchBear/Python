@@ -1,5 +1,7 @@
 # test.py
-# Test terminal doble width/double height characters
+# Test terminal double width/double height characters
+# DECDWL and DECDHL sequences
+# https://vt100.net/docs/vt510-rm/contents.html
 # https://gitlab.gnome.org/GNOME/vte/-/issues/195
 #
 # Doesn't work with VSCode (yet), but woth when starting from terminal "python test.py" or using ipython
