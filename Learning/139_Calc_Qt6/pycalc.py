@@ -21,7 +21,7 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-ERROR_MSG = "ERROR"
+ERROR_MSG = "ERR Aé♫山𝄞🐗🐻‍❄️"
 WINDOW_SIZE = 235
 DISPLAY_HEIGHT = 35
 BUTTON_SIZE = 40
