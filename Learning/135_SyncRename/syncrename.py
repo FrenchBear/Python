@@ -10,8 +10,8 @@ from common_fs import get_files, stem_part, extension_part, folder_exists
 doit = True
 useReferenceSeries = True
 
-reference = r"W:\BD\Ancien\Horace"
-arenommer = r"C:\Users\Pierr\Downloads\A_Trier\!A_Trier_BD\Horace"
+reference = r"W:\BD\Classique\Aria"
+arenommer = r"C:\Downloads\A_Trier\!A_Trier_BD\Aria"
 
 def sync_rename(reference: str, arenommer: str) -> None:
     refTitles: dict[str, str] = {}

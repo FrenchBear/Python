@@ -14,8 +14,8 @@ from syncrename import sync_rename
 
 NUMBER = re.compile(r'\D*(\d{2,3}[ABCDTabcdt]?)( |\.).*')
 
-serie = "Jim et Heppy"
-type = "Ancien"
+serie = "La geste des Chevaliers Dragons"
+type = "Extra"
 
 sources = [
     # r'C:\Downloads\A_Trier\!A_Trier_BD\dBD',

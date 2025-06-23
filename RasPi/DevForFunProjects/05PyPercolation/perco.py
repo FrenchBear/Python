@@ -25,7 +25,7 @@ def print_grid(g):
             elif g[r,c] == 1.0:
                 print('##',end='')
             else:
-                print('[41m  [40m',end='')
+                print('\x1b[41m  \x1b[40m',end='')
         print()
 
 # Performs percolation in grid g, starting with first row empty cells

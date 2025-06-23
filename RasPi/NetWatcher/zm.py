@@ -39,7 +39,7 @@ try:
 		if r!=lastr:
 			lastr = r
 			if r:
-				trace("[31;47m True [37;40m")
+				trace("\x1b[31;47m True \x1b[37;40m")
 			else:
 				trace("False")
 		time.sleep(random.randint(13,26))
