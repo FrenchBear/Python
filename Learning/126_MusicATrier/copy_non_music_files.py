@@ -7,7 +7,7 @@ from common_fs import get_all_files, extension_part, folder_part
 import shutil
 import os
 
-source = r'\\terazalt\music\Pierre\A_Trier\A_Trier Brut'
+source = r'\\terazalt\music\Pierre\MusicExtra\Michel Legrand - Large'
 destination = r"C:\Temp\MP3320"
 doit = True
 

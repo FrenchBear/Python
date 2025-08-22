@@ -1,6 +1,8 @@
 # sector_console.py
 # Run sector game in text mode using console
+#
 # 2020-08-21    PV
+# 2025-08-22    PV      Fixed set_sub_dir_N/_E not existing anymore
 
 import sector_engine
 import re
@@ -16,7 +18,7 @@ def direction(dir_N: int, dir_E: int) -> str:
 def print_help():
     print('Sector Commands:')
     print('  q, quit:     Terminate game')
-    print('  h, help:     Show help')
+    print('  h, help, ?:  Show help')
     print('  b, boats:    Show boats status')
     print('  n, next:     Select next boat, move submarine')
     print('  r, range:    Show distance from current boat')
@@ -27,7 +29,8 @@ def print_help():
     print('  f#, fire#:   Fire sub at given depth, from 1 to 3')
     print('  t, teach:    Set teach mode')
     print('  e, evasive:  Set evasive mode')
-    print('  show:        Show boats and sub info')
+    print('  show:        Show boats and sub info (warning: cheat!)')
+    print('  test:        Dev command, set up predefined game situation')
 
 
 def show_sub():
@@ -60,7 +63,7 @@ def run_console():
         if rep == 'q' or rep == 'quit':
             break
 
-        if rep == 'h' or rep == 'help':
+        if rep == 'h' or rep == 'help' or rep == '?':
             print_help()
             continue
 
@@ -161,8 +164,7 @@ def run_console():
         if rep == 'test':
             se.sub_N = 32
             se.sub_E = 31
-            se.set_sub_dir_N(-1)
-            se.set_sub_dir_E(-1)
+            se.set_sub_dir(5)
             show_sub()
             se.next_boat()
             show_sub()

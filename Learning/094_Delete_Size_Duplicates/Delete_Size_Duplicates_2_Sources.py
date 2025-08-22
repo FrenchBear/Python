@@ -13,7 +13,7 @@ import os
 
 source_ref = r'W:\Livres'
 source_cmp = r'C:\Downloads\A_Trier\!A_Trier_Livres'
-doit = True
+doit = False
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 

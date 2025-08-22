@@ -2,7 +2,7 @@
 # Measuring earth using Cassini data
 # From Programmation python avancée, 2è ed
 #
-# 2027-07-18    PV
+# 2025-07-18    PV
 
 from math import sin, cos, radians
 

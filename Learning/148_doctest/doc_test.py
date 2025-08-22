@@ -1,7 +1,7 @@
 # doc_test.py
 # Test this feature
 #
-# 2027-07-15    PV
+# 2025-07-15    PV
 
 import doctest
 

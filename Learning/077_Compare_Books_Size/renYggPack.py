@@ -12,7 +12,7 @@ from common_fs import get_files
 import os
 import re
 
-source = r"C:\Downloads\A_Trier\!A_Trier_Livres"
+source = r"C:\Downloads\A_Trier\!A_Trier_Livres\eni"
 lang = "Fr"  # Fr or En
 doit = True
 
@@ -43,6 +43,7 @@ for file in list(get_files(source)):
         if ma:
             # print(f'«{ma.group(1)}» «{ma.group(2)}» «{ma.group(3)}» «{ma.group(4)}»')
             nn: str = FirstUpper(ma.group(2))
+            sed = "XXXX"
             if ma.group(4):
                 if lang == "En":
                     match ma.group(4):

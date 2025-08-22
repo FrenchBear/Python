@@ -21,6 +21,7 @@
 
 # os.rmdir() does not remove non-empty directories, use shutil.rmtree(path) instead
 # os.makedirs(folder) creates all parent directories if needed
+# shutil.rmtree() removes a folder and all its contents recursively 
 
 '''Sous-programmes communs relatif au filesystem'''
 

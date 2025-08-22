@@ -41,7 +41,7 @@ class sector_engine:
     def get_sub_dir(self) -> int:
         return self.NE_dir(self.sub_dir_N, self.sub_dir_E)
 
-    def set_sub_dir(self, dir: int):
+    def set_sub_dir(self, dir: int) -> None:
         (self.sub_dir_N, self.sub_dir_E) = self.dir_NE(dir)
 
     def init_sub_random(self):
