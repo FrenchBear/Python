@@ -1,0 +1,7 @@
+I have several scanned PNG images of book covers, and there are two elements to improve:
+- Due to book placement on scanner, cover image borders may not be perfectly vertical and horizontal, but sometimes slanted a bit.
+- Scanned area is a a bit larger than book cover itself, resulting in black (actually very dark, not necessarily black) borders
+
+I'd like to write a Python program, doing image processing using typical libraries such as matplotlib.image to read/write image files into numpy arrays, and numpy to do efficient image analysis (other libraries may be used).
+- First step should be image deskewing, so that text and other vertical/horizontal elements of the cover are the more vertical and horizontal possible
+- Second step after deskewing is image cropping to a target fixed size of 4000 pixels wide by 5650 pixels height, removing dark borders of cover image to keep only the best part of cover image.
