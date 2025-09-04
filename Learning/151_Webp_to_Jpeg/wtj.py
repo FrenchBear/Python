@@ -9,7 +9,7 @@ import subprocess
 import shutil
 from common_fs import file_exists, get_files
 
-source = r"D:\Kaforas\OneDrive\PicturesODKB\!ToPost\To post X\Tumblr\Wepb"
+source = r"D:\Kaforas\OneDrive\PicturesODKB\!To post X\Tumblr\Webp"
 
 def webp_to_jpeg(source):
     if not file_exists(source):
