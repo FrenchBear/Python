@@ -1,7 +1,26 @@
 # sw.py
-# Sound wave generation
+# Sound wave generation, to compare "fractions scale chord" and "tempered scale chord"
 #
 # 2025-08-28    PV      Code written by Gemini
+
+# This code generates a six-second major chord of 'A', alernating for each second between fraction scale frequences and
+# tempered scale frequencies I ran this test many years ago on a TI 99-4/A but the hardware was not performant or
+# precise enough, I couldn't hear the difference, but today, on much more powerfull hardware, the difference is
+# perfectly audible.
+
+# Si f=fréquence d’oscillation d’une code tendue de longueur l:
+# - Avec un chevalet au milieu, les deux morceaux de longueur l/2 oscillent « à l’octave », de fréquence 2f
+# - Avec un chevalet au tiers, le morceau de longueur 2/3 oscille « à la quinte (supérieure) », de fréquence 3/2 f (le
+#   morceau de longueur 1/3 oscillant à l’octave de cette quinte)
+# - Avec un chevalet au quart, le morceau de longueur 3/4 oscille « à la quarte (supérieure) » de fréquence 4/3 f
+# - Avec un chevalet au cinquième, le morceau de longueur 4/5 oscille « à la tierce (supérieure) » de fréquence 5/4 f
+ 
+# Appellation    Gamme de Fractions         Gamme tempérée
+# 	             Fréquence	    Exemple	    Fréquence	Exemple
+# Fondamentale   La	    f	    440	        f	        440
+# Tierce majeure Do#	5/4 f	550	        f*2^(4/12)	554,4p
+# Quarte	     Ré     4/3 f	586,7	    f*2^(5/12)	587,3
+# Quinte juste	 Mi     3/2 f	660	        f*2^(7/12)	659,3
 
 # I'd like a Python program on Windows to generate a sound 
 # wave at 44100 Hz, from a function named amplitude taking sample number as input
@@ -66,7 +85,7 @@ from scipy.io.wavfile import write
 
 # --- Constants ---
 SAMPLING_FREQUENCY = 44100  # Samples per second (Hz)
-DURATION_SECONDS = 3        # Duration of the sound in seconds
+DURATION_SECONDS = 6        # Duration of the sound in seconds
 NUM_SAMPLES = int(SAMPLING_FREQUENCY * DURATION_SECONDS)
 
 # --- Amplitude Function ---
@@ -77,19 +96,30 @@ NUM_SAMPLES = int(SAMPLING_FREQUENCY * DURATION_SECONDS)
 def amplitude(sample_index: int) -> float:
     """
     Generates the amplitude for a given sample index.
-
-    Args:
-        sample_index: The index of the sample (e.g., from 0 to NUM_SAMPLES-1).
-
-    Returns:
-        A float value between -1.0 and 1.0.
+    Args: sample_index: The index of the sample (e.g., from 0 to NUM_SAMPLES-1).
+    Returns: A float value between -1.0 and 1.0.
     """
-    sound_frequency = 440  # Frequency of the sound to generate in Hz (A4 note)
+
+    # Accord harmonique de La majeur, basé sur la gamme de fractions
+    f1_h = 440
+    f2_h = 550
+    f3_h = 660
+
+    # Accord tempéré de La majeur, basé sur la gamme en 2^(1/12)
+    f1_t = 440
+    f2_t = 554.4
+    f3_t = 650.3
 
     # Formula for a sine wave: A * sin(2 * pi * f * t)
     # Here, t = sample_index / SAMPLING_FREQUENCY
-    return 0.75 * math.sin(2 * math.pi * sound_frequency * sample_index / SAMPLING_FREQUENCY)
-
+    if (sample_index//SAMPLING_FREQUENCY)%2==0:
+        return 0.3 * (math.sin(2 * math.pi * f1_h * sample_index / SAMPLING_FREQUENCY) +
+                    math.sin(2 * math.pi * f2_h * sample_index / SAMPLING_FREQUENCY) +
+                    math.sin(2 * math.pi * f3_h * sample_index / SAMPLING_FREQUENCY))
+    else:
+        return 0.3 * (math.sin(2 * math.pi * f1_t * sample_index / SAMPLING_FREQUENCY) +
+                    math.sin(2 * math.pi * f2_t * sample_index / SAMPLING_FREQUENCY) +
+                    math.sin(2 * math.pi * f3_t * sample_index / SAMPLING_FREQUENCY))
 
 def main():
     """
