@@ -14,7 +14,7 @@ from syncrename import sync_rename
 
 NUMBER = re.compile(r'\D*(\d{2,3}[ABCDTabcdt]?)( |\.).*')
 
-serie = "La geste des Chevaliers Dragons"
+serie = "Tramp"
 type = "Extra"
 
 sources = [
