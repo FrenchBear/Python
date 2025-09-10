@@ -3,13 +3,15 @@
 #
 # 2025-09-10    PV
 
+from myglob import MyGlobBuilder, SegmentType
+import re
+from typing import cast
 import unittest
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from myglob import MyGlobBuilder, SegmentType
 
 class TestGlobExpression(unittest.TestCase):
 
@@ -19,7 +21,7 @@ class TestGlobExpression(unittest.TestCase):
         self.assertEqual(len(res), 2)
         self.assertEqual(res[0].type, SegmentType.Recurse)
         self.assertEqual(res[1].type, SegmentType.Filter)
-        self.assertEqual(res[1].value.pattern, "^.*$")
+        self.assertEqual(cast(re.Pattern, res[1].value).pattern, "^.*$")
 
     def test_relative_glob(self):
         res = MyGlobBuilder.glob_to_segments("*/target")
@@ -53,6 +55,7 @@ class TestGlobExpression(unittest.TestCase):
         r, s = MyGlobBuilder.get_root(pat)
         self.assertEqual(r, root)
         self.assertEqual(s, rem)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,6 @@
 # my_glob library
 # ORIGINAL FILE in C:\Development\GitHub\Python\Libraries
-# After update, copy this file to C:\Development\GitHub\Python\Learning\Common and remove these two lines
+# After update, copy this file to C:\Development\GitHub\Python\Learning\Common
 #
 # Python translation of an efficient glob implementation in Rust
 #

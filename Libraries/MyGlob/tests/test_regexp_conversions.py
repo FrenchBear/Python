@@ -3,6 +3,9 @@
 #
 # 2025-09-10    PV
 
+from myglob import MyGlobBuilder, MyGlobError, SegmentType
+import re
+from typing import cast
 import unittest
 import sys
 import os
@@ -10,7 +13,6 @@ from enum import Enum, auto
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from myglob import MyGlobBuilder, MyGlobError, SegmentType
 
 class ConvResult(Enum):
     CRError = auto()
@@ -23,17 +25,18 @@ class TestRegexpConversions(unittest.TestCase):
     def glob_one_segment_test(self, glob_pattern: str, cr: ConvResult, test_string: str, is_match: bool):
         try:
             seg_vec = MyGlobBuilder.glob_to_segments(glob_pattern)
-            
+
             if cr == ConvResult.CRError:
                 self.fail(f"Conversion of «{glob_pattern}» should have produced an error")
 
             if glob_pattern != "**":
                 self.assertEqual(len(seg_vec), 1, f"Expected 1 segment for «{glob_pattern}»")
-            
+
             segment = seg_vec[0]
             if segment.type == SegmentType.Constant:
                 self.assertEqual(cr, ConvResult.Constant, f"Conversion of «{glob_pattern}» produced a Constant instead of a {cr.name}")
-                self.assertEqual(is_match, segment.value.lower() == test_string.lower(), f"Match «{glob_pattern}» with «{test_string}» did not produce the expected result")
+                self.assertEqual(is_match, cast(str, segment.value).lower() == test_string.lower(),
+                                 f"Match «{glob_pattern}» with «{test_string}» did not produce the expected result")
             elif segment.type == SegmentType.Recurse:
                 self.assertEqual(cr, ConvResult.Recurse, f"Conversion of «{glob_pattern}» produced a Recurse instead of a {cr.name}")
                 # In the Python implementation, glob_to_segments('**') returns [Recurse, Filter(.*)]
@@ -42,7 +45,8 @@ class TestRegexpConversions(unittest.TestCase):
                 self.assertTrue(is_match)
             elif segment.type == SegmentType.Filter:
                 self.assertEqual(cr, ConvResult.Filter, f"Conversion of «{glob_pattern}» produced a Filter instead of a {cr.name}")
-                self.assertEqual(bool(segment.value.match(test_string)), is_match, f"Match «{glob_pattern}» with «{test_string}» did not produce the expected result. Regex: {segment.value.pattern}")
+                self.assertEqual(bool(cast(re.Pattern, segment.value).match(test_string)), is_match,
+                                 f"Match «{glob_pattern}» with «{test_string}» did not produce the expected result. Regex: {cast(re.Pattern, segment.value).pattern}")
 
         except MyGlobError:
             self.assertEqual(cr, ConvResult.CRError, f"Conversion of «{glob_pattern}» produced an unexpected error")
@@ -116,10 +120,11 @@ class TestRegexpConversions(unittest.TestCase):
         self.glob_one_segment_test(r"file[\d].cs", ConvResult.Filter, "file1.cs", True)
         self.glob_one_segment_test(r"file[\D].cs", ConvResult.Filter, "file2.cs", False)
         self.glob_one_segment_test(r"file[\D].cs", ConvResult.Filter, "filed.cs", True)
-        
+
         # Python's re does not support classes such \p{Greek}
         # Chec Python re doc to see exactly what is supported
         # self.glob_one_segment_test(r"file[\p{Greek}].cs", ConvResult.Filter, "fileζ.cs", True)
+
 
 if __name__ == '__main__':
     unittest.main()
