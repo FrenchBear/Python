@@ -1,3 +1,5 @@
+# common_fs.pyi
+
 from typing import Iterable
 
 def get_files(source: str, fullpath: bool = False) -> list[str]: ...
