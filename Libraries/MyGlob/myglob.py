@@ -5,6 +5,7 @@
 # Python translation of an efficient glob implementation in Rust
 #
 # 2025-09-10   PV      First Python version, partially translated by Gemini, debugged and refactored by me
+# 2025-09-13   PV      1.0.1 Check for unclosed brackets in glob expressions such as "C:\[a-z"
 
 import os
 import re
@@ -15,7 +16,7 @@ from typing import Iterator, NamedTuple, Deque, Optional, Self, Tuple, cast
 # -----------------------------------
 # Globals
 
-LIB_VERSION = "1.0.0"
+LIB_VERSION = "1.0.1"
 
 # -----------------------------------
 # Structures and Enums
@@ -252,6 +253,7 @@ class MyGlobBuilder:
         regex_buffer = ""
         constant_buffer = ""
         brace_depth = 0
+        in_brackets = False
 
         it = iter(glob_pattern)
         for c in it:
@@ -295,7 +297,7 @@ class MyGlobBuilder:
                 regex_buffer += ')'
             elif c == '[':
                 regex_buffer += '['
-                depth = 1
+                in_brackets = True
 
                 # Special case: ! at the beginning is negation
                 # Peek at next char without consuming
@@ -308,13 +310,12 @@ class MyGlobBuilder:
                 except IndexError:
                     pass
 
-                while inner_c := next(it):
+                while (inner_c := next(it, None)) is not None:
                     match inner_c:
                         case ']':
                             regex_buffer += inner_c
-                            depth -= 1
-                            if depth == 0:
-                                break
+                            in_brackets = False
+                            break
 
                         case '\\':
                             if next_c := next(it):
@@ -330,6 +331,9 @@ class MyGlobBuilder:
                 regex_buffer += '\\' + c
             else:
                 regex_buffer += c
+
+        if in_brackets:
+            raise MyGlobError("Unclosed [")
 
         if regex_buffer:
             raise MyGlobError("Invalid glob pattern")

@@ -2,6 +2,7 @@
 # Unit tests for MyGlob
 #
 # 2025-09-10    PV
+# 2025-09-13    PV      Added test_search_error_2
 
 import unittest
 import sys
@@ -122,6 +123,10 @@ class TestSearch(unittest.TestCase):
     def test_search_error_1(self):
         with self.assertRaises(MyGlobError):
             MyGlobBuilder("C:/**z//z").compile()
+
+    def test_search_error_2(self):
+        with self.assertRaises(MyGlobError):
+            MyGlobBuilder("C:[Hello").compile()
 
 if __name__ == '__main__':
     unittest.main()

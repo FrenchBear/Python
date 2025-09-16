@@ -10,10 +10,10 @@ import os
 from common_fs import get_files
 
 source = r"D:\Pierre\OneDrive\PicturesODMisc\PLS573\Originaux"
-target = r"D:\Pierre\OneDrive\PicturesODMisc\PLS573\Resized 2"
+target = r"D:\Pierre\OneDrive\PicturesODMisc\PLS573\Resized 1b"
 
-target_width = int(4900/2.5)
-target_height = int(6700/2.5)
+target_width = int(4900/2)
+target_height = int(6700/2)
 
 def process_file(filefp: str, dest: str, skip_enhance:bool=False):
     try:
@@ -23,9 +23,11 @@ def process_file(filefp: str, dest: str, skip_enhance:bool=False):
         img = Image.fromarray(img)
         if not skip_enhance:
             enhancer = ImageEnhance.Contrast(img)
-            img = enhancer.enhance(1.6)
+            img = enhancer.enhance(1.5)
+            enhancer = ImageEnhance.Brightness(img)
+            img = enhancer.enhance(1.1)
             enhancer = ImageEnhance.Sharpness(img)
-            img = enhancer.enhance(2.5)
+            img = enhancer.enhance(1.5)
         img.save(dest, dpi=(600, 600))
     except Exception as e:
         return f"Error processing {filefp}: {e}"
