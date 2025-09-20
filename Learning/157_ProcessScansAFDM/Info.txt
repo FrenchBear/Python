@@ -1,0 +1,33 @@
+I have a folder "C:\PicturesODMisc\Aux frontières des mathématiques\Cropped,Deskewed" containing 240 gray scale PNG pictures, all the same size named AFDM###.png where ### is a three-digit number from 001 to 240. These pages have a near white background, and black text over it.
+I'd like a Python program to combine all even pages into one page, and all odd pages into one page (and save both combined pages into a PNG file).
+The combined page should be the visual superposition of the pages to combine, a pixel of the combination pic should be the darkest of all images to combine. The combination function should be something like min, or a normalized product to remain in 0-255 range, I don't know which one gives the best visual result, so I'll try both, or any other function you map provide.
+
+
+
+I have a folder "C:\PicturesODMisc\Aux frontières des mathématiques\Cropped,Deskewed" containing 240 gray scale PNG pictures, all the same size named AFDM###.png where ### is a three-digit page number from 001 to 240. These pages have a near white background, and black text over it.
+These pages are scanned images, they've already been deskewed. I need a Python program to visually align horizontally and vertically pages content so that basically pages titles, pages numbers, left and right margins of body text are all located at the same place or have the same value. Page size must remain unchanged when page content is shifted left/right or up/down, some areas may be cropped, new areas should be white filled.
+
+To determine how much a page must be shifted left/right or up/down, there are three elements on the page for which the bounding rectangle around black text can be determined easily:
+- Page title, one line of black text at the top of most pages
+- Page number, one to three black digits at the bottom of most pages
+- Page body containing page black text on most pages
+
+To detect the actual bounding rectangle of these three elements on a given page, the idea is to start with a "global bounding rectangle" valid for all pages, guaranteed to cover only white pixels, and looking inside for black pixels. This will determine actual bounding rectangle for each page if present (some pages don't have a title, some pages don't have a body, some pages don't have a page number). Full white pages with neither a title, a body nor a page number should be ignored (there is nothing to move anyway), other pages are guaranteed to have at least two elements present.  Finally, in this process, the first two and the last two pages should be skipped, since they have a different layout and will be aligned manually.
+
+The global bounding rectangle is different for odd and even pages because of the scanning process:
+Even pages global bounding rectangle:
+Page title:  top left: x=822, y=124    Global bounding rectangle size: w=1588, h=188
+Page body:   top left: x=238, y=468    Global bounding rectangle size: w=2765, h=4486
+Page number: top left: x=1450, y=4959  Global bounding rectangle size: w=299, h=174
+
+Odd pages global bounding rectangle:
+Page title:  top left: x=563, y=119    Global bounding rectangle size: w=2166, h=144
+Page body:   top left: x=259, y=446    Global bounding rectangle size: w=2803, h=4468
+Page number: top left: x=1513, y=4951  Global bounding rectangle size: w=280, h=177
+
+Once the actual bounding rectangle for these elements is determined (if present), page content should be shifted to respect centering objectives, defined in order of decreasing priority:
+- If present, page number bounding rectangle should be centered at x=1650, y=5100
+- If present, Page title bounding rectangle should be centered at x=1650, y=272
+- Left and right margin on body text should be 395 (there is no easy vertical position hint for page body)
+
+When the page has been cropped/shifted, new areas filled with white pixels, the resulting image should be saved as a 600dpi gray scale PNG in folder "C:\PicturesODMisc\Aux frontières des mathématiques\Centered", keeping the same name as the original image.
