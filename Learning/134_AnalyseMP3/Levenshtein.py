@@ -9,16 +9,16 @@ def Lowercase_no_diacritic(s: str) -> str:
     return ''.join(c for c in unicodedata.normalize("NFD", s.lower()) if unicodedata.category(c) != 'Mn')       # Mn =  "Mark, nonspacing."
 
 # Adapted from https://en.wikipedia.org/wiki/Levenshtein_distance and personal app DiffMP3Names
-def LevenshteinDistance(s, t, diffMax=1):
+def LevenshteinDistance(s: str, t: str, diffMax=1):
     # Personal optimization, I don't need distances greater than diffMax
     if abs(len(s) - len(t)) > diffMax:
         return diffMax + 1
 
     # degenerate cases
     if len(s) == 0:
-        return t.Length
+        return len(t)
     if len(t) == 0:
-        return s.Length
+        return len(s)
 
     # convert to lowercase, we're doing case insensitive compare here
     s = Lowercase_no_diacritic(s)
