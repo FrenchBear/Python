@@ -1,6 +1,8 @@
 # at.py - AudioTranscript
 #
-# 2025-09-22    PV      First version from Gemini
+# 2025-09-22    PV      First version with Gemini help
+# 2025-09-23    PV      After detailed tests, use whisper_small with language="fr", fp16=False, patience=2, beam_size=5
+# 2025-09-23    PV      Result moved from C:\Temp to D:\AudioDups
 
 # I have a series of mp3 audio files from a french radio podcast, an example is attached. I need a python program to
 # transcribe spoken text, that takes the path of a .mp3 file, and would write the result of audio transcription in a
@@ -145,7 +147,7 @@ def my_log(msg: str, skip_line: bool = False):
     # Format the timestamp down to milliseconds
     # %f gives microseconds, so we slice the first 3 digits for milliseconds
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-    with open("c:\\temp\\transcription.log", "a") as file:
+    with open(r"D:\AudioDups\transcription.log", "a") as file:
         if skip_line:
             file.write("\n")
         file.write(timestamp + "\t" + msg + "\n")
@@ -200,7 +202,7 @@ def transcribe_audio(input_mp3: str):
 
         # Save transcription to output file
         # output_txt = f"c:\\temp\\transcription_{model}.txt"
-        output_txt = input_mp3.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"C:\Temp")
+        output_txt = input_mp3.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups")
         os.makedirs(folder_part(output_txt), exist_ok=True)
         try:
             with open(output_txt, 'w', encoding='utf-8') as f:
@@ -222,6 +224,6 @@ if __name__ == "__main__":
 
     for filefp in get_all_files(r"C:\MusicOD\Humour\Tanguy Pastureau"):
         if filefp.endswith(".mp3") and "maltraite" in filefp:
-            output_txt = filefp.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"C:\Temp")
+            output_txt = filefp.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups")
             if not file_exists(output_txt):
                 transcribe_audio(filefp)
