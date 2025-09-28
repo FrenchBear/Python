@@ -1,4 +1,4 @@
-# at.py - AudioTranscript
+# tr_tp.py - AudioTranscript Tanguy Pastureau
 #
 # 2025-09-22    PV      First version with Gemini help
 # 2025-09-23    PV      After detailed tests, use whisper_small with language="fr", fp16=False, patience=2, beam_size=5
@@ -133,7 +133,7 @@ def transcribe_with_google(wav_path):
         try:
             # recognize speech using Google Speech Recognition
             # Using French language for transcription
-            text = r.recognize_google(audio_data, language="fr-FR")
+            text = r.recognize_google(audio_data, language="fr-FR")     # type: ignore
             return text
         except sr.UnknownValueError:
             return "Google Speech Recognition could not understand audio."

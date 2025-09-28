@@ -1,1 +1,1 @@
-.\venv\Scripts\python.exe at.py
+.\venv\Scripts\python.exe tr_dcl.py
