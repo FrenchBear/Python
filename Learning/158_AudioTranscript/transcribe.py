@@ -1,16 +1,45 @@
-# tr_dcl.py - AudioTranscript David Castello-Lopes
+# transcribe.py - Audio transcripts of podcasts
 #
 # 2025-09-22    PV      First version with Gemini help
 # 2025-09-23    PV      After detailed tests, use whisper_small with language="fr", fp16=False, patience=2, beam_size=5
 # 2025-09-23    PV      Result moved from C:\Temp to D:\AudioDups
 # 2025-09-28    PV      Simplified version for DCL
+# 2025-09-30    PV      Parametered version
 
 from datetime import datetime
 import os
 import time
 import sys
 from pydub import AudioSegment
-from common_fs import folder_part, get_all_files, file_exists
+from common_fs import folder_part, file_exists
+from myglob import MyGlobBuilder
+
+group = "DCL-O"
+
+match group:
+    case "DCL-O":
+        source = r"C:\MusicOD\Humour\David Castello-Lopes\David Castello-Lopes - Europe 1 - Les origines 2020-2023\*\*.mp3"
+        search_path = r"C:\MusicOD\Humour"
+        replace_path = r"D:\AudioDups\DCL-O"
+
+    case "TP-M":
+        source = r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info *\*\*.mp3"
+        search_path = r"C:\MusicOD\Humour"
+        replace_path = r"D:\AudioDups\TP-M"
+        pass
+
+    case _:
+        breakpoint()
+
+# Test MyGlob
+# gs = MyGlobBuilder(source).compile()
+# for ma in gs.explore():
+#     if ma.is_file:
+#         print(str(ma.path))
+# os._exit(0)
+
+translation_log = os.path.join(search_path, "transcription.log")
+temp_wav_path = fr"c:\Temp\temp_transcription_audio_{group}.wav"
 
 
 def transcribe_with_whisper(wav_path: str, model_name: str):
@@ -38,7 +67,7 @@ def my_log(msg: str, skip_line: bool = False):
     # Format the timestamp down to milliseconds
     # %f gives microseconds, so we slice the first 3 digits for milliseconds
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-    with open(r"D:\AudioDups\DCL\transcription.log", "a") as file:
+    with open(translation_log, "a") as file:
         if skip_line:
             file.write("\n")
         file.write(timestamp + "\t" + msg + "\n")
@@ -58,9 +87,6 @@ def transcribe_audio(input_mp3: str):
         # Convert to mono and set a standard sample rate
         audio = audio.set_channels(1)
         audio = audio.set_frame_rate(16000)  # 16kHz is standard for many speech models
-
-        temp_wav_path = r"C:\temp\temp_transcription_audio.wav"
-        # Export as WAV
         audio.export(temp_wav_path, format="wav")
     except Exception as e:
         print(f"Error converting MP3 to WAV: {e}")
@@ -81,8 +107,7 @@ def transcribe_audio(input_mp3: str):
     my_log(msg)
 
     # Save transcription to output file
-    # output_txt = f"c:\\temp\\transcription_{model}.txt"
-    output_txt = input_mp3.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups\DCL")
+    output_txt = input_mp3.replace(".mp3", ".txt").replace(search_path, replace_path)
     os.makedirs(folder_part(output_txt), exist_ok=True)
     try:
         with open(output_txt, 'w', encoding='utf-8') as f:
@@ -93,13 +118,19 @@ def transcribe_audio(input_mp3: str):
         print(f"Error writing to output file '{output_txt}': {e}")
 
     # --- 4. Clean up temporary WAV file ---
-    os.remove(temp_wav_path)
+    if file_exists(temp_wav_path):      # Just in case temp file was already deleted in windows explorer, to avoid a crash
+        os.remove(temp_wav_path)
     # print("Temporary WAV file removed.")
 
 
 if __name__ == "__main__":
-    for filefp in get_all_files(r"C:\MusicOD\Humour\David Castello-Lopes\David Castello-Lopes - Europe 1 - Les origines 2020-2023"):
-        if filefp.endswith(".mp3"):
-            output_txt = filefp.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups\DCL")
+    gs = MyGlobBuilder(source).compile()
+    for ma in gs.explore():
+        if ma.is_file:
+            filefp = str(ma.path)
+            output_txt = filefp.replace(".mp3", ".txt").replace(search_path, replace_path)
             if not file_exists(output_txt):
+                # print(output_txt)
+                # print(file_part(output_txt))
+                # os._exit(0)
                 transcribe_audio(filefp)

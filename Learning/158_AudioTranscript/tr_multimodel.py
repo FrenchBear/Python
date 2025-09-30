@@ -1,4 +1,4 @@
-# tr_tp.py - AudioTranscript Tanguy Pastureau
+# tr_multimodel.py - AudioTranscript, full first version (obsolete)
 #
 # 2025-09-22    PV      First version with Gemini help
 # 2025-09-23    PV      After detailed tests, use whisper_small with language="fr", fp16=False, patience=2, beam_size=5
@@ -222,8 +222,8 @@ vosk_model_path = r"D:\Vosk\vosk-model-fr-0.6-linto-2.2.0"
 if __name__ == "__main__":
     #transcribe_audio(r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info 2023\2023-10\Tanguy Pastureau - 2023-10-11 - Les politiques aussi font du greenwashing.mp3")
 
-    for filefp in get_all_files(r"C:\MusicOD\Humour\Tanguy Pastureau"):
-        if filefp.endswith(".mp3") and "maltraite" in filefp:
-            output_txt = filefp.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups")
-            if not file_exists(output_txt):
-                transcribe_audio(filefp)
+    # for filefp in get_all_files(r"C:\MusicOD\Humour\Tanguy Pastureau"):
+    #     if filefp.endswith(".mp3") and "maltraite" in filefp:
+    #         output_txt = filefp.replace(".mp3", ".txt").replace(r"C:\MusicOD\Humour", r"D:\AudioDups")
+    #         if not file_exists(output_txt):
+    #             transcribe_audio(filefp)
