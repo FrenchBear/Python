@@ -3,7 +3,6 @@
 #
 # 2025-09-10    PV
 
-from myglob import MyGlobBuilder, SegmentType
 import re
 from typing import cast
 import unittest
@@ -11,6 +10,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from myglob import MyGlobBuilder, SegmentType
 
 
 class TestGlobExpression(unittest.TestCase):

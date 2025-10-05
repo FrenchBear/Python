@@ -2,17 +2,17 @@
 # Unit tests for MyGlob
 #
 # 2025-09-10    PV
+# 2025-10-05    PV      Added tests of macro !SOURCES. Relative import ..myglob
 
-from myglob import MyGlobBuilder, MyGlobError, SegmentType
 import re
 from typing import cast
 import unittest
+from enum import Enum, auto
 import sys
 import os
-from enum import Enum, auto
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+from myglob import MyGlobBuilder, MyGlobError, SegmentType
 
 class ConvResult(Enum):
     CRError = auto()
@@ -76,6 +76,8 @@ class TestRegexpConversions(unittest.TestCase):
         self.glob_one_segment_test("a{b,c}{d,e}f", ConvResult.Filter, "acdf", True)
         self.glob_one_segment_test("file.{cs,py,rs,vb}", ConvResult.Filter, "file.bat", False)
         self.glob_one_segment_test("file.{cs,py,rs,vb}", ConvResult.Filter, "file.rs", True)
+        self.glob_one_segment_test("file.{!SOURCES}", ConvResult.Filter, "file.rs", True)
+        self.glob_one_segment_test("file.{!SOURCES}", ConvResult.Filter, "file.d", False)
 
         # ? replace exactly one character
         self.glob_one_segment_test("file.?s", ConvResult.Filter, "file.rs", True)

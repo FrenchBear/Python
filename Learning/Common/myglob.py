@@ -1,11 +1,12 @@
 # my_glob library
 # ORIGINAL FILE in C:\Development\GitHub\Python\Libraries
-# After update, copy this file to C:\Development\GitHub\Python\Learning\Common
+# After update, run publish.bat to copy this file to C:\Development\GitHub\Python\Learning\Common
 #
 # Python translation of an efficient glob implementation in Rust
 #
 # 2025-09-10   PV      First Python version, partially translated by Gemini, debugged and refactored by me
 # 2025-09-13   PV      1.0.1 Check for unclosed brackets in glob expressions such as "C:\[a-z"
+# 2025-10-05   PV      1.1.0 Macro !SOURCES to represend common (for me) source files extensions. d is not in the list (also rust temp build files extension)
 
 import os
 import re
@@ -16,7 +17,7 @@ from typing import Iterator, NamedTuple, Deque, Optional, Self, Tuple, cast
 # -----------------------------------
 # Globals
 
-LIB_VERSION = "1.0.1"
+LIB_VERSION = "1.1.0"
 
 # -----------------------------------
 # Structures and Enums
@@ -94,7 +95,7 @@ class MyGlobSearch:
 - ¬⟦[...]⟧ matches any character inside the brackets. Character sequences can also specify ranges of characters (Unicode order), so ⟦[0-9]⟧ specifies any character between 0 and 9 inclusive. Special cases: ⟦[[]⟧ represents an opening bracket, ⟦[]]⟧ represents a closing bracket. 
 - ¬⟦[!...]⟧ is the negation of ⟦[...]⟧, it matches any characters not in the brackets.
 - ¬The metacharacters ⟦?⟧, ⟦*⟧, ⟦[⟧, ⟦]⟧ can be matched by escaping them between brackets such as ⟦[\\?]⟧ or ⟦[\\[]⟧. When a ⟦]⟧ occurs immediately following ⟦[⟧ or ⟦[!⟧ then it is interpreted as being part of, rather than ending the character set, so ⟦]⟧ and NOT ⟦]⟧ can be matched by ⟦[]]⟧ and ⟦[!]]⟧ respectively. The ⟦-⟧ character can be specified inside a character sequence pattern by placing it at the start or the end, e.g. ⟦[abc-]⟧.
-- ¬⟦{choice1,choice2...}⟧  match any of the comma-separated choices between braces. Can be nested, and include ⟦?⟧, ⟦*⟧ and character classes.
+- ¬⟦{choice1,choice2...}⟧  match any of the comma-separated choices between braces. Can be nested, and include ⟦?⟧, ⟦*⟧ and character classes. Special macro ⟦!SOURCES⟧ is replaced by common sources extensions (.c,.cs,.cpp...) and typically used in expressions such as ⟦*.{!SOURCES}⟧ to find source files.
 - ¬Character classes ⟦[ ]⟧ accept regex syntax such as ⟦[\\d]⟧ to match a single digit, see https://docs.python.org/3/library/re.html for supported syntax.
 
 ⌊Autorecurse glob pattern transformation⌋:
@@ -248,6 +249,11 @@ class MyGlobBuilder:
         # glob_pattern ends with / so no duplicate code to process last segment
         if not (glob_pattern.endswith('/') or glob_pattern.endswith('\\')):
             glob_pattern += '/'
+
+        # Macro expansion. For efficiency, don't use regexp or complex code to check it's surrounded by braces
+        p = glob_pattern.upper().find("!SOURCES")
+        if p>=0:
+            glob_pattern = glob_pattern[:p] + "asm,awk,c,cc,cpp,cs,cxx,fs,go,h,hpp,hxx,java,jl,js,lua,py,rs,sql,ts,vb,xaml" + glob_pattern[p+8:]
 
         segments = []
         regex_buffer = ""
