@@ -1,0 +1,5 @@
+# https://microsoft.github.io/pyright/#/configuration?id=sample-pyprojecttoml-file
+# 2025-10-08    PV      Don't complain about "from ast import *"
+
+[tool.pyright]
+reportWildcardImportFromLibrary = false
