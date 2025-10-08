@@ -3,29 +3,38 @@
 # Code provided by Gemini
 #
 # 2024-08-29    PV
+# 2025-10-08    PV      Core restructuring (note: needs numpy <2.3)
 
 import librosa
 
-def simple_test():
+def test_file(file: str):
     # Load audio file
-    #y, sr = librosa.load(r'C:\MusicOD\Lists\Marche rapide\Chips - Having a Party.mp3')
-
-    # Estimated tempo: 184.6, which is ridiculous...
-    y, sr = librosa.load(r'C:\MusicOD\MP3P\Divers\_Divers Misc\Billy Holliday - What a Difference a Day Made Ella Fitzgerald.mp3')
+    y, sr = librosa.load(file)
 
     # Beat tracking
-    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+    tempo_arr, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+    tempo: float = tempo_arr[0]        # type: ignore
+    
+    print("\nfile:", file)
+    print('Estimated Tempo (BPM):', round(tempo, 1))
 
     # Convert beat frames to time in seconds
-    beat_times = librosa.frames_to_time(beat_frames, sr=sr)
+    # beat_times = librosa.frames_to_time(beat_frames, sr=sr)
+    # print('Beat Times (seconds):', beat_times)
 
-    print('Estimated Tempo (BPM):', tempo)
-    print('Beat Times (seconds):', beat_times)
+def simple_test():
+    # Estimated tempo: 184.6, which is ridiculous...
+    # test_file(r'C:\MusicOD\MP3P\Divers\_Divers Misc\Billy Holliday - What a Difference a Day Made Ella Fitzgerald.mp3')
+
+    test_file(r"D:\Pierre\OneDrive\MusicOD\MP3P\Chansons Intl\Frank Sinatra\Frank Sinatra - Something Stupid.mp3")
+    test_file(r"D:\Pierre\OneDrive\MusicOD\Lists\Loop\Robbie Williams & Nicole Kidman - Something Stupid.mp3")
+    test_file(r"D:\Pierre\OneDrive\MusicOD\MP3P\Chansons France\Sacha Distel\Sacha Distel - Ces mots stupides.mp3")
 
 def get_beat(file: str) -> float:
     y, sr = librosa.load(file)
     tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
-    return round(float(tempo[0]),1)      # type: ignore
+    return round(float(tempo[0]), 1)      # type: ignore
+
 
 if __name__ == '__main__':
     simple_test()
@@ -263,8 +272,6 @@ github.com
 github.com
 
 """
-
-
 
 
 """

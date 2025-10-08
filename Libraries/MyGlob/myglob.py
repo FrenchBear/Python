@@ -6,7 +6,7 @@
 #
 # 2025-09-10   PV      First Python version, partially translated by Gemini, debugged and refactored by me
 # 2025-09-13   PV      1.0.1 Check for unclosed brackets in glob expressions such as "C:\[a-z"
-# 2025-10-05   PV      1.1.0 Macro !SOURCES to represend common (for me) source files extensions. d is not in the list (also rust temp build files extension)
+# 2025-10-05   PV      1.1.0 Macro !SOURCES to represent common (for me) source files extensions. d is not in the list (also rust temp build files extension)
 
 import os
 import re
