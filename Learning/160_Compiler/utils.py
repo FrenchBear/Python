@@ -2,7 +2,7 @@ import os
 import sys
 from sys import platform
 import ast
-from ast import *
+from ast import *   # type: ignore
 from dataclasses import dataclass
 
 # move these to the compilers, use a method with overrides -Jeremy
@@ -691,7 +691,7 @@ class CProgram:
 
     def __str__(self):
         result = ''
-        for (l, ss) in self.body.items():
+        for (l, ss) in self.body.items(): # type: ignore
             result += l + ':\n'
             indent()
             result += ''.join([str(s) for s in ss]) + '\n'
@@ -884,7 +884,7 @@ class Closure(expr):
 
     def __str__(self):
         if hasattr(self, 'has_type'):
-            typ = ':' + str(self.has_type)
+            typ = ':' + str(self.has_type)       # type: ignore
         else:
             typ = ''
         return 'closure{' + repr(self.arity) + '}(' + ', '.join([str(e) for e in self.args]) + ')' + typ
@@ -1035,7 +1035,7 @@ class ProxiedTuple(Value):
     reads: list[Value]
 
     def __str__(self):
-        return 'proxy[' + str(self.value) + ']'
+        return 'proxy[' + str(self.value) + ']' # type: ignore
 
 
 @dataclass(eq=True)
@@ -1045,7 +1045,7 @@ class ProxiedList(Value):
     write: Value
 
     def __str__(self):
-        return 'proxy[' + str(self.value) + ']'
+        return 'proxy[' + str(self.value) + ']' # type: ignore
 
 ################################################################################
 
@@ -1187,7 +1187,7 @@ def compile_and_test(compiler, compiler_name,
     total_passes = 0
     successful_passes = 0
     successful_test = 0
-    from eval_x86 import interp_x86
+    from eval_x86 import interp_x86 # type: ignore
 
     program_root = os.path.splitext(program_filename)[0]
     with open(program_filename) as source:
@@ -1630,7 +1630,7 @@ def run_tests(lang, compiler, compiler_name, type_check_dict, interp_dict):
     total_passes = 0
     successful_tests = 0
     total_tests = 0
-    for test in tests:
+    for test in tests:   # type: ignore
         (succ_passes, tot_passes, succ_test) = \
             run_one_test(test, lang, compiler, compiler_name,
                          type_check_dict, interp_dict)

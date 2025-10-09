@@ -1,6 +1,5 @@
-# ast_play.py
-# First experiences with python ast module
-# Note that if this file is named py then we have a global warning about hiding python ast module
+# 01_lint.py
+# Essential of compilation, python, ch 01, simple langage with integers, ast
 #
 # 2025-10-08    PV      First version
 
@@ -8,10 +7,12 @@ from ast import *
 from utils import *
 
 s = "print(4*len('hello'))"
+#s = "a = 8*7\nprint(a+2)"
 a = parse(s)
 
 print(s)
 print(dump(a))
+print(dump(a, indent=2))
 print(unparse(a))
 print()
 
