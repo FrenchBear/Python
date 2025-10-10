@@ -3,12 +3,9 @@
 #
 # 2025-10-10    PV      First version
 
-from ast import *
-from ast import Assign, Expr
 from ch02_lvar import *
-from typing import Any
 from utils import *
-from typing import List, Tuple, Set, Dict
+from typing import List, Tuple
 
 Binding = Tuple[Name, expr]
 Temporaries = List[Binding]

@@ -3,10 +3,7 @@
 #
 # 2025-10-09    PV      First version
 
-from ast import *
-from ast import Assign, Expr
 from ch02_lvar import *
-from typing import Any
 from utils import *
 
 # ----------------------
