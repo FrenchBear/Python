@@ -612,12 +612,15 @@ Name.__hash__ = hash_Name
 name_id = 0
 
 
-def generate_name(name):
+def generate_name_original(name):
     global name_id
     ls = name.split('.')
     new_id = name_id
     name_id += 1
     return ls[0] + '.' + str(new_id)
+
+def generate_name(name):
+    return generate_name_original(name).replace(".", "_")
 
 
 ################################################################################

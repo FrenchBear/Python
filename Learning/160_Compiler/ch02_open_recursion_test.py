@@ -1,4 +1,4 @@
-# 02_open_recursion.py
+# ch02_open_recursion_test.py
 # Example to understand how class inheritance and method override work in Python to implement open_recursion
 #
 # 2025-10-09    PV      First version

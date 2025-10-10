@@ -1,4 +1,4 @@
-# 01_lint.py
+# ch01_lint.py
 # Essential of compilation, python, ch 01, simple langage with integers, ast
 #
 # 2025-10-08    PV      First version
