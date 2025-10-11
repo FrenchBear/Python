@@ -1,6 +1,6 @@
-# ch02_x24_select_statements
-# Essential of compilation, python, ch 2.4, Remove complex operands, Exercise 2.4, select X86 instructions
-# but keep variables names. Also "a=b" translated in "movq b, q" is potentially incorrect since movq can contain
+# ch02_x23_select_statements_v1.py
+# Essential of compilation, python ch 2, Exercise 2.5, select X86 instructions, version 1
+# Keep variables names. Also "a=b" translated in "movq b, q" is potentially incorrect since movq can contain
 # at most one memory reference, this will be addressed later
 #
 # 2025-10-10    PV      First version
@@ -43,7 +43,7 @@ class Compiler2(Compiler):
                     case Name(id):
                         return [Instr('movq', [Name(id), Name(name)])]
                     
-                    case Call(Name('read_int'), []):
+                    case Call(Name('input_int'), []):
                         return [Callq(label_name('read_int'), 0),
                                 Instr('movq', [Reg('rax'), Name(name)])]
                     
@@ -65,17 +65,17 @@ class Compiler2(Compiler):
                     case _:
                         return []
             
-            # The case Expr(...) is useless except the side effect of read_int()
+            # The case Expr(...) is useless except the side effect of input_int()
             case Expr(exp):
                 match exp:
-                    case Call(Name('read_int'), []):
+                    case Call(Name('input_int'), []):
                         return [Callq(label_name('read_int'), 0)]
-                    case BinOp(Call(Name('read_int'), []), op, Call(Name('read_int'), [])):
+                    case BinOp(Call(Name('input_int'), []), op, Call(Name('input_int'), [])):
                         return [Callq(label_name('read_int'), 0),
                                 Callq(label_name('read_int'), 0)]
-                    case BinOp(Call(Name('read_int'), []), op, _) | BinOp(_, op, Call(Name('read_int'), [])):
+                    case BinOp(Call(Name('input_int'), []), op, _) | BinOp(_, op, Call(Name('input_int'), [])):
                         return [Callq(label_name('read_int'), 0)]
-                    case UnaryOp(USub(), Call(Name('read_int'), [])):
+                    case UnaryOp(USub(), Call(Name('input_int'), [])):
                         return [Callq(label_name('read_int'), 0)]
                     case _:
                         return []
@@ -96,8 +96,8 @@ class Compiler2(Compiler):
 
 
 if __name__ == '__main__':
-    #program = 'x=-5+read_int()\nx=x+1\ny=1+x\nprint(x)'
-    #program = 'x=-3\n-read_int()\nprint(x)'
+    #program = 'x=-5+input_int()\nx=x+1\ny=1+x\nprint(x)'
+    #program = 'x=-3\n-input_int()\nprint(x)'
     program = 'a=42\nb=a\nprint(b)'
 
     print("\n\n------------------------------------")

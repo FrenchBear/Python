@@ -50,7 +50,7 @@ class Compiler:
                     tn = generate_name('temp')
                     tempo.append((Name(tn), UnaryOp(op, argproc[0])))
                     return Name(tn), tempo
-                return UnaryOp(op, arg), tempo
+                return UnaryOp(op, argproc[0]), tempo
 
             case _:
                 return e, tempo
@@ -90,18 +90,19 @@ class Compiler:
 
 if __name__ == '__main__':
     #program = 'x=1+2\nprint(3+4)'
-    program = 'x=-2\nprint(-5)'
+    #program = 'x=-2\nprint(-5)'
+    program = 'x=-input_int()'
 
     print("\n\n------------------------------------")
     print("Original program:\n", program, sep='')
     p = ast.parse(program)
-    print("\nAST:\n", ast.dump(p, indent=2), sep='')
-    print("\nExecution:")
-    InterpLvar.interp_Lvar(p)
+    #print("\nAST:\n", ast.dump(p, indent=2), sep='')
+    # print("\nExecution:")
+    # InterpLvar.interp_Lvar(p)
 
     q = Compiler().remove_complex_operands(p)
     print("\n------\nAfter removing complex expressions:")
     print(ast.unparse(q))
-    print("\nAST:\n", ast.dump(q, indent=2), sep='')
-    print("\nExecution:")
-    InterpLvar.interp_Lvar(q)
+    #print("\nAST:\n", ast.dump(q, indent=2), sep='')
+    # print("\nExecution:")
+    # InterpLvar.interp_Lvar(q)
