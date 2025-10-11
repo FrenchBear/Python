@@ -33,11 +33,14 @@ class Compiler2(Compiler):
         match exp:
             case Constant(n):
                 i = cast(int, n)
-                if -32768 <= i <= 32767:
-                    return [Instr('movq', [Immediate(i), target])]
-                else:
-                    return [Instr('movq', [Immediate(i), Reg('rax')]),
-                            Instr('movq', [Reg('rax'), target])]
+                return [Instr('movq', [Immediate(i), target])]
+            
+                # This should be done for ann uses of a constant, including "addq constant, target" for instance
+                # if -32768 <= i <= 32767:
+                #     return [Instr('movq', [Immediate(i), target])]
+                # else:
+                #     return [Instr('movq', [Immediate(i), Reg('rax')]),
+                #             Instr('movq', [Reg('rax'), target])]
             
             case Name(id):
                 return [Instr('movq', [self.select_arg(Name(id)), target])]
@@ -85,14 +88,16 @@ class Compiler2(Compiler):
             case _:
                 return []
 
-    def select_instructions(self, p: Module) -> X86Program:
+    def select_instructions(self, p: Module, with_pre_post: bool = True) -> X86Program:
         asm_body = []
-        asm_body.append(Instr('pushq', [Reg('rdi')]))
+        if with_pre_post:
+            asm_body.append(Instr('pushq', [Reg('rdi')]))
         for statement in p.body:
             asm_body.extend(self.select_stmt(statement))
-        asm_body.append(Instr('popq', [Reg('rdi')]))
-        asm_body.append(Instr('movq', [Immediate(0), Reg('rax')]))
-        asm_body.append(Instr('retq', []))
+        if with_pre_post:
+            asm_body.append(Instr('popq', [Reg('rdi')]))
+            asm_body.append(Instr('movq', [Immediate(0), Reg('rax')]))
+            asm_body.append(Instr('retq', []))
         x86p = X86Program(asm_body)
         return x86p
 

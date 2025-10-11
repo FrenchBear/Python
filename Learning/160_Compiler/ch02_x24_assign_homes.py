@@ -31,25 +31,21 @@ class Compiler3(Compiler):
         match exp:
             case Constant(n):
                 i = cast(int, n)
-                if -32768 <= i <= 32767:
-                    return [Instr('movq', [Immediate(i), target])]
-                else:
-                    return [Instr('movq', [Immediate(i), Reg('rax')]),
-                            Instr('movq', [Reg('rax'), target])]
-            
+                return [Instr('movq', [Immediate(i), target])]
+
             case Name(id):
                 return [Instr('movq', [self.select_arg(Name(id)), target])]
-            
+
             case Call(Name('input_int'), []):
                 return [Callq(label_name('read_int'), 0),
                         Instr('movq', [Reg('rax'), target])]
-            
+
             case BinOp(left, op, right):
                 x86op = 'addq' if isinstance(op, Add) else 'subq'
-                if left==target:
+                if left == target:
                     # Case name = name op right
                     return [Instr(x86op, [self.select_arg(right), target])]
-                elif right==target:
+                elif right == target:
                     # Case name = left op name
                     return [Instr(x86op, [self.select_arg(left), target])]
                 else:
@@ -58,7 +54,7 @@ class Compiler3(Compiler):
 
             case UnaryOp(USub(), arg):
                 source = self.select_arg(arg)
-                if source==target:
+                if source == target:
                     return [Instr('negq', [target])]
                 return [Instr('movq', [source, target]),
                         Instr('negq', [target])]
@@ -75,7 +71,7 @@ class Compiler3(Compiler):
 
             case Assign([Name(name)], exp):
                 return self.process_expression(exp, cast(location, Name(name)))
-            
+
             # A simple expression is actually useless except for size effect of calling functions such as input_int()
             case Expr(exp):
                 return self.process_expression(exp, Reg('rax'))
@@ -84,38 +80,56 @@ class Compiler3(Compiler):
                 return []
 
     def assign_homes(self, p: X86Program) -> X86Program:
-        asm_body = []
+        # Build a dictionary mapping name -> %rbp relative address
         names_dict = {}
 
-        def process_args(args):
-            for arg in args:
-                match arg:
-                    case Name(id):
-                        print("** Name:", id)
-                        names_dict[arg] = False
-
+        # First step, collect names
         for statement in p.body:
-            print("«",statement,"»")
             match statement:
-                case Instr('movq', args):
-                    print("Instruction movq, args=", args)
-                    process_args(args)
-                case Instr('addq', args):
-                    print("Instruction addq, args=", args)
-                    process_args(args)
-                case Instr('subq', args):
-                    print("Instruction subq, args=", args)
-                    process_args(args)
-                case Instr('negq', args):
-                    print("Instruction negq, args=", args)
-                    process_args(args)
+                case Instr(instruction, args):
+                    arg: Any
+                    for arg in args:
+                        match arg:
+                            case Name(id):
+                                names_dict[id] = False
 
-        print()
-        print(names_dict.keys())
-        print()
+        # need stacksize*8 bytes on stack, rounded to 16 bytes multiple
+        stacksize = ((len(names_dict) + 1) & 0xfffe) * 8
+
+        # Allocate names indexes
+        ix = -8
+        for name in names_dict:
+            names_dict[name] = ix
+            ix -= 8
+
+        # Preamble
+        asm_body = []
+        asm_body.append(Instr('pushq', [Reg('rbp')]))
+        asm_body.append(Instr('movq', [Reg('rsp'), Reg('rbp')]))
+        asm_body.append(Instr('subq', [Immediate(stacksize), Reg('rsp')]))
+
+        # Transform names into memory references
+        for statement in p.body:
+            match statement:
+                case Instr(instruction, args):
+                    new_args = []
+                    arg: Any
+                    for arg in args:
+                        match arg:
+                            case Name(id):
+                                new_args.append(Deref('rbp', names_dict[id]))
+                            case _:
+                                new_args.append(arg)
+                    asm_body.append(Instr(instruction, new_args))
+
+        # Postamble
+        asm_body.append(Instr('addq', [Immediate(stacksize), Reg('rsp')]))
+        asm_body.append(Instr('popq', [Reg('rbp')]))
+        asm_body.append(Instr('retq', []))
 
         x86p = X86Program(asm_body)
         return x86p
+
 
 if __name__ == '__main__':
     def process_program(program):
@@ -134,12 +148,12 @@ if __name__ == '__main__':
         # InterpLvar.interp_Lvar(q)
 
         print("\n------\nX86 code generation:")
-        r = Compiler2().select_instructions(q)
+        r = Compiler2().select_instructions(q, with_pre_post=False)
         print(str(r).lstrip())
 
         print("------\nAssign homes:")
         s = Compiler3().assign_homes(r)
+        print(str(s).lstrip())
 
-
-    program = 'x=-3\ny=x\nprint(x+y)'
+    program = 'x=-35000\ny=x\nprint(x+y)'
     process_program(program)
