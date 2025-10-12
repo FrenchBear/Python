@@ -4,8 +4,7 @@
 import os
 import re
 
-#source = r"C:\Users\Pierr\GoogleDrive\MusicGD\MP3P\Chansons Intl\_Divers"
-source = r"C:\Users\Pierr\GoogleDrive\MusicGD\MP3P\Chansons France\_Divers"
+source = r"C:\MusicOD\MP3P\Chansons France\_Divers"
 l = [f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))]
 
 accent_tabin_str = u'àâäéèêëîïôöûüùÿç'
