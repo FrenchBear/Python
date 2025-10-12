@@ -58,5 +58,6 @@ if __name__ == '__main__':
         t = Compiler4().patch_instructions(s)
         print(str(t).lstrip())
 
-    program = 'x=35000\ny=25000\nprint(x+y)'
+    #program = 'x=35000\ny=25000\nprint(x+y)'
+    program = "x=12+8\nprint(x)"
     process_program(program)

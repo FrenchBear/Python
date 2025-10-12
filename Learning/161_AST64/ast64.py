@@ -87,6 +87,15 @@ class A64OperandRegister64(A64Operand):
 
     def __repr__(self): return f"%{self.register}"
 
+    @staticmethod
+    def rsp() -> 'A64OperandRegister64':
+        return A64OperandRegister64('rsp')
+
+    @staticmethod
+    def rbp() -> 'A64OperandRegister64':
+        return A64OperandRegister64('rbp')
+
+
 @dataclass
 class A64OperandMemory64(A64Operand):
     def __init__(self, base: A64OperandRegister64, displacement: int = 0, index: A64OperandRegister64 | None = None, scale: int = 1) -> None:
@@ -127,38 +136,51 @@ class A64Instruction(A64Statement):
     @staticmethod
     def pusq(r: A64OperandRegister64) -> 'A64Instruction':
         return A64Instruction('pushq', [r])
+    
+    @staticmethod
+    def movq(source: A64Operand, target: A64Operand) -> 'A64Instruction':
+        return A64Instruction('movq', [source, target])
+    
+    @staticmethod
+    def callq(label: A64OperandLabel) -> 'A64Instruction':
+        return A64Instruction('callq', [label])
 
+if __name__ == "__main__":
+    p = A64Program()
+    p.add_statement(A64Comment('My first A64 program'))
+    p.add_statement(A64Label('main'))
+    p.add_statement(A64Instruction.pusq(A64OperandRegister64('rbp')))
+    p.add_statement(A64Instruction.movq(A64OperandRegister64('rsp'), A64OperandRegister64('rbp')))
+    p.add_statement(A64Instruction('subq', [A64OperandImmediate(16), A64OperandRegister64('rsp')]))
+    p.add_statement(A64Instruction('movq', [A64OperandImmediate(12), A64OperandMemory64(A64OperandRegister64.rbp(), -8)]))
+    p.add_statement(A64Instruction('addq', [A64OperandImmediate(8), A64OperandMemory64(A64OperandRegister64.rbp(), -8)]))
+    p.add_statement(A64Instruction('movq', [A64OperandMemory64(A64OperandRegister64.rbp(), -8), A64OperandRegister64('rdi')]))
+    p.add_statement(A64Instruction.callq(A64OperandLabel('print_int')))
+    p.add_statement(A64Instruction('addq', [A64OperandImmediate(16), A64OperandRegister64('rsp')]))
+    p.add_statement(A64Instruction('popq', [A64OperandRegister64('rbp')]))
+    p.add_statement(A64Instruction.retq())
 
-p = A64Program()
-p.add_statement(A64Comment('My first A64 program'))
-p.add_statement(A64Label('main'))
-p.add_statement(A64Instruction.pusq(A64OperandRegister64('rbp')))
-p.add_statement(A64Instruction('movq', [A64OperandName('x'), A64OperandRegister64('rax')]))
-p.add_statement(A64Instruction('addq', [A64OperandImmediate(12), A64OperandRegister64('rax')]))
-p.add_statement(A64Instruction('movq', [A64OperandRegister64('rax'), A64OperandMemory64(A64OperandRegister64('rsp'), -8)]))
-p.add_statement(A64Instruction('popq', [A64OperandRegister64('rbp')]))
-p.add_statement(A64Instruction.retq())
+    print(p, "\n")
 
-print(p, "\n")
+    for statement in p:
+        match statement:
+            case A64Comment(c):
+                print(f"Comment: {c}")
+            case A64Label(l):
+                print("Label:", l)
+            case A64Instruction('retq', []):
+                print("Instruction retq")
+            case A64Instruction('pushq', [A64OperandRegister64('rbp')]):
+                # case A64Instruction('pushq', [r]):
+                print("Instruction pushq %rbp  detected")
+            case A64Instruction(opcode, [A64OperandImmediate(n), target]):
+                print("Instruction with immediate constant:", statement)
+            case A64Instruction(opcode, operands):
+                print("Instruction:", statement)
+            case _:
+                print("Unknown statement:", statement)
 
-for statement in p:
-    match statement:
-        case A64Comment(c):
-            print(f"Comment: {c}")
-        case A64Label(l):
-            print("Label:", l)
-        case A64Instruction('retq', []):
-            print("Instruction retq")
-        case A64Instruction('pushq', [A64OperandRegister64('rbp')]):
-            # case A64Instruction('pushq', [r]):
-            print("Instruction pushq %rbp  detected")
-        case A64Instruction(opcode, [A64OperandImmediate(n), target]):
-            print("Instruction with immediate constant:", statement)
-        case A64Instruction(opcode, operands):
-            print("Instruction:", statement)
-
-print("\n")
-
-r1 = A64OperandRegister64('rbp')
-r2 = A64OperandRegister64('rbp')
-print(r1 == r2)
+    # print("\n")
+    # r1 = A64OperandRegister64('rbp')
+    # r2 = A64OperandRegister64('rbp')
+    # print(r1 == r2)
