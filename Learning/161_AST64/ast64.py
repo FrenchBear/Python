@@ -154,6 +154,7 @@ if __name__ == "__main__":
     p.add_statement(A64Instruction('subq', [A64OperandImmediate(16), A64OperandRegister64('rsp')]))
     p.add_statement(A64Instruction('movq', [A64OperandImmediate(12), A64OperandMemory64(A64OperandRegister64.rbp(), -8)]))
     p.add_statement(A64Instruction('addq', [A64OperandImmediate(8), A64OperandMemory64(A64OperandRegister64.rbp(), -8)]))
+    p.add_statement(A64Instruction('negq', [A64OperandMemory64(A64OperandRegister64.rbp(), -8)]))
     p.add_statement(A64Instruction('movq', [A64OperandMemory64(A64OperandRegister64.rbp(), -8), A64OperandRegister64('rdi')]))
     p.add_statement(A64Instruction.callq(A64OperandLabel('print_int')))
     p.add_statement(A64Instruction('addq', [A64OperandImmediate(16), A64OperandRegister64('rsp')]))
