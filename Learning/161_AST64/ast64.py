@@ -51,6 +51,12 @@ class A64Operand:
 @dataclass
 class A64OperandImmediate(A64Operand):
     def __init__(self, immediate: int) -> None:
+        if -(2**63) <= immediate <= 2**63-1:
+            self.immediate = immediate
+        else:
+            raise ValueError(f"Invalid immediate value: {immediate}")
+
+
         self.immediate = immediate
 
     __match_args__ = ('immediate',)

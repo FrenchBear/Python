@@ -1,0 +1,42 @@
+https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
+
+3.4.2 Jump Instructions
+Instruction Description Condition Code Page #
+jmp Label Jump to label 189
+jmp *Operand Jump to specified location 189
+je / jz Label Jump if equal/zero ZF 189
+jne / jnz Label Jump if not equal/nonzero ~ZF 189
+js Label Jump if negative SF 189
+jns Label Jump if nonnegative ~SF 189
+jg / jnle Label Jump if greater (signed) ~(SF^0F)&~ZF 189
+jge / jnl Label Jump if greater or equal (signed) ~(SF^0F) 189
+jl / jnge Label Jump if less (signed) SF^0F 189
+jle / jng Label Jump if less or equal (SF^OF)|ZF 189
+ja / jnbe Label Jump if above (unsigned) ~CF&~ZF 189
+jae / jnb Label Jump if above or equal (unsigned) ~CF 189
+jb / jnae Label Jump if below (unsigned) CF 189
+jbe / jna Label Jump if below or equal (unsigned) CF|ZF 189
+3.4.3 Conditional Move Instructions
+Conditional move instructions do not have any suffixes, but their source and destination
+operands must have the same size.
+Instruction Description Condition Code Page #
+cmove / cmovz S, D Move if equal/zero ZF 206
+cmovne / cmovnz S, D Move if not equal/nonzero ~ZF 206
+cmovs S, D Move if negative SF 206
+cmovns S, D Move if nonnegative ~SF 206
+cmovg / cmovnle S, D Move if greater (signed) ~(SF^0F)&~ZF 206
+cmovge / cmovnl S, D Move if greater or equal (signed) ~(SF^0F) 206
+cmovl / cmovnge S, D Move if less (signed) SF^0F 206
+cmovle / cmovng S, D Move if less or equal (SF^OF)|ZF 206
+cmova / cmovnbe S, D Move if above (unsigned) ~CF&~ZF 206
+cmovae / cmovnb S, D Move if above or equal (unsigned) ~CF 206
+cmovb / cmovnae S, D Move if below (unsigned) CF 206
+cmovbe / cmovna S, D Move if below or equal (unsigned) CF|ZF 206
+
+
+caller-saved registers: rax rcx rdx rsi rdi r8 r9 r10 r11
+callee-saved registers: rsp rbp rbx r12 r13 r14 r15
+
+the first six arguments of a function are passed in the following six registers, in this order:
+argument-passing registers: rdi rsi rdx rcx r8 r9
+
