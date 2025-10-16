@@ -190,6 +190,7 @@ if __name__ == "__main__":
     p = A64Program()
     p.add_statement(A64Comment('My first A64 program'))
     p.add_statement(A64Label('main'))
+    p.add_statement(A64Instruction('callq', [A64OperandLabel('print_zero')]));
     
     p.add_statement(A64Instruction.pusq(A64OperandRegister64('rbp')))
     p.add_statement(A64Instruction.movq(A64OperandRegister64('rsp'), A64OperandRegister64('rbp')))
@@ -204,6 +205,11 @@ if __name__ == "__main__":
 
     p.add_statement(A64Instruction('movq', [A64OperandRegister64('rbp'), A64OperandRegister64('rsp')]))
     p.add_statement(A64Instruction('popq', [A64OperandRegister64('rbp')]))
+    p.add_statement(A64Instruction.retq())
+
+    p.add_statement(A64Label('print_zero'))
+    p.add_statement(A64Instruction('movq', [A64OperandImmediate(0), A64OperandRegister64('rdi')]))
+    p.add_statement(A64Instruction.callq(A64OperandLabel('print_int')))
     p.add_statement(A64Instruction.retq())
 
     #print(p)
