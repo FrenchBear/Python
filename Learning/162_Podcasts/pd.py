@@ -58,7 +58,7 @@ def save_config(config):
 
 def sanitize_filename(filename):
     """Removes invalid characters from a filename."""
-    return re.sub(r'[\\/*?:"<>|]', "", filename)
+    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?','¿').replace(':',',').replace('/','-'))
 
 def download_podcast(podcast_config, index, total):
     """Downloads a single podcast based on its configuration."""
