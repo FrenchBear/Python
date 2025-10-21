@@ -7,22 +7,42 @@ import os.path
 import shutil
 from common_fs import get_files
 
-source = r"C:\MusicOD\Humour\Matthieu Noël\Le débrief d'Europe midi (Switek Aphatie)"
-source = r"C:\Temp\MP3"
-dest = r'C:\Temp\TP'
+# source = r"C:\Temp\LP\Lisa Delmoitiez"
+# dest = r"C:\Temp\Lisa Delmoitiez\Lisa Delmoitiez - France Inter - Lisa Delmoitiez n'aurait pas fait comme ça"
+# split_on_month = True
+
+# source = r"C:\Temp\LP\Frédéric Fromet"
+# dest = r"C:\Temp\Frédéric Fromet\Frédéric Fromet - France Inter - La chanson de Frédéric Fromet"
+# split_on_month = False
+
+# source = r"C:\Temp\LP\Alex Vizorek"
+# dest = r"C:\Temp\Alex Vizorek\Alex Vizorek - France Inter - Le billet d'Alex Vizorek"
+# split_on_month = False
+
+# source = r"C:\Temp\LP\Daniel Morin"
+# dest = r"C:\Temp\Daniel Morin\Daniel Morin - France Inter - Le billet de Daniel Morin"
+# split_on_month = True
+
+source = r"C:\Temp\LP\Charline Vanhoenacker"
+dest = r"C:\Temp\Charline Vanhoenacker\Charline Vanhoenacker - France Inter - Le billet de Charline"
+split_on_month = True
 
 doit = True
 
-files = [filefp for filefp in get_files(source) if filefp.endswith(".mp3")]
+
+files = [filefp for filefp in get_files(source) if filefp.endswith(".mp3")]     # Source is flat
 
 for file in files:
-    ts = file.split(" - ")
-    assert len(ts) == 3
-    month = ts[1][:7]
-    print(month)
-    target = os.path.join(dest, month)
-    print(file, ' --> ', target)
+    month = file[5:7]
+    year = file[:4]
+
+    if split_on_month:
+        targetfolder = os.path.join(dest, year, year + "-" + month)
+    else:
+        targetfolder = os.path.join(dest, year)
+
+    print(file, ' --> ', targetfolder)
     if doit:
-        if not os.path.exists(target):
-            os.makedirs(target)
-        shutil.move(os.path.join(source, file), target)
+        if not os.path.exists(targetfolder):
+            os.makedirs(targetfolder)
+        shutil.move(os.path.join(source, file), targetfolder)
