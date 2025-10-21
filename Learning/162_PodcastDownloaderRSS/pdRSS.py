@@ -1,4 +1,7 @@
-# pd.py - Podcasts downloader
+# pdRSS.py - Podcasts downloader
+# First version, use RSS feed to download podcasts
+# Pro: works potentially with any standard RSS feed
+# Con: Radio France RSS podcasts contains ads
 #
 # 2025-10-20    PV      Code written by Gemini
 
@@ -7,17 +10,17 @@
 # This program should be configured by a yaml file, a list of records describing each one a podcast, such as:
 # 
 # - podcast: Tanguy Pastureau maltraite l'info
-# - url: https://radiofrance-podcast.net/podcast09/rss_18141.xml
+# - feed: https://radiofrance-podcast.net/podcast09/rss_18141.xml
 # - path: D:\Temp\Podcasts\Tanguy Pastureau
 # - last_download: <date time>
 # 
 # - podcast: Charline explose les faits
-# - url: https://radiofrance-podcast.net/podcast09/rss_13129.xml
+# - feed: https://radiofrance-podcast.net/podcast09/rss_13129.xml
 # - path: D:\Temp\Podcasts\Charline Vanhoenacker
 # - last_download: <date time>
 # 
 # Each podcast contains folloging information: podcast: a title, to be displayed to indicate progress when downloading
-# url: the RSS feed of the podcast path: local folder in which media files should be stored, to be created if it doesn't
+# feed: the RSS feed of the podcast path: local folder in which media files should be stored, to be created if it doesn't
 # exist last_download: a timestamp of the most recent podcast dowloaded, so during a download operation, analysis of RSS
 # feed will not examine older podcasts. This field should be updated after a successful download operation. If this
 # field doesn't exists or is empty, then all feeds should be downloaded.
@@ -37,7 +40,7 @@ import os
 from datetime import datetime, timezone
 import re
 
-CONFIG_FILE = 'config.yaml'
+CONFIG_FILE = r"D:\Podcasts\RSS\config.yaml"
 
 def load_config():
     """Loads the YAML configuration file."""
@@ -63,14 +66,14 @@ def sanitize_filename(filename):
 def download_podcast(podcast_config, index, total):
     """Downloads a single podcast based on its configuration."""
     podcast_title = podcast_config.get('podcast', 'Unknown Podcast')
-    url = podcast_config.get('url')
+    feed = podcast_config.get('feed')
     path = podcast_config.get('path')
     last_download_str = podcast_config.get('last_download')
 
     print(f"[{index}/{total}] Processing: {podcast_title}")
 
-    if not url or not path:
-        print(f"  -> Skipping '{podcast_title}': 'url' or 'path' is missing.")
+    if not feed or not path:
+        print(f"  -> Skipping '{podcast_title}': 'feed' or 'path' is missing.")
         return
 
     # Create directory if it doesn't exist
@@ -78,7 +81,7 @@ def download_podcast(podcast_config, index, total):
 
     # Parse the RSS feed
     try:
-        feed = feedparser.parse(url)
+        feed = feedparser.parse(feed)
     except Exception as e:
         print(f"  -> Error fetching feed for '{podcast_title}': {e}")
         return
