@@ -1,7 +1,8 @@
-# rename_BD.py
-# Renomme les BD à partir de deux listes de fichiers (originale et corrigée)
+# rename_two_lists.py
+# Renomme des fichiers à partir de deux listes de fichiers (originale et corrigée)
 #
 # 2025-09-28    PV
+# 2025-10-21    PV      Rename and cleanup
 
 import os
 from common_fs import file_exists
@@ -22,10 +23,8 @@ for i in range(len(old)):
         print("new:", n)
         print()
 
-        ofp = r"C:\MusicOD\Humour\Matthieu Noël" + os.sep + o + ".mp3"
-        nfp = r"C:\MusicOD\Humour\Matthieu Noël" + os.sep + n + ".mp3"
-        if not file_exists(ofp):
+        if not file_exists(o):
             breakpoint()
             pass
             
-        os.rename(ofp, nfp)
+        os.rename(o, n)

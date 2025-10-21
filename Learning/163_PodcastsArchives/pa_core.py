@@ -1,8 +1,9 @@
-# pa_daniel_morin.py - Podcasts Archives (Radio France), Daniel Morin
+# pa_lisa_delmoitiez.py - Podcasts Archives (Radio France), Lisa Delmoitiez
 #
 # 2025-10-20    PV      First version
 
 from datetime import datetime
+import os
 import re
 import json
 import requests
@@ -25,18 +26,20 @@ def read_url(url: str) -> str:
         return response.text
 
     except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        raise e
+        print(f"*** An error occurred: {e}")
+        return ""
 
 def sanitize_filename(filename):
     """Removes invalid characters from a filename."""
-    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?','¿').replace(':',',').replace('/','-'))
+    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?','¿').replace(':',',').replace('/','-').replace('"', '«').replace('”', '»').replace('“', '«'))
 
-def process_episode(episode_url: str):
-    # with open("le-billet-de-daniel-morin-du-mercredi-01-mars-2023-9733913.html", "r", encoding="utf-8") as f:
+def process_episode(root: str, serie: str, episode_url: str):
+    # with open("le-billet-de-charline_vanhoenacker-du-mercredi-01-mars-2023-9733913.html", "r", encoding="utf-8") as f:
     #     text = f.read()
 
     text = read_url(episode_url)
+    if text=="":
+        return
 
     re_script = re.compile(r'<script[^>]*type="application/ld\+json">(.*?)</script>', re.MULTILINE)    # non-greedy capture
     find_iter = re_script.finditer(text)
@@ -59,7 +62,8 @@ def process_episode(episode_url: str):
                     # print("Date:", date_created)
                     # print("Url:", url)
 
-                    filename = "C:\\downloads\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
+                    filename = f"C:\\downloads\\podcasts-archives-{root}\\" + serie + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
+                    os.makedirs(os.path.dirname(filename), exist_ok=True)
                     #print("Filename:", filename)
 
                     try:
@@ -84,23 +88,21 @@ def process_episode(episode_url: str):
 
 
 
-def process_page(page_url: str):
+def process_page(root: str, page_url: str):
     # with open("p23.html", "r", encoding="utf-8") as f:
     #     text = f.read()
     text = read_url(page_url)
+    # with open("p10.html", "w", encoding="utf-8") as f:
+    #     f.write(text)
 
-    re_liste = re.compile(r'"(https://www.radiofrance.fr/franceinter/podcasts/le-billet-de-daniel-morin/[^"]+)"')
+    re_liste = re.compile(r'"(https://www.radiofrance.fr/franceinter/podcasts/([^/"]+?)/[^"]+)"')
 
     find_iter = re_liste.finditer(text)
     if find_iter:
         for ma in find_iter:
+            serie = ma.group(2)
             episode_url = ma.group(1)
-            print(episode_url)
-            process_episode(episode_url)
+            if serie!="canicule-sentimentale":
+                print(serie, '  -->  ', episode_url)
+                process_episode(root, serie, episode_url)
 
-
-# Page 30 not downloaded yet
-for p in range(75, 85):
-    print("--------------------------------------")
-    print(f"Page {p}\n")
-    process_page(f"https://www.radiofrance.fr/franceinter/podcasts/le-billet-de-daniel-morin?p={p}")
