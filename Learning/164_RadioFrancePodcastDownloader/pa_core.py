@@ -100,6 +100,6 @@ def get_twenty_pages(page_url: str) -> list[str]:
         for ma in find_iter:
             serie = ma.group(2)
             episode_url = ma.group(1)
-            res.append(episode_url)
+            res.append((serie, episode_url))
     
     return res

@@ -28,13 +28,13 @@ def save_config(config):
         yaml.dump(config, f, allow_unicode=True, sort_keys=False)
 
 
-
 def process_podcast_main_page(podcast_config, index, total):
     """Downloads a single podcast based on its configuration."""
     podcast_title = podcast_config.get('podcast', 'Unknown Podcast')
     url = podcast_config.get('url')
     path = podcast_config.get('path')
     last_download = podcast_config.get('last_download')
+    defcount = int(podcast_config.get('defcount', '3'))
 
     print(f"[{index}/{total}] Processing: {podcast_title}")
 
@@ -44,21 +44,21 @@ def process_podcast_main_page(podcast_config, index, total):
 
     page_count = -1
     twenty_pages = pa_core.get_twenty_pages(url)
-    for ix, page in enumerate(twenty_pages):
-        if page==last_download:
+    for ix, (_, page) in enumerate(twenty_pages):
+        if page == last_download:
             page_count = ix
             break
-    if page_count==-0:
+    if page_count == 0:
         print(f"--> No new poadcast\n")
         return
-    if page_count==-1:
-        print(f"Can't find last downloaded page, will load top 3 pages")
-        page_count = 3
+    if page_count == -1:
+        print(f"Can't find last downloaded page, will load top {defcount} pages")
+        page_count = defcount
     else:
         print(f"--> {page_count} podcasts to load")
 
     for ix in range(page_count):
-        pa_core.process_podcast_page(path, twenty_pages[ix])
+        pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1])
 
     # Works because podcast_config is actually a reference in outer config
     podcast_config['last_download'] = twenty_pages[0]
@@ -72,12 +72,6 @@ if __name__ == "__main__":
         podcasts_list = config['podcasts']
         total_podcasts = len(podcasts_list)
         print(f"Found {total_podcasts} podcasts to check.\n")
-        
+
         for i, podcast_conf in enumerate(podcasts_list):
             process_podcast_main_page(podcast_conf, i + 1, total_podcasts)
-    
-
-# for p in range(24, 25):
-#     print("--------------------------------------")
-#     print(f"Page {p}\n")
-#     pa_core.process_page("la-chanson-de-frederic-fromet", f"https://www.radiofrance.fr/franceinter/podcasts/la-chanson-de-frederic-fromet?p={p}")
