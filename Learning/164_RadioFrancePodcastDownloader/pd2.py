@@ -61,7 +61,7 @@ def process_podcast_main_page(podcast_config, index, total):
         pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1])
 
     # Works because podcast_config is actually a reference in outer config
-    podcast_config['last_download'] = twenty_pages[0]
+    podcast_config['last_download'] = twenty_pages[0][1]
     save_config(config)
     print()
 
