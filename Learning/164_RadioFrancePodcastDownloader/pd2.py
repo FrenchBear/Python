@@ -8,7 +8,7 @@ import os
 import yaml
 import pa_core
 
-CONFIG_FILE = r"D:\Podcasts\RadioFrance\configRF.yaml"
+CONFIG_FILE = r"C:\MusicOD2\Podcasts\RadioFrance\configRF.yaml"
 
 def load_config():
     """Loads the YAML configuration file."""

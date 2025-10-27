@@ -40,7 +40,7 @@ import os
 from datetime import datetime, timezone
 import re
 
-CONFIG_FILE = r"D:\Podcasts\RSS\config.yaml"
+CONFIG_FILE = r"C:\MusicOD2\Podcasts\RSS\config.yaml"
 
 def load_config():
     """Loads the YAML configuration file."""
