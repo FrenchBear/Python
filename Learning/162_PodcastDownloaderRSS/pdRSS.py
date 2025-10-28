@@ -34,7 +34,7 @@
 # Retailleau.mp3" in this specific example.
 
 import yaml
-import feedparser
+import feedparser       # type: ignore
 import requests
 import os
 from datetime import datetime, timezone
