@@ -43,19 +43,19 @@ for i in range(len(theta_rad)):
     ax.plot([x1[i], x2[i]], [y1[i], y2[i]], color='blue', alpha=0.4, linewidth=0.7)
 
 # 6. Save the output files
-png_filename = 'cardioid_plot.png'
-pdf_filename = 'cardioid_plot.pdf'
+# png_filename = 'cardioid_plot.png'
+# pdf_filename = 'cardioid_plot.pdf'
 
-try:
-    plt.savefig(png_filename, dpi=150, bbox_inches='tight')
-    plt.savefig(pdf_filename, bbox_inches='tight')
+# try:
+#     plt.savefig(png_filename, dpi=150, bbox_inches='tight')
+#     plt.savefig(pdf_filename, bbox_inches='tight')
     
-    print(f"Successfully saved image to {png_filename}")
-    print(f"Successfully saved PDF to {pdf_filename}")
-    print("Plot generation complete.")
+#     print(f"Successfully saved image to {png_filename}")
+#     print(f"Successfully saved PDF to {pdf_filename}")
+#     print("Plot generation complete.")
 
-except Exception as e:
-    print(f"Error saving files: {e}")
+# except Exception as e:
+#     print(f"Error saving files: {e}")
 
 # Optionally view the result
 plt.show()
