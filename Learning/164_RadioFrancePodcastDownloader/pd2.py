@@ -4,9 +4,15 @@
 # 2025-10-21    PV      First version, writing core
 # 2025-10-22    PV      Generic downloader
 
-import os
+# Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
+# use curl --ssl-no-revoke ...
+
 import yaml
 import pa_core
+
+# import sys
+# res = pa_core.process_podcast_page(r"C:\Temp", "tp31oct.html")
+# sys.exit(0)
 
 CONFIG_FILE = r"C:\MusicOD2\Podcasts\RadioFrance\configRF.yaml"
 
@@ -49,7 +55,7 @@ def process_podcast_main_page(podcast_config, index, total):
             page_count = ix
             break
     if page_count == 0:
-        print(f"--> No new poadcast\n")
+        print("--> No new poadcast\n")
         return
     if page_count == -1:
         print(f"Can't find last downloaded page, will load top {defcount} pages")
@@ -57,12 +63,21 @@ def process_podcast_main_page(podcast_config, index, total):
     else:
         print(f"--> {page_count} podcasts to load")
 
+    res = True
     for ix in range(page_count):
-        pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1])
+        if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
+            res = False
+            break
+
+    ############################
+    # ToDo: In case of problem in podcast_process_page, don't update config !!!!
 
     # Works because podcast_config is actually a reference in outer config
-    podcast_config['last_download'] = twenty_pages[0][1]
-    save_config(config)
+    if res:
+        podcast_config['last_download'] = twenty_pages[0][1]
+        save_config(config)
+    else:
+        print("Errors during podcast processing, history not updated")
     print()
 
 

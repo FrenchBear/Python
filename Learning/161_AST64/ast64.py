@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import Iterator, List
 
 class A64Program:
-    def __init__(self):
+    def __init__(self) -> None:
         self.statements: list[A64Statement] = []
 
     def add_statement(self, statement) -> None:
