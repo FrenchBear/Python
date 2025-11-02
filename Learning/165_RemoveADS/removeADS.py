@@ -1,5 +1,6 @@
 # removeADS.py
-# Remove alternate data streams for files stored on Synology volume since deleting an ADS does nothingcd ..
+# Remove alternate data streams for files stored on Synology volume since deleting an ADS does nothing
+# shutil.copyfile is only copying main datastream, ignoring ADS
 #
 # 2025-10-27    PV      First version
 

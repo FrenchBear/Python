@@ -3,6 +3,7 @@
 #
 # 2025-10-21    PV      First version, writing core
 # 2025-10-22    PV      Generic downloader
+# 2025-11-02    PV      Skip serie stodio-payet
 
 # Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
 # use curl --ssl-no-revoke ...
@@ -36,11 +37,17 @@ def save_config(config):
 
 def process_podcast_main_page(podcast_config, index, total):
     """Downloads a single podcast based on its configuration."""
+
     podcast_title = podcast_config.get('podcast', 'Unknown Podcast')
     url = podcast_config.get('url')
     path = podcast_config.get('path')
     last_download = podcast_config.get('last_download')
     defcount = int(podcast_config.get('defcount', '3'))
+    active = podcast_config.get('active', True)
+
+    if not active:
+        print(f"[{index}/{total}] Inactive: {podcast_title}")
+        return
 
     print(f"[{index}/{total}] Processing: {podcast_title}")
 
@@ -65,9 +72,10 @@ def process_podcast_main_page(podcast_config, index, total):
 
     res = True
     for ix in range(page_count):
-        if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
-            res = False
-            break
+        if twenty_pages[ix][0] != 'studio-payet':       # untested
+            if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
+                res = False
+                break
 
     ############################
     # ToDo: In case of problem in podcast_process_page, don't update config !!!!
@@ -90,3 +98,4 @@ if __name__ == "__main__":
 
         for i, podcast_conf in enumerate(podcasts_list):
             process_podcast_main_page(podcast_conf, i + 1, total_podcasts)
+

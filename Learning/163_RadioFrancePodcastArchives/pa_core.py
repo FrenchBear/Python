@@ -9,6 +9,11 @@ import json
 import requests
 
 def read_url(url: str) -> str:
+    # Code debug
+    if len(url) < 20:
+        with open(url, "r", encoding="utf-8") as f:
+            return f.read()
+
     # Some websites block default Python scripts. 
     # It's good practice to identify yourself with a User-Agent header.
     headers = {
@@ -31,15 +36,17 @@ def read_url(url: str) -> str:
 
 def sanitize_filename(filename):
     """Removes invalid characters from a filename."""
-    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?','¿').replace(':',',').replace('/','-').replace('"', '«').replace('”', '»').replace('“', '«'))
+    open = True
+    while '"' in filename:
+        filename = filename.replace('"', '«' if open else '»', 1)
+        open = not open
+    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«')).replace('’', "'")
 
-def process_episode(root: str, serie: str, episode_url: str):
-    # with open("le-billet-de-charline_vanhoenacker-du-mercredi-01-mars-2023-9733913.html", "r", encoding="utf-8") as f:
-    #     text = f.read()
-
+def process_episode(path: str, serie: str, episode_url: str):
     text = read_url(episode_url)
     if text=="":
-        return
+        print("*** Error when reading url")
+        return False
 
     re_script = re.compile(r'<script[^>]*type="application/ld\+json">(.*?)</script>', re.MULTILINE)    # non-greedy capture
     find_iter = re_script.finditer(text)
@@ -50,11 +57,14 @@ def process_episode(root: str, serie: str, episode_url: str):
             graph = jdata.get("@graph")[0]
             #print(graph.get("@type"))
             if graph.get("@type")=="RadioEpisode":
-                #print("RadioEpisode found")
 
                 title = graph.get("name")
                 date_created = datetime.fromisoformat(graph.get("dateCreated"))
                 try:
+                    if graph.get("mainEntity") == None:
+                        print(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
+                        return False
+
                     url = graph.get("mainEntity").get("contentUrl")
                     ext = url.split(".")[-1]
 
@@ -62,7 +72,7 @@ def process_episode(root: str, serie: str, episode_url: str):
                     # print("Date:", date_created)
                     # print("Url:", url)
 
-                    filename = f"C:\\downloads\\podcasts-archives-{root}\\" + serie + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
+                    filename = path.replace("<serie>", serie) + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     #print("Filename:", filename)
 
@@ -79,13 +89,18 @@ def process_episode(root: str, serie: str, episode_url: str):
                                     f.write(chunk)
 
                         print("--> ", filename)
+                        return True
 
                     except requests.exceptions.RequestException as e:
-                        print(f"An error occurred during download: {e}")
+                        print(f'*** An error occurred during download: {e}')
+                        return False
 
                 except Exception as e:
-                    print('*** Error during analysis, skipped')
+                    print(f'*** Error during analysis: {e}')
+                    return False
 
+    print('*** Error: no iterator found')
+    return False
 
 
 def process_page(root: str, page_url: str):
@@ -102,7 +117,7 @@ def process_page(root: str, page_url: str):
         for ma in find_iter:
             serie = ma.group(2)
             episode_url = ma.group(1)
-            if serie!="canicule-sentimentale":
+            if serie!="canicule-sentimentale" and serie!="studio-payet":
                 print(serie, '  -->  ', episode_url)
                 process_episode(root, serie, episode_url)
 
