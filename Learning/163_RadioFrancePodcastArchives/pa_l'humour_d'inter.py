@@ -5,7 +5,7 @@
 
 import pa_core
 
-for p in range(11, 100):
+for p in range(51, 100):
     print("--------------------------------------")
     print(f"Page {p}\n")
     pa_core.process_page("C:\\MusicOD2\\Podcasts\\Archives l'humour d'inter\\<serie>", f"https://www.radiofrance.fr/franceinter/podcasts/bouquet-l-humour-d-inter?p={p}")

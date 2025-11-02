@@ -72,7 +72,7 @@ def process_episode(path: str, serie: str, episode_url: str):
                     # print("Date:", date_created)
                     # print("Url:", url)
 
-                    filename = path.replace("<serie>", serie) + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
+                    filename = path.replace("<serie>", serie) + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title.strip()}.{ext}")
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     #print("Filename:", filename)
 

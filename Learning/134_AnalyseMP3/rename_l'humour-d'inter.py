@@ -56,7 +56,7 @@ folder_to_artist_crhonique = {
     "?? Camille Lorente": ("Camille Lorente", "La chronique de Camille Lorente"),
     "?? Charles Nouveau": ("Charles Nouveau", "La chronique de Charles Nouveau"),
     "la-chronique-de-guigui-pop": ("Guigui Pop", "La chronique de Guigui Pop"),
-    "la-chronique-de-harold-barbe": ("Harold Barbe", "La chronique de Harold Barbe"),
+    "la-chronique-de-harold-barbe": ("Harold Barbé", "La chronique de Harold Barbé"),
     "la-chronique-de-jesse": ("Jesse", "La chronique de Jesse"),
     "?? Karim Duval": ("Karim Duval", "La chronique de Karim Duval"),
     "?? Laura Domenge": ("Laura Domenge", "La chronique de Laura Domenge"),
