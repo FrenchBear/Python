@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 import re
 import json
+from typing import Tuple
 import requests
 
 def read_url(url: str) -> str:
@@ -60,21 +61,21 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
             # print(graph.get("@type"))
             if graph.get("@type") == "RadioEpisode":
 
-                title = graph.get("name")
+                title: str = graph.get("name")
                 date_created = datetime.fromisoformat(graph.get("dateCreated"))
                 try:
-                    if graph.get("mainEntity") == None:
+                    if graph.get("mainEntity") is None:
                         print(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
                         return False
 
                     url = graph.get("mainEntity").get("contentUrl")
-                    ext = url.split(".")[-1]
+                    ext: str = url.split(".")[-1]
 
                     # print("Titre:", title)
                     # print("Date:", date_created)
                     # print("Url:", url)
 
-                    filename = path + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title}.{ext}")
+                    filename = path + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title.strip()}.{ext}")
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     # print("Filename:", filename)
 
@@ -105,19 +106,19 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
     return False
 
 
-def get_twenty_pages(page_url: str) -> list[str]:
+def get_twenty_pages(page_url: str) -> list[Tuple[str, str]]:
     # with open("tp.html", "r", encoding="utf-8") as f:
     #     text = f.read()
     text = read_url(page_url)
 
     re_liste = re.compile(r'"(https://www.radiofrance.fr/franceinter/podcasts/([^/"]+?)/[^"]+)"')
 
-    res = []
+    res: list[Tuple[str, str]] = []
     find_iter = re_liste.finditer(text)
     if find_iter:
         for ma in find_iter:
-            serie = ma.group(2)
-            episode_url = ma.group(1)
+            serie: str = ma.group(2)
+            episode_url: str = ma.group(1)
             res.append((serie, episode_url))
 
     return res

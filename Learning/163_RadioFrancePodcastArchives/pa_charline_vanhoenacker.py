@@ -83,7 +83,7 @@ def process_episode(serie: str, episode_url: str):
                     except requests.exceptions.RequestException as e:
                         print(f"An error occurred during download: {e}")
 
-                except Exception as e:
+                except Exception:
                     print('*** Error during analysis, skipped')
 
 

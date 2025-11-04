@@ -1,14 +1,14 @@
-# rename_l'humour-d'inter.py
+# retag_l_humour_d_inter.py
 # Update mp3 tags for L'humour d'Inter
 #
 # 2025-10-21    PV
 
 import os
 import shutil
+import sys
 from common_fs import get_all_files, file_part, stem_part
-import eyed3
-import os
-import ffmpeg
+import eyed3    # type: ignore
+import ffmpeg   # type: ignore
 
 source = r"C:\MusicOD2\Podcasts\RadioFrance\L'humour d'inter"
 source_processed = r"C:\MusicOD2\Podcasts\RadioFrance.Processed\L'humour d'inter"
@@ -19,7 +19,7 @@ folder_to_artist_crhonique = {
     "?? Rosa Bursztein": ("Rosa Bursztein", "La chronique de Rosa Bursztein"),
     "?? Tania Dutel": ("Tania Dutel", "La chronique de Tania Dutel"),
     "?? Thomas Croisière": ("Thomas Croisière", "La chronique de Thomas Croisière"),
-    "?? Tristan Lopin": ("Tristan Lopin", "La chronique de Tristan Lopin"),
+    "la-chronique-de-tristan-lopin": ("Tristan Lopin", "La chronique de Tristan Lopin"),
     "?? Yann Marguet": ("Yann Marguet", "La chronique de Yann Marguet"),
     "la-drole-d-humeur-d-amandine-lourdel-n-a-pas-compris": ("Amandine Lourdel", "La drôle d'humeur d'Amandine Lourdel"),
     "?? Julie Conti": ("Julie Conti", "La drôle d'humeur de Julie Conti"),
@@ -43,7 +43,6 @@ folder_to_artist_crhonique = {
     "l-hommage-d-emma-bojan": ("Emma Bojan", "L'hommage d'Emma Bojan"),
     "?? L'humour c'était mieux avant": ("L'humour c'était mieux avant", "L'humour c'était mieux avant"),
     "lisa-delmoitiez-n-aurait-pas-fait-comme-ca": ("Lisa Delmoitiez", "Lisa Delmoitiez n'aurait pas fait comme ca"),
-    "?? Lucie Carbone": ("Lucie Carbone", "Lucie Carbone moi ce que j'en dis"),
     "la-chronique-de-sofia-belabbes": ("Sofia Belabbes", "Sofia Belabbes moi ce que j'en dis"),
     "tanguy-pastureau-maltraite-l-info": ("Tanguy Pastureau", "Tanguy Pastureau maltraite l'info"),
     "bruno-peki-n-aurait-pas-fait-comme-ca": ("Bruno Peki", "Bruno Peki n'aurait pas fait comme ca"),
@@ -61,10 +60,11 @@ folder_to_artist_crhonique = {
     "?? Karim Duval": ("Karim Duval", "La chronique de Karim Duval"),
     "?? Laura Domenge": ("Laura Domenge", "La chronique de Laura Domenge"),
     "la-chronique-de-lisa-perrio": ("Lisa Perrio", "La chronique de Lisa Perrio"),
-    "?? Lucie Carbone": ("Lucie Carbone", "La chronique de Lucie Carbone"),
+    "?? Lucie Carbone 1": ("Lucie Carbone", "Lucie Carbone moi ce que j'en dis"),
+    "?? Lucie Carbone 2": ("Lucie Carbone", "La chronique de Lucie Carbone"),
     "la-chronique-de-mahaut-drama": ("Mahaut Drama", "La chronique de Mahaut Drama"),
     "la-chronique-de-marie-de-brauer": ("Marie de Brauer", "La chronique de Marie de Brauer"),
-    "?? Marine Leonardi": ("Marine Leonardi", "La chronique de Marine Leonardi"),
+    "la-chronique-de-marine-leonardi": ("Marine Leonardi", "La chronique de Marine Leonardi"),
     "vero-la-conciliatrice": ("Véro Clederman-Pilouchet", "Merci Véro"),
 }
 
@@ -110,7 +110,7 @@ def convert_m4a_to_mp3_with_tags(input_file, output_file):
             .run(capture_stdout=True, capture_stderr=True, overwrite_output=True)
         )
         
-        print(f"Conversion to .mp3 successful")
+        print("Conversion to .mp3 successful")
         
     except ffmpeg.Error as e:
         print("Error during conversion:")
@@ -121,13 +121,21 @@ def convert_m4a_to_mp3_with_tags(input_file, output_file):
         print("Please ensure ffmpeg is installed and in your system's PATH.")
 
 
+# First check for missing mappings
+problem = False
 for filefp in list(get_all_files(source)):
     if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
         parent = file_part(os.path.dirname(filefp))
         if parent not in folder_to_artist_crhonique:
             print("Folder not found: ", parent)
-            breakpoint()
+            problem = True
+if problem:
+    sys.exit(0)
 
+
+for filefp in list(get_all_files(source)):
+    if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
+        parent = file_part(os.path.dirname(filefp))
         file = file_part(filefp)
         artist, correct_folder = folder_to_artist_crhonique[parent]
         print(artist + ":", file)

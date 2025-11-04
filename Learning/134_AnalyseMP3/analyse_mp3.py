@@ -4,7 +4,7 @@
 # 2023-12-19    PV
 
 from collections import Counter
-import eyed3
+import eyed3    # type: ignore
 import logging
 import io
 import os
@@ -16,7 +16,7 @@ root = r'C:\Temp\A_Trier Brut'
 log_stream = io.StringIO()
 logging.basicConfig(stream=log_stream, level=logging.INFO)
 
-co = Counter()
+co: Counter = Counter()
 
 def get_bit_rate(file: str) -> int:
     af = eyed3.core.load(file)

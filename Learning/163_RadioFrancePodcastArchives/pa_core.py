@@ -61,7 +61,7 @@ def process_episode(path: str, serie: str, episode_url: str):
                 title = graph.get("name")
                 date_created = datetime.fromisoformat(graph.get("dateCreated"))
                 try:
-                    if graph.get("mainEntity") == None:
+                    if graph.get("mainEntity") is None:
                         print(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
                         return False
 

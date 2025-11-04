@@ -5,7 +5,7 @@
 
 import re
 import os
-import winshell
+import winshell     # type: ignore
 from common_fs import get_all_files
 from Levenshtein import LevenshteinDistance, Lowercase_no_diacritic
 
