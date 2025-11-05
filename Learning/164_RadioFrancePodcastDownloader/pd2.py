@@ -4,6 +4,7 @@
 # 2025-10-21    PV      First version, writing core
 # 2025-10-22    PV      Generic downloader
 # 2025-11-02    PV      Skip serie stodio-payet
+# 2025-11-05    PV      Look for last downloaded episoze in the last 5 main pages; use memoization
 
 # Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
 # use curl --ssl-no-revoke ...
@@ -36,7 +37,7 @@ def save_config(config):
 
 
 def process_podcast_main_page(podcast_config, index, total):
-    """Downloads a single podcast based on its configuration."""
+    """Downloads podcasts for a specific group, knowing the last downloaded page."""
 
     podcast_title = podcast_config.get('podcast', 'Unknown Podcast')
     url = podcast_config.get('url')
@@ -55,31 +56,49 @@ def process_podcast_main_page(podcast_config, index, total):
         print(f"  -> Skipping '{podcast_title}': 'url' or 'path' is missing.")
         return
 
-    page_count = -1
-    twenty_pages = pa_core.get_twenty_pages(url)
-    for ix, (_, page) in enumerate(twenty_pages):
-        if page == last_download:
-            page_count = ix
-            break
-    if page_count == 0:
-        print("--> No new poadcast\n")
-        return
-    if page_count == -1:
-        print(f"Can't find last downloaded page, will load top {defcount} pages")
-        page_count = defcount
-    else:
-        print(f"--> {page_count} podcasts to load")
+    # Determine page_index and expsode_index of the first episode to download (included),
+    # until episode_index 1 of episode_page 1
 
-    res = True
-    for ix in range(page_count):
-        if twenty_pages[ix][0] != 'studio-payet':       # untested
-            if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
-                res = False
+    page_index = 1
+    episode_index = -1
+
+    while True:
+        twenty_pages = pa_core.get_twenty_pages(url, page_index)
+        for ix, (_, page) in enumerate(twenty_pages):
+            if page == last_download:
+                episode_index = ix
                 break
 
-    ############################
-    # ToDo: In case of problem in podcast_process_page, don't update config !!!!
+        if episode_index == 0:
+            print("--> No new poadcast\n")
+            return
 
+        if episode_index == -1:
+            if page_index == 5:
+                print(f"Can't find last downloaded episode in the first 5 pages, will load top {defcount} episodes of page 1")
+                page_index = 1
+                episode_index = defcount
+                break
+            # Not found on current page, continue with next page
+            page_index += 1
+        else:
+            print(f"Start downloading from page {page_index} episode {episode_index}")
+            break
+
+    for p in range(page_index, 0, -1):
+        print(f"Processing page {p}")
+        twenty_pages = pa_core.get_twenty_pages(url, p)
+        res = True
+        for ix in range(episode_index, -1, -1):
+            if twenty_pages[ix][0] != 'studio-payet':       # untested
+                if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
+                    res = False
+                    break
+        episode_index = 19
+        if not res:
+            break
+
+    # If there was a problem, don't update config
     # Works because podcast_config is actually a reference in outer config
     if res:
         podcast_config['last_download'] = twenty_pages[0][1]
@@ -98,4 +117,3 @@ if __name__ == "__main__":
 
         for i, podcast_conf in enumerate(podcasts_list):
             process_podcast_main_page(podcast_conf, i + 1, total_podcasts)
-

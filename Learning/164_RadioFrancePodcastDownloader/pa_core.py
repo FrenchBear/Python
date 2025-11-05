@@ -11,6 +11,18 @@ import json
 from typing import Tuple
 import requests
 
+
+def memoize_web_page(f):
+    memory = {}
+
+    def inner(s):
+        if s not in memory:
+            memory[s] = f(s)
+        return memory[s]
+
+    return inner
+
+@memoize_web_page
 def read_url(url: str) -> str:
     # Code debug
     if len(url) < 20:
@@ -39,11 +51,12 @@ def read_url(url: str) -> str:
 
 def sanitize_filename(filename):
     """Removes invalid characters from a filename."""
-    open = True
+    open_quotes = True
     while '"' in filename:
-        filename = filename.replace('"', '«' if open else '»', 1)
-        open = not open
+        filename = filename.replace('"', '«' if open_quotes else '»', 1)
+        open_quotes = not open_quotes
     return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«')).replace('’', "'")
+
 
 def process_podcast_page(path: str, episode_url: str) -> bool:
     text = read_url(episode_url)
@@ -106,10 +119,9 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
     return False
 
 
-def get_twenty_pages(page_url: str) -> list[Tuple[str, str]]:
-    # with open("tp.html", "r", encoding="utf-8") as f:
-    #     text = f.read()
-    text = read_url(page_url)
+def get_twenty_pages(base_url: str, page_index: int) -> list[Tuple[str, str]]:
+    url_with_page = f"{base_url}?page={page_index}"
+    text = read_url(url_with_page)
 
     re_liste = re.compile(r'"(https://www.radiofrance.fr/franceinter/podcasts/([^/"]+?)/[^"]+)"')
 
