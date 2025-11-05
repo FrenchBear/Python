@@ -52,7 +52,7 @@ folder_to_artist_crhonique = {
     "la-chronique-de-ahmed-sparrow": ("Ahmed Sparrow", "La chronique de Ahmed Sparrow"),
     "?? Benjamin Tranié": ("Benjamin Tranié", "La chronique de Benjamin Tranié"),
     "la-chronique-de-camille-lavabre": ("Camille Lavabre", "La chronique de Camille Lavabre"),
-    "?? Camille Lorente": ("Camille Lorente", "La chronique de Camille Lorente"),
+    "la-chronique-de-camille-lorente": ("Camille Lorente", "La chronique de Camille Lorente"),
     "?? Charles Nouveau": ("Charles Nouveau", "La chronique de Charles Nouveau"),
     "la-chronique-de-guigui-pop": ("Guigui Pop", "La chronique de Guigui Pop"),
     "la-chronique-de-harold-barbe": ("Harold Barbé", "La chronique de Harold Barbé"),
@@ -83,17 +83,22 @@ def update_tags(file_full_path: str, artist: str, album: str, title: str, year: 
     audiofile.tag.recording_date = eyed3.core.Date(int(year))   # type: ignore
     audiofile.tag.comments.set(comment)                         # type: ignore
     audiofile.tag.genre = genre                                 # type: ignore
+    audiofile.tag.copyright = ''                                # type: ignore
+    audiofile.tag.encoded_by = ''                               # type: ignore
     audiofile.tag.save(encoding='utf-8')                        # type: ignore
+
+    # For now, don't update cver images, but should probably standardize later
+
     return True
 
-def convert_m4a_to_mp3_with_tags(input_file, output_file):
+def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
     """
     Converts .m4a to .mp3 at 192kbps stereo, PRESERVING tags.
     Uses ffmpeg-python, which has no C compilation issues.
     """
     if not os.path.exists(input_file):
         print(f"Error: Input file not found: {input_file}")
-        return
+        return False
 
     try:
         (
@@ -102,16 +107,15 @@ def convert_m4a_to_mp3_with_tags(input_file, output_file):
             .output(
                 output_file,
                 audio_bitrate='192k',   # 192 kbps
-#                audio_channels=2,       # Stereo
-#                codec_audio='libmp3lame',
-                map_metadata=0,         # Copy metadata from input file (0)
+                map_metadata=0,         # Copy metadata from input file. Use -1 to strip all metadata
                 id3v2_version=3         # Use ID3v2.3 tags for best compatibility
             )
             .run(capture_stdout=True, capture_stderr=True, overwrite_output=True)
         )
-        
+
         print("Conversion to .mp3 successful")
-        
+        return True
+
     except ffmpeg.Error as e:
         print("Error during conversion:")
         # The error message from ffmpeg is in stderr
@@ -119,6 +123,7 @@ def convert_m4a_to_mp3_with_tags(input_file, output_file):
     except FileNotFoundError:
         print("Error: 'ffmpeg' executable not found.")
         print("Please ensure ffmpeg is installed and in your system's PATH.")
+    return False
 
 
 # First check for missing mappings
@@ -140,12 +145,13 @@ for filefp in list(get_all_files(source)):
         artist, correct_folder = folder_to_artist_crhonique[parent]
         print(artist + ":", file)
 
+        # Convert all files including .mp3 to standardize output at 192 kbps
         processed_filefp = os.path.join(source_processed, correct_folder, file).replace('.m4a', '.mp3')
         os.makedirs(os.path.dirname(processed_filefp), exist_ok=True)
-        if filefp.endswith(".mp3"):
-            shutil.copyfile(filefp, processed_filefp)
-        else:
-            convert_m4a_to_mp3_with_tags(filefp, processed_filefp)
+        if not convert_to_mp3_192_with_tags(filefp, processed_filefp):
+            print("*** Error during conversion to mp3 of", filefp)
+            print("*** Aborting")
+            sys.exit(1)
 
         album = "L'humour d'inter"
         title = stem_part(file)

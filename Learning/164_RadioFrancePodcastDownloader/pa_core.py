@@ -59,10 +59,7 @@ def sanitize_filename(filename):
     filename = re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«').replace('’', "'").replace('\xa0', ' '))
     while '  ' in filename:
         filename = filename.replace('  ', ' ')
-    while ' ,' in filename:
-        filename = filename.replace(' ,', ',')
-    while ' .' in filename:
-        filename = filename.replace(' .', '.')
+    filename = filename.replace(' ,', ',').replace(' .', '.').replace(' ¿', '?').replace(' !', '!').replace('« ', '«').replace(' »', '»')
     return filename.strip()
 
 def process_podcast_page(path: str, episode_url: str) -> bool:

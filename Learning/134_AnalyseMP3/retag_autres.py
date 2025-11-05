@@ -52,7 +52,7 @@ def get_image_data(cover_image_path: str) -> bytes | None:
     return None
 
 
-def update_tags(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str, cover_mage_path: str | None) -> bool:
+def update_tags_and_cover(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str, cover_mage_path: str | None) -> bool:
     audiofile = eyed3.load(file_full_path)
     if audiofile is None:
         print(f"ERROR: Can't load file {file_full_path}")
@@ -91,14 +91,14 @@ def update_tags(file_full_path: str, artist: str, album: str, title: str, year: 
 
     return True
 
-def convert_to_mp3_192_with_tags(input_file, output_file):
+def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
     """
     Converts .m4a to .mp3 at 192kbps stereo, PRESERVING tags.
     Uses ffmpeg-python, which has no C compilation issues.
     """
     if not os.path.exists(input_file):
         print(f"Error: Input file not found: {input_file}")
-        return
+        return False
 
     try:
         (
@@ -114,6 +114,7 @@ def convert_to_mp3_192_with_tags(input_file, output_file):
         )
 
         print("Conversion to .mp3 successful")
+        return True
 
     except ffmpeg.Error as e:
         print("Error during conversion:")
@@ -122,6 +123,7 @@ def convert_to_mp3_192_with_tags(input_file, output_file):
     except FileNotFoundError:
         print("Error: 'ffmpeg' executable not found.")
         print("Please ensure ffmpeg is installed and in your system's PATH.")
+    return False
 
 
 def process_folder(folder):
@@ -132,8 +134,12 @@ def process_folder(folder):
             (chronique, cover) = folder_to_chronique_cover[artist]
             print(artist + ":", file)
 
+            # # Convert all files including .mp3 to standardize output at 192 kbps
             processed_filefp = os.path.join(source_processed, artist, file).replace('.m4a', '.mp3')
-            convert_to_mp3_192_with_tags(filefp, processed_filefp)
+            if not convert_to_mp3_192_with_tags(filefp, processed_filefp):
+                print("*** Error during conversion to mp3 of", filefp)
+                print("*** Aborting")
+                sys.exit(1)
 
             year = file[:4]
             album = chronique + " " + year
@@ -141,7 +147,7 @@ def process_folder(folder):
             comment = file[:10]
             genre = "Humour"
 
-            if update_tags(processed_filefp, artist, album, title, year, genre, comment, cover):
+            if update_tags_and_cover(processed_filefp, artist, album, title, year, genre, comment, cover):
                 archive_filefp = filefp.replace(source, source_archives)
                 os.makedirs(os.path.dirname(archive_filefp), exist_ok=True)
                 shutil.move(filefp, archive_filefp)
