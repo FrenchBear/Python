@@ -3,6 +3,7 @@
 # 2025-10-20    PV      First version (archives download)
 # 2025-10-21    PV      Version for podcast downloader
 # 2025-11-02    PV      Better replacement of " in sanitize_filename
+# 2025-11-04    PV      sanitize_filename replace non-breaking space by regular space
 
 from datetime import datetime
 import os
@@ -55,8 +56,14 @@ def sanitize_filename(filename):
     while '"' in filename:
         filename = filename.replace('"', '«' if open_quotes else '»', 1)
         open_quotes = not open_quotes
-    return re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«')).replace('’', "'")
-
+    filename = re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«').replace('’', "'").replace('\xa0', ' '))
+    while '  ' in filename:
+        filename = filename.replace('  ', ' ')
+    while ' ,' in filename:
+        filename = filename.replace(' ,', ',')
+    while ' .' in filename:
+        filename = filename.replace(' .', '.')
+    return filename.strip()
 
 def process_podcast_page(path: str, episode_url: str) -> bool:
     text = read_url(episode_url)
