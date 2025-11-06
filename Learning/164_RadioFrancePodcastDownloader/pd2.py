@@ -85,6 +85,7 @@ def process_podcast_main_page(podcast_config, index, total):
             print(f"Start downloading from page {page_index} episode {episode_index}")
             break
 
+    episode_index -= 1
     for p in range(page_index, 0, -1):
         print(f"Processing page {p}")
         twenty_pages = pa_core.get_twenty_pages(url, p)
@@ -94,9 +95,10 @@ def process_podcast_main_page(podcast_config, index, total):
                 if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
                     res = False
                     break
-        episode_index = 19
         if not res:
             break
+        # In case we continue with previous page contating a slice of 20 episodes
+        episode_index = 19
 
     # If there was a problem, don't update config
     # Works because podcast_config is actually a reference in outer config

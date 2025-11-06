@@ -59,7 +59,7 @@ def sanitize_filename(filename):
     filename = re.sub(r'[\\/*?:"<>|]', "", filename.replace('?', '¿').replace(':', ',').replace('/', '-').replace('”', '»').replace('“', '«').replace('’', "'").replace('\xa0', ' '))
     while '  ' in filename:
         filename = filename.replace('  ', ' ')
-    filename = filename.replace(' ,', ',').replace(' .', '.').replace(' ¿', '?').replace(' !', '!').replace('« ', '«').replace(' »', '»')
+    filename = filename.replace(' ,', ',').replace(' .', '.').replace(' ¿', '¿').replace(' !', '!').replace('« ', '«').replace(' »', '»').replace('( ', '(').replace(' )', ')')
     return filename.strip()
 
 def process_podcast_page(path: str, episode_url: str) -> bool:
@@ -81,20 +81,16 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
                 title: str = graph.get("name")
                 date_created = datetime.fromisoformat(graph.get("dateCreated"))
                 try:
-                    if graph.get("mainEntity") is None:
+                    me = graph.get("mainEntity")
+                    if me is None:
                         print(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
                         return False
 
-                    url = graph.get("mainEntity").get("contentUrl")
+                    url = me.get("contentUrl")
                     ext: str = url.split(".")[-1]
 
-                    # print("Titre:", title)
-                    # print("Date:", date_created)
-                    # print("Url:", url)
-
-                    filename = path + "\\" + sanitize_filename(f"{date_created:%Y-%m-%d} - {title.strip()}.{ext}")
+                    filename = path + "\\" + f"{date_created:%Y-%m-%d} - {sanitize_filename(title)}.{ext}"
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
-                    # print("Filename:", filename)
 
                     try:
                         # Make the request with stream=True to avoid loading the whole file in memory
@@ -138,3 +134,7 @@ def get_twenty_pages(base_url: str, page_index: int) -> list[Tuple[str, str]]:
             res.append((serie, episode_url))
 
     return res
+
+
+if __name__ == "__main__":
+    print("This module is not supposed to be executed directly")
