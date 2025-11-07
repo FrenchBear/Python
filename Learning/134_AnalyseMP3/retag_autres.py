@@ -136,6 +136,7 @@ def process_folder(folder):
 
             # # Convert all files including .mp3 to standardize output at 192 kbps
             processed_filefp = os.path.join(source_processed, artist, file).replace('.m4a', '.mp3')
+            os.makedirs(os.path.dirname(processed_filefp), exist_ok=True)
             if not convert_to_mp3_192_with_tags(filefp, processed_filefp):
                 print("*** Error during conversion to mp3 of", filefp)
                 print("*** Aborting")
