@@ -1,4 +1,4 @@
-# Add 2024 Net9 comment to Visual Studio Projects
+# Add 2025 Net10 comment to Visual Studio Projects
 # Don't forget to change the date!!!
 #
 # 2023-01-10    PV
@@ -12,8 +12,6 @@ import codecs
 import os
 import re
 
-DATE = '2024-11-15'
-root = r'C:\Development\GitVSTS\BookApps\Net9'
 root = r'C:\Development\GitVSTS\UIApps\Net9'
 root = r'C:\Development\GitVSTS\CSMisc\Net9'
 root = r'C:\Development\GitVSTS\WPF\Net9\FontApps'
@@ -21,13 +19,17 @@ root = r'C:\Development\GitVSTS\WPF\Net9\Learning'
 root = r'C:\Development\GitHub\Visual-Studio-Projects\Net9'
 root = r'C:\Development\GitHub\Projects\01_Bonza\CS_Net9'
 
-logfile = r'C:\Temp\C2024.log'
+DATE = '2025-11-12'
+root = r'C:\Development\GitVSTS\BookApps\Net10'
+
+logfile = r'C:\Temp\C2025.log'
 
 files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower() and '.g.cs' not in f.lower()
          and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
 DATE_YM_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)[ \t]+.*')
 DATE_YMD_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)-(0[1-9]|[12]\d|30|31)[ \t]+.*')
 DATE_DUP_RE = re.compile(r'[ \t]*""""""""""[ \t]+.*')
+
 Verbose = True
 DoIt = True
 
@@ -125,7 +127,7 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
 
     # If commentline is already present, don't insert it again
     # if lines[lnum - 1] == commentline:
-    if 'Net9' in lines[lnum - 1]:
+    if 'Net10' in lines[lnum - 1]:
         if Verbose:
             flog.write('\n' + filefp + '\n')
             flog.write('Already contains new date comment, skipped\n')
@@ -148,11 +150,11 @@ def ProcessFile(flog: TextIOWrapper, filefp: str, commenttoken: str, commentline
 
 
 def ProcessCXFile(flog: TextIOWrapper, fn: str):
-    ProcessFile(flog, fn, '//', '// ' + DATE + '\tPV\t\tNet9 C#13')
+    ProcessFile(flog, fn, '//', '// ' + DATE + '\tPV\t\tNet10 C#14')
 
 
 def ProcessVBFile(flog: TextIOWrapper, fn: str):
-    ProcessFile(flog, fn, "'", "' " + DATE + "\tPV\t\tNet9")
+    ProcessFile(flog, fn, "'", "' " + DATE + "\tPV\t\tNet10")
 
 
 print('Output ->', logfile)
