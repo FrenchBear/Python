@@ -49,7 +49,8 @@ def check_Net10projects(root_folder: str):
 
 
 #check_xxNet8()
-#check_Net9projects(r'C:\Development\GitVSTS\DevForFun')
-#check_Net9projects(r'C:\Development\GitHub')
 
-check_Net10projects(r'C:\Development\GitVSTS\BookApps\Net10')
+#check_Net10projects(r'C:\Development\GitVSTS\BookApps\Net10')
+#check_Net10projects(r'C:\Development\GitVSTS\UIApps\Net10')
+#check_Net10projects(r'C:\Development\GitVSTS\CSMisc\Net10')
+check_Net10projects(r'C:\Development\GitVSTS\WPF\Net10')

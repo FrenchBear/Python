@@ -5,6 +5,7 @@
 # 2023-11-18    PV      Also add empty comment line before header and dates block
 # 2024-11-12    PV      Net9 C#13
 # 2024-11-15    PV      Try strict decoding for cp1252
+# 2025-11-12    PV      Net10 C#14 version
 
 from io import TextIOWrapper
 from common_fs import get_all_files, extension_part
@@ -12,8 +13,6 @@ import codecs
 import os
 import re
 
-root = r'C:\Development\GitVSTS\UIApps\Net9'
-root = r'C:\Development\GitVSTS\CSMisc\Net9'
 root = r'C:\Development\GitVSTS\WPF\Net9\FontApps'
 root = r'C:\Development\GitVSTS\WPF\Net9\Learning'
 root = r'C:\Development\GitHub\Visual-Studio-Projects\Net9'
@@ -21,6 +20,9 @@ root = r'C:\Development\GitHub\Projects\01_Bonza\CS_Net9'
 
 DATE = '2025-11-12'
 root = r'C:\Development\GitVSTS\BookApps\Net10'
+root = r'C:\Development\GitVSTS\UIApps\Net10'
+root = r'C:\Development\GitVSTS\CSMisc\Net10'
+root = r'C:\Development\GitVSTS\WPF\Net10'
 
 logfile = r'C:\Temp\C2025.log'
 
