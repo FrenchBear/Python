@@ -6,6 +6,7 @@
 # 2024-11-12    PV      Net9 C#13
 # 2024-11-15    PV      Try strict decoding for cp1252
 # 2025-11-12    PV      Net10 C#14 version
+# 2025-11-14    PV      root is now a list of folders
 
 from io import TextIOWrapper
 from common_fs import get_all_files, extension_part
@@ -13,21 +14,53 @@ import codecs
 import os
 import re
 
-root = r'C:\Development\GitVSTS\WPF\Net9\FontApps'
-root = r'C:\Development\GitVSTS\WPF\Net9\Learning'
-root = r'C:\Development\GitHub\Visual-Studio-Projects\Net9'
-root = r'C:\Development\GitHub\Projects\01_Bonza\CS_Net9'
+root = [r'C:\Development\GitVSTS\WPF\Net9\FontApps']
+root = [r'C:\Development\GitVSTS\WPF\Net9\Learning']
+root = [r'C:\Development\GitHub\Visual-Studio-Projects\Net9']
+root = [r'C:\Development\GitHub\Projects\01_Bonza\CS_Net9']
+root = [r'C:\Development\GitVSTS\BookApps\Net10']
+root = [r'C:\Development\GitVSTS\UIApps\Net10']
+root = [r'C:\Development\GitVSTS\CSMisc\Net10']
+root = [r'C:\Development\GitVSTS\WPF\Net10']
 
-DATE = '2025-11-12'
-root = r'C:\Development\GitVSTS\BookApps\Net10'
-root = r'C:\Development\GitVSTS\UIApps\Net10'
-root = r'C:\Development\GitVSTS\CSMisc\Net10'
-root = r'C:\Development\GitVSTS\WPF\Net10'
+root = [
+    r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_WPF_Net10",
+    r"C:\Development\GitVSTS\DevForFun\02_Hilbert\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\03_Radoteur\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\04_VietnamesePuzzle\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\05_Percolator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\06_Generics\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\08_EightQueens\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\10_Permutator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\11_Primes\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\12_ArithDoubler\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\13_SegmentedSieve\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\14_SieveIterator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\15_TopoSort\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\16_Formatting\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\17_StringCoding\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\18_ConfigFiles\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\19_Dijkstra\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\20_Lex\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\21_FractionDevelopment\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\22_Pentamino\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\23_Regex\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\24_Parallel\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\25_SQL\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\26_RotorRouter\CS_Net10",
+]
+
+DATE = '2025-11-14'
+
+files = []
+for r in root:
+    files.extend([f for f in get_all_files(r) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] 
+                  and 'designer' not in f.lower() and '.g.i.' not in f.lower() and '.g.cs' not in f.lower()
+                  and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()])
 
 logfile = r'C:\Temp\C2025.log'
 
-files = [f for f in get_all_files(root) if extension_part(f.lower()) in ['.cs', '.vb', '.cpp'] and 'designer' not in f.lower() and '.g.i.' not in f.lower() and '.g.cs' not in f.lower()
-         and 'assemblyinfo' not in f.lower() and 'assemblyattributes' not in f.lower()]
 DATE_YM_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)[ \t]+.*')
 DATE_YMD_RE = re.compile(r'[ \t]*(199\d|20[012]\d)-(0[1-9]|10|11|12)-(0[1-9]|[12]\d|30|31)[ \t]+.*')
 DATE_DUP_RE = re.compile(r'[ \t]*""""""""""[ \t]+.*')

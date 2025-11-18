@@ -53,4 +53,34 @@ def check_Net10projects(root_folder: str):
 #check_Net10projects(r'C:\Development\GitVSTS\BookApps\Net10')
 #check_Net10projects(r'C:\Development\GitVSTS\UIApps\Net10')
 #check_Net10projects(r'C:\Development\GitVSTS\CSMisc\Net10')
-check_Net10projects(r'C:\Development\GitVSTS\WPF\Net10')
+#check_Net10projects(r'C:\Development\GitVSTS\WPF\Net10')
+
+d4fp = [
+r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_WPF_Net10",
+r"C:\Development\GitVSTS\DevForFun\02_Hilbert\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\03_Radoteur\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\04_VietnamesePuzzle\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\05_Percolator\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\06_Generics\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\08_EightQueens\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\10_Permutator\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\11_Primes\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\12_ArithDoubler\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\13_SegmentedSieve\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\14_SieveIterator\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\15_TopoSort\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\16_Formatting\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\17_StringCoding\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\18_ConfigFiles\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\19_Dijkstra\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\20_Lex\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\21_FractionDevelopment\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\22_Pentamino\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\23_Regex\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\24_Parallel\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\25_SQL\CS_Net10",
+r"C:\Development\GitVSTS\DevForFun\26_RotorRouter\CS_Net10",
+]
+for p in d4fp:
+    check_Net10projects(p)

@@ -5,6 +5,7 @@
 # 2025-10-22    PV      Generic downloader
 # 2025-11-02    PV      Skip serie stodio-payet
 # 2025-11-05    PV      Look for last downloaded episoze in the last 5 main pages; use memoization
+# 2025-11-19    PV      Bug when last episode was first of a page other than 1 fixed
 
 # Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
 # use curl --ssl-no-revoke ...
@@ -69,7 +70,7 @@ def process_podcast_main_page(podcast_config, index, total):
                 episode_index = ix
                 break
 
-        if episode_index == 0:
+        if episode_index == 0 and page_index == 1:
             print("--> No new poadcast\n")
             return
 
