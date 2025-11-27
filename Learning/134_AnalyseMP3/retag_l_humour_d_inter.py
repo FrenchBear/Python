@@ -22,7 +22,7 @@ folder_to_artist_crhonique = {
     "la-chronique-de-tristan-lopin": ("Tristan Lopin", "La chronique de Tristan Lopin"),
     "la-chronique-de-yann-marguet": ("Yann Marguet", "La chronique de Yann Marguet"),
     "la-drole-d-humeur-d-amandine-lourdel-n-a-pas-compris": ("Amandine Lourdel", "La drôle d'humeur d'Amandine Lourdel"),
-    "?? Julie Conti": ("Julie Conti", "La drôle d'humeur de Julie Conti"),
+    "la-drole-d-humeur-de-julie-conti": ("Julie Conti", "La drôle d'humeur de Julie Conti"),
     "la-drole-d-humeur-de-julien-santini": ("Julien Santini", "La drôle d'humeur de Julien Santini"),
     "la-drole-d-humeur-de-melodie-fontaine": ("Mélodie Fontaine", "La drôle d'humeur de Mélodie Fontaine"),
     "?? Rebecca Balestra": ("Rebecca Balestra", "La drôle d'humeur de Rebecca Balestra"),
