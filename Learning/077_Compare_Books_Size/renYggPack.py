@@ -12,7 +12,7 @@ from common_fs import get_files
 import os
 import re
 
-source = r"C:\Downloads\A_Trier\!A_Trier_Livres\eni"
+source = r"C:\Downloads\A_Trier\!Large"
 lang = "Fr"  # Fr or En
 doit = True
 
@@ -20,8 +20,9 @@ ED = re.compile(r"^([^ ]+) (.+?)( (\d+)ed)?\.pdf$")
 
 
 def FirstUpper(s: str) -> str:
-    return s[0].upper() + s[1:]
-
+    # return s[0].upper() + s[1:]
+    # return s.capitalize()
+    return s.title()
 
 def ireplace(text: str, old: str, new: str) -> str:
     """Case insensitive replacement of old by new in text"""

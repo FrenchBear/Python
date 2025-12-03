@@ -15,7 +15,7 @@ import unicodedata
 import os
 
 SEGMENT = 0     # index du segment séparé par " - " sur lequel porte la correction
-source = r"C:\Downloads\A_Trier\!A_Trier_Livres"
+source = r"C:\Downloads\A_Trier\!Large"
 #source = r"U:\Pierre\A_Trier\A_Trier Brut\Tanguy Pastureau maltraite l'info 2023"          # Use segment=2
 doit = True
 

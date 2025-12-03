@@ -12,8 +12,8 @@ from common_fs import get_all_files
 import os
 
 source_ref = r'W:\Livres'
-source_cmp = r'C:\Downloads\A_Trier\!A_Trier_Livres'
-doit = False
+source_cmp = r'C:\Downloads\A_Trier\!Large'
+doit = True
 
 dic: defaultdict[int, list[str]] = defaultdict(list)
 
