@@ -66,6 +66,7 @@ folder_to_artist_crhonique = {
     "la-chronique-de-marie-de-brauer": ("Marie de Brauer", "La chronique de Marie de Brauer"),
     "la-chronique-de-marine-leonardi": ("Marine Leonardi", "La chronique de Marine Leonardi"),
     "vero-la-conciliatrice": ("Véro Clederman-Pilouchet", "Merci Véro"),
+    "la-chronique-d-etienne-lautrette": ("Étienne Lautrette", "La chronique d'Étienne Lautrette"),
 }
 
 def update_tags(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str) -> bool:
@@ -132,7 +133,7 @@ for filefp in list(get_all_files(source)):
     if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
         parent = file_part(os.path.dirname(filefp))
         if parent not in folder_to_artist_crhonique:
-            print("Folder not found: ", parent)
+            print("Folder not found: ", parent, '  for file', filefp)
             problem = True
 if problem:
     sys.exit(0)
