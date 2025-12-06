@@ -77,8 +77,9 @@ def process_podcast_main_page(podcast_config, index, total):
         if episode_index == -1:
             if page_index == 5:
                 print(f"Can't find last downloaded episode in the first 5 pages, will load top {defcount} episodes of page 1")
+                breakpoint()    # to debug why not found
                 page_index = 1
-                episode_index = defcount
+                episode_index = defcount - 1
                 break
             # Not found on current page, continue with next page
             page_index += 1
