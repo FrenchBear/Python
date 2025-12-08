@@ -3,6 +3,7 @@
 #
 # 2025-10-21    PV
 # 2025-11-05    PV      Force convert .mp3 to 192 kbps; Update cover images
+# 2025-12-02    PV      MusicOD -> MusicPV
 
 # Notes:
 # Images are not updated, need to do that later
@@ -15,18 +16,18 @@ from common_fs import get_folders, get_all_files, file_part, stem_part, extensio
 import eyed3    # type: ignore
 import ffmpeg   # type: ignore
 
-source = r"C:\MusicOD2\Podcasts\RadioFrance"
-source_processed = r"C:\MusicOD2\Podcasts\RadioFrance.Processed"
-source_archives = r"C:\MusicOD2\Podcasts\RadioFrance.Archives"
+source = r"C:\MusicPV2\Podcasts\RadioFrance"
+source_processed = r"C:\MusicPV2\Podcasts\RadioFrance.Processed"
+source_archives = r"C:\MusicPV2\Podcasts\RadioFrance.Archives"
 
 folder_to_chronique_cover: dict[str, tuple[str, str | None]] = {
-    "Bertrand Chameroy": ("France Inter - Le billet de Bertrand Chameroy", r"C:\MusicOD\Humour\Bertrand Chameroy\Bertrand Chameroy - France Inter - Le billet de Bertrand Chameroy\Le billet de Bertrand Chameroy.jpg"),
-    "Charline Vanhoenacker": ("France Inter - Charline explose les faits", r"C:\MusicOD\Humour\Charline Vanhoenacker\Charline Vanhoenacker - France Inter - Charline explose les faits\Charline explose les faits.jpg"),
-    "Daniel Morin": ("France Inter - Le billet de Daniel Morin", r"C:\MusicOD\Humour\Daniel Morin\Daniel Morin - France Inter - Le billet de Daniel Morin\Le billet de Daniel Morin.jpg"),
-    "David Castello-Lopes": ("France Inter - La question de David Castello-Lopes", r"C:\MusicOD\Humour\David Castello-Lopes\David Castello-Lopes - France Inter - La question de David Castello-Lopes\La question de David Castello-Lopes.jpg"),
-    "Lisa Delmoitiez": ("France Inter - Lisa Delmoitiez n'aurait pas fait comme ça", r"C:\MusicOD\Humour\Lisa Delmoitiez\Lisa Delmoitiez - France Inter - Lisa Delmoitiez n'aurait pas fait comme ça\Lisa Delmoitiez n'aurait pas fait comme ça.jpg"),
-    "Tanguy Pastureau": ("Tanguy Pastureau maltraite l'info", r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info 2025.jpg"),
-    "Yann Marguet": ("France Inter - La chronique de Yann Marguet", r"C:\MusicOD\Humour\Yann Marguet\Yann Marguet - France Inter - Moi, c'que j'en dis\La chronique de Yann Marguet.jpg"),
+    "Bertrand Chameroy": ("France Inter - Le billet de Bertrand Chameroy", r"C:\MusicPV\Humour\Bertrand Chameroy\Bertrand Chameroy - France Inter - Le billet de Bertrand Chameroy\Le billet de Bertrand Chameroy.jpg"),
+    "Charline Vanhoenacker": ("France Inter - Charline explose les faits", r"C:\MusicPV\Humour\Charline Vanhoenacker\Charline Vanhoenacker - France Inter - Charline explose les faits\Charline explose les faits.jpg"),
+    "Daniel Morin": ("France Inter - Le billet de Daniel Morin", r"C:\MusicPV\Humour\Daniel Morin\Daniel Morin - France Inter - Le billet de Daniel Morin\Le billet de Daniel Morin.jpg"),
+    "David Castello-Lopes": ("France Inter - La question de David Castello-Lopes", r"C:\MusicPV\Humour\David Castello-Lopes\David Castello-Lopes - France Inter - La question de David Castello-Lopes\La question de David Castello-Lopes.jpg"),
+    "Lisa Delmoitiez": ("France Inter - Lisa Delmoitiez n'aurait pas fait comme ça", r"C:\MusicPV\Humour\Lisa Delmoitiez\Lisa Delmoitiez - France Inter - Lisa Delmoitiez n'aurait pas fait comme ça\Lisa Delmoitiez n'aurait pas fait comme ça.jpg"),
+    "Tanguy Pastureau": ("Tanguy Pastureau maltraite l'info", r"C:\MusicPV\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info 2025.jpg"),
+    "Yann Marguet": ("France Inter - La chronique de Yann Marguet", r"C:\MusicPV\Humour\Yann Marguet\Yann Marguet - France Inter - Moi, c'que j'en dis\La chronique de Yann Marguet.jpg"),
 }
 
 def memoize_image_data(f):

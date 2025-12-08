@@ -17,7 +17,7 @@ import pa_core
 # res = pa_core.process_podcast_page(r"C:\Temp", "tp31oct.html")
 # sys.exit(0)
 
-CONFIG_FILE = r"C:\MusicOD2\Podcasts\RadioFrance\configRF.yaml"
+CONFIG_FILE = r"C:\MusicPV2\Podcasts\RadioFrance\configRF.yaml"
 
 def load_config():
     """Loads the YAML configuration file."""

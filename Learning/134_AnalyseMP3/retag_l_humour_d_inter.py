@@ -2,6 +2,7 @@
 # Update mp3 tags for L'humour d'Inter
 #
 # 2025-10-21    PV
+# 2025-12-02    PV      MusicOD -> MusicPV
 
 import os
 import shutil
@@ -10,9 +11,9 @@ from common_fs import get_all_files, file_part, stem_part
 import eyed3    # type: ignore
 import ffmpeg   # type: ignore
 
-source = r"C:\MusicOD2\Podcasts\RadioFrance\L'humour d'inter"
-source_processed = r"C:\MusicOD2\Podcasts\RadioFrance.Processed\L'humour d'inter"
-source_archives = r"C:\MusicOD2\Podcasts\RadioFrance.Archives\L'humour d'inter"
+source = r"C:\MusicPV2\Podcasts\RadioFrance\L'humour d'inter"
+source_processed = r"C:\MusicPV2\Podcasts\RadioFrance.Processed\L'humour d'inter"
+source_archives = r"C:\MusicPV2\Podcasts\RadioFrance.Archives\L'humour d'inter"
 
 folder_to_artist_crhonique = {
     "la-chronique-de-merwane-benlazar": ("Merwane Benlazar", "La chronique de Merwane Benlazar"),
