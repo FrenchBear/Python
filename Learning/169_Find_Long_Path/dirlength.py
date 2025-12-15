@@ -12,4 +12,4 @@ def find_dirs_with_exact_file_count(root: str, target_count: int):
         if len(filenames) == target_count:
             print(dirpath)
 
-find_dirs_with_exact_file_count(r"D:\Pierre\HomeShared", 26)
+find_dirs_with_exact_file_count(r"D:\Kaforas\HomeSharedKB", 58)
