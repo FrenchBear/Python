@@ -9,11 +9,11 @@ import unicodedata
 import shutil
 import os
 
-source1 = r'W:\Livres'         # Reference
+source1 = r'W:\Livres\Informatique\Maths'         # Reference
 source2 = r'C:\Users\Pierr\Downloads\A_Trier\!Large'  # Books to check
 trash = r'C:\Users\Pierr\Downloads\A_Trier\Trash'
 
-doit = True
+doit = False
 
 sourcelist = []
 bookname = re.compile(r"([^)]*)( \([^)]+\))? - \[([^]]+)\] - (.*)")

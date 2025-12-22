@@ -68,6 +68,7 @@ folder_to_artist_crhonique = {
     "la-chronique-de-marine-leonardi": ("Marine Leonardi", "La chronique de Marine Leonardi"),
     "vero-la-conciliatrice": ("Véro Clederman-Pilouchet", "Merci Véro"),
     "la-chronique-d-etienne-lautrette": ("Étienne Lautrette", "La chronique d'Étienne Lautrette"),
+    "yacine-belhousse": ("Yacine Belhousse", "Yacine Belhousse moi ce que j'en dis"),
 }
 
 def update_tags(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str) -> bool:
