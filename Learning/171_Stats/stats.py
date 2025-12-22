@@ -55,7 +55,7 @@ def standard_deviation(l: list[float], pop: bool = True) -> float:
 def run_test(pop_count: int, sample_count: int, distrib: int, loops: int):
     pop = get_random_list(pop_count, distrib)
     base_var = variance(pop)
-    print(f"Using a list of {pop_count} random values, {['uniform','normal','exponential'][distrib]} distribution, taking samples of {sample_count} values")
+    print(f"Using a list of {pop_count} random values, {['uniform','normal','exponential'][distrib-1]} distribution, taking samples of {sample_count} values")
     print(f"Full list variance: {base_var:.3f}\n")
     print("        pop     sam  ")
     print("       ------  ------")
