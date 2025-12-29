@@ -8,6 +8,7 @@
 # Using partial to wrap print into convenient helpers
 from functools import partial
 import sys
+
 redirect = lambda function, stream: partial(function, file=stream)
 prefix = lambda function, prefixarg: partial(function, prefixarg)
 error = prefix(redirect(print, sys.stderr), '[ERROR]')
@@ -54,6 +55,7 @@ print('back to normal now')
 print('\033[31m' + 'some red text')
 print('\033[30m') # and reset to default color
 
+# Manual color
 def ansi(code):
     return f'\033[{code}m'
 print(ansi('31;1;4')+'really'+ansi(0)+' important\n')
