@@ -21,7 +21,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def weierstrass(x, a, b, nmax):
+def weierstrass(x: np.ndarray, a: float, b: int, nmax: int) -> np.ndarray:
     """
     Calculates the Weierstrass function for a given x.
     f(x) = sum(n=0..nmax, a^n * cos(b^n * π * x))
@@ -32,33 +32,25 @@ def weierstrass(x, a, b, nmax):
     return f_x
 
 # --- Configuration for each quadrant ---
-# Quadrant 1 (Top-Left)
-a1, b1, nmax1 = 0.5, 7, 5
-# Quadrant 2 (Top-Right)
-a2, b2, nmax2 = 0.8, 9, 3
-# Quadrant 3 (Bottom-Left)
-a3, b3, nmax3 = 0.4, 5, 8
-# Quadrant 4 (Bottom-Right)
-a4, b4, nmax4 = 0.6, 11, 4
-
-# variation of nmax
-a1, b1, nmax1 = 0.5, 3, 0
-a2, b2, nmax2 = 0.5, 3, 2
-a3, b3, nmax3 = 0.5, 3, 4
-a4, b4, nmax4 = 0.5, 3, 6
-
+# List of tuples (a, b, nmax) for the 4 quadrants
+quadrant_params = [
+    (0.5, 3, 0),  # Quadrant 1 (Top-Left)
+    (0.5, 3, 2),  # Quadrant 2 (Top-Right)
+    (0.5, 3, 4),  # Quadrant 3 (Bottom-Left)
+    (0.5, 3, 6)   # Quadrant 4 (Bottom-Right)
+]
 
 # --- Generate x values ---
-x_values = np.linspace(0, 2, 1000) # 1000 points between 0 and 2
+x_values = np.linspace(0, 2, 10000) # Increased resolution to avoid aliasing
 
 # --- Create the figure and 2x2 subplots ---
 fig, axes = plt.subplots(2, 2, figsize=(12, 12))
 fig.suptitle("Weierstrass Function Variants W[a,b,nmax](x) = sum(n=0..nmax, a^n * cos(b^n *π*x)", fontsize=16)
 
 # --- Plotting function for each quadrant ---
-def plot_weierstrass_quadrant(ax, a, b, nmax, title):
-    y_values = weierstrass(x_values, a, b, nmax)
-    ax.plot(x_values, y_values, color='blue', linewidth=1)
+def plot_weierstrass_quadrant(ax, x_vals, a, b, nmax, title):
+    y_values = weierstrass(x_vals, a, b, nmax)
+    ax.plot(x_vals, y_values, color='blue', linewidth=1)
 
     # Set x and y limits and aspect ratio
     ax.set_xlim(0, 2)
@@ -79,10 +71,8 @@ def plot_weierstrass_quadrant(ax, a, b, nmax, title):
     ax.set_title(title, fontsize=10)
 
 # --- Apply plotting to each quadrant ---
-plot_weierstrass_quadrant(axes[0, 0], a1, b1, nmax1, f'a={a1}, b={b1}, nmax={nmax1}')
-plot_weierstrass_quadrant(axes[0, 1], a2, b2, nmax2, f'a={a2}, b={b2}, nmax={nmax2}')
-plot_weierstrass_quadrant(axes[1, 0], a3, b3, nmax3, f'a={a3}, b={b3}, nmax={nmax3}')
-plot_weierstrass_quadrant(axes[1, 1], a4, b4, nmax4, f'a={a4}, b={b4}, nmax={nmax4}')
+for ax, (a, b, nmax) in zip(axes.flat, quadrant_params):
+    plot_weierstrass_quadrant(ax, x_values, a, b, nmax, f'a={a}, b={b}, nmax={nmax}')
 
 plt.tight_layout(rect=(0, 0.03, 1, 0.96)) # Adjust layout to prevent title overlap
 #plt.savefig('weierstrass_functions.png', dpi=300)
