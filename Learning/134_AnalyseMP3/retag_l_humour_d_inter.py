@@ -3,6 +3,16 @@
 #
 # 2025-10-21    PV
 # 2025-12-02    PV      MusicOD -> MusShared
+# 2025-12-29    PV      Errors in color, and suppress_stdout_stderr to suppress eyed3.load(file_full_path) warning messages
+
+# eyed3 warning message:
+# C:\Development\GitHub\Python\Learning\134_AnalyseMP3\retag_l_humour_d_inter.py:77: DeprecationWarning: Parsing dates involving a day of month
+# without a year specified is ambiguous and fails to parse leap day. The default behavior will change in Python 3.15
+# to either always raise an exception or to use a different default year (TBD).
+# To avoid trouble, add a specific year to the input & format.
+# See https://github.com/python/cpython/issues/70647.
+#   audiofile = eyed3.load(file_full_path)
+# Invalid date: 0911
 
 import os
 import shutil
@@ -10,6 +20,20 @@ import sys
 from common_fs import get_all_files, file_part, stem_part
 import eyed3    # type: ignore
 import ffmpeg   # type: ignore
+from error_color import print_error
+from contextlib import contextmanager
+
+@contextmanager
+def suppress_stdout_stderr():
+    """A context manager that redirects stdout and stderr to devnull"""
+    with open(os.devnull, 'w', encoding='utf-8') as fnull:
+        old_stdout, old_stderr = sys.stdout, sys.stderr
+        sys.stdout, sys.stderr = fnull, fnull
+        try:
+            yield
+        finally:
+            sys.stdout, sys.stderr = old_stdout, old_stderr
+
 
 source = r"C:\MusShared\Podcasts\RadioFrance\L'humour d'inter"
 source_processed = r"C:\MusShared\Podcasts\RadioFrance.Processed\L'humour d'inter"
@@ -30,7 +54,7 @@ folder_to_artist_crhonique = {
     "la-drole-d-humeur-de-tom-baldetti": ("Tom Baldetti", "La drôle d'humeur de Tom Baldetti"),
     "la-drole-d-humeur-d-oldelaf": ("Oldelaf", "La drôle d'humeur d'Oldelaf"),
     "la-question-de-david-castello-lopes": ("David Castello-Lopes", "La question de David Castello-Lopes"),
-    "?? Alexandre Kominek": ("Alexandre Kominek", "Le billet d'Alexandre Kominek"),
+    "le-billet-d-alexandre-kominek": ("Alexandre Kominek", "Le billet d'Alexandre Kominek"),
     "le-billet-de-bertrand-chameroy": ("Bertrand Chameroy", "Le billet de Bertrand Chameroy"),
     "le-billet-de-daniel-morin": ("Daniel Morin", "Le billet de Daniel Morin"),
     "le-billet-de-francois-morel": ("François Morel", "Le billet de François Morel"),
@@ -72,9 +96,10 @@ folder_to_artist_crhonique = {
 }
 
 def update_tags(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str) -> bool:
-    audiofile = eyed3.load(file_full_path)
+    with suppress_stdout_stderr():
+        audiofile = eyed3.load(file_full_path)
     if audiofile is None:
-        print(f"ERROR: Can't load file {file_full_path}")
+        print_error(f"*** Error: Can't load file {file_full_path}")
         return False
 
     if audiofile.tag is None:
@@ -88,7 +113,8 @@ def update_tags(file_full_path: str, artist: str, album: str, title: str, year: 
     audiofile.tag.genre = genre                                 # type: ignore
     audiofile.tag.copyright = ''                                # type: ignore
     audiofile.tag.encoded_by = ''                               # type: ignore
-    audiofile.tag.save(encoding='utf-8')                        # type: ignore
+    with suppress_stdout_stderr():
+        audiofile.tag.save(encoding='utf-8')                    # type: ignore
 
     # For now, don't update cver images, but should probably standardize later
 
@@ -100,7 +126,7 @@ def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
     Uses ffmpeg-python, which has no C compilation issues.
     """
     if not os.path.exists(input_file):
-        print(f"Error: Input file not found: {input_file}")
+        print_error(f'*** Error: Input file not found: {input_file}')
         return False
 
     try:
@@ -116,51 +142,51 @@ def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
             .run(capture_stdout=True, capture_stderr=True, overwrite_output=True)
         )
 
-        print("Conversion to .mp3 successful")
+        #print('Conversion to .mp3 successful')
         return True
 
     except ffmpeg.Error as e:
-        print("Error during conversion:")
+        print_error('*** Error during conversion:')
         # The error message from ffmpeg is in stderr
         print(e.stderr.decode('utf-8'))
     except FileNotFoundError:
-        print("Error: 'ffmpeg' executable not found.")
-        print("Please ensure ffmpeg is installed and in your system's PATH.")
+        print_error('*** Error: ffmpeg executable not found')
     return False
 
 
 # First check for missing mappings
 problem = False
 for filefp in list(get_all_files(source)):
-    if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
+    if filefp.endswith('.mp3') or filefp.endswith('.m4a'):
         parent = file_part(os.path.dirname(filefp))
         if parent not in folder_to_artist_crhonique:
-            print("Folder not found: ", parent, '  for file', filefp)
+            print_error('*** Folder not found: ', parent)
+            print('For file', filefp)
             problem = True
 if problem:
     sys.exit(0)
 
 
 for filefp in list(get_all_files(source)):
-    if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
+    if filefp.endswith('.mp3') or filefp.endswith('.m4a'):
         parent = file_part(os.path.dirname(filefp))
         file = file_part(filefp)
         artist, correct_folder = folder_to_artist_crhonique[parent]
-        print(artist + ":", file)
+        print(artist + ':', file)
 
         # Convert all files including .mp3 to standardize output at 192 kbps
         processed_filefp = os.path.join(source_processed, correct_folder, file).replace('.m4a', '.mp3')
         os.makedirs(os.path.dirname(processed_filefp), exist_ok=True)
         if not convert_to_mp3_192_with_tags(filefp, processed_filefp):
-            print("*** Error during conversion to mp3 of", filefp)
-            print("*** Aborting")
+            print_error('*** Error during conversion to mp3 of', filefp)
+            print('Aborting')
             sys.exit(1)
 
         album = "L'humour d'inter"
         title = stem_part(file)
         year = file[:4]
         comment = file[:10]
-        genre = "Humour"
+        genre = 'Humour'
 
         if update_tags(processed_filefp, artist, album, title, year, genre, comment):
             archive_filefp = filefp.replace(source, source_archives)

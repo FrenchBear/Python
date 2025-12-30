@@ -6,16 +6,14 @@
 # 2025-11-02    PV      Skip serie stodio-payet
 # 2025-11-05    PV      Look for last downloaded episoze in the last 5 main pages; use memoization
 # 2025-11-19    PV      Bug when last episode was first of a page other than 1 fixed
+# 2025-12-29    PV      Errors in red to be more visible
 
 # Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
 # use curl --ssl-no-revoke ...
 
 import yaml
 import pa_core
-
-# import sys
-# res = pa_core.process_podcast_page(r"C:\Temp", "tp31oct.html")
-# sys.exit(0)
+from pa_core import print_error, print_warning
 
 CONFIG_FILE = r"C:\MusShared\Podcasts\RadioFrance\configRF.yaml"
 
@@ -25,10 +23,10 @@ def load_config():
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)
     except FileNotFoundError:
-        print(f"Error: Configuration file '{CONFIG_FILE}' not found.")
+        print_error(f"*** Error: Configuration file '{CONFIG_FILE}' not found.")
         return None
     except yaml.YAMLError as e:
-        print(f"Error parsing YAML file: {e}")
+        print_error(f"*** Error parsing YAML file: {e}")
         return None
 
 def save_config(config):
@@ -54,7 +52,7 @@ def process_podcast_main_page(podcast_config, index, total):
     print(f"[{index}/{total}] Processing: {podcast_title}")
 
     if not url or not path:
-        print(f"  -> Skipping '{podcast_title}': 'url' or 'path' is missing.")
+        print_warning(f"  -> Skipping '{podcast_title}': 'url' or 'path' is missing.")
         return
 
     # Determine page_index and expsode_index of the first episode to download (included),
@@ -71,7 +69,7 @@ def process_podcast_main_page(podcast_config, index, total):
                 break
 
         if episode_index == 0 and page_index == 1:
-            print("--> No new poadcast\n")
+            print_warning("--> No new poadcast\n")
             return
 
         if episode_index == -1:
@@ -108,7 +106,7 @@ def process_podcast_main_page(podcast_config, index, total):
         podcast_config['last_download'] = twenty_pages[0][1]
         save_config(config)
     else:
-        print("Errors during podcast processing, history not updated")
+        print_error("*** Errors during podcast processing, history not updated")
     print()
 
 

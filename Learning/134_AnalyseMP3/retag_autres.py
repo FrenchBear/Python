@@ -1,13 +1,10 @@
-# retag_l'humour-d'inter.py
-# Update mp3 tags for L'humour d'Inter
+# retag_autres.py
+# Update mp3 tags for France Inter specific podcasts (excluding generic podcast L'humour d'Inter)
 #
 # 2025-10-21    PV
 # 2025-11-05    PV      Force convert .mp3 to 192 kbps; Update cover images
 # 2025-12-02    PV      MusicOD -> MusShared
-
-# Notes:
-# Images are not updated, need to do that later
-#
+# 2025-12-29    PV      Errors in color
 
 import os
 import shutil
@@ -15,6 +12,20 @@ import sys
 from common_fs import get_folders, get_all_files, file_part, stem_part, extension_part
 import eyed3    # type: ignore
 import ffmpeg   # type: ignore
+from error_color import print_error
+from contextlib import contextmanager
+
+@contextmanager
+def suppress_stdout_stderr():
+    """A context manager that redirects stdout and stderr to devnull"""
+    with open(os.devnull, 'w', encoding='utf-8') as fnull:
+        old_stdout, old_stderr = sys.stdout, sys.stderr
+        sys.stdout, sys.stderr = fnull, fnull
+        try:
+            yield
+        finally:
+            sys.stdout, sys.stderr = old_stdout, old_stderr
+
 
 source = r"C:\MusShared\Podcasts\RadioFrance"
 source_processed = r"C:\MusShared\Podcasts\RadioFrance.Processed"
@@ -43,20 +54,21 @@ def memoize_image_data(f):
 @memoize_image_data
 def get_image_data(cover_image_path: str) -> bytes | None:
     try:
-        with open(cover_image_path, "rb") as f:
+        with open(cover_image_path, 'rb') as f:
             image_data = f.read()
             return image_data
     except FileNotFoundError:
-        print(f"ERROR: Cover art file not found at: {cover_image_path}")
+        print_error(f'*** Error: Cover art file not found at: {cover_image_path}')
     except Exception as e:
-        print(f"ERROR: Could not read image file: {e}")
+        print_error(f'*** Error: Could not read image file: {e}')
     return None
 
 
 def update_tags_and_cover(file_full_path: str, artist: str, album: str, title: str, year: str, genre: str, comment: str, cover_mage_path: str | None) -> bool:
-    audiofile = eyed3.load(file_full_path)
+    with suppress_stdout_stderr():
+        audiofile = eyed3.load(file_full_path)
     if audiofile is None:
-        print(f"ERROR: Can't load file {file_full_path}")
+        print_error(f"*** Error: Can't load file {file_full_path}")
         return False
 
     if audiofile.tag is None:
@@ -78,15 +90,15 @@ def update_tags_and_cover(file_full_path: str, artist: str, album: str, title: s
             audiofile.tag.images.remove(u'')   # type: ignore
             ext = extension_part(cover_mage_path).casefold()
             match ext:
-                case ".jpg":
-                    mime_type = "image/jpeg"
-                case ".png":
-                    mime_type = "image/png"
+                case '.jpg':
+                    mime_type = 'image/jpeg'
+                case '.png':
+                    mime_type = 'image/png'
                 case _:
-                    print("Unknown image suffix:", cover_mage_path)
-                    print("*** Fatal error, abort")
+                    print_error('*** Unknown image suffix:', cover_mage_path)
+                    print('Aborting')
                     sys.exit(1)
-            audiofile.tag.images.set(3, image_data, mime_type, u"Cover")    # type: ignore
+            audiofile.tag.images.set(3, image_data, mime_type, u'Cover')    # type: ignore
 
     audiofile.tag.save(encoding='utf-8')                        # type: ignore
 
@@ -98,7 +110,7 @@ def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
     Uses ffmpeg-python, which has no C compilation issues.
     """
     if not os.path.exists(input_file):
-        print(f"Error: Input file not found: {input_file}")
+        print_error(f'Error: Input file not found: {input_file}')
         return False
 
     try:
@@ -114,40 +126,39 @@ def convert_to_mp3_192_with_tags(input_file, output_file) -> bool:
             .run(capture_stdout=True, capture_stderr=True, overwrite_output=True)
         )
 
-        print("Conversion to .mp3 successful")
+        #print('Conversion to .mp3 successful')
         return True
 
     except ffmpeg.Error as e:
-        print("Error during conversion:")
+        print_error('Error during conversion:')
         # The error message from ffmpeg is in stderr
         print(e.stderr.decode('utf-8'))
     except FileNotFoundError:
-        print("Error: 'ffmpeg' executable not found.")
-        print("Please ensure ffmpeg is installed and in your system's PATH.")
+        print_error('Error: ffmpeg executable not found')
     return False
 
 
 def process_folder(folder):
     artist = file_part(folder)
     for filefp in list(get_all_files(folder)):
-        if filefp.endswith(".mp3") or filefp.endswith(".m4a"):
+        if filefp.endswith('.mp3') or filefp.endswith('.m4a'):
             file = file_part(filefp)
             (chronique, cover) = folder_to_chronique_cover[artist]
-            print(artist + ":", file)
+            print(artist + ':', file)
 
             # # Convert all files including .mp3 to standardize output at 192 kbps
             processed_filefp = os.path.join(source_processed, artist, file).replace('.m4a', '.mp3')
             os.makedirs(os.path.dirname(processed_filefp), exist_ok=True)
             if not convert_to_mp3_192_with_tags(filefp, processed_filefp):
-                print("*** Error during conversion to mp3 of", filefp)
-                print("*** Aborting")
+                print_error('*** Error during conversion to mp3 of', filefp)
+                print('Aborting')
                 sys.exit(1)
 
             year = file[:4]
-            album = chronique + " " + year
+            album = chronique + ' ' + year
             title = stem_part(file)
             comment = file[:10]
-            genre = "Humour"
+            genre = 'Humour'
 
             if update_tags_and_cover(processed_filefp, artist, album, title, year, genre, comment, cover):
                 archive_filefp = filefp.replace(source, source_archives)
@@ -159,5 +170,5 @@ def process_folder(folder):
 
 for folder in get_folders(source, True):
     if not "L'humour d'inter" in folder:
-        print("\n------------------\n" + folder)
+        print('\n------------------\n' + folder)
         process_folder(folder)

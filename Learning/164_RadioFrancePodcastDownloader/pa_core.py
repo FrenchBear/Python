@@ -4,6 +4,7 @@
 # 2025-10-21    PV      Version for podcast downloader
 # 2025-11-02    PV      Better replacement of " in sanitize_filename
 # 2025-11-04    PV      sanitize_filename replace non-breaking space by regular space
+# 2025-12-29    PV      Errors and wanings in color to be more visible
 
 from datetime import datetime
 import os
@@ -11,6 +12,22 @@ import re
 import json
 from typing import Tuple
 import requests
+
+
+def print_ansi(code: str, *args):
+    print(f'\033[{code}m', end='')
+    print(*args, end='')
+    print('\033[0m')
+
+def print_error(*args):
+    print_ansi('31;1', *args)   # red, bright
+
+def print_warning(*args):
+    print_ansi('33', *args)     # yellow
+
+# for fg in range(31,38):
+#     print_ansi(f'{fg}', f'This is a warning message: {fg}')
+#     print_ansi(f'{fg};1', f'This is a warning message: {fg},1')
 
 
 def memoize_web_page(f):
@@ -47,8 +64,8 @@ def read_url(url: str) -> str:
         return response.text
 
     except requests.exceptions.RequestException as e:
-        print(f"*** An error occurred: {e}")
-        return ""
+        print_error(f'*** An error occurred: {e}')
+        return ''
 
 def sanitize_filename(filename):
     """Removes invalid characters from a filename."""
@@ -65,7 +82,7 @@ def sanitize_filename(filename):
 def process_podcast_page(path: str, episode_url: str) -> bool:
     text = read_url(episode_url)
     if text == "":
-        print("*** Error when reading url")
+        print_error('*** Error when reading url')
         return False
 
     re_script = re.compile(r'<script[^>]*type="application/ld\+json">(.*?)</script>', re.MULTILINE)    # non-greedy capture
@@ -83,7 +100,7 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
                 try:
                     me = graph.get("mainEntity")
                     if me is None:
-                        print(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
+                        print_error(f"*** Error: Page {episode_url} doesn't contain 'mainEntity'")
                         return False
 
                     url = me.get("contentUrl")
@@ -108,14 +125,14 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
                         return True
 
                     except requests.exceptions.RequestException as e:
-                        print(f'*** An error occurred during download: {e}')
+                        print_error(f'*** An error occurred during download: {e}')
                         return False
 
                 except Exception as e:
-                    print(f'*** Error during analysis: {e}')
+                    print_error(f'*** Error during analysis: {e}')
                     return False
 
-    print('*** Error: no iterator found')
+    print_error('*** Error: no iterator found')
     return False
 
 
@@ -137,4 +154,4 @@ def get_twenty_pages(base_url: str, page_index: int) -> list[Tuple[str, str]]:
 
 
 if __name__ == "__main__":
-    print("This module is not supposed to be executed directly")
+    print_warning("Module pa_core is not supposed to be executed directly.")
