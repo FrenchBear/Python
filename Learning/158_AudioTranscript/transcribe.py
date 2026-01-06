@@ -19,6 +19,7 @@ group = "TP-M"
 
 match group:
     case "DCL-O":
+        # Untested after 2026 update
         source = r"C:\MusShared\Humour\David Castello-Lopes\E1 - Les origines 2020-2023\*\*.mp3"
         search_path = r"C:\MusShared\Humour"
         replace_path = r"C:\MusShared\AudioDups\DCL-O"
