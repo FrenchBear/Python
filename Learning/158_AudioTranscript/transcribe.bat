@@ -1,1 +1,1 @@
-.\venv\Scripts\python.exe tr_dcl.py
+python.exe transcribe.py

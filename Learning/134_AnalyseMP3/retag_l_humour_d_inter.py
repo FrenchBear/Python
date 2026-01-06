@@ -91,6 +91,7 @@ folder_to_artist_crhonique = {
     "la-chronique-de-marie-de-brauer": ("Marie de Brauer", "La chronique de Marie de Brauer"),
     "la-chronique-de-marine-leonardi": ("Marine Leonardi", "La chronique de Marine Leonardi"),
     "vero-la-conciliatrice": ("Véro Clederman-Pilouchet", "Merci Véro"),
+    "merci-vero": ("Véro Clederman-Pilouchet", "Merci Véro"),
     "la-chronique-d-etienne-lautrette": ("Étienne Lautrette", "La chronique d'Étienne Lautrette"),
     "yacine-belhousse": ("Yacine Belhousse", "Yacine Belhousse moi ce que j'en dis"),
 }

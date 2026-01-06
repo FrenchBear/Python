@@ -5,27 +5,28 @@
 # 2025-09-23    PV      Result moved from C:\Temp to D:\AudioDups
 # 2025-09-28    PV      Simplified version for DCL
 # 2025-09-30    PV      Parametered version
+# 2026-01-06    PV      Removed pydub since it's totally bugged, pyaudiooop is full of bugs, obviously untested, and awfully slow
 
 from datetime import datetime
 import os
 import time
 import sys
-from pydub import AudioSegment
+import subprocess
 from common_fs import folder_part, file_exists
 from myglob import MyGlobBuilder
 
-group = "DCL-O"
+group = "TP-M"
 
 match group:
     case "DCL-O":
-        source = r"C:\MusicOD\Humour\David Castello-Lopes\David Castello-Lopes - Europe 1 - Les origines 2020-2023\*\*.mp3"
-        search_path = r"C:\MusicOD\Humour"
-        replace_path = r"D:\AudioDups\DCL-O"
+        source = r"C:\MusShared\Humour\David Castello-Lopes\E1 - Les origines 2020-2023\*\*.mp3"
+        search_path = r"C:\MusShared\Humour"
+        replace_path = r"C:\MusShared\AudioDups\DCL-O"
 
     case "TP-M":
-        source = r"C:\MusicOD\Humour\Tanguy Pastureau\Tanguy Pastureau maltraite l'info *\*\*.mp3"
-        search_path = r"C:\MusicOD\Humour"
-        replace_path = r"D:\AudioDups\TP-M"
+        source = r"C:\MusShared\Humour\Tanguy Pastureau\F1 - Maltraite l'info\*\*\*.mp3"
+        search_path = r"C:\MusShared\Humour\Tanguy Pastureau\F1 - Maltraite l'info"
+        replace_path = r"C:\MusShared\AudioDups\TP-M"
         pass
 
     case _:
@@ -38,7 +39,7 @@ match group:
 #         print(str(ma.path))
 # os._exit(0)
 
-translation_log = os.path.join(search_path, "transcription.log")
+translation_log = os.path.join(replace_path, "Transcription2.log")
 temp_wav_path = fr"c:\Temp\temp_transcription_audio_{group}.wav"
 
 
@@ -80,18 +81,37 @@ def transcribe_audio(input_mp3: str):
     print("\n\n\n---------------------------------------------------\nProcessing "+input_mp3)
     my_log("Processing " + input_mp3, True)
 
-    # Convert MP3 to WAV
+    # Convert MP3 to WAV (use ffmpeg and abandon pydub/pyaudioop)
     tstart = time.time()
+
+    command = [
+        'ffmpeg', 
+        '-y',                   # Force override existing output file
+        '-i', input_mp3, 
+        '-ac', '1',             # Set Audio Channels to 1 (Mono)
+        '-ar', '16000',         # Set Audio Sampling Rate to 16 kHz
+        temp_wav_path
+    ]
+
     try:
-        audio = AudioSegment.from_mp3(input_mp3)
-        # Convert to mono and set a standard sample rate
-        audio = audio.set_channels(1)
-        audio = audio.set_frame_rate(16000)  # 16kHz is standard for many speech models
-        audio.export(temp_wav_path, format="wav")
-    except Exception as e:
-        print(f"Error converting MP3 to WAV: {e}")
-        print("Please ensure you have ffmpeg installed and accessible in your system's PATH.")
-        return
+        # Run the command
+        # capture_output=True allows you to see the output if needed
+        subprocess.run(command, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        print("An error occurred during conversion.")
+        print(e.stderr)
+        sys.exit(0)
+
+    # try:
+    #     audio = AudioSegment.from_mp3(input_mp3)
+    #     # Convert to mono and set a standard sample rate
+    #     audio = audio.set_channels(1)
+    #     audio = audio.set_frame_rate(16000)  # 16kHz is standard for many speech models
+    #     audio.export(temp_wav_path, format="wav")
+    # except Exception as e:
+    #     print(f"Error converting MP3 to WAV: {e}")
+    #     print("Please ensure you have ffmpeg installed and accessible in your system's PATH.")
+    #     return
     duration = time.time() - tstart
     msg = "WAV conversion completed in " + str(round(duration, 3)) + 's'
     print(msg)
