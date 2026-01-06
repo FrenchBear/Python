@@ -50,6 +50,7 @@ folder_to_artist_crhonique = {
     "la-drole-d-humeur-de-julie-conti": ("Julie Conti", "La drôle d'humeur de Julie Conti"),
     "la-drole-d-humeur-de-julien-santini": ("Julien Santini", "La drôle d'humeur de Julien Santini"),
     "la-drole-d-humeur-de-melodie-fontaine": ("Mélodie Fontaine", "La drôle d'humeur de Mélodie Fontaine"),
+    "la-drole-d-humeur-d-amandine-lourdel": ("Amandine Lourdel", "La drôle d'humeur d'Amandine Lourdel"),
     "?? Rebecca Balestra": ("Rebecca Balestra", "La drôle d'humeur de Rebecca Balestra"),
     "la-drole-d-humeur-de-tom-baldetti": ("Tom Baldetti", "La drôle d'humeur de Tom Baldetti"),
     "la-drole-d-humeur-d-oldelaf": ("Oldelaf", "La drôle d'humeur d'Oldelaf"),
