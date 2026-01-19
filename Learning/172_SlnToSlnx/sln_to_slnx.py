@@ -16,8 +16,10 @@ where XXX.csproj is the name of the unique .csproj file found.
 If this .slnx file is successfully written, then rename .sln file using .sln.bak suffix.
 """
 
-from common_fs import get_folders
+from common_fs import get_all_folders
 import os
+
+doit = True
 
 
 def convert_sln_to_slnx(target_directory):
@@ -29,7 +31,7 @@ def convert_sln_to_slnx(target_directory):
     csproj_files = []
     slnx_files = []
 
-    # 1. Walk the directory tree to count specific file types
+    # Walk the directory tree to count specific file types
     for root, dirs, files in os.walk(target_directory):
         for file in files:
             # Case-insensitive check for extensions
@@ -41,14 +43,14 @@ def convert_sln_to_slnx(target_directory):
             elif lower_file.endswith('.slnx'):
                 slnx_files.append(os.path.join(root, file))
 
-    # 2. Check conditions
+    # Check conditions
     # Must have exactly 1 .sln, 1 .csproj, and 0 .slnx
     if len(sln_files) != 1 or len(csproj_files) != 1 or len(slnx_files) != 0:
         print("Conditions not met for folder", target_directory)
         print(f"Found: {len(sln_files)} .sln files, {len(csproj_files)} .csproj files, {len(slnx_files)} .slnx files.")
         return
 
-    # 3. Prepare paths and content
+    # Prepare paths and content
     sln_path = sln_files[0]
     csproj_path = csproj_files[0]
     
@@ -66,29 +68,25 @@ def convert_sln_to_slnx(target_directory):
   <Project Path="{csproj_name}" />
 </Solution>"""
 
-    # 4. Write new file and rename old one
-    try:
-        # Write the .slnx file in UTF-8
-        with open(slnx_full_path, 'w', encoding='utf-8') as f:
-            f.write(slnx_content)
-        
-        # Rename the original .sln file
-        bak_path = sln_path + ".bak"
-        if os.path.exists(bak_path):
-            os.remove(bak_path)
-        os.rename(sln_path, bak_path)
-        
-        print(f"Success: Created '{slnx_filename}' and renamed original to '{os.path.basename(bak_path)}'.")
+    # Write new file and rename old one
+    if doit:
+        try:
+            # Write the .slnx file in UTF-8
+            with open(slnx_full_path, 'w', encoding='utf-8') as f:
+                f.write(slnx_content)
+            
+            # Rename the original .sln file
+            bak_path = sln_path + ".bak"
+            if os.path.exists(bak_path):
+                os.remove(bak_path)
+            os.rename(sln_path, bak_path)
+            
+            print(f"Success: Created '{slnx_filename}' and renamed original to '{os.path.basename(bak_path)}'.")
 
-    except OSError as e:
-        print(f"Error during file operation: {e}")
-
-# Example usage:
-# convert_sln_to_slnx(r"C:\MyRepository\ProjectRoot")
+        except OSError as e:
+            print(f"Error during file operation: {e}")
 
 
-
-#for folder in get_folders(r'C:\Development\GitVSTS\CSMisc\Net10', True):
-for folder in get_folders(r'C:\Development\GitVSTS\CSMisc\Net10\CS90_MyGlob', True):
+for folder in get_all_folders(r'C:\Development\GitHub\Visual-Studio-Projects\Net10'):
     print(folder)
     convert_sln_to_slnx(folder)
