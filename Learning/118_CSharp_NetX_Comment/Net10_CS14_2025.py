@@ -24,7 +24,7 @@ root = [r'C:\Development\GitVSTS\CSMisc\Net10']
 root = [r'C:\Development\GitVSTS\WPF\Net10']
 
 root = [
-    r'C:\Development\GitHub\Visual-Studio-Projects\Net10'
+    r'C:\Development\GitHub\Projects\10_UniView\CS_Net10_U16'
 
     # r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_Net10",
     # r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_WPF_Net10",
@@ -53,7 +53,7 @@ root = [
     # r"C:\Development\GitVSTS\DevForFun\26_RotorRouter\CS_Net10",
 ]
 
-DATE = '2026-01-19'
+DATE = '2026-01-20'
 
 files = []
 for r in root:

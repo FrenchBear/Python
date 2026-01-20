@@ -87,6 +87,35 @@ def convert_sln_to_slnx(target_directory):
             print(f"Error during file operation: {e}")
 
 
-for folder in get_all_folders(r'C:\Development\GitHub\Visual-Studio-Projects\Net10'):
-    print(folder)
-    convert_sln_to_slnx(folder)
+for root in [
+    r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\01_Labyrinthe\CS_WPF_Net10",
+    r"C:\Development\GitVSTS\DevForFun\02_Hilbert\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\03_Radoteur\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\04_VietnamesePuzzle\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\05_Percolator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\06_Generics\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\08_EightQueens\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\10_Permutator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\11_Primes\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\12_ArithDoubler\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\13_SegmentedSieve\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\14_SieveIterator\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\15_TopoSort\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\16_Formatting\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\17_StringCoding\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\18_ConfigFiles\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\19_Dijkstra\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\20_Lex\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\21_FractionDevelopment\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\22_Pentamino\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\23_Regex\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\24_Parallel\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\25_SQL\CS_Net10",
+    r"C:\Development\GitVSTS\DevForFun\26_RotorRouter\CS_Net10",
+    ]:
+    print(root)
+    convert_sln_to_slnx(root)
+    for folder in get_all_folders(root):
+        print(folder)
+        convert_sln_to_slnx(folder)
