@@ -1,4 +1,3 @@
-
 class Animal:
     def __init__(self, n_legs, color):
         self.n_legs = n_legs
@@ -14,13 +13,13 @@ class Dog(Animal):
         self.name = name
 
     def make_noise(self):
-        print((self.name + ': ' + 'woof'))
+        print(self.name + ': ' + 'woof')
 
     def __repr__(self):
-        return "Dog({},{})".format(repr(self.color), repr(self.name))
+        return f"Dog({repr(self.color)},{repr(self.name)})"
 
     def __str__(self):
-        return "I am a {} Dog named {}.".format(self.color, self.name)
+        return f"I am a {self.color} Dog named {self.name}."
 
     # No default implem for len(Dog)
     def __len__(self):

@@ -23,7 +23,7 @@ import numpy as np
 
 #### Define the quadratic and cross-entropy cost functions
 
-class QuadraticCost(object):
+class QuadraticCost:
 
     @staticmethod
     def fn(a, y):
@@ -39,7 +39,7 @@ class QuadraticCost(object):
         return (a-y) * sigmoid_prime(z)
 
 
-class CrossEntropyCost(object):
+class CrossEntropyCost:
 
     @staticmethod
     def fn(a, y):
@@ -65,7 +65,7 @@ class CrossEntropyCost(object):
 
 
 #### Main Network class
-class Network(object):
+class Network:
 
     def __init__(self, sizes, cost=CrossEntropyCost):
         """The list ``sizes`` contains the number of neurons in the respective
@@ -168,7 +168,7 @@ class Network(object):
             if monitor_training_cost:
                 cost = self.total_cost(training_data, lmbda)
                 training_cost.append(cost)
-                print("Cost on training data: {}".format(cost))
+                print(f"Cost on training data: {cost}")
             if monitor_training_accuracy:
                 accuracy = self.accuracy(training_data, convert=True)
                 training_accuracy.append(accuracy)
@@ -177,7 +177,7 @@ class Network(object):
             if monitor_evaluation_cost:
                 cost = self.total_cost(evaluation_data, lmbda, convert=True)
                 evaluation_cost.append(cost)
-                print("Cost on evaluation data: {}".format(cost))
+                print(f"Cost on evaluation data: {cost}")
             if monitor_evaluation_accuracy:
                 accuracy = self.accuracy(evaluation_data)
                 evaluation_accuracy.append(accuracy)
@@ -302,7 +302,7 @@ def load(filename):
     instance of Network.
 
     """
-    f = open(filename, "r")
+    f = open(filename)
     data = json.load(f)
     f.close()
     cost = getattr(sys.modules[__name__], data["cost"])

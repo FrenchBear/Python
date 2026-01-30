@@ -11,7 +11,7 @@ import requests
 def read_url(url: str) -> str:
     # Code debug
     if len(url) < 20:
-        with open(url, "r", encoding="utf-8") as f:
+        with open(url, encoding="utf-8") as f:
             return f.read()
 
     # Some websites block default Python scripts. 

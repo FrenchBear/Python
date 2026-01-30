@@ -2,14 +2,13 @@
 # 2021-02-28    PV
 
 import itertools
-from typing import Iterator
+from collections.abc import Iterator
 
 
 def sublists(li: list) -> Iterator[tuple]:
     """Iterator, returns all (2ⁿ) sublists of a list"""
     for i in range(len(li) + 1):
-        for s in itertools.combinations(li, i):
-            yield s
+        yield from itertools.combinations(li, i)
 
 li = [27, 33, 38, 40, 15, 24, 29]
 for s in sublists(li):

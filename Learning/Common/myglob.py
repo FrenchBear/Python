@@ -12,7 +12,8 @@ import os
 import re
 from pathlib import Path
 from collections import deque
-from typing import Iterator, NamedTuple, Deque, Optional, Self, Tuple, cast
+from typing import NamedTuple, Deque, Optional, Self, Tuple, cast
+from collections.abc import Iterator
 
 # -----------------------------------
 # Globals
@@ -45,7 +46,7 @@ class MyGlobError(Exception):
     pass
 
 class MyGlobMatch:
-    def __init__(self, path: Path, is_dir=False, is_file=False, error: Optional[OSError] = None):
+    def __init__(self, path: Path, is_dir=False, is_file=False, error: OSError | None = None):
         self.path = path
         self.is_dir = is_dir
         self.is_file = is_file
@@ -217,7 +218,7 @@ class MyGlobBuilder:
         return self
 
     @staticmethod
-    def get_root(glob_pattern: str) -> Tuple[str, str]:
+    def get_root(glob_pattern: str) -> tuple[str, str]:
         glob = glob_pattern
         if not glob:
             glob = "*"

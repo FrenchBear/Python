@@ -1,5 +1,5 @@
 import os, sys
-from typing import Iterable
+from collections.abc import Iterable
 
 # from shutil import copyfile
 

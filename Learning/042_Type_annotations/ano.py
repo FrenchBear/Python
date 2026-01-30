@@ -94,14 +94,14 @@ cc = myclass()
 l = cc.myfunc("zap")
 
 
-zs: Union[str, int] 
+zs: str | int 
 zs = 3
 zs = 'top'
 # zs=3.13        # Error float type
 
 
 # def triple(x:Union[str,int]) -> Union[str,int]:
-def triple(x:Union[str, int]):
+def triple(x:str | int):
     return x+x+x
 # mypy: ano.py:104: error: Unsupported operand types for + ("str" and "int")
 # mypy: ano.py:104: error: Unsupported operand types for + ("int" and "str")

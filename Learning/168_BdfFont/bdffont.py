@@ -5,7 +5,7 @@
 
 source = r'C:\Development\GitHub\RPiExtra\LedMatrix\adafruit-rpi-rgb-led-matrix-master\fonts\5x7.bdf'
 
-with open(source, 'r') as f:
+with open(source) as f:
     lines = f.readlines()
 
 encoding_min = 32

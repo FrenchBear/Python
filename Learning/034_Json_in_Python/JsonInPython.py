@@ -24,12 +24,12 @@ print(simple_list_2)
 
 
 
-class Detail(object):
+class Detail:
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-class RootConfig(object):
+class RootConfig:
     def __init__(self):
         self.i = 12
         self.s = "RootConfig variable s"

@@ -118,10 +118,10 @@ def clock(func):
         if args:
             arg_lst.append(', '.join(repr(arg) for arg in args))
         if kwargs:
-            pairs = ['%s=%r' % (k, w) for k, w in sorted(kwargs.items())]
+            pairs = [f'{k}={w!r}' for k, w in sorted(kwargs.items())]
             arg_lst.append(', '.join(pairs))
         arg_str = ', '.join(arg_lst)
-        print('[%0.8fs] %s(%s) -> %r ' % (elapsed, name, arg_str, result))
+        print(f'[{elapsed:0.8f}s] {name}({arg_str}) -> {result!r} ')
         return result
     return clocked
 
@@ -142,7 +142,7 @@ def clock2(fmt=DEFAULT_FMT):
             if posargs:
                 arg_lst.append(', '.join(repr(arg) for arg in posargs))
             if kwargs:
-                pairs = ['%s=%r' % (k, w) for k, w in sorted(kwargs.items())]
+                pairs = [f'{k}={w!r}' for k, w in sorted(kwargs.items())]
                 arg_lst.append(', '.join(pairs))
             args = ', '.join(arg_lst)
             print(fmt.format(**locals()))       # locals() is a dictionary of local variables
@@ -161,7 +161,7 @@ def factorial(n):
     return 1 if n < 2 else n*factorial(n-1)
 
 
-print('Calling {}(0.25)'.format(snooze.__name__))
+print(f'Calling {snooze.__name__}(0.25)')
 snooze(0.25)
 
 print('Calling factorial(6)')
@@ -187,7 +187,7 @@ print('calling fibo1(6)')
 print(fibo1(6))
 
 
-@functools.lru_cache()
+@functools.lru_cache
 @clock
 def fibo2(n):
     if n < 2:

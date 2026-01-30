@@ -3,7 +3,6 @@
 # 2021-05-09    PV
 
 # A class can reference itself without using a string
-from __future__ import annotations
 
 import functools
 import math

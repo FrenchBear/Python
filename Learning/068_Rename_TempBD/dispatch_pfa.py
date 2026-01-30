@@ -4,7 +4,7 @@ from common_fs import get_files
 
 source = r"W:\TempBD\archives\cbr2\ElviFrance - Terrificolor"
 
-"""
+r"""
 NUM = re.compile(r"(\d+)\.jpg", re.IGNORECASE)
 
 folders = get_folders(source)

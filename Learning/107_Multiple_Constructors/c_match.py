@@ -64,7 +64,7 @@ class Fract:
         self.den = 1 if denominator is None else denominator
         self.normalize()
 
-    def init_fract(self, f: 'Fract'):
+    def init_fract(self, f: Fract):
         self.num = f.numerator
         self.den = f.denominator
 

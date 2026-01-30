@@ -37,7 +37,7 @@ if doit:
             print('Non-empty target folder:', target)
             os._exit(1)
 
-issues: dict[str, list[Tuple[int, str]]] = defaultdict(list)
+issues: dict[str, list[tuple[int, str]]] = defaultdict(list)
 ln = 2
 for source in sources:
     for file in get_files(source):

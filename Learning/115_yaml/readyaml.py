@@ -3,7 +3,7 @@ import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
-with open("f1.yaml", "r") as stream:
+with open("f1.yaml") as stream:
     try:
         d:dict = yaml.safe_load(stream)
         for key, value in d.items():

@@ -23,9 +23,9 @@ def test_abs():
     i = -2
     f = -3.25
     c = complex(3, 4)
-    print('\tabs({0}) = {1}'.format(i, abs(i)))
-    print('\tabs({0}) = {1}'.format(f, abs(f)))
-    print('\tabs({0}) = {1}'.format(c, abs(c)))
+    print(f'\tabs({i}) = {abs(i)}')
+    print(f'\tabs({f}) = {abs(f)}')
+    print(f'\tabs({c}) = {abs(c)}')
 
 
 def test_all():
@@ -44,10 +44,10 @@ def test_all():
     l1 = [0, 1, 2]
     l2 = (1, 2, 3)
     l3 = {False}
-    print('\tall({0}) = {1}'.format(l1, all(l1)))
-    print('\tall({0}) = {1}'.format(l2, all(l2)))
-    print('\tall({0}) = {1}'.format(l3, all(l3)))
-    print('\tall({0}) = {1}'.format(l3, allEquiv(l3)))
+    print(f'\tall({l1}) = {all(l1)}')
+    print(f'\tall({l2}) = {all(l2)}')
+    print(f'\tall({l3}) = {all(l3)}')
+    print(f'\tall({l3}) = {allEquiv(l3)}')
 
 
 def test_any():
@@ -66,10 +66,10 @@ def test_any():
     l1 = [0, 1, 2]
     l2 = (1, 2, 3)
     l3 = {False}
-    print('\tall({0}) = {1}'.format(l1, any(l1)))
-    print('\tall({0}) = {1}'.format(l2, any(l2)))
-    print('\tall({0}) = {1}'.format(l3, any(l3)))
-    print('\tall({0}) = {1}'.format(l3, anyEquiv(l3)))
+    print(f'\tall({l1}) = {any(l1)}')
+    print(f'\tall({l2}) = {any(l2)}')
+    print(f'\tall({l3}) = {any(l3)}')
+    print(f'\tall({l3}) = {anyEquiv(l3)}')
 
 
 def test_ascii():
@@ -81,13 +81,13 @@ def test_ascii():
     repr() in Python 2.
     """
     print('\ntest_ascii()')
-    print('\tascii({0}) = {1}'.format(48, ascii(48)))
+    print(f'\tascii({48}) = {ascii(48)}')
     c = chr(7)
-    print('\tascii({0}) = {1}'.format(c, ascii(c)))
+    print(f'\tascii({c}) = {ascii(c)}')
     s = "Hello\nWorld \u263A\n"
-    print('\tascii({0}) = {1}'.format(s, ascii(s)))
+    print(f'\tascii({s}) = {ascii(s)}')
     j = complex(3, 4)
-    print('\tascii({0}) = {1}'.format(j, ascii(j)))
+    print(f'\tascii({j}) = {ascii(j)}')
 
 
 def test_bin():
@@ -98,8 +98,8 @@ def test_bin():
     object, it has to define an __index__() method that returns an integer.
     """
     print('\ntest_bin()')
-    print('\tbin({0:x}) = {1}'.format(0xCAFE, bin(0xCAFE)))
-    print('\tbin({0:x}) = {1}'.format(0xDEADBEEF, bin(0xDEADBEEF)))
+    print(f'\tbin({0xCAFE:x}) = {bin(0xCAFE)}')
+    print(f'\tbin({0xDEADBEEF:x}) = {bin(0xDEADBEEF)}')
 
 
 def test_bool():
@@ -111,8 +111,8 @@ def test_bool():
     further. Its only instances are False and True.
     """
     print('\ntest_bool()')
-    print('\tbool({0}) = {1}'.format(0, bool(0)))
-    print('\tbool({0}) = {1}'.format(23, bool(23)))
+    print(f'\tbool({0}) = {bool(0)}')
+    print(f'\tbool({23}) = {bool(23)}')
 
 
 def test_breakpoint():
@@ -281,8 +281,8 @@ def test_complex():
     print('\ntest_complex()')
     c1 = cmath.acos(2.0)
     c2 = complex(0, math.log(2+math.sqrt(3)))
-    print("c1 = {:.6f}".format(c1), "  cos -> ", cmath.cos(c1))
-    print("c2 = {:.6f}".format(c2), "  cos -> ", cmath.cos(c2))
+    print(f"c1 = {c1:.6f}", "  cos -> ", cmath.cos(c1))
+    print(f"c2 = {c2:.6f}", "  cos -> ", cmath.cos(c2))
 
 
 def test_delattr():

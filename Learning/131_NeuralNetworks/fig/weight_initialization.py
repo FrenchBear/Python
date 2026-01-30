@@ -62,7 +62,7 @@ def make_plot(filename):
     corresponding plot.
 
     """
-    f = open(filename, "r")
+    f = open(filename)
     results = json.load(f)
     f.close()
     default_vc, default_va, default_tc, default_ta = results[

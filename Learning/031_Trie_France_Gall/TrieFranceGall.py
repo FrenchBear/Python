@@ -29,11 +29,11 @@ print(len(sourcefiles))
 
 
 '''
-extra = r'U:\A_Trier Music\France Gall\France Gall - Évidement'
+extra = r'U:\\A_Trier Music\\France Gall\\France Gall - Évidement'
 extrafiles = []
 for root, subs, files in os.walk(extra):
     for file in files:
-        match = re.search(r'^(.+) - (.+) - (.+)\.mp3', file, re.IGNORECASE)
+        match = re.search(r'^(.+) - (.+) - (.+)\\.mp3', file, re.IGNORECASE)
         if match:
             song = match.groups(0)[2]
             if not song in sourcefiles: 

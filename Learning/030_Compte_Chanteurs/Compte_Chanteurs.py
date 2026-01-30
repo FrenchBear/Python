@@ -7,8 +7,8 @@ import re
 source = r"C:\MusicOD\MP3P\Chansons France\_Divers"
 l = [f for f in os.listdir(source) if os.path.isfile(os.path.join(source, f))]
 
-accent_tabin_str = u'àâäéèêëîïôöûüùÿç'
-accent_tabout_str = u'aaaeeeeiioouuuyc'
+accent_tabin_str = 'àâäéèêëîïôöûüùÿç'
+accent_tabout_str = 'aaaeeeeiioouuuyc'
 accent_tabin = [ord(char) for char in accent_tabin_str]
 accent_table = dict(zip(accent_tabin, accent_tabout_str))
 

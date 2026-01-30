@@ -3,7 +3,7 @@
 # 2021-07-10    PV
 
 from functools import wraps
-from typing import Callable
+from collections.abc import Callable
 
 def coroutine(func: Callable):
     """Decorator: primes 'func' by advancing to first yield"""

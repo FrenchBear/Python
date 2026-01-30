@@ -7,7 +7,7 @@
 import time
 from functools import wraps
 import inspect
-from typing import Callable
+from collections.abc import Callable
 
 def measure_time(func: Callable) -> Callable:
     """Display function execution time at the end"""

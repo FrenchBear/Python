@@ -17,16 +17,18 @@ shutil.copyfileobj 	No          No              Yes             No
 '''
 
 import os
-from typing import Callable, List, Iterable
+from typing import List
+
+from collections.abc import Callable, Iterable
 
 
-def get_files(source: str) -> List[str]:
+def get_files(source: str) -> list[str]:
     '''Retourne juste les fichiers d'un dossier, noms.ext sans chemins'''
     _1, _2, files = next(os.walk(source))
     return files
 
 
-def get_folders(source: str) -> List[str]:
+def get_folders(source: str) -> list[str]:
     '''Retourne juste les sous-dossiers d'un dossier, noms sans chemins'''
     _1, folders, _2 = next(os.walk(source))
     return folders
@@ -96,26 +98,26 @@ if __name__ == '__main__':
     test(folder_part, r'c:\temp\f1.txt',                    r'c:\temp')
     test(basename,    'nom_de_fichier.ext',                 r'nom_de_fichier')
     test(basename,    'fichier',                            r'fichier')
-    test(basename,    r'c:\p\nom_de_fichier.ext',           r'c:\p\nom_de_fichier')
-    test(basename,    r'c:\p1.p2\file',                     r'c:\p1.p2\file')
+    test(basename,    r'c:\\p\nom_de_fichier.ext',           r'c:\\p\nom_de_fichier')
+    test(basename,    r'c:\\p1.p2\file',                     r'c:\\p1.p2\file')
     test(file_part,   'C:AUTOEXEC.BAT',                     r'AUTOEXEC.BAT')
     test(folder_part, 'C:AUTOEXEC.BAT',                     r'C:')
     test(basename,    'C:AUTOEXEC.BAT',                     r'C:AUTOEXEC')
     test(basename,    'C:AUTOEXEC.BAT',                     r'C:AUTOEXEC')
-    test(file_part,   'C:\AUTOEXEC.BAT',                    r'AUTOEXEC.BAT')
-    test(folder_part, 'C:\AUTOEXEC.BAT',                    'C:\\')
-    test(basename,    'C:\AUTOEXEC.BAT',                    r'C:\AUTOEXEC')
-    test(file_part,   'C:\P\AUTOEXEC.BAT',                  r'AUTOEXEC.BAT')
-    test(folder_part, 'C:\P\AUTOEXEC.BAT',                  r'C:\P')
-    test(basename,    'C:\P\AUTOEXEC.BAT',                  r'C:\P\AUTOEXEC')
+    test(file_part,   'C:\\AUTOEXEC.BAT',                    r'AUTOEXEC.BAT')
+    test(folder_part, 'C:\\AUTOEXEC.BAT',                    'C:\\')
+    test(basename,    'C:\\AUTOEXEC.BAT',                    r'C:\\AUTOEXEC')
+    test(file_part,   'C:\\P\\AUTOEXEC.BAT',                  r'AUTOEXEC.BAT')
+    test(folder_part, 'C:\\P\\AUTOEXEC.BAT',                  r'C:\\P')
+    test(basename,    'C:\\P\\AUTOEXEC.BAT',                  r'C:\\P\\AUTOEXEC')
     test(file_part,   'AUTOEXEC.BAT',                       r'AUTOEXEC.BAT')
     test(folder_part, 'AUTOEXEC.BAT',                       r'<empty string>')
     test(basename,    'AUTOEXEC.BAT',                       r'AUTOEXEC')
-    test(file_part,   r'\AUTOEXEC.BAT',                     r'AUTOEXEC.BAT')
-    test(folder_part, r'\AUTOEXEC.BAT',                     '\\')
-    test(basename,    r'\AUTOEXEC.BAT',                     r'\AUTOEXEC')
-    test(file_part,   r'\\Server\Share\Path\File.ext',      r'File.ext')
-    test(folder_part, r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path')
-    test(basename,    r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
-    test(basename,    r'\\Server\Share\Path\File.ext',      r'\\Server\Share\Path\File')
+    test(file_part,   r'\\AUTOEXEC.BAT',                     r'AUTOEXEC.BAT')
+    test(folder_part, r'\\AUTOEXEC.BAT',                     '\\')
+    test(basename,    r'\\AUTOEXEC.BAT',                     r'\\AUTOEXEC')
+    test(file_part,   r'\\Server\\Share\\Path\\File.ext',      r'File.ext')
+    test(folder_part, r'\\Server\\Share\\Path\\File.ext',      r'\\Server\\Share\\Path')
+    test(basename,    r'\\Server\\Share\\Path\\File.ext',      r'\\Server\\Share\\Path\\File')
+    test(basename,    r'\\Server\\Share\\Path\\File.ext',      r'\\Server\\Share\\Path\\File')
 '''

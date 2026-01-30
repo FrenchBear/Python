@@ -25,8 +25,8 @@ class ScannedPage:
     numfile: int
     width: int
     height: int
-    colp: Optional[int]
-    rowp: Optional[int]
+    colp: int | None
+    rowp: int | None
 
     def is_pair(self) -> bool:
         return self.numfile % 2 == 0
@@ -68,8 +68,8 @@ def process(file: str, numfile: int):
     area = np.apply_along_axis(veclength, 1, area)
     area = area.reshape(areaheight, areawidth)
 
-    colp: Optional[int] = None
-    rowp: Optional[int] = None
+    colp: int | None = None
+    rowp: int | None = None
 
     if 4 < numfile < 168 and numfile != 5 and numfile != 45 and numfile != 133:
         if numfile % 2 == 0:

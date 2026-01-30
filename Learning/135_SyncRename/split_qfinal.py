@@ -14,7 +14,7 @@ from common_fs import get_folders, get_all_folders, file_part
 #         out.write(f+'\n')
 
 existing_folders = set()
-with open(r'c:\Temp\all_folders.txt', "r", encoding='UTF-8') as inp:
+with open(r'c:\Temp\all_folders.txt', encoding='UTF-8') as inp:
     for f in inp:
         existing_folders.add(f.strip('\n').casefold())
 

@@ -53,13 +53,13 @@ TARGETS = {
 }
 
 # --- TYPE HINTS for clarity ---
-BoundingBox = Tuple[int, int, int, int]
+BoundingBox = tuple[int, int, int, int]
 
 
 def find_actual_bounding_box(
     image_array: NDArray[np.uint8], 
     global_bbox: BoundingBox
-) -> Optional[BoundingBox]:
+) -> BoundingBox | None:
     """
     Searches within a global bounding box for the tightest box around non-white pixels.
 
@@ -96,9 +96,9 @@ def find_actual_bounding_box(
 
 
 def calculate_shift(
-    bboxes: Dict[str, Optional[BoundingBox]], 
+    bboxes: dict[str, BoundingBox | None], 
     image_width: int
-) -> Tuple[int, int]:
+) -> tuple[int, int]:
     """
     Calculates the required (dx, dy) shift based on a prioritized list of rules.
 

@@ -1,8 +1,9 @@
-
 import os
 import json
 from collections import defaultdict, Counter
-from typing import DefaultDict, Counter as CounterType
+from typing import DefaultDict
+
+from collections import Counter as CounterType
 
 from common import normalize_serie
 

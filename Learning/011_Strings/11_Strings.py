@@ -4,7 +4,7 @@
 
 s = "Once Upon a Time"
 print(s.endswith('.jpg'))
-print('{0} times {1} equals {2}'.format(8, 7, 8*7))
+print(f'{8} times {7} equals {8*7}')
 print(s.split())            # ['Once', 'Upon', 'a', 'Time']
 print('Yes\nNo\n\nMaybe\n'.splitlines())    # ['Yes', 'No', '', 'Maybe']
 print('<'+'\ta b  '.strip()+'>')

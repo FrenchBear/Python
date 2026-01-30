@@ -74,7 +74,7 @@ def make_plots(filename, num_epochs,
                training_set_size=1000):
     """Load the results from ``filename``, and generate the corresponding
     plots. """
-    f = open(filename, "r")
+    f = open(filename)
     test_cost, test_accuracy, training_cost, training_accuracy \
         = json.load(f)
     f.close()

@@ -1,6 +1,5 @@
-
-with open(r'words\expressions.fr.txt', 'r', encoding='UTF-8') as f:
-    dic_expressions = dict((expression.casefold(), expression) for expression in f.read().splitlines())
+with open(r'words\expressions.fr.txt', encoding='UTF-8') as f:
+    dic_expressions = {expression.casefold(): expression for expression in f.read().splitlines()}
 
 
 def proc(nn: str) -> str:

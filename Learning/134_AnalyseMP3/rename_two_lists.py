@@ -11,9 +11,9 @@ import sys
 from common_fs import file_exists, folder_exists, folder_part, file_part
 
 # Step 0: Read data
-with open(r"C:\Temp\original.txt", "r", encoding="utf-8") as f:
+with open(r"C:\Temp\original.txt", encoding="utf-8") as f:
     zold = f.readlines()
-with open(r"C:\Temp\fixed.txt", "r", encoding="utf-8") as f:
+with open(r"C:\Temp\fixed.txt", encoding="utf-8") as f:
     znew = f.readlines()
 assert len(zold) == len(znew)
 

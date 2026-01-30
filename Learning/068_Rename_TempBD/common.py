@@ -5,7 +5,7 @@ import os
 import shutil
 import unicodedata
 
-from typing import Iterable
+from collections.abc import Iterable
 
 
 # Juste les fichiers d'un dossier, noms sans chemins

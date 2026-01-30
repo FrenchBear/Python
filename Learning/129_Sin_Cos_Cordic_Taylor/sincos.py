@@ -48,7 +48,7 @@ def cos_taylor(angle: float) -> float:
 
 
 
-def sincos_cordic(angle: float) -> Tuple[float, float]:
+def sincos_cordic(angle: float) -> tuple[float, float]:
     """ Returns tuple (sin, cos) of angle radians computed using cordic algorithm
 
         Actual computing algorithm, sin and cos at the same time

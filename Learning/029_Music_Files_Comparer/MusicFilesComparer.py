@@ -14,8 +14,8 @@ def GetAllFiles(path):
             yield os.path.join(root, file)
 
 
-accent_tabin_str = u'àâäéèêëîïôöûüùÿç'
-accent_tabout_str = u'aaaeeeeiioouuuyc'
+accent_tabin_str = 'àâäéèêëîïôöûüùÿç'
+accent_tabout_str = 'aaaeeeeiioouuuyc'
 accent_tabin = [ord(char) for char in accent_tabin_str]
 accent_table = dict(zip(accent_tabin, accent_tabout_str))
 def LowerNoAccent(s):
@@ -24,7 +24,7 @@ def LowerNoAccent(s):
 
 newFiles = []
 newDic = {}
-newFolder = "C:\Temp\Work\LP"
+newFolder = r"C:\Temp\Work\LP"
 for file in GetAllFiles(newFolder):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:
@@ -37,8 +37,8 @@ for file in GetAllFiles(newFolder):
 
 oldFiles = []
 oldDic = {}
-oldFolder1 = "C:\Temp\Work\Chansons France"
-oldFolder2 = "C:\Temp\Work\Chansons Intl"
+oldFolder1 = r"C:\Temp\Work\Chansons France"
+oldFolder2 = r"C:\Temp\Work\Chansons Intl"
 for file in GetAllFiles(oldFolder1):
     match = re.search(r'^.*\\(.*) - (.*)\.mp3', file, re.IGNORECASE)
     if match:

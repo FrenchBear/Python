@@ -95,8 +95,7 @@ def files3(path):
         if os.path.isfile(full):
             yield full
         else:
-            for f2 in files3(full):
-                yield f2
+            yield from files3(full)
 
 
 # From https://stackoverflow.com/questions/18394147/recursive-sub-folder-search-and-return-files-in-a-list-python

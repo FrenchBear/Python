@@ -1,4 +1,4 @@
-"""generate_gradient.py
+r"""generate_gradient.py
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Use network2 to figure out the average starting values of the gradient
@@ -78,7 +78,7 @@ def training(training_data, net, epochs, filename):
     f.close()
 
 def plot_training(epochs, filename, num_layers):
-    f = open(filename, "r")
+    f = open(filename)
     norms = json.load(f)
     f.close()
     fig = plt.figure()
@@ -88,7 +88,7 @@ def plot_training(epochs, filename, num_layers):
         ax.plot(np.arange(epochs), 
                 [n[j] for n in norms], 
                 color=colors[j],
-                label="Hidden layer %s" % (j+1,))
+                label=f"Hidden layer {j+1}")
     ax.set_xlim([0, epochs])
     ax.grid(True)
     ax.set_xlabel('Number of epochs of training')

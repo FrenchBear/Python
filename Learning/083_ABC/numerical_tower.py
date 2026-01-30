@@ -11,10 +11,10 @@ import datetime
 from typing import Type
 
 
-lb: list[Type] = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral, bool]
+lb: list[type] = [builtins.object, numbers.Number, numbers.Complex, numbers.Real, numbers.Rational, numbers.Integral, bool]
 
 def test(x) -> None:
-    print("{:<10.10} {:<10} ".format(str(x), type(x).__name__), end='')
+    print(f"{str(x):<10.10} {type(x).__name__:<10} ", end='')
     for abc in lb:
         print("{:^10}".format('X' if isinstance(x, abc) else ' '), end='')
     print()
@@ -22,7 +22,7 @@ def test(x) -> None:
 
 print('Value      Class     ', end='')
 for abc in lb:
-    print("{:^10}".format(abc.__name__), end='')
+    print(f"{abc.__name__:^10}", end='')
 print()
 
 test(False)

@@ -13,15 +13,15 @@ print(1,2,3)
 print(1,2,3, sep=', ', end='\n\n')
 print(1,2,3, sep='\n')
 
-print("{:~^50}".format(42))
+print(f"{42:~^50}")
 print("{:>50}".format("Hello"))
 
 print("{} {}".format("Hello","world"))
 
 print("f: {:0.1f}\nh: {}\nt: {}".format(0.23, 'Hello', 12))
-print("Time: {h}:{m}".format(h=11, m=45))
+print(f"Time: {11}:{45}")
 
-print('{0}, {1}, {2}'.format('a', 'b', 'c'))
+print('{}, {}, {}'.format('a', 'b', 'c'))
 print('{2}, {1}, {0}'.format('a', 'b', 'c'))
 
 # Can align
@@ -35,6 +35,6 @@ print('{:^30}'.format('Hello, class'))
 print('{:~^30}'.format('Hello, class'))
 
 a, b, c = 10,.915, 42
-print("a: {:f} \nb: {:%}\nc: {:E}".format(a,b,c))
+print(f"a: {a:f} \nb: {b:%}\nc: {c:E}")
 
-print("{:2d}".format(4))
+print(f"{4:2d}")

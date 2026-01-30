@@ -135,7 +135,7 @@ def transcribe_audio(input_mp3: str):
             f.write(transcribed_text)
         # print(f"\nTranscription successful!")
         # print(f"Result saved to '{args.output_txt}'")
-    except IOError as e:
+    except OSError as e:
         print(f"Error writing to output file '{output_txt}': {e}")
 
     # --- 4. Clean up temporary WAV file ---

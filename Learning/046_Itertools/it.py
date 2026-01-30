@@ -65,7 +65,7 @@ for key, group in gi:
 
 # My version, uses more memory (builds lists) but easier to use
 def my_groupby(list: Iterable[T], key: Callable[[T], U]) -> ItemsView[U, list[T]]:
-    dic: dict[U, List[T]] = {}      # For some reason, Mypy rejects list[T]: Variable "list" is not valid as a type
+    dic: dict[U, list[T]] = {}      # For some reason, Mypy rejects list[T]: Variable "list" is not valid as a type
     for item in list:
         k = key(item)
         if k in dic:
@@ -205,7 +205,7 @@ print(list(ncycles(['Pomme', 3.14, True], 4)))    # ['Pomme', 3.14, True, 'Pomme
 
 
 N=TypeVar('N', complex, float)  # Doesn't work with numpy tupes, but if we use numpy, we don't need this function!
-def dotproduct(vec1: Iterable['N'], vec2: Iterable['N']) -> N:
+def dotproduct(vec1: Iterable[N], vec2: Iterable[N]) -> N:
     return sum(map(operator.mul, vec1, vec2))
 
 v1 = (1.2, -3.1, 5.0)

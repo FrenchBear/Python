@@ -3,7 +3,7 @@
 # 2021-07-10    PV
 
 from functools import total_ordering
-from typing import Counter
+from collections import Counter
 
 
 # using a coroutine

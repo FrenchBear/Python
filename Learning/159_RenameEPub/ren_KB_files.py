@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 import os
 from common_fs import get_all_files

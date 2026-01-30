@@ -30,7 +30,7 @@ def get_date_taken(image_path):
                     return datetime.strptime(value, '%Y:%m:%d %H:%M:%S')
         else:
             return None  # No EXIF data found
-    except (IOError, OSError):
+    except OSError:
         return None  # Error opening image
 
 def update_date_taken(filename: str, new_date: datetime):

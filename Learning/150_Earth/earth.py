@@ -27,7 +27,7 @@ distancesDic["Sig.Nord", "Sig.Sud"] = 7928 + 5 / 6
 print(f"Distance between Juvisy and Villejuif: {distancesDic["Juvisy", "Villejuif"]:.2f} toises")
 print(f"Distance between Sig.Nord and Sig.Sud: {distancesDic["Sig.Nord", "Sig.Sud"]:.2f} toises")
 nt = 0
-with open("triangles.txt", "r") as file:
+with open("triangles.txt") as file:
     while line := file.readline():
         if len(line) < 10:
             continue
@@ -58,7 +58,7 @@ print(nt, " triangles read")
 # This file contains lines with the format:
 # p1 (20 char)         p2 (20 char)      angle_deg angle_min angle_sec
 total = 0.0
-with open("inclinaisons.txt", "r") as file:
+with open("inclinaisons.txt") as file:
     for line in file:
         if len(line) > 40:
             p1 = line[0:20].strip()
@@ -91,4 +91,4 @@ angle += sum(a[1] for a in latitudes) / 60 # minutes
 angle += sum(a[2] for a in latitudes) / 3600 # secondes
 angle += sum(a[3] for a in latitudes) / 216000 # tierces
 
-print("Rayon de la terre: {:.4g} km".format(totalMeters / radians(angle) / 1000))
+print(f"Rayon de la terre: {totalMeters / radians(angle) / 1000:.4g} km")

@@ -87,7 +87,7 @@ def update_tags_and_cover(file_full_path: str, artist: str, album: str, title: s
     if cover_mage_path:
         image_data = get_image_data(cover_mage_path)
         if image_data:
-            audiofile.tag.images.remove(u'')   # type: ignore
+            audiofile.tag.images.remove('')   # type: ignore
             ext = extension_part(cover_mage_path).casefold()
             match ext:
                 case '.jpg':
@@ -98,7 +98,7 @@ def update_tags_and_cover(file_full_path: str, artist: str, album: str, title: s
                     print_error('*** Unknown image suffix:', cover_mage_path)
                     print('Aborting')
                     sys.exit(1)
-            audiofile.tag.images.set(3, image_data, mime_type, u'Cover')    # type: ignore
+            audiofile.tag.images.set(3, image_data, mime_type, 'Cover')    # type: ignore
 
     audiofile.tag.save(encoding='utf-8')                        # type: ignore
 

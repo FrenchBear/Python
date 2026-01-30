@@ -25,9 +25,9 @@ class ScannedPage:
     numfile: int
     width: int
     height: int
-    colp: Optional[int]
-    rowp: Optional[int]
-    colback: Optional[str]
+    colp: int | None
+    rowp: int | None
+    colback: str | None
 
     def is_pair(self) -> bool:
         return self.numfile % 2 == 0
@@ -36,14 +36,14 @@ class ScannedPage:
         return self.numfile % 2 == 1
 
 
-Pages: List[ScannedPage] = []
+Pages: list[ScannedPage] = []
 
 def veclength(v):
     return math.sqrt(v[0]**2+v[1]**2+v[2]**2)
 
 
 # Calibration
-calibration_root = 'D:\Scans\Calibration'
+calibration_root = r'D:\Scans\Calibration'
 colors_dic: dict[str, np.ndarray] = {}
 for calibration_file in get_files(calibration_root):
     color_name = basename(calibration_file).casefold()
@@ -61,9 +61,9 @@ def process(file: str, numfile: int):
     height: int = img.shape[0]
     print(width, 'x', height, '\t', sep='', end='')
 
-    colp: Optional[int] = None
-    rowp: Optional[int] = None
-    colback: Optional[str] = None
+    colp: int | None = None
+    rowp: int | None = None
+    colback: str | None = None
 
     if numfile>=3:
         if numfile % 2 == 0:
@@ -270,10 +270,10 @@ def process_root(root:str):
 
 
 #process_root("D:\Scans\ToDo\THS33B")
-process_root("D:\Scans\ToDo\THS70")
-process_root("D:\Scans\ToDo\THS71")
-process_root("D:\Scans\ToDo\THS72")
-process_root("D:\Scans\ToDo\THS73")
-process_root("D:\Scans\ToDo\THS74")
-process_root("D:\Scans\ToDo\THS75")
-process_root("D:\Scans\ToDo\THS76")
+process_root(r"D:\Scans\ToDo\THS70")
+process_root(r"D:\Scans\ToDo\THS71")
+process_root(r"D:\Scans\ToDo\THS72")
+process_root(r"D:\Scans\ToDo\THS73")
+process_root(r"D:\Scans\ToDo\THS74")
+process_root(r"D:\Scans\ToDo\THS75")
+process_root(r"D:\Scans\ToDo\THS76")

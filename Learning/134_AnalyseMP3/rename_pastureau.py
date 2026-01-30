@@ -12,7 +12,7 @@ root = r"C:\MusicOD\Humour\Tanguy Pastureau"
 ntot = 0
 nren = 0
 nskip = 0
-with open(r"C:\MusicOD\Humour\Tanguy Pastureau\Titres des chroniques.txt", "r") as f:
+with open(r"C:\MusicOD\Humour\Tanguy Pastureau\Titres des chroniques.txt") as f:
     for line in f:
         ntot += 1
         line = line.strip()

@@ -8,9 +8,9 @@ from common_fs import get_files, file_part, get_all_files
 first_root = r'U:\Pierre\Albums\Les Charlots'
 full_root = r'U:\Pierre\A_Trier\A_Trier Brut\Les Charlots - Discographie Intégrale'
 
-first_set = set(name.split(" - ")[3] for name in get_files(first_root) if name.endswith('.mp3'))
+first_set = {name.split(" - ")[3] for name in get_files(first_root) if name.endswith('.mp3')}
 
-full_set = set(file_part(name).split(" - ")[1] for name in get_all_files(full_root) if name.endswith('.mp3'))
+full_set = {file_part(name).split(" - ")[1] for name in get_all_files(full_root) if name.endswith('.mp3')}
 
 print("Names in first not in full:")
 print(first_set-full_set)

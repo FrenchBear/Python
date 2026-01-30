@@ -1162,7 +1162,7 @@ def test_pass(passname, interp_dict, program_root, ast,
         output_file = program_root + '.out'
         stdin = sys.stdin
         stdout = sys.stdout
-        sys.stdin = open(input_file, 'r')
+        sys.stdin = open(input_file)
         sys.stdout = open(output_file, 'w')
         interp_dict[passname](ast)
         print() # print a newline to make diff happy
@@ -1476,7 +1476,7 @@ def compile_and_test(compiler, compiler_name,
         if emulate_x86:
             stdin = sys.stdin
             stdout = sys.stdout
-            sys.stdin = open(program_root + '.in', 'r')
+            sys.stdin = open(program_root + '.in')
             sys.stdout = open(program_root + '.out', 'w')
             interp_x86(program)
             sys.stdin = stdin

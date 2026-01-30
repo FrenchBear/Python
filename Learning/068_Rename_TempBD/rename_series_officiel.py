@@ -52,7 +52,7 @@ glolbal_rename: list[tuple[str, str]] = [
 
 # Load official spellings
 spo = []
-with open(r"spellings_officiel.json", "r", encoding="utf-8_sig") as infile:
+with open(r"spellings_officiel.json", encoding="utf-8_sig") as infile:
     spo = json.load(infile)
 dicspo = {}
 for spelling in spo:

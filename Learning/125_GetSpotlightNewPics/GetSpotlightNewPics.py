@@ -20,7 +20,7 @@ dest = r'D:\Pierre\OneDrive\PicturesODMisc\Papiers peints\Spotlight'
 logfile = r'C:\temp\GetSpotlightNewPics-' + datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S.log')
 doit = True
 
-dest_files = set(file.lower() for file in get_files(dest) if extension_part(file.lower()) == '.jpg')
+dest_files = {file.lower() for file in get_files(dest) if extension_part(file.lower()) == '.jpg'}
 
 print("GetSpotlightNewPics started")
 with open(logfile, 'w') as log:

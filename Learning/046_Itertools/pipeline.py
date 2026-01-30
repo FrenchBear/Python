@@ -4,7 +4,9 @@
 # 2023-08-26    PV      Already done in the past with more complex code, but a simple class can do it...
 
 import itertools
-from typing import Any, Callable, Iterable, TypeVar, Protocol
+from typing import Any, TypeVar, Protocol
+
+from collections.abc import Callable, Iterable
 
 
 # Pipeline in Python
@@ -41,16 +43,16 @@ class Pipe:
     def __iter__(self):
         return iter(self.value)
 
-    def Top(self, n: int) -> 'Pipe':
+    def Top(self, n: int) -> Pipe:
         return Pipe(itertools.islice(self.value, n))
 
-    def Where(self, predicate: Callable[[Any], bool]) -> 'Pipe':
+    def Where(self, predicate: Callable[[Any], bool]) -> Pipe:
         return Pipe(filter(predicate, self.value))
 
-    def Select(self, fn: Callable) -> 'Pipe':
+    def Select(self, fn: Callable) -> Pipe:
         return Pipe(map(fn, self.value))
 
-    def OrderBy(self, key: Callable[[Any], TSortable], reverse=False) -> 'Pipe':
+    def OrderBy(self, key: Callable[[Any], TSortable], reverse=False) -> Pipe:
         return Pipe(sorted(self.value, key=key, reverse=reverse))
 
 

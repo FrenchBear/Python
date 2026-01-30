@@ -11,7 +11,7 @@ from common_fs import get_files, file_size, folder_exists, file_exists
 
 FROMSERIES = re.compile(r'(.*) - (\d{2,3}[ABCDTabcdt]?)(?: - (.+))?\.pdf')
 
-d: dict[str, Tuple[int, str]] = {}
+d: dict[str, tuple[int, str]] = {}
 
 def AddOS(folder: str):
     print('Adding', folder)

@@ -31,7 +31,7 @@ def GetJsonBookInfo(title: str, publisher: str, qpublisher: str) -> Any:
     cache = ("JsonCache/" + title + " - [" + qpublisher + "].json").replace('"', '_')
 
     if file_exists(cache):
-        with open(cache, "r", encoding="utf-8") as f:
+        with open(cache, encoding="utf-8") as f:
             data = json.load(f)
             # Service error?
             err = ''
@@ -72,7 +72,7 @@ def clean_title(t: str) -> str:
     return t.replace('-', ' ').replace(':', ' ').replace('.', ' ').replace(',', ' ').replace('\u2013', ' ').replace('  ', ' ').replace('  ', ' ').strip().casefold()
 
 
-def GetBookInfo(title: str, qpublisher: str) -> Optional[list[Book]]:
+def GetBookInfo(title: str, qpublisher: str) -> list[Book] | None:
     match qpublisher.lower():
         case "packt":
             publishers = ['Packt Publishing Ltd', 'Packt Publishing']

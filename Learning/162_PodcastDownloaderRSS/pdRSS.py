@@ -45,7 +45,7 @@ CONFIG_FILE = r"C:\MusicOD2\Podcasts\RSS\config.yaml"
 def load_config():
     """Loads the YAML configuration file."""
     try:
-        with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+        with open(CONFIG_FILE, encoding='utf-8') as f:
             return yaml.safe_load(f)
     except FileNotFoundError:
         print(f"Error: Configuration file '{CONFIG_FILE}' not found.")

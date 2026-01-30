@@ -14,10 +14,10 @@ mem1 = psutil.Process().memory_info().rss / (1024 * 1024)
 smf = set()
 # dmf est l'ensemble des mots français accentués, indexé par la version casefold() du mot
 print('dic version')
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    smf = set([mot for mot in f.read().splitlines()])
+with open(r'words\words1.fr.txt', encoding='UTF-8') as f:
+    smf = {mot for mot in f.read().splitlines()}
 print(len(smf))
-with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
+with open(r'words\words2.fr.txt', encoding='UTF-8') as f:
     for mot in f.read().splitlines():
         if not mot in smf:
             print(mot)
@@ -44,13 +44,13 @@ class Arbre:
 def read_arbre():
     print('arbre version')
     amf = Arbre()
-    with open('mots_fr2.txt', 'r', encoding='UTF-8') as f:
+    with open('mots_fr2.txt', encoding='UTF-8') as f:
         for mot in f.read().splitlines():
             amf.add_word(mot)
     print(amf.find_word('pomme'))
     print(amf.find_word('astérisque'))
     print(amf.find_word('astérix'))
-    with open('mots_fr2.txt', 'r', encoding='UTF-8') as f:
+    with open('mots_fr2.txt', encoding='UTF-8') as f:
         for mot in f.read().splitlines():
             if not amf.find_word(mot):
                 breakpoint()

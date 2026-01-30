@@ -10,12 +10,12 @@ def sans_accent(mot: str) -> str:
     return ''.join(c for c in unicodedata.normalize("NFD", mot) if unicodedata.category(c) != 'Mn').casefold()
 
 smf = set()
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    smf |= set(sans_accent(mot) for mot in f.read().splitlines())
-with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
-    smf |= set(sans_accent(mot) for mot in f.read().splitlines())
-with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
-    smf |= set(sans_accent(mot) for mot in f.read().splitlines())
+with open(r'words\words1.fr.txt', encoding='UTF-8') as f:
+    smf |= {sans_accent(mot) for mot in f.read().splitlines()}
+with open(r'words\words2.fr.txt', encoding='UTF-8') as f:
+    smf |= {sans_accent(mot) for mot in f.read().splitlines()}
+with open(r'words\extra.fr.txt', encoding='UTF-8') as f:
+    smf |= {sans_accent(mot) for mot in f.read().splitlines()}
 
 print(len(smf),"mots\n")
 

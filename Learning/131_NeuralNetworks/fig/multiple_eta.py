@@ -53,7 +53,7 @@ def run_networks():
     f.close()
 
 def make_plot():
-    f = open("multiple_eta.json", "r")
+    f = open("multiple_eta.json")
     results = json.load(f)
     f.close()
     fig = plt.figure()
@@ -61,7 +61,7 @@ def make_plot():
     for eta, result, color in zip(LEARNING_RATES, results, COLORS):
         _, _, training_cost, _ = result
         ax.plot(np.arange(NUM_EPOCHS), training_cost, "o-",
-                label="$\eta$ = "+str(eta),
+                label=r"$\eta$ = "+str(eta),
                 color=color)
     ax.set_xlim([0, NUM_EPOCHS])
     ax.set_xlabel('Epoch')

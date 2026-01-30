@@ -2,7 +2,9 @@
 # 2021-12-29    PV
 
 import math
-from typing import Any, DefaultDict, Iterable
+from typing import Any, DefaultDict
+
+from collections.abc import Iterable
 from collections import defaultdict, Counter
 
 

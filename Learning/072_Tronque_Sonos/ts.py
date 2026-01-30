@@ -5,7 +5,7 @@
 
 import os
 from collections import defaultdict
-from typing import Iterable
+from collections.abc import Iterable
 
 
 source = r'\\teraz\music\Sonos\Pierre\Complete'

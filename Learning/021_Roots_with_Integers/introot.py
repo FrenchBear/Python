@@ -45,8 +45,8 @@ while f>0:
     r += 1
 
 if f==0:
-    print("Exact root found: sqrt({0}) = {1}".format(n, r/k))
+    print(f"Exact root found: sqrt({n}) = {r/k}")
 else:
     print("Approximate root found:")
-    print("{0} < sqrt({1}) < {2}".format((r-1)/k,n,r/k))
+    print(f"{(r-1)/k} < sqrt({n}) < {r/k}")
 

@@ -1,4 +1,3 @@
-
 def fsm_add(state, input):
     if state == "NC":
         if input == "00":

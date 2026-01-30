@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 from typing import TextIO
@@ -25,7 +24,7 @@ def make_archive(out: TextIO, sourcefp: str):
         print('Rar exists')
         out.write("-1;{sourcefp}\n")
     else:
-        process = subprocess.run([rar, 'a', '-ep', destfp+'.rar', sourcefp], stdout=subprocess.PIPE, universal_newlines=True, encoding='cp437')
+        process = subprocess.run([rar, 'a', '-ep', destfp+'.rar', sourcefp], stdout=subprocess.PIPE, text=True, encoding='cp437')
         print(process.returncode)
         out.write(f'{process.returncode};{sourcefp}\n')
     out.flush()

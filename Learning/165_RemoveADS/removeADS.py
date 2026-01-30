@@ -28,7 +28,7 @@ def clean_ads(filename):
 
 # Lancer la fonction principale
 if __name__ == "__main__":
-    with open(r"C:\Temp\liste.txt", "r", encoding="utf-8") as f:
+    with open(r"C:\Temp\liste.txt", encoding="utf-8") as f:
         for ix, line in enumerate(f):
             print(ix + 1, end=' ')
             l = line.strip()

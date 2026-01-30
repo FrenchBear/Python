@@ -5,7 +5,7 @@ import os
 import re
 import json
 from collections import Counter
-from typing import Counter as TCounter
+from collections import Counter as TCounter
 
 from common_fs import get_all_files
 
@@ -23,7 +23,7 @@ if REBUILD_FILES_LIST:
         json.dump(files, outfile, indent=4, ensure_ascii=False)
     print("Done.")
 else:
-    with open(r'filesH.json', 'r', encoding='utf-8') as infile:
+    with open(r'filesH.json', encoding='utf-8') as infile:
         files = json.load(infile)
     print(f"Loaded {len(files)} records from filesH.json")
 

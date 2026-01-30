@@ -34,7 +34,7 @@ Blocks = [
 
 # Flat list
 for block in Blocks:
-    print('{l2:10} {l1:25} {name}'.format(l2=block.l2, l1=block.l1, name=block.name))
+    print(f'{block.l2:10} {block.l1:25} {block.name}')
 print()
 
 

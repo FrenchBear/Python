@@ -3,7 +3,7 @@
 # 2021-04-27    PV
 
 import abc
-from typing import Iterable
+from collections.abc import Iterable
 
 class Tombola(abc.ABC):
 

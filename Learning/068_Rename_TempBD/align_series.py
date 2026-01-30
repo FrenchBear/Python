@@ -73,7 +73,7 @@ def find_series_with_multiple_spellings() -> None:
 def find_series_ending_with_numbers():
     print("Series ending with numbers")
     ENDDIGITS_RE = re.compile(r".*[ 0-9]+")
-    with open(r"series_avec_num.json", "r", encoding="utf8") as infile:
+    with open(r"series_avec_num.json", encoding="utf8") as infile:
         series_avec_num = json.load(infile)
     snum = []
     for k, _ in series.items():

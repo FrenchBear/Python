@@ -4,7 +4,9 @@
 # 2025-04-08    PV      Fixed type hints errors
 
 import collections
-from typing import Callable, Iterator, Deque
+from typing import Deque
+
+from collections.abc import Callable, Iterator
 
 # recursive iterator
 def partint1(n: int) -> Iterator[list[int]]:

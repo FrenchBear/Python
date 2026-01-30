@@ -93,7 +93,7 @@ for c in e:
 """
 
 # Use of names
-char = u"\N{MUSICAL SYMBOL G CLEF}"
+char = "\N{MUSICAL SYMBOL G CLEF}"
 print(len(char))        # 1
 
 # Use of aliases
@@ -101,7 +101,7 @@ s3 = "\N{SHY}"                  # U+00AD
 print(unicodedata.name(s3))     # SOFT HYPHEN
 
 
-print(u'ß'.upper())     #  SS
+print('ß'.upper())     #  SS
 
 
 li = ['déjà', 'Meme', 'deja', 'même', 'dejà', 'bpef', 'bœg', 'Boef', 'Mémé', 'bœf', 'boef', 'bnef', 'pêche', 'pèché', 'pêché', 'pêche', 'pêché', 'boeh']

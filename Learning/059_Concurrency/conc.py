@@ -79,7 +79,7 @@ def test_threading():
 
 async def download_site_asyncio(session, url):
     async with session.get(url) as response:
-        print("Read {0} from {1}".format(response.content_length, url))
+        print(f"Read {response.content_length} from {url}")
 
 
 async def download_all_sites_asyncio(sites):

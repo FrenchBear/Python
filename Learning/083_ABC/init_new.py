@@ -13,8 +13,8 @@
 # Solution in class B, only do initialization if object does not contain a _initialized property
 
 
-class A(object):
-    _dict: dict[str, "A"] = dict()
+class A:
+    _dict: dict[str, A] = dict()
 
     def __new__(cls):
         if "key" in A._dict:
@@ -22,7 +22,7 @@ class A(object):
             return A._dict["key"]
         else:
             print("NEW")
-            return super(A, cls).__new__(cls)
+            return super().__new__(cls)
 
     def __init__(self):
         print("INIT")
@@ -36,8 +36,8 @@ a3 = A()
 
 
 # Solution, add a _initialized property...
-class B(object):
-    _dict: dict[str, "B"] = dict()
+class B:
+    _dict: dict[str, B] = dict()
 
     def __new__(cls):
         if "key" in B._dict:
@@ -45,7 +45,7 @@ class B(object):
             return B._dict["key"]
         else:
             print("NEW")
-            return super(B, cls).__new__(cls)
+            return super().__new__(cls)
 
     def __init__(self):
         if not "_initialized" in dir(self):

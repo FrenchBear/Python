@@ -6,7 +6,7 @@ from common_fs import get_files, get_folders
 import os
 
 def read_all_text(file:str, encoding:str='utf-8') -> str:
-    with open(file, mode='r', encoding=encoding) as f:
+    with open(file, encoding=encoding) as f:
         return f.read()
 
 def write_all_text(file:str, s:str, encoding:str='utf-8'):

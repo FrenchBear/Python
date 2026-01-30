@@ -28,7 +28,7 @@ def pregenerate_dic():
             W2 = ord(s[1])
         W3 = 1 if char.isupper() else 0
 
-        print("'%s': [0x%04x, 0x%04x, 0x%04x]," % (char, W1, W2, W3))
+        print(f"'{char}': [0x{W1:04x}, 0x{W2:04x}, 0x{W3:04x}],")
 
 
 # [letter, accent, case]

@@ -44,7 +44,7 @@ def memoize_web_page(f):
 def read_url(url: str) -> str:
     # Code debug
     if len(url) < 20:
-        with open(url, "r", encoding="utf-8") as f:
+        with open(url, encoding="utf-8") as f:
             return f.read()
 
     # Some websites block default Python scripts.
@@ -136,13 +136,13 @@ def process_podcast_page(path: str, episode_url: str) -> bool:
     return False
 
 
-def get_twenty_pages(base_url: str, page_index: int) -> list[Tuple[str, str]]:
+def get_twenty_pages(base_url: str, page_index: int) -> list[tuple[str, str]]:
     url_with_page = f"{base_url}?page={page_index}"
     text = read_url(url_with_page)
 
     re_liste = re.compile(r'"(https://www.radiofrance.fr/franceinter/podcasts/([^/"]+?)/[^"]+)"')
 
-    res: list[Tuple[str, str]] = []
+    res: list[tuple[str, str]] = []
     find_iter = re_liste.finditer(text)
     if find_iter:
         for ma in find_iter:

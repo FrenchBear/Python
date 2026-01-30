@@ -7,7 +7,7 @@
 
 import dis
 from inspect import signature
-from typing import Callable
+from collections.abc import Callable
 
 
 def factorial(n: int = 0)->int:

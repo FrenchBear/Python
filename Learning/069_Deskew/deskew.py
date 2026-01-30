@@ -37,7 +37,7 @@ def _calculate_deviation(angle: float) -> float:
 
 def determine_skew_dev(  # pylint: disable=too-many-locals
         image: np.ndarray, sigma: float = 3.0, num_peaks: int = 20
-) -> tuple[Optional[float], Any, Any, Optional[tuple[Any, Any, Any]]]:
+) -> tuple[float | None, Any, Any, tuple[Any, Any, Any] | None]:
     img = image
     edges = canny(img, sigma=sigma)
     out, angles, distances = hough_line(edges)
@@ -105,7 +105,7 @@ def determine_skew_dev(  # pylint: disable=too-many-locals
     return rot_angle, angles, average_deviation, (out, angles, distances)
 
 
-def determine_skew(image: np.ndarray, sigma: float = 3.0, num_peaks: int = 20) -> Optional[float]:
+def determine_skew(image: np.ndarray, sigma: float = 3.0, num_peaks: int = 20) -> float | None:
     """
     Calculates skew angle
 

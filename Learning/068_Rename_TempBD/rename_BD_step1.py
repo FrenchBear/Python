@@ -20,7 +20,7 @@ outfile = r"names.txt"
 DO_IT = True
 
 
-with open(r"series_avec_num.json", "r", encoding="utf8") as infile:
+with open(r"series_avec_num.json", encoding="utf8") as infile:
     series_avec_num = json.load(infile)
 
 

@@ -25,12 +25,12 @@ dmf: dict[str, str] = {}
 print("Chargement des mots Fr")
 
 # words1.fr.txt est un dico complet plus long à charger, words2.fr.txt est plus simple.  Pas de majuscules (ex: japon)
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines())
-with open(r'words\words2.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf)
-with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
-    dmf |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dmf)
+with open(r'words\words1.fr.txt', encoding='UTF-8') as f:
+    dmf |= {mot.casefold(): mot for mot in f.read().splitlines()}
+with open(r'words\words2.fr.txt', encoding='UTF-8') as f:
+    dmf |= {mot.casefold(): mot for mot in f.read().splitlines() if ' ' not in mot and mot.casefold() not in dmf}
+with open(r'words\extra.fr.txt', encoding='UTF-8') as f:
+    dmf |= {mot.casefold(): mot for mot in f.read().splitlines() if mot.casefold() not in dmf}
 
 # dme est l'ensemble des mots anglais
 # with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
@@ -39,12 +39,12 @@ with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
 #     dme |= dict((mot.casefold(), mot) for mot in f.read().splitlines() if mot.casefold() not in dme)
 
 # dmx est l'ensemble des mots ni français ni anglais
-with open(r'words\extra.xx.txt', 'r', encoding='UTF-8') as f:
-    dmx = dict((mot.casefold(), mot) for mot in f.read().splitlines())
+with open(r'words\extra.xx.txt', encoding='UTF-8') as f:
+    dmx = {mot.casefold(): mot for mot in f.read().splitlines()}
 
 # Certaines expressions ont une casse spécifique différente des mots qui la composent (ex: Nouveau Testament ou Alexandre le Grand)
-with open(r'words\expressions.fr.txt', 'r', encoding='UTF-8') as f:
-    dic_expressions = dict((expression.casefold(), expression) for expression in f.read().splitlines())
+with open(r'words\expressions.fr.txt', encoding='UTF-8') as f:
+    dic_expressions = {expression.casefold(): expression for expression in f.read().splitlines()}
 
 mfsa = defaultdict(list)   # mots français sans accents -> mot accentué s'il n'y en a qu'un qui existe sans accent
 for mot in dmf.values():
@@ -61,12 +61,12 @@ for key, lst in mfsa.items():
 for mot in to_delete:
     del mfsa[mot]
 
-with open(r'words\specialcasing.txt', 'r', encoding='UTF-8') as f:
-    set_casefix = set(mot for mot in f.read().splitlines())
-dic_casefix = dict([(mot.casefold(), mot) for mot in set_casefix])
+with open(r'words\specialcasing.txt', encoding='UTF-8') as f:
+    set_casefix = {mot for mot in f.read().splitlines()}
+dic_casefix = {mot.casefold(): mot for mot in set_casefix}
 
 avectirets = ['Aide-mémoire', 'peuvent-elles', 'Libérez-vous', 'Entraînez-vous']
-dic_avectirets = dict([(mot.casefold(), mot) for mot in avectirets])
+dic_avectirets = {mot.casefold(): mot for mot in avectirets}
 
 print("Traitement des fichiers")
 

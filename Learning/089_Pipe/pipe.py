@@ -7,7 +7,9 @@
 # 2021-08-01    PV
 # 2025-04-08    PV      Refactoring without TypeVar, it's not needed anymore
 
-from typing import Callable, Iterable, Iterator, Optional, cast, Any
+from typing import Optional, cast, Any
+
+from collections.abc import Callable, Iterable, Iterator
 
 # A wrapper for iterable structure.  Member methods such as where or sort returns the output as
 # a Pipe, enabling convenient chaining until (optional) final transformation that does not return
@@ -37,14 +39,14 @@ class Pipe[T]:
     # Static methods of pipe (generators returning a pipe)
 
     @staticmethod
-    def range(start: int, stop: Optional[int] = None, step: int = 1) -> 'Pipe':
+    def range(start: int, stop: int | None = None, step: int = 1) -> Pipe:
         """Returns a pipe of integers using same parameters as Python builtin range([start=0], end, [step=1]), that is the sequence from start to end-1 by step."""
         if stop is None:
             start, stop = 0, start
         return Pipe(range(start, stop, step))
 
     @staticmethod
-    def repeat(element: T, count: int) -> 'Pipe':
+    def repeat(element: T, count: int) -> Pipe:
         """Returns an pipe containing element repeated count times"""
         def repeater():
             for i in range(count):
@@ -55,7 +57,7 @@ class Pipe[T]:
     # --------------------------------
     # Tranformation functions of a pipe (returning a pipe)
 
-    def where(self, predicate: Callable[[T], bool]) -> 'Pipe':
+    def where(self, predicate: Callable[[T], bool]) -> Pipe:
         """Filters elements of the pipe, only keeping the ones matching the preicate provided."""
         def iter_where():
             for item in self.iter:
@@ -63,14 +65,14 @@ class Pipe[T]:
                     yield item
         return Pipe(iter_where())
 
-    def select[U](self, select: Callable[[T], U]) -> 'Pipe':
+    def select[U](self, select: Callable[[T], U]) -> Pipe:
         """Trasforms elements of the pipe using function provided."""
         def iter_select():
             for item in self.iter:
                 yield select(item)
         return Pipe(iter_select())
 
-    def sort(self, key=None, reverse: bool = False) -> 'Pipe':
+    def sort(self, key=None, reverse: bool = False) -> Pipe:
         """Sorts elements of the pipe. If no key selector is provided, sorts on elements value. reverse argument reverses the sort."""
         def sorter():
             l = list(self.iter)
@@ -78,7 +80,7 @@ class Pipe[T]:
             yield from l
         return Pipe(sorter())
 
-    def reverse(self) -> 'Pipe':
+    def reverse(self) -> Pipe:
         """Reverses elements of the pipe."""
         def reverser():
             l = list(self.iter)
@@ -86,7 +88,7 @@ class Pipe[T]:
             yield from l
         return Pipe(reverser())
 
-    def concat(self, *iterables) -> 'Pipe':
+    def concat(self, *iterables) -> Pipe:
         """Concatenates iterables to current pipe, keeping duplicates."""
         def concatener():
             yield from self
@@ -94,28 +96,28 @@ class Pipe[T]:
                 yield from iterable
         return Pipe(concatener())
 
-    def distinct(self) -> 'Pipe':
+    def distinct(self) -> Pipe:
         """Remove duplicate elements in the pipe."""
         def deduplicator():
             s = set(self.iter)
             yield from s
         return Pipe(deduplicator())
 
-    def intersect(self, *iterables) -> 'Pipe':
+    def intersect(self, *iterables) -> Pipe:
         """Produces the pipe intersection of enumerables."""
         def intersector():
             s = set(self.iter).intersection(*iterables)
             yield from s
         return Pipe(intersector())
 
-    def union(self, *iterables) -> 'Pipe':
+    def union(self, *iterables) -> Pipe:
         """Produces the pipe union of enumerables, removing duplicates."""
         def unionor():
             s = set(self.iter).union(*iterables)
             yield from s
         return Pipe(unionor())
 
-    def skip(self, count: int) -> 'Pipe':
+    def skip(self, count: int) -> Pipe:
         """Bypasses a specified number of elements in a pipe and then returns the remaining elements."""
         def skipper():
             nonlocal count
@@ -126,14 +128,14 @@ class Pipe[T]:
                     yield item
         return Pipe(skipper())
 
-    def skip_last(self, count: int) -> 'Pipe':
+    def skip_last(self, count: int) -> Pipe:
         """Returns a new pipe that contains the elements from source with the last count elements omitted."""
         def skipper_last():
             l = list(self.iter)
             yield from l[:-count]
         return Pipe(skipper_last())
 
-    def take(self, count: int) -> 'Pipe':
+    def take(self, count: int) -> Pipe:
         """Returns a specified number of contiguous elements from the start of a pipe."""
         def taker():
             nonlocal count
@@ -145,14 +147,14 @@ class Pipe[T]:
                     break
         return Pipe(taker())
 
-    def take_last(self, count: int) -> 'Pipe':
+    def take_last(self, count: int) -> Pipe:
         """Returns a new pipe that contains the last count elements from source."""
         def taker_last():
             l = list(self.iter)
             yield from l[-count:]
         return Pipe(taker_last())
 
-    def take_while(self, predicate: Callable[[T], bool]) -> 'Pipe':
+    def take_while(self, predicate: Callable[[T], bool]) -> Pipe:
         """Returns elements from a sequence as long as a specified condition is true, and then skips the remaining elements."""
         def taker_while():
             for item in self.iter:
@@ -161,7 +163,7 @@ class Pipe[T]:
                 yield item
         return Pipe(taker_while())
 
-    def skip_while(self, predicate: Callable[[T], bool]) -> 'Pipe':
+    def skip_while(self, predicate: Callable[[T], bool]) -> Pipe:
         """Bypasses elements in a pipe as long as a specified condition is true and then returns the remaining elements."""
         def skipper_while():
             do_yield = False
@@ -174,21 +176,21 @@ class Pipe[T]:
                         yield item
         return Pipe(skipper_while())
 
-    def zip(self, *iterables) -> 'Pipe':
+    def zip(self, *iterables) -> Pipe:
         """Produces a pipe of tuples with elements from the specified sequences. Stops at the end of shortest pipe."""
         def zipper():
             z = zip(self.iter, *iterables)
             yield from z
         return Pipe(zipper())
 
-    def append(self, value: T) -> 'Pipe':
+    def append(self, value: T) -> Pipe:
         """Adds a value to the end of the pipe."""
         def appender():
             yield from self.iter
             yield value
         return Pipe(appender())
 
-    def prepend(self, value: T) -> 'Pipe':
+    def prepend(self, value: T) -> Pipe:
         """Adds a value to the beginning of the pipe."""
         def prepender():
             yield value
@@ -199,7 +201,7 @@ class Pipe[T]:
     # --------------------------------
     # Immediate (final) functions of a pipe (not returning a pipe)
 
-    def count(self, predicate: Optional[Callable[[T], bool]] = None) -> int:
+    def count(self, predicate: Callable[[T], bool] | None = None) -> int:
         """Returns number of elements of the pipe, or count only elements matching the predicate if it is provided.
         Immediate execution on call."""
         count = 0
@@ -211,7 +213,7 @@ class Pipe[T]:
                 count += 1
         return count
 
-    def aggregate(self, aggregator: Callable, predicate: Optional[Callable[[T], bool]] = None) -> Any:
+    def aggregate(self, aggregator: Callable, predicate: Callable[[T], bool] | None = None) -> Any:
         """Aggregates a pipe of values, or only elements matching the predicate if it is provided, using aggregator.
         Immediate execution on call."""
         if predicate:
@@ -219,22 +221,22 @@ class Pipe[T]:
         else:
             return aggregator(self.iter)
 
-    def sum(self, predicate: Optional[Callable[[T], bool]] = None) -> float:
+    def sum(self, predicate: Callable[[T], bool] | None = None) -> float:
         """Sums all elements of a pipe of numbers, or only elements matching the predicate if it is provided.
         Immediate execution on call."""
         return self.aggregate(sum, predicate)
 
-    def min(self, predicate: Optional[Callable[[T], bool]] = None) -> Any:
+    def min(self, predicate: Callable[[T], bool] | None = None) -> Any:
         """Returns min of a pipe of numbers, or only elements matching the predicate if it is provided.
         Immediate execution on call."""
         return self.aggregate(min, predicate)
 
-    def max(self, predicate: Optional[Callable[[T], bool]] = None) -> Any:
+    def max(self, predicate: Callable[[T], bool] | None = None) -> Any:
         """Returns min of a pipe of numbers, or only elements matching the predicate if it is provided.
         Immediate execution on call."""
         return self.aggregate(max, predicate)
 
-    def first_or_none(self, predicate: Optional[Callable[[T], bool]] = None) -> Optional[T]:
+    def first_or_none(self, predicate: Callable[[T], bool] | None = None) -> T | None:
         """Returns first element of the pipe, or the first element matching the predicate if it is provided. If pipe is empty or no matching element found, returns None.
         Immediate execution on call."""
         for item in self.iter:
@@ -246,7 +248,7 @@ class Pipe[T]:
         # Return None if there is no match for a first
         return None
 
-    def last_or_none(self, predicate: Optional[Callable[[T], bool]] = None) -> Optional[T]:
+    def last_or_none(self, predicate: Callable[[T], bool] | None = None) -> T | None:
         """Returns last element of the pipe, or the last element matching the predicate if it is provided. If pipe is empty or no matching element found, returns None.
         Immediate execution on call."""
         last = None
@@ -258,7 +260,7 @@ class Pipe[T]:
                 last = item
         return last
 
-    def join(self, separator: str, predicate: Optional[Callable[[str], bool]] = None) -> str:
+    def join(self, separator: str, predicate: Callable[[str], bool] | None = None) -> str:
         """Joins all elements of a pipe of strings into a string using separator, or only elements matching the predicate if it is provided.
         Immediate execution on call."""
         if predicate:
@@ -266,7 +268,7 @@ class Pipe[T]:
         else:
             return separator.join(cast(Iterator[str], self.iter))
 
-    def any(self, predicate: Optional[Callable[[T], bool]] = None) -> bool:
+    def any(self, predicate: Callable[[T], bool] | None = None) -> bool:
         """Without a predicate, checks if pipe contains at least one element.  With a predicate, checks if the pipe contains at least one element that matches the predicate.
         Immediate execution on call."""
         if predicate:

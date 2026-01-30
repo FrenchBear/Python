@@ -29,8 +29,8 @@
 
 import os
 import codecs
-from typing import Iterable
-from typing_extensions import deprecated
+from collections.abc import Iterable
+from warnings import deprecated
 
 
 def get_files(source: str, fullpath: bool = False) -> list[str]:

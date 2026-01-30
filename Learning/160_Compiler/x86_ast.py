@@ -1,8 +1,6 @@
-from __future__ import annotations
-
 import ast
 from dataclasses import dataclass
-from typing import Iterable
+from collections.abc import Iterable
 
 from utils import dedent, indent, indent_stmt, label_name
 

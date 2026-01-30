@@ -44,10 +44,10 @@ def PlayGame() -> tuple[list[Card], list[Card], list[Card]]:
     shuffle(Cards)
     Decks = [Cards[:55], Cards[55:]]
     Visible = [3, 3]
-    top: Optional[Card] = None
+    top: Card | None = None
     Played: list[Card] = []
 
-    def Play(player: int) -> tuple[Optional[Card], bool]:
+    def Play(player: int) -> tuple[Card | None, bool]:
         if top is None:
             # Visible[player] remains 3
             return (Decks[player].pop(0), False)

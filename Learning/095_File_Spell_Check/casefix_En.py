@@ -11,9 +11,9 @@
 #            'TypeScript', 'MATLAB', 'p5', 'hapi', 'NET', 'AWS', 'OpenGL', 'OpenCV', 'ASP', 'IoT', 'MongoDB', 'PostgreSQL',
 #            'CS', 'DOM', ]
 
-with open(r'words\specialcasing.txt', 'r', encoding='UTF-8') as f:
-    set_casefix = set(mot for mot in f.read().splitlines())
-dic_casefix = dict([(mot.casefold(), mot) for mot in set_casefix])
+with open(r'words\specialcasing.txt', encoding='UTF-8') as f:
+    set_casefix = {mot for mot in f.read().splitlines()}
+dic_casefix = {mot.casefold(): mot for mot in set_casefix}
 
 def process_exceptions_En(s):
     return s.replace('Hands-On', 'Hands-on').replace('.Js', '.js').replace('Add-In', 'Add-in') \

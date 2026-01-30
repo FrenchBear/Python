@@ -5,7 +5,9 @@
 
 import abc
 from dataclasses import dataclass
-from typing import Iterator, List
+from typing import List
+
+from collections.abc import Iterator
 
 class A64Program:
     def __init__(self) -> None:
@@ -19,7 +21,7 @@ class A64Program:
         return "\n".join(str(s) for s in self.statements)
 
     # A64Program is direcly iterable for convenience, without referencing statements attribute
-    def __iter__(self) -> Iterator['A64Statement']:
+    def __iter__(self) -> Iterator[A64Statement]:
         return iter(self.statements)
 
 # Abstract base class for any program statement
@@ -94,11 +96,11 @@ class A64OperandRegister64(A64Operand):
     def __repr__(self): return f"%{self.register}"
 
     @staticmethod
-    def rsp() -> 'A64OperandRegister64':
+    def rsp() -> A64OperandRegister64:
         return A64OperandRegister64('rsp')
 
     @staticmethod
-    def rbp() -> 'A64OperandRegister64':
+    def rbp() -> A64OperandRegister64:
         return A64OperandRegister64('rbp')
 
 
@@ -126,7 +128,7 @@ class A64OperandMemory64(A64Operand):
 
 @dataclass
 class A64Instruction(A64Statement):
-    def __init__(self, opcode: str, operands: List[A64Operand]):
+    def __init__(self, opcode: str, operands: list[A64Operand]):
         self.opcode = opcode
         self.operands = operands
 
@@ -136,19 +138,19 @@ class A64Instruction(A64Statement):
         return f"{self.opcode} " + (", ".join(f"{op}" for op in self.operands) if len(self.operands) > 0 else "")
 
     @staticmethod
-    def retq() -> 'A64Instruction':
+    def retq() -> A64Instruction:
         return A64Instruction('retq', [])
 
     @staticmethod
-    def pusq(r: A64OperandRegister64) -> 'A64Instruction':
+    def pusq(r: A64OperandRegister64) -> A64Instruction:
         return A64Instruction('pushq', [r])
     
     @staticmethod
-    def movq(source: A64Operand, target: A64Operand) -> 'A64Instruction':
+    def movq(source: A64Operand, target: A64Operand) -> A64Instruction:
         return A64Instruction('movq', [source, target])
     
     @staticmethod
-    def callq(label: A64OperandLabel) -> 'A64Instruction':
+    def callq(label: A64OperandLabel) -> A64Instruction:
         return A64Instruction('callq', [label])
 
 if __name__ == "__main__":

@@ -7,7 +7,9 @@
 import re
 import reprlib              # reprlib.repr shortens representations of very large objects
 import collections.abc
-from typing import Union, Iterable
+from typing import Union
+
+from collections.abc import Iterable
 
 from isiterable import is_iterable
 
@@ -19,7 +21,7 @@ class Sentence():
         self.text = text
         self.words = RE_WORD.findall(text)
 
-    def __getitem__(self, index: Union[int, slice]) -> Union[str, list[str]]:
+    def __getitem__(self, index: int | slice) -> str | list[str]:
         return self.words[index]
 
     def __len__(self) -> int:

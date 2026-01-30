@@ -21,7 +21,7 @@ def check_Net9projects(root_folder: str):
                 for ext in [".csproj", ".fsproj", ".vbproj"]:        #, "makefile"]:
                     if file.lower().endswith(ext):
                         filefp = os.path.join(dirpath, file)
-                        with open(filefp, "r") as f:
+                        with open(filefp) as f:
                             s = f.read()
                         updated = False
                         # if "net8" in s.lower():

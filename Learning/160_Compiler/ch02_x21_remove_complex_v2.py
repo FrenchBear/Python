@@ -7,8 +7,8 @@ from ch02_lvar import *
 from utils import *
 from typing import List, Tuple
 
-Binding = Tuple[Name, expr]
-Temporaries = List[Binding]
+Binding = tuple[Name, expr]
+Temporaries = list[Binding]
 
 class Compiler:
 
@@ -16,7 +16,7 @@ class Compiler:
     # Remove Complex Operands
     ############################################################################
 
-    def rco_exp(self, e: expr, need_atomic : bool) -> Tuple[expr, Temporaries]:
+    def rco_exp(self, e: expr, need_atomic : bool) -> tuple[expr, Temporaries]:
         tempo: Temporaries = []
         match e:
             case Constant(n):
@@ -55,11 +55,11 @@ class Compiler:
             case _:
                 return e, tempo
 
-    def rco_stmt(self, s: stmt) -> List[stmt]:
+    def rco_stmt(self, s: stmt) -> list[stmt]:
         match s:
             case Expr(Call(Name('print'), [arg])):
                 new_exp, tempos = self.rco_exp(arg, True)
-                l1: List[stmt] = [Assign([name], val, lineno=0) for name, val in tempos]
+                l1: list[stmt] = [Assign([name], val, lineno=0) for name, val in tempos]
                 st:stmt = Expr(Call(Name('print'), [new_exp]))
                 l1.append(st)
                 return l1

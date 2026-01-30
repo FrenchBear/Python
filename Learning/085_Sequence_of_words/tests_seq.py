@@ -1,7 +1,7 @@
 # tests_seq.py
 # Tests of various implementations of Sentence class
 
-from typing import Iterable, Iterator
+from collections.abc import Iterable, Iterator
 
 import seq1
 import seq2

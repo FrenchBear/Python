@@ -7,7 +7,7 @@
 class A:
     def __new__(cls):
          print("Creating instance of A")
-         return super(A, cls).__new__(cls)
+         return super().__new__(cls)
   
     # Should return None
     def __init__(self):

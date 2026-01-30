@@ -8,7 +8,7 @@ from email.policy import default
 import os
 import re
 from collections import defaultdict, Counter
-from typing import Counter
+from collections import Counter
 
 EDITOR_RE = re.compile(r'\[([^]]+)\]')
 

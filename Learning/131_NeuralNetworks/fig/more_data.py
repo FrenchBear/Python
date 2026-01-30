@@ -66,10 +66,10 @@ def run_svms():
     f.close()
 
 def make_plots():
-    f = open("more_data.json", "r")
+    f = open("more_data.json")
     accuracies = json.load(f)
     f.close()
-    f = open("more_data_svm.json", "r")
+    f = open("more_data_svm.json")
     svm_accuracies = json.load(f)
     f.close()
     make_linear_plot(accuracies)

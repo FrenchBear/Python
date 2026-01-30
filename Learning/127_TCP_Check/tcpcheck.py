@@ -13,7 +13,7 @@ from argparse import ArgumentParser
 
 def load_machines_port(the_data_file: Path) -> dict[str, list[int]]:
     port_data = {}
-    with open(the_data_file, "r") as d_scan:
+    with open(the_data_file) as d_scan:
         for line in d_scan:
             host, ports = line.split()
             port_data[host] = [int(p) for p in ports.split(",")]

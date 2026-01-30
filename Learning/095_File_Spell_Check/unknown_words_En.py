@@ -15,10 +15,10 @@ doit = True
 unknowns: Counter[str] = Counter()
 
 # dme est l'ensemble des mots anglais
-with open(r'words\words.en.txt', 'r', encoding='UTF-8') as f:
-    sme = set(mot for mot in f.read().splitlines())
-with open(r'words\extra.en.txt', 'r', encoding='UTF-8') as f:
-    sme |= set(mot for mot in f.read().splitlines())
+with open(r'words\words.en.txt', encoding='UTF-8') as f:
+    sme = {mot for mot in f.read().splitlines()}
+with open(r'words\extra.en.txt', encoding='UTF-8') as f:
+    sme |= {mot for mot in f.read().splitlines()}
 
 
 def process_word(w: str, first: bool):

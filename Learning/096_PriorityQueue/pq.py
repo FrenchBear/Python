@@ -8,7 +8,9 @@
 # 2021-12-28    PV      De 'Programmation efficace'
 # 2022-06-27    PV      __str__
 
-from typing import Any, Iterable
+from typing import Any
+
+from collections.abc import Iterable
 
 
 class PriorityQueue:

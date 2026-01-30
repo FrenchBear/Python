@@ -3,7 +3,9 @@
 
 import random
 from tombola import Tombola
-from typing import Any, Iterable
+from typing import Any
+
+from collections.abc import Iterable
 
 class LotteryBlower(Tombola):
     def __init__(self, items: Iterable) -> None:

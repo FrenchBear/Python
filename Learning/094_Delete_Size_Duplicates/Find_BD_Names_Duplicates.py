@@ -10,7 +10,7 @@ from common_fs import get_files, file_size
 source_ref = r'W:\BD\Auteurs\Wolinski'
 source_check = r'C:\Users\Pierr\Downloads\A_Trier\!A_Trier_BD'
 
-ref = set(f.casefold() for f in get_files(source_ref))
+ref = {f.casefold() for f in get_files(source_ref)}
 
 ndup = 0
 ndel = 0

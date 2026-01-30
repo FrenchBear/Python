@@ -6,7 +6,7 @@
 import re
 import reprlib              # reprlib.repr shortens representations of very large objects
 import collections.abc
-from typing import Iterable, Iterator
+from collections.abc import Iterable, Iterator
 
 from isiterable import is_iterable
 
@@ -23,8 +23,7 @@ class Sentence():
 
     # A generator function returns a generator object, which is an Iterator
     def __iter__(self) -> Iterator:
-        for word in self.words:
-            yield word
+        yield from self.words
 
 
 if __name__ == '__main__':

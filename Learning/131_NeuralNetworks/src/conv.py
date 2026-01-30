@@ -88,7 +88,7 @@ def dbl_conv(activation_fn=sigmoid):
 def regularized_dbl_conv():
     for lmbda in [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]:
         for j in range(3):
-            print("Conv + Conv + FC num %s, with regularization %s" % (j, lmbda))
+            print(f"Conv + Conv + FC num {j}, with regularization {lmbda}")
             net = Network([
                 ConvPoolLayer(image_shape=(mini_batch_size, 1, 28, 28), 
                               filter_shape=(20, 1, 5, 5), 
@@ -103,7 +103,7 @@ def regularized_dbl_conv():
 def dbl_conv_relu():
     for lmbda in [0.0, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]:
         for j in range(3):
-            print("Conv + Conv + FC num %s, relu, with regularization %s" % (j, lmbda))
+            print(f"Conv + Conv + FC num {j}, relu, with regularization {lmbda}")
             net = Network([
                 ConvPoolLayer(image_shape=(mini_batch_size, 1, 28, 28), 
                               filter_shape=(20, 1, 5, 5), 
@@ -128,7 +128,7 @@ def expanded_data(n=100):
     expanded_training_data, _, _ = network3.load_data_shared(
         "../data/mnist_expanded.pkl.gz")
     for j in range(3):
-        print("Training with expanded data, %s neurons in the FC layer, run num %s" % (n, j))
+        print(f"Training with expanded data, {n} neurons in the FC layer, run num {j}")
         net = Network([
             ConvPoolLayer(image_shape=(mini_batch_size, 1, 28, 28), 
                           filter_shape=(20, 1, 5, 5), 
@@ -152,7 +152,7 @@ def expanded_data_double_fc(n=100):
     expanded_training_data, _, _ = network3.load_data_shared(
         "../data/mnist_expanded.pkl.gz")
     for j in range(3):
-        print("Training with expanded data, %s neurons in two FC layers, run num %s" % (n, j))
+        print(f"Training with expanded data, {n} neurons in two FC layers, run num {j}")
         net = Network([
             ConvPoolLayer(image_shape=(mini_batch_size, 1, 28, 28), 
                           filter_shape=(20, 1, 5, 5), 
@@ -227,7 +227,7 @@ def ensemble(nets):
                        if plurality_test_predictions[j] != test_y_eval[j]]
     erroneous_predictions = [plurality(all_test_predictions[j])
                              for j in error_locations]
-    print("Accuracy is {:.2%}".format((1-len(error_locations)/10000.0)))
+    print(f"Accuracy is {(1-len(error_locations)/10000.0):.2%}")
     return error_locations, erroneous_predictions
 
 def plot_errors(error_locations, erroneous_predictions=None):

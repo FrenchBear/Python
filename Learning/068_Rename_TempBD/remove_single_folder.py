@@ -1,4 +1,4 @@
-from typing import Iterable
+from collections.abc import Iterable
 from common import get_safe_name
 import os
 import shutil

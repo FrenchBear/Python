@@ -16,7 +16,7 @@ import random
 # Third-party libraries
 import numpy as np
 
-class Network(object):
+class Network:
 
     def __init__(self, sizes):
         """The list ``sizes`` contains the number of neurons in the
@@ -62,9 +62,9 @@ class Network(object):
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
-                print("Epoch {0}: {1} / {2}".format(j, self.evaluate(test_data), n_test))  # type: ignore
+                print(f"Epoch {j}: {self.evaluate(test_data)} / {n_test}")  # type: ignore
             else:
-                print("Epoch {0} complete".format(j))
+                print(f"Epoch {j} complete")
 
     def update_mini_batch(self, mini_batch, eta):
         """Update the network's weights and biases by applying

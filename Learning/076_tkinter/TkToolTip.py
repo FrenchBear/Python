@@ -10,7 +10,7 @@ Modified to include a delay time by Victor Zaccardo, 25mar16
 
 import tkinter as tk
 
-class TkToolTip(object):
+class TkToolTip:
     """
     create a tooltip for a given widget
     """

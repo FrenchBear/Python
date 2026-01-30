@@ -14,7 +14,7 @@ List = list         # A Lisp List   is implemented as a Python list
 Number = (int, float)  # A Lisp Number is implemented as a Python int or float
 
 
-class Procedure(object):
+class Procedure:
     "A user-defined Scheme procedure."
 
     def __init__(self, parms, body, env):

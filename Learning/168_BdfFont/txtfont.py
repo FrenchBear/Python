@@ -5,7 +5,7 @@
 
 source = r'C:\Development\GitHub\CPP\810_psf_fonts\nafe\BuildNafe\Std_5x7.txt'
 
-with open(source, 'r', encoding='437') as f:
+with open(source, encoding='437') as f:
     lines = f.readlines()
 
 li = iter(lines)

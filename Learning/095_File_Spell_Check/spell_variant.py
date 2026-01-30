@@ -25,12 +25,12 @@ class Trie:
         return self.s[word[0]].find_word(word[1:])
 
 # smf = ensemble des mots français
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
+with open(r'words\words1.fr.txt', encoding='UTF-8') as f:
     smf = set(f.read().splitlines())
-with open(r'words\words1.fr.txt', 'r', encoding='UTF-8') as f:
-    smf |= set(mot for mot in f.read().splitlines() if ' ' not in mot and mot not in smf)
-with open(r'words\extra.fr.txt', 'r', encoding='UTF-8') as f:
-    smf |= set(mot for mot in f.read().splitlines() if mot not in smf)
+with open(r'words\words1.fr.txt', encoding='UTF-8') as f:
+    smf |= {mot for mot in f.read().splitlines() if ' ' not in mot and mot not in smf}
+with open(r'words\extra.fr.txt', encoding='UTF-8') as f:
+    smf |= {mot for mot in f.read().splitlines() if mot not in smf}
 
 print(len(smf))
 

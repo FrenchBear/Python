@@ -17,7 +17,7 @@ lb: list = [MutableSequence, MutableMapping, MutableSet, ItemsView, ValuesView, 
 
 
 def test(x: Any) -> None:
-    print("{:<15.15} {:<11.11}|".format(str(x), type(x).__name__), end='')
+    print(f"{str(x):<15.15} {type(x).__name__:<11.11}|", end='')
     for abc in lb:
         print("{:^8}|".format('X' if isinstance(x, abc) else ' '), end='')
     print()
@@ -35,12 +35,12 @@ def SplitName(s) -> tuple[str, str]:
 print('Value           Class      |', end='')
 for abc in lb:
     s = SplitName(abc.__name__)
-    print("{:^8.8}|".format(s[0]), end='')
+    print(f"{s[0]:^8.8}|", end='')
 print()
 print('                           |', end='')
 for abc in lb:
     s = SplitName(abc.__name__)
-    print("{:^8.8}|".format(s[1]), end='')
+    print(f"{s[1]:^8.8}|", end='')
 print()
 
 # Collections
