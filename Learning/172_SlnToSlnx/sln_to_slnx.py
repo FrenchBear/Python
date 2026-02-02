@@ -1,6 +1,13 @@
 # slnx.py
 # Conversion from old .sln files into modern .slnx files
 #
+# Attention, for .pyproj files, output is different (not supported yet):
+# <Solution>
+#   <Project Path="Python Labyrinthe.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52">
+#     <Build Project="false" />
+#   </Project>
+# </Solution>
+#
 # 2026-01-11    PV
 
 """
@@ -38,7 +45,7 @@ def convert_sln_to_slnx(target_directory):
             lower_file = file.lower()
             if lower_file.endswith('.sln'):
                 sln_files.append(os.path.join(root, file))
-            elif lower_file.endswith('.csproj') or lower_file.endswith('.vbproj') or lower_file.endswith('.fsproj'):
+            elif lower_file.endswith('.csproj') or lower_file.endswith('.vbproj') or lower_file.endswith('.fsproj'):    # or lower_file.endswith('.pyproj'):
                 project_files.append(os.path.join(root, file))
             elif lower_file.endswith('.slnx'):
                 slnx_files.append(os.path.join(root, file))
@@ -88,8 +95,21 @@ def convert_sln_to_slnx(target_directory):
 
 
 for rootfile in [
-    r"C:\Development\GitHub\FS\Math",
-    r"C:\Development\GitHub\FS\Learning",
+    # r"c:\Development\GitVSTS\DevForFun\01_Labyrinthe\Python\Python Labyrinthe.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\02_Hilbert\Python\Hilbert Python Texte.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\02_Hilbert\Python_Tk\Hilbert Python Graphique.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\03_Radoteur\Python\Radoteur.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\04_VietnamesePuzzle\Python\Vietnamese Puzzle.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\05_Percolator\Python\Percolation.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\08_EightQueens\Python\Eight Queens Python.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\10_Permutator\Python\Permutator.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\11_Primes\Python\pyprimes.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\12_ArithDoubler\Python\ArithDoubler.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\15_TopoSort\Python\toposort.pyproj",
+    # r"c:\Development\GitVSTS\DevForFun\17_StringCoding\Python\pystr.pyproj",
+    
+    # r"C:\Development\GitHub\FS\Math",
+    # r"C:\Development\GitHub\FS\Learning",
 
     # r"c:\Development\GitHub\Visual-Studio-Projects\Net10\001-019\001 VB Elementary\001 VB Elementary.sln",
     # r"c:\Development\GitHub\Visual-Studio-Projects\Net10\001-019\003 VB Anchoring Net6\003 VB Anchoring Net6.sln",
