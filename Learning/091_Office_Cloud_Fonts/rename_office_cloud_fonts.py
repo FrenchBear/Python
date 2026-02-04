@@ -1,4 +1,4 @@
-# rename MicrosoftOffice  CloudFonts from {id}.ttf using info in ListAll.json
+# rename MicrosoftOffice CloudFonts from {id}.ttf using info in ListAll.json
 # Office Cloud Fonts
 # json is convenient in Python since we can dynamically explore loaded structure and discover embedded dicts/list
 #

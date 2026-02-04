@@ -65,6 +65,7 @@ folder_to_artist_crhonique = {
     "?? Marie s'Infiltre": ("Marie s'Infiltre", "Le billet de Marie s'Infiltre"),
     "?? Matthieu Noël": ("Matthieu Noël", "Le billet de Matthieu Noël"),
     "le-billet-de-sophia-aram": ("Sophia Aram", "Le billet de Sophia Aram"),
+    "dans-la-bouche-de-sophia-aram": ("Sophia Aram", "Le billet de Sophia Aram"),
     "les-nouvelles-du-monde": ("Alexis le Rossignol", "Les nouvelles du monde d'Alexis le Rossignol"),
     "l-hommage-d-emma-bojan": ("Emma Bojan", "L'hommage d'Emma Bojan"),
     "?? L'humour c'était mieux avant": ("L'humour c'était mieux avant", "L'humour c'était mieux avant"),
