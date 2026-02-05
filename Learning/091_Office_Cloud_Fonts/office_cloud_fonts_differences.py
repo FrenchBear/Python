@@ -30,7 +30,7 @@ print()
 # Now with files
 f24 = set(f.replace(r24+'\\', '') for f in get_all_files(r24))
 f26 = set(f.replace(r26+'\\', '') for f in get_all_files(r26))
-print('files added to 2026-02 that did not exist in 2024-08')
+print('Files added to 2026-02 that did not exist in 2024-08')
 pprint(f26-f24)
 print()
 
