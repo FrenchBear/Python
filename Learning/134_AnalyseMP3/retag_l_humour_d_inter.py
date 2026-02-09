@@ -76,6 +76,7 @@ folder_to_artist_crhonique = {
     "charline-explose-les-faits": ("Charline Vanhoenacker", "Charline explose les faits"),
     "?? Emma Bojan": ("Emma Bojan", "Emma Bojan n'a pas compris"),
     "fraicheur-marine": ("Marine Baousson", "Fraîcheur marine"),
+    "le-top-3-de-marine-baousson": ("Marine Baousson", "Fraîcheur marine"),
     "la-chronique-de-ahmed-sparrow": ("Ahmed Sparrow", "La chronique de Ahmed Sparrow"),
     "?? Benjamin Tranié": ("Benjamin Tranié", "La chronique de Benjamin Tranié"),
     "la-chronique-de-camille-lavabre": ("Camille Lavabre", "La chronique de Camille Lavabre"),
