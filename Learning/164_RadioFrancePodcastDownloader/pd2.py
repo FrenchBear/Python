@@ -7,6 +7,7 @@
 # 2025-11-05    PV      Look for last downloaded episoze in the last 5 main pages; use memoization
 # 2025-11-19    PV      Bug when last episode was first of a page other than 1 fixed
 # 2025-12-29    PV      Errors in red to be more visible
+# 2026-02-14    PV      Added ignore list to avoid duplicate loading in L'humour d'Inter
 
 # Using curl, in case of CRYPT_E_NO_REVOCATION_CHECK (0x80092012) - The revocation function was unable to check revocation for the certificate
 # use curl --ssl-no-revoke ...
@@ -43,6 +44,7 @@ def process_podcast_main_page(podcast_config, index, total):
     path = podcast_config.get('path')
     last_download = podcast_config.get('last_download')
     defcount = int(podcast_config.get('defcount', '3'))
+    ignore = podcast_config.get('ignore', [])
     active = podcast_config.get('active', True)
 
     if not active:
@@ -91,7 +93,7 @@ def process_podcast_main_page(podcast_config, index, total):
         twenty_pages = pa_core.get_twenty_pages(url, p)
         res = True
         for ix in range(episode_index, -1, -1):
-            if twenty_pages[ix][0] != 'studio-payet':       # untested
+            if twenty_pages[ix][0] != 'studio-payet' and not twenty_pages[ix][0] in ignore:
                 if not pa_core.process_podcast_page(path.replace("{serie}", twenty_pages[ix][0]), twenty_pages[ix][1]):
                     res = False
                     break

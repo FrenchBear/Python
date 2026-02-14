@@ -10,7 +10,6 @@ from datetime import datetime
 import os
 import re
 import json
-from typing import Tuple
 import requests
 
 
@@ -24,10 +23,6 @@ def print_error(*args):
 
 def print_warning(*args):
     print_ansi('33', *args)     # yellow
-
-# for fg in range(31,38):
-#     print_ansi(f'{fg}', f'This is a warning message: {fg}')
-#     print_ansi(f'{fg};1', f'This is a warning message: {fg},1')
 
 
 def memoize_web_page(f):
